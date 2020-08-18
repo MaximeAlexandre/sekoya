@@ -18,7 +18,13 @@ class BookingsController < ApplicationController
 
   def update
     @booking = Booking.find(params[:id])
-    @booking.update(booking_params)
+    if  params[:status] == "validate"
+      @booking.update(status: "accepté")
+    elsif params[:status] == "refused"
+      @booking.update(status: "refusé")
+    elsif params[:status] == "cancelled"
+      @booking.update(status: "annulé")
+    end
     redirect_to booking_path(@booking)
   end
 
