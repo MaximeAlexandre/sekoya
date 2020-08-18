@@ -15,6 +15,28 @@
     <%= f.input :password_confirmation,
                 required: true,
                 input_html: { autocomplete: "new-password" } %>
+    <%= f.input :first_name,
+                required: true %>
+    <%= f.input :last_name,
+                required: true %>
+    <%= f.input :address,
+                required: true  %>
+    <%= f.input :role,
+                # as: :radio_buttons,
+                # : [
+                #   "aide à domicile",
+                #   "personne aidée"
+                # ],
+                required: true %>
+    <%= f.input :description,
+                required: true %>
+    <%= f.input :price,
+                required: true %>
+    <%= f.input :mobile_number,
+                required: true %>
+    <%= f.input :diploma,
+                required: true %>
+
   </div>
 
   <div class="form-actions">
