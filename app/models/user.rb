@@ -42,12 +42,10 @@ class User < ApplicationRecord
   validates :last_name, presence: true
   validates :address, presence: true
   validates :role, presence: true
-  validates :description, presence: true, :if => Proc.new {|u| u.role = "helper" }
+  validates :description, presence: true, if: Proc.new { |user| user.role == "aide à domicile" }
   validates :price, presence: true
   validates :mobile_number, presence: true, uniqueness: true
   validates :pathology
   validates :handicap
-  validates :diploma, presence: true
-
-
+  validates :diploma, presence: true, if: Proc.new { |user| user.role == "aide à domicile" }
 end
