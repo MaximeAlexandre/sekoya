@@ -38,17 +38,15 @@ class User < ApplicationRecord
   has_many :reviews, through: :bookings
   has_many :favoris, through: :bookings
 
-  validates :first_name, presence: true, uniqueness: true
-  validates :last_name, presence: true, uniqueness: true
-  validates :address, presence: true, uniqueness: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :address, presence: true
   validates :description, presence: true
   validates :price, presence: true
-  validates :mobile_number, presence: true
-  validates :pathology, presence: true
-  validates :handicap, presence: true
+  validates :mobile_number, presence: true, uniqueness: true
+  validates :pathology
+  validates :handicap
   validates :diploma, presence: true
-  validates :helpers, presence: true
-  validates :seniors, presence: true
-
+  validates :role, presence: true
 
 end
