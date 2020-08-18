@@ -13,7 +13,7 @@
 #  first_name             :string
 #  handicap               :string
 #  last_name              :string
-#  mobile_number          :integer
+#  mobile_number          :string
 #  pathology              :string
 #  price                  :integer
 #  remember_created_at    :datetime
@@ -42,8 +42,8 @@ class User < ApplicationRecord
   validates :last_name, presence: true
   validates :address, presence: true
   validates :role, presence: true
-  validates :description, presence: true, if: proc { |user| user.role == "aide à domicile" }
-  validates :price, presence: true, if: proc { |user| user.role == "aide à domicile" }
+  validates :description, presence: true, if: proc { |user| user.role == "helper" }
+  validates :price, presence: true, if: proc { |user| user.role == "helper" }
   validates :mobile_number, presence: true, uniqueness: true
-  validates :diploma, presence: true, if: proc { |user| user.role == "aide à domicile" }
+  validates :diploma, presence: true, if: proc { |user| user.role == "helper" }
 end

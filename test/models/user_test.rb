@@ -13,7 +13,7 @@
 #  first_name             :string
 #  handicap               :string
 #  last_name              :string
-#  mobile_number          :integer
+#  mobile_number          :string
 #  pathology              :string
 #  price                  :integer
 #  remember_created_at    :datetime
