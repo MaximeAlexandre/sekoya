@@ -41,12 +41,13 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :address, presence: true
-  validates :description, presence: true
+  validates :role, presence: true
+  validates :description, presence: true, :if => Proc.new {|u| u.role = "helper" }
   validates :price, presence: true
   validates :mobile_number, presence: true, uniqueness: true
   validates :pathology
   validates :handicap
   validates :diploma, presence: true
-  validates :role, presence: true
+
 
 end
