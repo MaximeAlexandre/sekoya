@@ -43,7 +43,7 @@ class User < ApplicationRecord
   validates :address, presence: true
   validates :role, presence: true
   validates :description, presence: true, if: Proc.new { |user| user.role == "aide à domicile" }
-  validates :price, presence: true
+  validates :price, presence: true, if: Proc.new { |user| user.role == "aide à domicile" }
   validates :mobile_number, presence: true, uniqueness: true
   validates :pathology
   validates :handicap
