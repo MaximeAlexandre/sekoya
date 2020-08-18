@@ -20,5 +20,4 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     get bookings_update_url
     assert_response :success
   end
-
 end
