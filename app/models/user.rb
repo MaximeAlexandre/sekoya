@@ -33,8 +33,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_many :helpers, class_name: "booking", foreign_key: "helper_id"
-  has_many :seniors, class_name: "booking", foreign_key: "senior_id"
+  # has_many :helpers, class_name: "booking", foreign_key: "helper_id"
+  # has_many :seniors, class_name: "booking", foreign_key: "senior_id"
+  has_many :bookings
   has_many :reviews, through: :bookings
   has_many :favoris, through: :bookings
 
@@ -43,7 +44,7 @@ class User < ApplicationRecord
   validates :address, presence: true
   validates :role, presence: true
   validates :description, presence: true, if: proc { |user| user.role == "helper" }
-  validates :price, presence: true, if: proc { |user| user.role == "helper" }
+  validates :price, presence: true,if: proc { |user| user.role == "helper" }
   validates :mobile_number, presence: true, uniqueness: true
   validates :diploma, presence: true, if: proc { |user| user.role == "helper" }
 end
