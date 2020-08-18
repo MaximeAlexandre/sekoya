@@ -1,4 +1,6 @@
 class ProfilesController < ApplicationController
+  skip_before_action :authenticate_user!, only: :helper_list
+
   def helper_list
     session[:address_input] = params[:address_input]
 
@@ -6,7 +8,7 @@ class ProfilesController < ApplicationController
       @helpers = User.where(role: "helper")
       @helpers.near(session[:address_input], 10)
     else
-      @helpers.all
+      redirect_to '#'
     end
   end
 

@@ -36,8 +36,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  # has_many :helpers, class_name: "booking", foreign_key: "helper_id"
-  # has_many :seniors, class_name: "booking", foreign_key: "senior_id"
+  geocoded_by :address
+  after_validation :geocode, if: :will_save_change_to_address?
+
   has_many :bookings
 
   has_many :reviews, through: :bookings
