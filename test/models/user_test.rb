@@ -17,7 +17,7 @@
 #  longitude              :float
 #  mobile_number          :string
 #  pathology              :string
-#  price                  :integer
+#  price                  :float
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
