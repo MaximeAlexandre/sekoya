@@ -13,9 +13,11 @@
 #  first_name             :string
 #  handicap               :string
 #  last_name              :string
+#  latitude               :float
+#  longitude              :float
 #  mobile_number          :string
 #  pathology              :string
-#  price                  :integer
+#  price                  :float
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string

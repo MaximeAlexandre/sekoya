@@ -13,9 +13,11 @@
 #  first_name             :string
 #  handicap               :string
 #  last_name              :string
+#  latitude               :float
+#  longitude              :float
 #  mobile_number          :string
 #  pathology              :string
-#  price                  :integer
+#  price                  :float
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
@@ -33,9 +35,11 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
   # has_many :helpers, class_name: "booking", foreign_key: "helper_id"
   # has_many :seniors, class_name: "booking", foreign_key: "senior_id"
   has_many :bookings
+
   has_many :reviews, through: :bookings
   has_many :favoris, through: :bookings
 
