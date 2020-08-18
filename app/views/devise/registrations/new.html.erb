@@ -22,11 +22,11 @@
     <%= f.input :address,
                 required: true  %>
     <%= f.input :role,
-                # as: :radio_buttons,
-                # : [
-                #   "aide à domicile",
-                #   "personne aidée"
-                # ],
+                as: :radio_buttons,
+                collection: [
+                  ['aide à domicile', 'helper'],
+                  ['personne aidée', 'senior']
+                ],
                 required: true %>
     <%= f.input :description,
                 required: true %>
