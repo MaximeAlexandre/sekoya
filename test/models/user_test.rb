@@ -13,6 +13,8 @@
 #  first_name             :string
 #  handicap               :string
 #  last_name              :string
+#  latitude               :float
+#  longitude              :float
 #  mobile_number          :string
 #  pathology              :string
 #  price                  :integer

@@ -13,6 +13,8 @@
 #  first_name             :string
 #  handicap               :string
 #  last_name              :string
+#  latitude               :float
+#  longitude              :float
 #  mobile_number          :string
 #  pathology              :string
 #  price                  :integer
@@ -33,6 +35,10 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  geocoded_by :address
+  after_validation :geocode, if: :will_save_change_to_address?
+
   has_many :helpers, class_name: "booking", foreign_key: "helper_id"
   has_many :seniors, class_name: "booking", foreign_key: "senior_id"
   has_many :reviews, through: :bookings
