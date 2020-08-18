@@ -44,7 +44,7 @@ class User < ApplicationRecord
   validates :address, presence: true
   validates :role, presence: true
   validates :description, presence: true, if: proc { |user| user.role == "helper" }
-  validates :price, presence: true,if: proc { |user| user.role == "helper" }
+  validates :price, presence: true, if: proc { |user| user.role == "helper" }
   validates :mobile_number, presence: true, uniqueness: true
   validates :diploma, presence: true, if: proc { |user| user.role == "helper" }
 end
