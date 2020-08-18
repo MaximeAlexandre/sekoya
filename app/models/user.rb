@@ -42,10 +42,8 @@ class User < ApplicationRecord
   validates :last_name, presence: true
   validates :address, presence: true
   validates :role, presence: true
-  validates :description, presence: true, if: Proc.new { |user| user.role == "aide à domicile" }
-  validates :price, presence: true, if: Proc.new { |user| user.role == "aide à domicile" }
+  validates :description, presence: true, if: proc { |user| user.role == "aide à domicile" }
+  validates :price, presence: true, if: proc { |user| user.role == "aide à domicile" }
   validates :mobile_number, presence: true, uniqueness: true
-  validates :pathology
-  validates :handicap
-  validates :diploma, presence: true, if: Proc.new { |user| user.role == "aide à domicile" }
+  validates :diploma, presence: true, if: proc { |user| user.role == "aide à domicile" }
 end
