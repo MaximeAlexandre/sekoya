@@ -10,10 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_18_071715) do
+ActiveRecord::Schema.define(version: 2020_08_18_101758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookings", force: :cascade do |t|
+    t.string "task"
+    t.date "date"
+    t.time "start_time"
+    t.time "end_time"
+    t.text "comment"
+    t.string "status"
+    t.bigint "helper_id", null: false
+    t.bigint "senior_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["helper_id"], name: "index_bookings_on_helper_id"
+    t.index ["senior_id"], name: "index_bookings_on_senior_id"
+  end
+
+  create_table "favoris", force: :cascade do |t|
+    t.bigint "booking_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["booking_id"], name: "index_favoris_on_booking_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "note"
+    t.text "content"
+    t.bigint "booking_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["booking_id"], name: "index_reviews_on_booking_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -23,8 +54,24 @@ ActiveRecord::Schema.define(version: 2020_08_18_071715) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.string "address"
+    t.integer "mobile_number"
+    t.string "role"
+    t.string "pathology"
+    t.string "handicap"
+    t.string "diploma"
+    t.boolean "car"
+    t.date "activity_start_date"
+    t.text "description"
+    t.integer "price"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "bookings", "users", column: "helper_id"
+  add_foreign_key "bookings", "users", column: "senior_id"
+  add_foreign_key "favoris", "bookings"
+  add_foreign_key "reviews", "bookings"
 end
