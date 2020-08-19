@@ -15,6 +15,9 @@ class ProfilesController < ApplicationController
 
   def helper_details
     @registration_duration = registered_for(@helper)
+    @booking = Booking.new
+    @booking.helper = @helper
+    @booking.senior = current_user
   end
 
   private
