@@ -1,36 +1,44 @@
-<div class="container">
   <div class="form-group">
-      <form action="/profiles" method="GET">
-        <div class="d-flex justify-content-center">
-          <div class="m-3">
-            <label for="diploma">Filtrer</label>
-          </div>
-          <div class="m-3">
-            <select name="diploma" class="form-control" id="exampleFormControlSelect1">
-              <option selected>Certifications</option>
-              <option>Certification Parkinson</option>
-              <option>Certification Epee et monstres</option>
-              <option>Certification gomu gomu</option>
-            </select>
-            <input type="text" value="<%= @address %>" name="address_input" hidden>
-          </div>
-          <div class="m-3">
-            <input type="submit" value="Search">
-          </div>
+    <form action="/profiles" method="GET">
+      <div class="d-flex flex-row bd-highlight mb-3 ml-5">
+        <div class="m-3">
+          <label for="diploma">Filtrer</label>
         </div>
-      </form>
+        <div class="m-3">
+          <select name="diploma" class="form-control" id="exampleFormControlSelect1">
+            <div class="">
+            <option selected>Certifications</option>
+            <option>Certification Parkinson</option>
+            <option>Certification Epee et monstres</option>
+            <option>Certification gomu gomu</option>
+            </div>
+          </select>
+          <input type="text" value="<%= @address %>" name="address_input" hidden>
+        </div>
+        <div class="m-3">
+          <input type="submit" value="Search">
+        </div>
+      </div>
+    </form>
   </div>
+
+<div class="container">
+
   <div>
     <% @near_helpers.each do |helper| %>
-      <div class="card m-3 p-3">
-        <img src="" alt="" >
-        <p><%= helper.first_name %> <%= helper.last_name %></p>
-        <p><%= helper.description %></p>
-        <p>review + X reviews</p>
-        <p><%= helper.car %></p>
-        <p><%= helper.diploma %></p>
-        <p><%= helper.price %>€</p>
+
+      <div class="card m-3 p-3 col-8">
+        <%= link_to profile_path(helper) do %>
+          <img src="" alt="" >
+          <p><%= helper.first_name %> <%= helper.last_name %></p>
+          <p><%= helper.description %></p>
+          <p>review + X reviews</p>
+          <p><%= helper.car %></p>
+          <p><%= helper.diploma %></p>
+          <p><%= helper.price %>€</p>
+       <% end %>
       </div>
     <% end %>
   </div>
 </div>
+
