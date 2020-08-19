@@ -1,13 +1,22 @@
 class BookingsController < ApplicationController
 
+  def my_tasks
+    @my_tasks = []
+
+  end
+
   def new
     @booking = Booking.new
+
+
   end
 
   def create
     @booking = Booking.new(booking_params)
-    @booking.helper_id = @helper_id
-    @booking.senior_id = @senior_id
+    @helper = User.find(params[:id])
+    @senior = current_user
+    @booking.helper = @helper
+    @booking.senior = @senior
     if @booking.save
       redirect_to booking_path(@booking)
     else
