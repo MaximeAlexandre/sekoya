@@ -1,7 +1,5 @@
 class BookingsController < ApplicationController
-
   skip_before_action :authenticate_user!, only: [:create, :edit_tasks]
-
 
   def new
     @booking = Booking.new
@@ -13,7 +11,6 @@ class BookingsController < ApplicationController
     @booking.status = "pending"
     @helper = User.find(params[:id])
     @booking.helper = @helper
-
     if @booking.save
       redirect_to tasks_path(@booking)
     else
@@ -69,7 +66,6 @@ class BookingsController < ApplicationController
   private
 
   def set_booking
-
   end
 
   def booking_params
@@ -91,5 +87,4 @@ class BookingsController < ApplicationController
     #  helper_id  :bigint           not null
     #  senior_id  :bigint           not null
   end
-
 end
