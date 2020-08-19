@@ -12,7 +12,7 @@ Booking.destroy_all
 Favori.destroy_all
 User.destroy_all
 
-puts 'Creating 4 fake users'
+puts 'Creating 7 fake users'
 User.create(
   first_name: "Maxime",
   last_name: "Alexandre",
@@ -59,6 +59,43 @@ User.create(
   mobile_number: "0607080903",
   role: "senior",
   description: "fan de l'OM"
+)
+
+User.create(
+  first_name: "Anthony",
+  last_name: "Manto",
+  email: "anthony.manto@free.fr",
+  password: "azerty",
+  address: "place castellane, 13006 marseille",
+  mobile_number: "0607080910",
+  role: "senior",
+  description: "fan de place"
+)
+
+User.create(
+  first_name: "Guts",
+  last_name: "Casca",
+  email: "guts@gmail.com",
+  password: "berserk",
+  address: "5 cours lieutaud, 13001 Marseille",
+  mobile_number: "0607080904",
+  role: "helper",
+  diploma: "Certification Epee et monstres",
+  description: "pas fan des monstres",
+  price: "14"
+)
+
+User.create(
+  first_name: "Luffy",
+  last_name: "Monkey D",
+  email: "onepiece@gmail.com",
+  password: "onepiece",
+  address: "52 rue villas paradis, 13006 Marseille",
+  mobile_number: "0607080905",
+  role: "helper",
+  diploma: "Certification gomu gomu",
+  description: "pas fan de l'eau",
+  price: "15"
 )
 
 puts 'Finished!'
