@@ -1,0 +1,67 @@
+
+
+<div class="row d-flex justify-content-center">
+    <div class="col-sm-9 text-center">
+      <h3>Comment  <%= @booking.helper.first_name %> peut il vous aider ? </h3>
+      <h4> Vous pouvez choisir jusqu'à X activités </h4>
+    </div>
+
+  <div class="d-flex justify-content-center pt-5">
+    <form action="/bookings/<%= @booking.id %>/edit_validation" method="GET">
+      <div class="compagnie d-flex-column justify-content p-4">
+        <p> COMPAGNIE</p>
+        <div>
+          <%= check_box_tag 'Promenade' %>
+          <%= label_tag ('Promenade') %>
+        </div>
+        <div>
+          <%= check_box_tag 'Loisirs' %>
+          <%= label_tag ('Loisirs') %>
+        </div>
+        <div>
+          <%= check_box_tag 'Activités' %>
+          <%= label_tag ('Activités (intellectuelles ou sportives') %>
+        </div>
+      </div>
+      <div class="aide d-flex-column justify-content p-4">
+        <p> AIDE </p>
+        <div>
+        <%= check_box_tag 'task' %>
+        <%= label_tag ('Se lever / Se coucher') %>
+        </div>
+        <div>
+        <%= check_box_tag 'task' %>
+        <%= label_tag ("Se laver / S'habiller") %>
+        </div>
+        <div>
+        <%= check_box_tag 'task' %>
+        <%= label_tag ('Ménage') %>
+        </div>
+        <div>
+        <%= check_box_tag 'task' %>
+        <%= label_tag ('Courses') %>
+        </div>
+      </div>
+      <div class="accompagnement d-flex-column justify-content p-4">
+        <p>ACCOMPAGNEMENT</p>
+        <div>
+        <%= check_box_tag 'Task' %>
+        <%= label_tag ('Accompagnement à un RDV médical') %>
+        </div>
+        <div>
+        <%= check_box_tag 'task' %>
+        <%= label_tag ('Prise de Médicaments') %>
+        </div>
+        <div>
+        <%= check_box_tag 'task' %>
+        <%= label_tag ("Gestion d'une pathologie ou d'un handicap") %>
+        </div>
+      </div>
+      <div>
+         <%= link_to 'Valider', validation_path(@booking) %>
+      </div>
+    </form>
+  </div>
+</div>
+
+

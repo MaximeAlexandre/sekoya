@@ -13,7 +13,7 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  helper_id    :bigint           not null
-#  senior_id    :bigint           not null
+#  senior_id    :bigint
 #
 # Indexes
 #
@@ -27,7 +27,7 @@
 #
 class Booking < ApplicationRecord
   belongs_to :helper, class_name: "User"
-  belongs_to :senior, class_name: "User"
+  belongs_to :senior, class_name: "User", optional: true
   has_many :reviews
   has_many :favoris
 
@@ -35,7 +35,7 @@ class Booking < ApplicationRecord
   validates :start_time, presence: true
   validates :end_time, presence: true
   validates :status, presence: true
-  validates :task, presence: true
+  # validates :task, presence: true
   validate :end_time_after_start_time
 
   private
