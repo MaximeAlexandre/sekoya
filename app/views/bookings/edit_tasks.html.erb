@@ -1,0 +1,20 @@
+
+<div class="container">
+  <div class="row d-flex justify-content-center">
+    <div class="col-sm-9 text-center">
+
+        <h3>Comment  <%= User.find(8).first_name %> peut il vous aider ? </h3>
+
+        <h4> Vous pouvez choisir jusqu'à X activités </h4>
+        </div>
+  </div>
+</div>
+
+<form action="tasks_path(@booking)" method="PATCH">
+
+    <%= label_tag 'Promenade'
+    check_box_tag 'Promenade' %>
+    <%= check_box_tag 'Loisirs' %>
+
+</form>
+

@@ -1,0 +1,10 @@
+<h1>Bookings#show/h1>
+<p>Find me in app/views/bookings/edit_validation.html.erb</p>
+
+<%= form_for(@booking) do |f|%>
+      <%= f.radio_button ('booking', 'update','validate') %>
+      <%= f.label :update_validate, :value => 'validate' %>
+      <%= f.radio_button :update, 'refused' %>
+      <%= f.label :update_refused, :value => 'refused' %>
+      <%= f.submit "Status" %>
+    <% end %>

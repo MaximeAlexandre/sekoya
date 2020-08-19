@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   get '/profiles', to: 'profiles#helper_list', as: 'profiles'
   get '/profiles/:id', to: 'profiles#helper_details', as: 'profile'
 
-  resources :bookings, only: [:show, :update]
-  get "/profiles/:id/bookings/new", to: "bookings#new", as: :new_booking
-  post "/profiles/:id/bookings", to: "bookings#create"
+  resources :bookings, only: [:show]
+
+  post "/profiles/:id/bookings", to: "bookings#create", as: 'booking_create'
+  get "/bookings/:id/edit_tasks", to: "bookings#edit_tasks", as: 'tasks'
+  get "/bookings/:id/edit_validation", to: "bookings#edit_validation", as: 'validation'
+  patch "/bookings/:id/", to: "bookings#update", as: 'booking_update'
 end
