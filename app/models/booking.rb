@@ -2,17 +2,18 @@
 #
 # Table name: bookings
 #
-#  id         :bigint           not null, primary key
-#  comment    :text
-#  date       :date
-#  end_time   :time
-#  start_time :time
-#  status     :string
-#  task       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  helper_id  :bigint           not null
-#  senior_id  :bigint           not null
+#  id           :bigint           not null, primary key
+#  booking_step :integer
+#  comment      :text
+#  date         :date
+#  end_time     :time
+#  start_time   :time
+#  status       :string
+#  task         :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  helper_id    :bigint           not null
+#  senior_id    :bigint           not null
 #
 # Indexes
 #
