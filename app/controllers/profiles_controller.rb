@@ -2,11 +2,17 @@ class ProfilesController < ApplicationController
   skip_before_action :authenticate_user!, only: :helper_list
 
   def helper_list
-    session[:address_input] = params[:address_input]
-
-    if session[:address_input].present?
-      @helpers = User.where(role: "helper")
-      @helpers.near(session[:address_input], 10)
+    @address = params[:address_input]
+    @helpers = User.where(role: "helper")
+    if params[:address_input].present?
+      @near_helpers = @helpers.near(params[:address_input], 10)
+      if params[:diploma] == "Certifications"
+        @near_helpers = @helpers.near(params[:address_input], 10)
+      elsif params[:diploma].present?
+        @near_helpers = @near_helpers.where(diploma: params[:diploma])
+      else
+        @near_helpers
+      end
     else
       redirect_to '#'
     end
