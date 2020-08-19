@@ -13,7 +13,7 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  helper_id    :bigint           not null
-#  senior_id    :bigint           not null
+#  senior_id    :bigint
 #
 # Indexes
 #

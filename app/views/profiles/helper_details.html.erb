@@ -1,62 +1,57 @@
-
 <div class="show-flex container mt-5">
+  <div class="col-8 seko-card show-profil-card mr-5 p-4">
+    <div class="top-show">
+      <div class="mr-4">
+        <p>AVATAR</p>
+      </div>
+      <div>
+        <h3><%= @helper.first_name.capitalize %> <%= @helper.last_name.capitalize %></h3>
+        <p>Note + nombre d'avis</p>
+        <p>Inscrit depuis <%= @registration_duration %></p>
+        <p><%= @helper.car %></p>
+      </div>
+    </div>
+    <div class="border-top pt-2">
+      <p><%= @helper.description %></p>
+    </div>
+    <div class="border-top pt-2">
+      <h3>Certifications</h3>
+      <p><%= @helper.diploma %></p>
+      <!-- Find below the code to use with an array of diploma -->
+      <!-- @helper.diploma.each do |diploma|
+        <p>- diploma</p>
+      end -->
+    </div>
+    <div class="border-top pt-2">
+      <h3>Reviews</h3>
+    </div>
+  </div>
 
-<div class="col-8 seko-card show-profil-card mr-5 p-4">
-  <div class="top-show">
-  <div class="mr-4">
-    <p>AVATAR</p>
-  </div>
-  <div>
-    <h3><%= @helper.first_name.capitalize %> <%= @helper.last_name.capitalize %></h3>
-    <p>Note + nombre d'avis</p>
-    <p>Inscrit depuis <%= @registration_duration %></p>
-    <p><%= @helper.car %></p>
-  </div>
-</div>
-  <div class="border-top pt-2">
-    <p><%= @helper.description %></p>
-  </div>
-  <div class="border-top pt-2">
-    <h3>Certifications</h3>
-    <p><%= @helper.diploma %></p>
-    <!-- Find below the code to use with an array of diploma -->
-    <!-- @helper.diploma.each do |diploma|
-      <p>- diploma</p>
-    end -->
-  </div>
-  <div class="border-top pt-2">
-    <h3>Reviews</h3>
-  </div>
-</div>
-
-
-
-<div class="seko-card date-block">
-  <form action="/profiles/<%= @helper.id %>/bookings" method="POST">
-    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-    <div class="form-inputs">
-      <input class="form-control datepicker seko-card" name="date_input" type="date" value="2020-08-19" id="example-date-input" hidden>
-      <div class="hour-block m-3">
-        <div class="time-block">
+  <div class="seko-card date-block">
+    <form action="/profiles/<%= @helper.id %>/bookings" method="POST">
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+      <div class="form-inputs">
+        <input class="form-control datepicker seko-card" name="date_input" type="date" value="2020-08-19" id="example-date-input" hidden>
+        <div class="hour-block m-3">
+          <div class="time-block">
             <label for="start_time">Heure de début</label>
-              <select class="seko-search-bar"  name="start_time">
-                <% (7..20).to_a.each do |hour| %>
-                  <option value="<%= hour %>"><%= hour %>:00</option>
-                <% end %>
-              </select>
-        </div>
-        <div class="time-block">
+            <select class="seko-search-bar"  name="start_time">
+              <% (7..20).to_a.each do |hour| %>
+                <option value="<%= hour %>"><%= hour %>:00</option>
+              <% end %>
+            </select>
+          </div>
+          <div class="time-block">
             <label for="end_time">Heure de fin</label>
             <select class="seko-search-bar" name="end_time">
               <% (8..21).to_a.each do |hour| %>
                 <option value="<%= hour %>"><%= hour %>:00</option>
               <% end %>
             </select>
+          </div>
         </div>
       </div>
-    </div>
-    <input class="btn seko-button btn-show" type="submit" value="Valider" class="mt-4">
-  </form>
-</div>
-
+      <input class="btn seko-button btn-show" type="submit" value="Valider" class="mt-4">
+    </form>
+  </div>
 </div>
