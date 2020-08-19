@@ -1,6 +1,7 @@
 class BookingsController < ApplicationController
 
-  skip_before_action :authenticate_user!, only: [:create]
+  skip_before_action :authenticate_user!, only: [:create, :edit_tasks]
+
 
   def new
     @booking = Booking.new
@@ -9,14 +10,14 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(booking_params)
     @booking.booking_step = 0
+    @booking.status = "pending"
     @helper = User.find(params[:id])
-    @senior = current_user
     @booking.helper = @helper
-    @booking.senior = @senior
+
     if @booking.save
       redirect_to tasks_path(@booking)
     else
-      render :new
+      render :show
     end
   end
 
@@ -37,16 +38,22 @@ class BookingsController < ApplicationController
 
     if @booking.booking_step == 0
       @tasks = []
+      @senior = current_user
+      @booking.senior = @senior
       @booking = Booking.find(params[:id])
       if @booking.task.present?
+
         @booking.booking_step += 1
-        redirect_to tasks_path(@booking)
+        @booking.update
+        redirect_to validation_path(@booking)
       else
-        render :new
+        render :show
       end
     elsif @booking.booking_step == 1
       @booking = Booking.find(params[:id])
       @booking.booking_step += 1
+      @booking.update
+      redirect_to booking_path(@booking)
     else
       if params[:status] == "validate"
         @booking.update(status: "accepté")
@@ -61,8 +68,12 @@ class BookingsController < ApplicationController
 
   private
 
+  def set_booking
+
+  end
+
   def booking_params
-    params.require(:booking).permit(:date, :start_time, :end_time)
+    params.permit(:date, :start_time, :end_time)
   end
 
   def booking_params_tasks

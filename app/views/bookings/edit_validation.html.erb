@@ -1,10 +1,24 @@
-<h1>Bookings#show/h1>
-<p>Find me in app/views/bookings/edit_validation.html.erb</p>
+<div class="row d-flex justify-content-center">
+    <div class="col-sm-9 text-center">
+      <h3>Vous avez sélectionné notre super Helper <%= @booking.helper.first_name %> </h3>
+    </div>
+    <div class="card m-3 p-3 col-4">
+      <img src="" alt="" >
+      <p><%= @booking.helper.first_name %> <%= @booking.helper.last_name %></p>
+      <p><%= @booking.helper.description %></p>
+      <p>review + X reviews</p>
+      <p><%= @booking.helper.car %></p>
+      <p><%= @booking.helper.diploma %></p>
+      <p><%= @booking.helper.price %>€</p>
+    </div>
+    <div class="card m-3 p-3 col-4 text-center">
+      <p>Votre adresse </p>
+      <p><%= current_user.address %> </p>
+      <p> Date prévue : <%= @booking.date %> de <%= @booking.start_time.strftime("%H:%M%p")   %> à <%= @booking.end_time.strftime("%H:%M%p") %></p>
 
-<%= form_for(@booking) do |f|%>
-      <%= f.radio_button ('booking', 'update','validate') %>
-      <%= f.label :update_validate, :value => 'validate' %>
-      <%= f.radio_button :update, 'refused' %>
-      <%= f.label :update_refused, :value => 'refused' %>
-      <%= f.submit "Status" %>
-    <% end %>
+  <%= link_to 'Valider' %>
+
+    </div>
+
+</div>
+

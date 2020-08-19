@@ -33,7 +33,7 @@
   <form action="/profiles/<%= @helper.id %>/bookings" method="POST">
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
     <div class="form-inputs">
-      <input class="form-control datepicker" name="date_input" type="date" value="2020-08-19" id="example-date-input" hidden>
+      <input class="form-control datepicker" name="date" type="date" value="2020-08-19" id="example-date-input" hidden>
       <div class="d-flex flex_row justify-content-between">
         <div class="d-flex flex-column">
             <label for="start_time">Heure de début</label>
