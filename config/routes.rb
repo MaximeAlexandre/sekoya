@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   get '/profiles/:id', to: 'profiles#helper_details', as: 'profile'
 
   resources :bookings, only: [:show, :update]
-  get "/profiles/:id/bookings/new", to: "bookings#new"
-  post "/profiles/:id/bookings", to: "bookings#create"
+  get "/profiles/:id/bookings/new", to: "bookings#new", as: "booking_new"
+  post "/profiles/:id/bookings", to: "bookings#create", as: "booking_create"
 end
