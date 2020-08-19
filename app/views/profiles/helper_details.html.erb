@@ -28,16 +28,30 @@
     <h3>Reviews</h3>
   </div>
 </div>
-
-<%= simple_form_for @booking do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-  <div class="form-inputs">
-    <%= f.input :date, as: :string, input_html: { class: "datepicker" } %>
-    <%= f.label "start_time", "Start time" %>
-    <%= f.select "start_time", (7..21).to_a %>:00
-  </div>
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
-<% end %>
+<div class="container w-25">
+  <form action="/profiles/<%= @helper.id %>/bookings" method="POST">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <div class="form-inputs">
+      <input class="form-control datepicker" name="date_input" type="date" value="2020-08-19" id="example-date-input" hidden>
+      <div class="d-flex flex_row justify-content-between">
+        <div class="d-flex flex-column">
+            <label for="start_time">Heure de début</label>
+            <select name="start_time">
+              <% (7..20).to_a.each do |hour| %>
+                <option value="<%= hour %>"><%= hour %>:00</option>
+              <% end %>
+            </select>
+        </div>
+        <div class="d-flex flex-column">
+            <label for="end_time">Heure de fin</label>
+            <select name="end_time">
+              <% (8..21).to_a.each do |hour| %>
+                <option value="<%= hour %>"><%= hour %>:00</option>
+              <% end %>
+            </select>
+        </div>
+      </div>
+    </div>
+    <input type="submit" value="Valider" class="mt-4">
+  </form>
+</div>
