@@ -1,3 +1,59 @@
 <h1>YOLO details</h1>
 
-<%= Booking.all %>
+<div class="container d-flex flex-row">
+  <div>
+    <p>AVATAR</p>
+  </div>
+  <div>
+    <h3><%= @helper.first_name.capitalize %> <%= @helper.last_name.capitalize %></h3>
+    <p>Note + nombre d'avis</p>
+    <p>Inscrit depuis <%= @registration_duration %></p>
+    <p><%= @helper.car %></p>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <div>
+    <h2>Presentation de l'aidant</h2>
+    <p><%= @helper.description %></p>
+  </div>
+  <div class="border-top pt-2">
+    <h3>Certifications</h3>
+    <p><%= @helper.diploma %></p>
+    <!-- Find below the code to use with an array of diploma -->
+    <!-- @helper.diploma.each do |diploma|
+      <p>- diploma</p>
+    end -->
+  </div>
+  <div class="border-top pt-2">
+    <h3>Reviews</h3>
+  </div>
+</div>
+<div class="container w-25">
+  <form action="/profiles/<%= @helper.id %>/bookings" method="POST">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <div class="form-inputs">
+      <input class="form-control datepicker" name="date_input" type="date" value="2020-08-19" id="example-date-input" hidden>
+      <div class="d-flex flex_row justify-content-between">
+        <div class="d-flex flex-column">
+            <label for="start_time">Heure de début</label>
+            <select name="start_time">
+              <% (7..20).to_a.each do |hour| %>
+                <option value="<%= hour %>"><%= hour %>:00</option>
+              <% end %>
+            </select>
+        </div>
+        <div class="d-flex flex-column">
+            <label for="end_time">Heure de fin</label>
+            <select name="end_time">
+              <% (8..21).to_a.each do |hour| %>
+                <option value="<%= hour %>"><%= hour %>:00</option>
+              <% end %>
+            </select>
+        </div>
+      </div>
+    </div>
+    <input type="submit" value="Valider" class="mt-4">
+  </form>
+</div>
+

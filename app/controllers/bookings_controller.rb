@@ -1,4 +1,7 @@
 class BookingsController < ApplicationController
+
+  skip_before_action :authenticate_user!, only: [:create]
+
   def new
     @booking = Booking.new
   end
