@@ -1,0 +1,39 @@
+<p>Help</p>
+<div>
+    <div>
+        <div>
+            <%= render :partial => "bonjour" %>
+            <div>
+                <h2>prochaine prestation</h2>
+                <div class="seko-card">
+                    <% if @booking_next == false %>
+                        <p>none</p>
+                    <% else %>
+                        <p><%= @booking_next.senior.first_name %> <%= @booking_next.senior.last_name %></p>
+                        <p><%= @booking_next.start_date %>-<%= @booking_next.end_date %></p>
+                        <p>Tasks</p>
+                        <button class="seko-button">Details</button>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+        <div>
+            <%= render :partial => "wallet" %>
+            <div class="seko-card">
+                <h1>Mon Planning</h1>
+                <p>Gérez votre emploi du temps.</p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <h2>Bookings</h2>
+        <% @bookings.each do |booking| %>
+            <div class="seko-card">
+                <p><%= booking.senior.first_name %> <%= booking.senior.last_name %></p>
+                <p><%= booking.start_date %>-<%= booking.end_date %></p>
+                <p>Tasks</p>
+                <button class="seko-button">Details</button>
+            </div>
+        <% end %>
+    </div>
+</div>
