@@ -24,14 +24,10 @@
     <div class="border-top mt-4 ml-2 pt-4">
       <h4>Certifications</h4>
       <ul class="m-2">
-      <li class="m-2"><%= @helper.diploma %></li>
-      <li class="m-2"><%= @helper.diploma %></li>
-      <li class="m-2"><%= @helper.diploma %></li>
+        <% @diplomas.each do |diploma| %>
+          <li class="m-2"><%= diploma.name %></li>
+        <% end %>
       </ul>
-      <!-- Find below the code to use with an array of diploma -->
-      <!-- @helper.diploma.each do |diploma|
-        <p>- diploma</p>
-      end -->
     </div>
     <div class="border-top mt-4 ml-2 pt-4">
       <h4>Reviews</h4>
