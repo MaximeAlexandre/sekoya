@@ -14,6 +14,14 @@
                         <p>Tasks</p>
                         <p><%= @booking_next.status %></p>
                         <button class="seko-button">Details</button>
+                        <% if @booking_next.status ==  "pending" %>
+                            <button class="seko-button"> <%= link_to "Accept", status_change_path(@booking_next, status: "accepté"),
+                                method: :patch, data: { confirm: 'Do you accept?' } %>
+                            </button>
+                            <button class="seko-button"> <%= link_to "Refuse", status_change_path(@booking_next, status: "refusé"),
+                                method: :patch, data: { confirm: 'Do you refuse?' } %>
+                            </button>
+                        <% end %>
                     <% end %>
                 </div>
             </div>
@@ -36,6 +44,14 @@
                 <p>Tasks</p>
                 <p><%= booking.status %></p>
                 <button class="seko-button">Details</button>
+                <% if booking.status ==  "pending" %>
+                    <button class="seko-button"> <%= link_to "Accept", status_change_path(booking, status: "accepté"),
+                        method: :patch, data: { confirm: 'Do you accept?' } %>
+                    </button>
+                    <button class="seko-button"> <%= link_to "Refuse", status_change_path(booking, status: "refusé"),
+                        method: :patch, data: { confirm: 'Do you refuse?' } %>
+                    </button>
+                <% end %>
             </div>
         <% end %>
         <% @pending.each do |booking| %>
@@ -46,6 +62,14 @@
                 <p>Tasks</p>
                 <p><%= booking.status %></p>
                 <button class="seko-button">Details</button>
+                <% if booking.status ==  "pending" %>
+                    <button class="seko-button"> <%= link_to "Accept", status_change_path(booking, status: "accepté"),
+                        method: :patch, data: { confirm: 'Do you accept?' } %>
+                    </button>
+                    <button class="seko-button"> <%= link_to "Refuse", status_change_path(booking, status: "refusé"),
+                        method: :patch, data: { confirm: 'Do you refuse?' } %>
+                    </button>
+                <% end %>
             </div>
         <% end %>
         <% @avenir.each do |booking| %>
@@ -56,6 +80,14 @@
                 <p>Tasks</p>
                 <p><%= booking.status %></p>
                 <button class="seko-button">Details</button>
+                <% if booking.status ==  "pending" %>
+                    <button class="seko-button"> <%= link_to "Accept", status_change_path(booking, status: "accepté"),
+                        method: :patch, data: { confirm: 'Do you accept?' } %>
+                    </button>
+                    <button class="seko-button"> <%= link_to "Refuse", status_change_path(booking, status: "refusé"),
+                        method: :patch, data: { confirm: 'Do you refuse?' } %>
+                    </button>
+                <% end %>
             </div>
         <% end %>
         <% @historique.each do |booking| %>
