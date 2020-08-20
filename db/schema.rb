@@ -10,13 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_19_165523) do
+ActiveRecord::Schema.define(version: 2020_08_20_150138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "bookings", force: :cascade do |t|
-    t.string "task"
     t.date "date"
     t.time "start_time"
     t.time "end_time"
@@ -29,6 +28,14 @@ ActiveRecord::Schema.define(version: 2020_08_19_165523) do
     t.integer "booking_step"
     t.index ["helper_id"], name: "index_bookings_on_helper_id"
     t.index ["senior_id"], name: "index_bookings_on_senior_id"
+  end
+
+  create_table "diplomas", force: :cascade do |t|
+    t.string "name"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_diplomas_on_user_id"
   end
 
   create_table "favoris", force: :cascade do |t|
@@ -47,6 +54,14 @@ ActiveRecord::Schema.define(version: 2020_08_19_165523) do
     t.index ["booking_id"], name: "index_reviews_on_booking_id"
   end
 
+  create_table "tasks", force: :cascade do |t|
+    t.string "name"
+    t.bigint "booking_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["booking_id"], name: "index_tasks_on_booking_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -62,19 +77,21 @@ ActiveRecord::Schema.define(version: 2020_08_19_165523) do
     t.string "role"
     t.string "pathology"
     t.string "handicap"
-    t.string "diploma"
     t.boolean "car"
     t.date "activity_start_date"
     t.text "description"
     t.float "price"
     t.float "latitude"
     t.float "longitude"
+    t.string "photo"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "bookings", "users", column: "helper_id"
   add_foreign_key "bookings", "users", column: "senior_id"
+  add_foreign_key "diplomas", "users"
   add_foreign_key "favoris", "bookings"
   add_foreign_key "reviews", "bookings"
+  add_foreign_key "tasks", "bookings"
 end
