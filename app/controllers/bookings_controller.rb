@@ -1,5 +1,6 @@
 class BookingsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:create, :edit_tasks]
+  before_action :set_booking, only [:show, :edit_tasks, :edit_validation, :update_task, :update_validation, :update_status]
 
   def new
     @booking = Booking.new
@@ -19,53 +20,46 @@ class BookingsController < ApplicationController
   end
 
   def show
-    @booking = Booking.find(params[:id])
   end
 
   def edit_tasks
-    @booking = Booking.find(params[:id])
   end
 
   def edit_validation
-    @booking = Booking.find(params[:id])
   end
 
-  def update
-    @booking = Booking.find(params[:id])
+  def update_task
 
-    if @booking.booking_step == 0
-      @tasks = []
-      @senior = current_user
-      @booking.senior = @senior
-      @booking = Booking.find(params[:id])
-      if @booking.task.present?
+    @task = params.select {|key, value| value == "1"}.keys
+    @booking.task = @task
+    @senior = current_user
+    @booking.senior = @senior
+    @booking.booking_step += 1
+    @booking.save
+    redirect_to validation_path(@booking)
+  end
 
-        @booking.booking_step += 1
-        @booking.update
-        redirect_to validation_path(@booking)
-      else
-        render :show
-      end
-    elsif @booking.booking_step == 1
-      @booking = Booking.find(params[:id])
-      @booking.booking_step += 1
-      @booking.update
-      redirect_to booking_path(@booking)
-    else
-      if params[:status] == "validate"
-        @booking.update(status: "accepté")
-      elsif params[:status] == "refused"
-        @booking.update(status: "refusé")
-      elsif params[:status] == "cancelled"
-        @booking.update(status: "annulé")
-      end
-      redirect_to booking_path(@booking)
+  def update_validation
+    @booking.booking_step += 1
+    @booking.save
+    redirect_to booking_path(@booking)
+  end
+
+
+  def update_status
+    if params[:status] == "validate"
+      @booking.update(status: "accepté")
+    elsif params[:status] == "refused"
+      @booking.update(status: "refusé")
+    elsif params[:status] == "cancelled"
+      @booking.update(status: "annulé")
     end
   end
 
   private
 
   def set_booking
+    @booking = Booking.find(params[:id])
   end
 
   def booking_params
