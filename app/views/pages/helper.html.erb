@@ -6,7 +6,7 @@
             <div>
                 <h2>prochaine prestation</h2>
                 <div class="seko-card">
-                    <% if @booking_next.empty? %>
+                    <% if @bookings.empty? %>
                         <p>none</p>
                     <% else %>
                         <p><%= @booking_next.senior.first_name %> <%= @booking_next.senior.last_name %></p>
