@@ -5,7 +5,8 @@
     </div>
 
   <div class="d-flex justify-content-center pt-5">
-    <form action="/bookings/<%= @booking.id %>/edit_validation" method="GET">
+
+  <%= form_tag "/bookings/#{@booking.id}/tasks", method:"patch" %>
       <div class="compagnie d-flex-column justify-content p-4">
         <p> COMPAGNIE</p>
         <div>
@@ -24,40 +25,40 @@
       <div class="aide d-flex-column justify-content p-4">
         <p> AIDE </p>
         <div>
-        <%= check_box_tag 'task' %>
+        <%= check_box_tag 'Se lever / Se coucher' %>
         <%= label_tag ('Se lever / Se coucher') %>
         </div>
         <div>
-        <%= check_box_tag 'task' %>
+        <%= check_box_tag "Se laver / S'habiller" %>
         <%= label_tag ("Se laver / S'habiller") %>
         </div>
         <div>
-        <%= check_box_tag 'task' %>
+        <%= check_box_tag 'Ménage' %>
         <%= label_tag ('Ménage') %>
         </div>
         <div>
-        <%= check_box_tag 'task' %>
+        <%= check_box_tag 'Courses' %>
         <%= label_tag ('Courses') %>
         </div>
       </div>
       <div class="accompagnement d-flex-column justify-content p-4">
         <p>ACCOMPAGNEMENT</p>
         <div>
-        <%= check_box_tag 'Task' %>
+        <%= check_box_tag 'Accompagnement à un RDV médical' %>
         <%= label_tag ('Accompagnement à un RDV médical') %>
         </div>
         <div>
-        <%= check_box_tag 'task' %>
+        <%= check_box_tag 'Prise de Médicaments' %>
         <%= label_tag ('Prise de Médicaments') %>
         </div>
         <div>
-        <%= check_box_tag 'task' %>
+        <%= check_box_tag "Gestion d'une pathologie ou d'un Handicap" %>
         <%= label_tag ("Gestion d'une pathologie ou d'un handicap") %>
         </div>
       </div>
       <div>
-         <%= link_to 'Valider', validation_path(@booking) %>
+         <%= submit_tag 'Valider' %>
       </div>
-    </form>
+
   </div>
 </div>

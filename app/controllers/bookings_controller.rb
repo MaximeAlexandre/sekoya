@@ -30,43 +30,37 @@ class BookingsController < ApplicationController
     @booking = Booking.find(params[:id])
   end
 
-  def update
+  def update_task
     @booking = Booking.find(params[:id])
+    @task = params.select {|key, value| value == "1"}.keys
+    @booking.task = @task
+    @senior = current_user
+    @booking.senior = @senior
+    @booking.booking_step += 1
+    @booking.save
+    redirect_to validation_path(@booking)
+  end
 
-    if @booking.booking_step == 0
-      @tasks = []
-      @senior = current_user
-      @booking.senior = @senior
-      @booking = Booking.find(params[:id])
-      if @booking.task.present?
+  def update_validation
+    @booking = Booking.find(params[:id])
+    @booking.booking_step += 1
+    @booking.save
+    redirect_to booking_path(@booking)
 
-        @booking.booking_step += 1
-        @booking.update
-        redirect_to validation_path(@booking)
-      else
-        render :show
-      end
-    elsif @booking.booking_step == 1
-      @booking = Booking.find(params[:id])
-      @booking.booking_step += 1
-      @booking.update
-      redirect_to booking_path(@booking)
-    else
-      if params[:status] == "validate"
-        @booking.update(status: "accepté")
-      elsif params[:status] == "refused"
-        @booking.update(status: "refusé")
-      elsif params[:status] == "cancelled"
-        @booking.update(status: "annulé")
-      end
-      redirect_to booking_path(@booking)
+  end
+
+
+  def update_status
+    if params[:status] == "validate"
+      @booking.update(status: "accepté")
+    elsif params[:status] == "refused"
+      @booking.update(status: "refusé")
+    elsif params[:status] == "cancelled"
+      @booking.update(status: "annulé")
     end
   end
 
   private
-
-  def set_booking
-  end
 
   def booking_params
     params.permit(:date, :start_time, :end_time)
