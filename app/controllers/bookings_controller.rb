@@ -20,6 +20,7 @@ class BookingsController < ApplicationController
   end
 
   def show
+    @tasks = Task.where(booking_id: @booking.id)
     @review = Review.new
   end
 
@@ -27,11 +28,15 @@ class BookingsController < ApplicationController
   end
 
   def edit_validation
+    @tasks = Task.where(booking_id: @booking.id)
+    @diplomas = Diploma.where(user_id: @booking.helper.id)
   end
 
   def update_task
-    @task = params.select {|key, value| value == "1"}.keys
-    @booking.task = @task
+    tasks = params.select { |_key, value| value == "1" }.keys
+    tasks.each do |task|
+      Task.create(name: task, booking: @booking)
+    end
     @senior = current_user
     @booking.senior = @senior
     @booking.booking_step += 1

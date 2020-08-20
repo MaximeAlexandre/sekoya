@@ -14,7 +14,29 @@
         <p><%= @booking.helper.diploma %></p>
       </div>
     </div>
-
+    
+    <div class="seko-card m-3 p-3 col-4">
+      <img src="" alt="" >
+      <p><%= @booking.helper.first_name %> <%= @booking.helper.last_name %></p>
+      <p><%= @booking.helper.description %></p>
+      <p>review + X reviews</p>
+      <p><%= @booking.helper.car %></p>
+      <% @diplomas.each do |diploma| %>
+        <p><%= diploma.name %></p>
+      <% end %>
+      <p><%= @booking.helper.price %>€</p>
+    </div>
+    <div class="seko-card m-3 p-3 col-4 text-center">
+      <p>Votre adresse </p>
+      <p><%= current_user.address %> </p>
+      <p> Date prévue : <%= @booking.date %> de <%= @booking.start_time.strftime("%H:%M%p") %> à <%= @booking.end_time.strftime("%H:%M%p") %></p>
+      <p> Activités choisies</p>
+      <% @tasks.each do |task| %>
+        <p><%= task.name %></p>
+      <% end %>
+      <br>
+      <h3> <strong><%= @booking.helper.price %> € x <%= (@booking.end_time  - @booking.start_time)/3600 %>heures </strong> </h3>
+  <%= link_to 'Valider', booking_path(@booking)%>
 
     <div class="text-center">
       <h3>Votre adresse </h3>

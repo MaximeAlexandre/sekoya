@@ -37,7 +37,11 @@
                 <h3><%= helper.first_name %> <%= helper.last_name %></h3>
                 <small>review + X reviews</small>
                 <p><%= helper.car %></p>
-                <p><%= helper.diploma %></p>
+                <p>
+                  <% Diploma.where(user_id: helper.id).each do |diploma| %>
+                    <%= diploma.name %>
+                  <% end %>
+                </p>
               </div>
                 <div>
                   <p><%= helper.price %>€</p>

@@ -32,7 +32,7 @@ class PagesController < ApplicationController
 
   def senior_week(list)
     # week = [Date.today] ; (1..6).each { |i| week << Date.today + i }; list.where(date: week)
-    list.where("date >= ? and date <= ?", Date.today, Date.today+6)
+    list.where("date >= ? and date <= ?", Date.today, Date.today + 6)
   end
 
   def pending(list)
