@@ -7,7 +7,7 @@ class PagesController < ApplicationController
   end
 
   def senior
-    @bookings = Booking.all.where(senior_id: current_user.id).order(date: :asc, start_time: :asc)
+    @bookings = Booking.where(senior_id: current_user.id).order(date: :asc, start_time: :asc)
     @booking_next = @bookings.first unless @bookings.empty?
     @senior_week = senior_week(@bookings)
     @en_attente = pending(@bookings)
@@ -15,7 +15,7 @@ class PagesController < ApplicationController
   end
 
   def helper
-    @bookings = Booking.all.where(helper_id: current_user.id).order(date: :asc, start_time: :asc)
+    @bookings = Booking.where(helper_id: current_user.id).order(date: :asc, start_time: :asc)
     @booking_next = @bookings.first unless @bookings.empty?
     @helper_day = helper_day(@bookings)
     @en_attente = pending(@bookings)
