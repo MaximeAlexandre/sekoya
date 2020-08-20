@@ -1,6 +1,6 @@
 class BookingsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:create, :edit_tasks]
-  before_action :set_booking, only [:show, :edit_tasks, :edit_validation, :update_task, :update_validation, :update_status]
+  before_action :set_booking, only: [:show, :edit_tasks, :edit_validation, :update_task, :update_validation, :update_status]
 
   def new
     @booking = Booking.new
