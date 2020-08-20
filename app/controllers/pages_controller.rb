@@ -12,6 +12,7 @@ class PagesController < ApplicationController
     @senior_week = senior_week(@bookings)
     @pending = pending(@bookings)
     @avenir = futur(@bookings)
+    @historique = past(@bookings)
   end
 
   def helper
@@ -20,6 +21,7 @@ class PagesController < ApplicationController
     @helper_day = helper_day(@bookings)
     @pending = pending(@bookings)
     @avenir = futur(@bookings)
+    @historique = past(@bookings)
   end
 
   private
@@ -39,6 +41,10 @@ class PagesController < ApplicationController
 
   def futur(list)
     list.where("date >= ?", Date.today)
+  end
+
+  def past(list)
+    list.where("date < ?", Date.today)
   end
 
 end
