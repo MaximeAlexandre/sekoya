@@ -20,6 +20,7 @@ class BookingsController < ApplicationController
   end
 
   def show
+    @review = Review.new
   end
 
   def edit_tasks
@@ -29,7 +30,6 @@ class BookingsController < ApplicationController
   end
 
   def update_task
-
     @task = params.select {|key, value| value == "1"}.keys
     @booking.task = @task
     @senior = current_user
@@ -44,7 +44,6 @@ class BookingsController < ApplicationController
     @booking.save
     redirect_to booking_path(@booking)
   end
-
 
   def update_status
     if params[:status] == "validate"
