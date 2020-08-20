@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get '/profiles/:id', to: 'profiles#helper_details', as: 'profile'
 
   resources :bookings, only: [:show] do
-     resources :reviews, only: [:create]
+    resources :reviews, only: [:create]
   end
 
   post "/profiles/:id/bookings", to: "bookings#create", as: 'booking_create'
