@@ -4,7 +4,6 @@ class PagesController < ApplicationController
   def home
     @address = ""
     @address = current_user.address if user_signed_in?
-    raise
   end
 
   def senior
