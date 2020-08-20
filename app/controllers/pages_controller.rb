@@ -8,17 +8,17 @@ class PagesController < ApplicationController
 
   def senior
     @bookings = Booking.where(senior_id: current_user.id).order(date: :asc, start_time: :asc)
-    @booking_next = @bookings.first unless @bookings.empty?
+    @booking_next = @bookings.first
     @senior_week = senior_week(@bookings)
-    @en_attente = pending(@bookings)
+    @pending = pending(@bookings)
     @avenir = futur(@bookings)
   end
 
   def helper
     @bookings = Booking.where(helper_id: current_user.id).order(date: :asc, start_time: :asc)
-    @booking_next = @bookings.first unless @bookings.empty?
+    @booking_next = @bookings.first
     @helper_day = helper_day(@bookings)
-    @en_attente = pending(@bookings)
+    @pending = pending(@bookings)
     @avenir = futur(@bookings)
   end
 
