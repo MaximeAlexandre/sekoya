@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   get '/profiles', to: 'profiles#helper_list', as: 'profiles'
   get '/profiles/:id', to: 'profiles#helper_details', as: 'profile'
 
-  resources :bookings, only: [:show]
+  resources :bookings, only: [:show] do
+    resources :reviews, only: [:create]
+  end
 
   post "/profiles/:id/bookings", to: "bookings#create", as: 'booking_create'
   get "/bookings/:id/edit_tasks", to: "bookings#edit_tasks", as: 'tasks'

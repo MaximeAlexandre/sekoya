@@ -21,6 +21,7 @@ class BookingsController < ApplicationController
 
   def show
     @tasks = Task.where(booking_id: @booking.id)
+    @review = Review.new
   end
 
   def edit_tasks
@@ -48,7 +49,6 @@ class BookingsController < ApplicationController
     @booking.save
     redirect_to booking_path(@booking)
   end
-
 
   def update_status
     if params[:status] == "validate"
