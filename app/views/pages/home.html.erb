@@ -1,14 +1,14 @@
 <div class="container">
-  <div class="home-banner">
+  <div class="">
     <div class="slogans">
       <h1>Bienvenue chez Sekoya</h1>
       <h2>Notre super site d'aide à domicile</h2>
     </div>
-    <div class="card">
-      <div class="bloc-search">
+    <div class="seko-card m-3 col-6">
+      <div class="bloc-search mt-3">
         <form action="/profiles" method="get">
-          <input class="form-control" name="address_input" type="text" value="<%= @address %>" placeholder="Trouvez des aidants autour de vous" aria-label="Search" required>
-          <input type="submit" value="Chercher" class="search-button">
+          <input class="form-control seko-search-bar" name="address_input" type="text" value="<%= @address %>" placeholder="Trouvez des aidants autour de vous" aria-label="Search" required>
+          <input  type="submit" value="Chercher" class="search-button btn seko-button">
         </form>
       </div>
     </div>
