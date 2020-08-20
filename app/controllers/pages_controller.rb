@@ -7,8 +7,8 @@ class PagesController < ApplicationController
   end
 
   def senior
-    @bookings = Booking.where(senior_id: current_user.id).order(date: :asc, start_time: :asc)
-    @booking_next = @bookings.first
+    @bookings = Booking.where(booking_step: 2).where(senior_id: current_user.id).order(date: :asc, start_time: :asc)
+    @booking_next = @bookings.find(status: "accepté")
     @senior_week = senior_week(@bookings)
     @pending = pending(@bookings)
     @avenir = futur(@bookings)
@@ -17,7 +17,7 @@ class PagesController < ApplicationController
 
   def helper
     @bookings = Booking.where(helper_id: current_user.id).order(date: :asc, start_time: :asc)
-    @booking_next = @bookings.first
+    @booking_next = @bookings.find(status: "accepté")
     @helper_day = helper_day(@bookings)
     @pending = pending(@bookings)
     @avenir = futur(@bookings)
@@ -27,12 +27,12 @@ class PagesController < ApplicationController
   private
 
   def helper_day(list)
-    list.where(date: Date.today)
+    list.where(date: Date.today).where(status: "accepté")
   end
 
   def senior_week(list)
     # week = [Date.today] ; (1..6).each { |i| week << Date.today + i }; list.where(date: week)
-    list.where("date >= ? and date <= ?", Date.today, Date.today+6)
+    list.where("date >= ? and date <= ?", Date.today, Date.today+6).where(status: "accepté")
   end
 
   def pending(list)
@@ -44,7 +44,7 @@ class PagesController < ApplicationController
   end
 
   def past(list)
-    list.where("date < ?", Date.today)
+    list.where("date < ? or status = ? or status = ?", Date.today, "refusé", "annulé")
   end
 
 end
