@@ -10,5 +10,6 @@ Rails.application.routes.draw do
   post "/profiles/:id/bookings", to: "bookings#create", as: 'booking_create'
   get "/bookings/:id/edit_tasks", to: "bookings#edit_tasks", as: 'tasks'
   get "/bookings/:id/edit_validation", to: "bookings#edit_validation", as: 'validation'
-  patch "/bookings/:id/", to: "bookings#update", as: 'booking_update'
+  patch "/bookings/:id/tasks", to: "bookings#update_task", as: 'booking_update_tasks'
+  patch "/bookings/:id/validation", to: "bookings#update_validation", as: 'booking_update_validation'
 end
