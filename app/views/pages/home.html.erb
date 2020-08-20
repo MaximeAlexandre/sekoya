@@ -1,18 +1,37 @@
-<div class="container">
-  <div class="">
+
+  <div class="bloc-home seko-flex">
+
     <div class="slogans">
-      <h1>Bienvenue chez Sekoya</h1>
-      <h2>Notre super site d'aide à domicile</h2>
-    </div>
-    <div class="seko-card m-3 col-6">
-      <div class="bloc-search mt-3">
-        <form action="/profiles" method="get">
-          <input class="form-control seko-search-bar" name="address_input" type="text" value="<%= @address %>" placeholder="Trouvez des aidants autour de vous" aria-label="Search" required>
-          <input  type="submit" value="Chercher" class="search-button btn seko-button">
-        </form>
+      <div class="welcome">
+      <h1>Sekoya réinvente l'aide à domicile</h1>
+      <h3>Nos seniors sont toujours zen après le passage de nos helpers</h3>
+      </div>
+      <div class="col-11 seko-card p-3">
+      <form action="/profiles" method="get">
+        <h4 class="mb-3 text-center">Trouvez une aide à domicile autour de vous</h4>
+        <input class="form-control seko-search-bar" name="address_input" type="text" value="<%= @address %>" placeholder="Trouvez des aidants autour de vous" aria-label="Search" required>
+        <input  type="submit" value="Chercher" class="search-button btn seko-button mt-4">
+      </form>
       </div>
     </div>
+    <div class="seko-flex  mt-5">
+      <svg class="blob" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#ADE8F4" d="M31.7,-52.8C42.1,-48.9,52.3,-42.5,50.6,-33.3C48.8,-24.1,35.2,-12,35.9,0.4C36.6,12.8,51.6,25.7,53.9,35.8C56.2,46,45.7,53.5,34.6,50.5C23.5,47.4,11.8,33.7,-2.4,37.8C-16.6,42,-33.2,64.1,-41.6,65.6C-50,67.1,-50.2,48.1,-54.3,33.8C-58.4,19.4,-66.3,9.7,-64.2,1.2C-62.1,-7.2,-49.9,-14.5,-39.9,-18.7C-29.9,-22.9,-22.2,-24,-15.9,-30.3C-9.7,-36.7,-4.8,-48.3,2.9,-53.3C10.6,-58.3,21.3,-56.8,31.7,-52.8Z" transform="translate(100 100)" />
+      </svg>
+      <svg class="blob3" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#48CAE4" d="M14.6,-23.3C18.8,-19.9,22.2,-15.8,20.2,-11.7C18.1,-7.6,10.8,-3.6,8.6,0.2C6.4,3.9,9.4,7.3,10.4,12.7C11.5,18.2,10.6,25.6,6.2,31.8C1.8,37.9,-6.1,42.9,-9.8,39.2C-13.5,35.5,-12.9,23,-15.5,15.8C-18.1,8.5,-24,6.4,-32,0C-40,-6.3,-50.2,-16.9,-47.8,-21.7C-45.5,-26.5,-30.6,-25.5,-20.5,-26.2C-10.5,-27,-5.2,-29.5,0,-29.4C5.2,-29.4,10.3,-26.7,14.6,-23.3Z" transform="translate(100 100)" />
+      </svg>
+      <svg class="blob2" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#00B4D8" d="M41.2,-55.4C45.2,-45.7,34.6,-25,28.8,-11.9C22.9,1.1,21.7,6.5,19.1,11.1C16.5,15.7,12.5,19.7,5.1,28.8C-2.4,38,-13.4,52.5,-22.7,53.1C-31.9,53.7,-39.5,40.4,-37.7,28.8C-36,17.3,-25,7.4,-24,-5.3C-23.1,-18.1,-32.2,-33.7,-29.9,-43.6C-27.6,-53.5,-13.8,-57.8,2.4,-60.6C18.6,-63.5,37.2,-65,41.2,-55.4Z" transform="translate(100 100)" />
+      </svg>
+      <div class="home-men">
+      <div class=""><%= image_tag "men (1).png" , width: 168, height: 205%></div>
+      <div class=""><%= image_tag "men.png" , width: 168, height: 205%></div>
+      </div>
+      <div class="standing-men"><%= image_tag "men (2).png", width: 236, height: 316 %></div>
+    </div>
   </div>
+
   <div class="home-content-argument">
     <div></div>
     <div></div>
@@ -22,4 +41,5 @@
     <div></div>
     <div></div>
   </div>
-</div>
+
+

@@ -1,9 +1,7 @@
-  <div class="container">
-
- <div>
-   <h1>Voici les résultats pour <%= params[:address_input] %></h1>
- </div>
-
+<div class="container">
+  <div>
+    <h1>Voici les résultats pour <%= params[:address_input] %></h1>
+  </div>
   <div class="form-group mt-4">
     <form action="/profiles" method="GET">
       <div class="d-flex flex-row bd-highlight mb-4 seko-card">
@@ -28,21 +26,27 @@
 
   <div>
     <% @near_helpers.each do |helper| %>
-
-    <div class="row">
-      <div class="seko-card mt-5 p-3 col-8 ">
-        <%= link_to profile_path(helper), :style=>'color: black;' do %>
-          <img src="" alt="" >
-          <h2><%= helper.first_name %> <%= helper.last_name %></h2>
-          <p><%= helper.description %></p>
-          <p>review + X reviews</p>
-          <p><%= helper.car %></p>
-          <p><%= helper.diploma %></p>
-          <p><%= helper.price %>€</p>
-       <% end %>
-      </div>
-      </div>
-    <% end %>
+      <%= link_to profile_path(helper), :style=>'color: black;' do %>
+        <div class="col-12">
+          <div class="seko-card seko-flex mt-5 col-8">
+            <div>
+              <img class="avatar-extra-large mt-5 ml-2" src="https://kitt.lewagon.com/placeholder/users/anthomanto" alt="" >
+            </div>
+            <div class="seko-in-card seko-flex seko-in-card-list m-4 col-8">
+              <div>
+                <h3><%= helper.first_name %> <%= helper.last_name %></h3>
+                <small>review + X reviews</small>
+                <p><%= helper.car %></p>
+                <p><%= helper.diploma %></p>
+              </div>
+                <div>
+                  <p><%= helper.price %>€</p>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
-</div>
 
