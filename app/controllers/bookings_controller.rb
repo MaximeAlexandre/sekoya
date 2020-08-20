@@ -1,5 +1,6 @@
 class BookingsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:create, :edit_tasks]
+  before_action :set_booking, only [:show, :edit_tasks, :edit_validation, :update_task, :update_validation, :update_status]
 
   def new
     @booking = Booking.new
@@ -19,19 +20,16 @@ class BookingsController < ApplicationController
   end
 
   def show
-    @booking = Booking.find(params[:id])
   end
 
   def edit_tasks
-    @booking = Booking.find(params[:id])
   end
 
   def edit_validation
-    @booking = Booking.find(params[:id])
   end
 
   def update_task
-    @booking = Booking.find(params[:id])
+
     @task = params.select {|key, value| value == "1"}.keys
     @booking.task = @task
     @senior = current_user
@@ -42,11 +40,9 @@ class BookingsController < ApplicationController
   end
 
   def update_validation
-    @booking = Booking.find(params[:id])
     @booking.booking_step += 1
     @booking.save
     redirect_to booking_path(@booking)
-
   end
 
 
@@ -61,6 +57,10 @@ class BookingsController < ApplicationController
   end
 
   private
+
+  def set_booking
+    @booking = Booking.find(params[:id])
+  end
 
   def booking_params
     params.permit(:date, :start_time, :end_time)
