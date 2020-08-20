@@ -9,28 +9,33 @@
       <%= f.input :email,
                   required: true,
                   autofocus: true,
-                  input_html: { autocomplete: "email" }%>
+                  input_html: { autocomplete: "email", class: "seko-search-bar" } %>
       <%= f.input :password,
                   required: true,
                   hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                  input_html: { autocomplete: "new-password" } %>
+                  input_html: { autocomplete: "new-password", class: "seko-search-bar" } %>
       <%= f.input :password_confirmation,
                   required: true,
-                  input_html: { autocomplete: "new-password" } %>
+                  input_html: { autocomplete: "new-password", class: "seko-search-bar" } %>
       <%= f.input :first_name,
                   label: "Prénom",
-                  required: true %>
+                  required: true,
+                  input_html: { class: "seko-search-bar" } %>
       <%= f.input :last_name,
                   label: "Nom de famille",
-                  required: true %>
+                  required: true,
+                  input_html: { class: "seko-search-bar" } %>
       <%= f.input :address,
                   label: "Adresse",
-                  required: true  %>
+                  required: true,
+                  input_html: { class: "seko-search-bar" }  %>
       <%= f.input :mobile_number,
                   label: "Portable",
-                  required: true %>
+                  required: true,
+                  input_html: { class: "seko-search-bar" } %>
       <%= f.input :description,
-                  required: true %>
+                  required: true,
+                  input_html: { class: "seko-search-bar" } %>
       <%= f.input :role,
                   label: "Vous êtes ?",
                   as: :radio_buttons,
@@ -49,10 +54,12 @@
                   required: true %>
       <%= f.input :price,
                   label: "Prix horaire",
-                  required: true %>
+                  required: true,
+                  input_html: { class: "seko-search-bar" } %>
       <%= f.input :diploma,
                   label: "Diplômes/Certifications",
-                  required: true %>
+                  required: true,
+                  input_html: { class: "seko-search-bar" } %>
 
     </div>
 

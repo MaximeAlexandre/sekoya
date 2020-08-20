@@ -9,7 +9,6 @@
 #  end_time     :time
 #  start_time   :time
 #  status       :string
-#  task         :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  helper_id    :bigint           not null
@@ -30,12 +29,12 @@ class Booking < ApplicationRecord
   belongs_to :senior, class_name: "User", optional: true
   has_many :reviews
   has_many :favoris
+  has_many :tasks
 
   validates :date, presence: true
   validates :start_time, presence: true
   validates :end_time, presence: true
   validates :status, presence: true
-  # validates :task, presence: true
   validate :end_time_after_start_time
 
   private

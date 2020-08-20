@@ -7,7 +7,6 @@
 #  address                :string
 #  car                    :boolean
 #  description            :text
-#  diploma                :string
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  first_name             :string
@@ -17,6 +16,7 @@
 #  longitude              :float
 #  mobile_number          :string
 #  pathology              :string
+#  photo                  :string
 #  price                  :float
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime

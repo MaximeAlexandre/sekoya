@@ -7,7 +7,6 @@
 #  address                :string
 #  car                    :boolean
 #  description            :text
-#  diploma                :string
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  first_name             :string
@@ -17,6 +16,7 @@
 #  longitude              :float
 #  mobile_number          :string
 #  pathology              :string
+#  photo                  :string
 #  price                  :float
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
@@ -40,6 +40,7 @@ class User < ApplicationRecord
   after_validation :geocode, if: :will_save_change_to_address?
 
   has_many :bookings
+  has_many :diplomas
 
   has_many :reviews, through: :bookings
   has_many :favoris, through: :bookings
@@ -51,5 +52,4 @@ class User < ApplicationRecord
   validates :description, presence: true, if: proc { |user| user.role == "helper" }
   validates :price, presence: true, if: proc { |user| user.role == "helper" }
   validates :mobile_number, presence: true, uniqueness: true
-  validates :diploma, presence: true, if: proc { |user| user.role == "helper" }
 end
