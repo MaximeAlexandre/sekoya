@@ -38,7 +38,7 @@
                 <button class="seko-button">Details</button>
             </div>
         <% end %>
-        <% @en_attente.each do |booking| %>
+        <% @pending.each do |booking| %>
             <div class="seko-card">
                 <p>pending</p>
                 <p><%= booking.senior.first_name %> <%= booking.senior.last_name %></p>
