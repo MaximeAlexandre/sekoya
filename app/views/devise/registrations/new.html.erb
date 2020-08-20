@@ -1,47 +1,64 @@
-<h2>Sign up</h2>
+<div class="text-center">
+  <h2>Sign up</h2>
+</div>
+<div class="container w-50">
+  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= f.error_notification %>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= f.error_notification %>
+    <div class="form-inputs">
+      <%= f.input :email,
+                  required: true,
+                  autofocus: true,
+                  input_html: { autocomplete: "email" }%>
+      <%= f.input :password,
+                  required: true,
+                  hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                  input_html: { autocomplete: "new-password" } %>
+      <%= f.input :password_confirmation,
+                  required: true,
+                  input_html: { autocomplete: "new-password" } %>
+      <%= f.input :first_name,
+                  label: "Prénom",
+                  required: true %>
+      <%= f.input :last_name,
+                  label: "Nom de famille",
+                  required: true %>
+      <%= f.input :address,
+                  label: "Adresse",
+                  required: true  %>
+      <%= f.input :mobile_number,
+                  label: "Portable",
+                  required: true %>
+      <%= f.input :description,
+                  required: true %>
+      <%= f.input :role,
+                  label: "Vous êtes ?",
+                  as: :radio_buttons,
+                  collection: [
+                    ['aide à domicile', 'helper'],
+                    ['personne aidée', 'senior']
+                  ],
+                  required: true %>
+      <%= f.input :car,
+                  label: "Avez vous un moyen de locomotion ?",
+                  as: :radio_buttons,
+                  collection: [
+                    ['Oui', true],
+                    ['Non', false]
+                  ],
+                  required: true %>
+      <%= f.input :price,
+                  label: "Prix horaire",
+                  required: true %>
+      <%= f.input :diploma,
+                  label: "Diplômes/Certifications",
+                  required: true %>
 
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" }%>
-    <%= f.input :password,
-                required: true,
-                hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: true,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :first_name,
-                required: true %>
-    <%= f.input :last_name,
-                required: true %>
-    <%= f.input :address,
-                required: true  %>
-    <%= f.input :role,
-                as: :radio_buttons,
-                collection: [
-                  ['aide à domicile', 'helper'],
-                  ['personne aidée', 'senior']
-                ],
-                required: true %>
-    <%= f.input :description,
-                required: true %>
-    <%= f.input :price,
-                required: true %>
-    <%= f.input :mobile_number,
-                required: true %>
-    <%= f.input :diploma,
-                required: true %>
+    </div>
 
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+    <div class="form-actions">
+      <%= f.button :submit, "Sign up" %>
+    </div>
+  <% end %>
+  <%= render "devise/shared/links" %>
+</div>
