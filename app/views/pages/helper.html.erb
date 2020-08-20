@@ -1,0 +1,72 @@
+<p>Help</p>
+<div>
+    <div>
+        <div>
+            <%= render :partial => "bonjour" %>
+            <div>
+                <h2>prochaine prestation</h2>
+                <div class="seko-card">
+                    <% if @bookings.empty? %>
+                        <p>none</p>
+                    <% else %>
+                        <p><%= @booking_next.senior.first_name %> <%= @booking_next.senior.last_name %></p>
+                        <p><%= @booking_next.date %> : <%= @booking_next.start_time.strftime("%R") %>-<%= @booking_next.end_time.strftime("%R") %></p>
+                        <p>Tasks</p>
+                        <p><%= @booking_next.status %></p>
+                        <button class="seko-button">Details</button>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+        <div>
+            <%= render :partial => "wallet" %>
+            <div class="seko-card">
+                <h1>Mon Planning</h1>
+                <p>Gérez votre emploi du temps.</p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <h2>Bookings</h2>
+        <% @helper_day.each do |booking| %>
+            <div class="seko-card">
+                <p>day</p>
+                <p><%= booking.senior.first_name %> <%= booking.senior.last_name %></p>
+                <p><%= booking.date %> : <%= booking.start_time.strftime("%R") %>-<%= booking.end_time.strftime("%R") %></p>
+                <p>Tasks</p>
+                <p><%= booking.status %></p>
+                <button class="seko-button">Details</button>
+            </div>
+        <% end %>
+        <% @pending.each do |booking| %>
+            <div class="seko-card">
+                <p>pending</p>
+                <p><%= booking.senior.first_name %> <%= booking.senior.last_name %></p>
+                <p><%= booking.date %> : <%= booking.start_time.strftime("%R") %>-<%= booking.end_time.strftime("%R") %></p>
+                <p>Tasks</p>
+                <p><%= booking.status %></p>
+                <button class="seko-button">Details</button>
+            </div>
+        <% end %>
+        <% @avenir.each do |booking| %>
+            <div class="seko-card">
+                <p>a venir</p>
+                <p><%= booking.senior.first_name %> <%= booking.senior.last_name %></p>
+                <p><%= booking.date %> : <%= booking.start_time.strftime("%R") %>-<%= booking.end_time.strftime("%R") %></p>
+                <p>Tasks</p>
+                <p><%= booking.status %></p>
+                <button class="seko-button">Details</button>
+            </div>
+        <% end %>
+        <% @historique.each do |booking| %>
+            <div class="seko-card">
+                <p>all</p>
+                <p><%= booking.senior.first_name %> <%= booking.senior.last_name %></p>
+                <p><%= booking.date %> : <%= booking.start_time.strftime("%R") %>-<%= booking.end_time.strftime("%R") %></p>
+                <p>Tasks</p>
+                <p><%= booking.status %></p>
+                <button class="seko-button">Details</button>
+            </div>
+        <% end %>
+    </div>
+</div>
