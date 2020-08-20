@@ -1,4 +1,58 @@
 // Specific CSS for your home-page
-body {
-  background-color: #EFFCFF;
+.search-button {
+  width: 100%;
+}
+
+.slogans {
+  margin-bottom: 70px;
+  margin-top: 100px;
+  margin-left: 100px;
+}
+
+.bloc-home {
+
+}
+
+.home-men {
+  margin-top: 200px;
+  display: flex;
+
+}
+
+.standing-men {
+  margin-top: 100px;
+  margin-right: 100px;
+}
+
+.welcome {
+  margin-bottom: 200px;
+}
+
+
+
+.blob{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -100;
+    width: 800px;
+    margin-left: 600px;
+}
+
+.blob2{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -100;
+    width: 800px;
+    margin-left: 800px;
+}
+
+.blob3{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -100;
+    width: 800px;
+    margin-left: 400px;
 }
