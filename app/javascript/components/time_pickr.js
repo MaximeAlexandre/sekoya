@@ -8,7 +8,7 @@ const changeDuration = () => {
     totalDuration.innerText = ` ${price} € x ${duree} heures `
 
     const totalPrice = document.getElementById("total-price")
-    totalPrice.innerText =`Total : ${duree*price}* €`
+    totalPrice.innerText =`Total : ${duree*price} €`
 }
 
 const initDuration = () => {
