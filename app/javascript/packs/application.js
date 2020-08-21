@@ -30,6 +30,7 @@ import "bootstrap";
 import { initFlatpickr } from '../plugins/init_flatpickr';
 import { initUpdateNavbarOnScroll } from '../components/navbar.js';
 import { initStarRating } from '../plugins/init_star_rating';
+import { initCheckBoxes } from '../components/check_task';
 
 
 
@@ -39,4 +40,5 @@ document.addEventListener('turbolinks:load', () => {
   initFlatpickr();
   initUpdateNavbarOnScroll();
   initStarRating();
+  initCheckBoxes();
 });
