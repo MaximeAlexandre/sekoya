@@ -9,6 +9,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-4">
+      <% if @booking.display_review_form(current_user) %>
       <%= simple_form_for [@booking, @review] do |f| %>
         <%= f.error_notification %>
         <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
@@ -21,6 +22,7 @@
         </div>
       <% end %>
     </div>
+    <% end %>
   </div>
 
 </div>

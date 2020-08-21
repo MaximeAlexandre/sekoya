@@ -35,7 +35,6 @@
             <div class="seko-in-card seko-flex seko-in-card-list m-3 col-8">
               <div>
                 <h3><%= helper.first_name %> <%= helper.last_name %></h3>
-                <small>review + X reviews</small>
                 <p><%= helper.car %></p>
                 <p>
                   <% Diploma.where(user_id: helper.id).each do |diploma| %>

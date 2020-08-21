@@ -11,7 +11,18 @@
 
       <div class="p-3 col-12">
         <h3><%= @booking.helper.first_name %> <%= @booking.helper.last_name %></h3>
-        <p>review + X reviews</p>
+        <div>
+          <% @reviews.each do |review| %>
+          <% review.note.times do %>
+            <i class="fas fa-star"> </i>
+              <% end %>
+              <% (5 - review.note).times do %>
+              <% end %>
+            <div class="ml-4 text-center">
+             <p >(<%= @reviews.length %> avis)</p>
+            </div>
+          <% end %>
+        </div>
         <p><%= @booking.helper.car %></p>
         <h4>Formation</h4>
         <% @diplomas.each do |diploma| %>
