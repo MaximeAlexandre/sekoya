@@ -37,9 +37,7 @@ class BookingsController < ApplicationController
     tasks.each do |task|
       Task.create(name: task, booking: @booking)
     end
-    @senior = current_user
-    @booking.senior = @senior
-    @booking.update(booking_step: 1)
+    @booking.update(booking_step: 1, senior: current_user)
     redirect_to validation_path(@booking)
   end
 
