@@ -31,7 +31,7 @@
           <% end %>
         <br>
         <h3 class="mb-3"> <strong><%= @booking.helper.price %> € x <%= (@booking.end_time  - @booking.start_time)/3600 %>heures </strong> </h3>
-        <%= link_to 'Valider', booking_path(@booking), class: "btn seko-button search-button"%>
+        <%= link_to 'Valider', booking_update_validation_path(@booking), method: :patch, class: "btn seko-button search-button"%>
       </div>
     </div>
   </div>
