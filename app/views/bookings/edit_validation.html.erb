@@ -11,7 +11,18 @@
 
       <div class="p-3 col-12">
         <h3><%= @booking.helper.first_name %> <%= @booking.helper.last_name %></h3>
-        <p>review + X reviews</p>
+        <div>
+          <% @reviews.each do |review| %>
+          <% review.note.times do %>
+            <i class="fas fa-star"> </i>
+              <% end %>
+              <% (5 - review.note).times do %>
+              <% end %>
+            <div class="ml-4 text-center">
+             <p >(<%= @reviews.length %> avis)</p>
+            </div>
+          <% end %>
+        </div>
         <p><%= @booking.helper.car %></p>
         <h4>Formation</h4>
         <% @diplomas.each do |diploma| %>
@@ -20,21 +31,35 @@
           </ul>
         <% end %>
       </div>
-</div>
-      <div class=" m-3 p-3 text-center">
-        <p>Votre adresse </p>
-        <p><%= current_user.address %> </p>
-        <p> Date prévue : <%= @booking.date %> de <%= @booking.start_time.strftime("%H:%M%p") %> à <%= @booking.end_time.strftime("%H:%M%p") %></p>
-        <p> Activités choisies</p>
-        <% @tasks.each do |task| %>
-        <p><%= task.name %></p>
-          <% end %>
-        <br>
-        <h3 class="mb-3"> <strong><%= @booking.helper.price %> € x <%= (@booking.end_time  - @booking.start_time)/3600 %>heures </strong> </h3>
-        <h3 class="mb-3"> <strong>Total : <%= @total %> €</strong> </h3>
-        <%= link_to 'Valider', booking_update_validation_path(@booking), method: :patch, class: "btn seko-button search-button"%>
+    </div>
+
+    <div class=" m-3 p-3 text-center">
+      <div class="d-flex flex-row justify-content-around">
+        <div>
+          <h4>Votre adresse</h4>
+          <p><%= current_user.address %></p>
+        </div>
+        <div>
+          <h4>Date et heure</h4>
+          <p><%= @booking.date.strftime("%d/%m/%Y") %> de <%= @booking.start_time.strftime("%H:%M") %> à <%= @booking.end_time.strftime("%H:%M") %></p>
+        </div>
       </div>
+
+      <h4 class="border-top pt-4"> Activités choisies</h4>
+      <div class="row justify-content-center">
+        <% @tasks.each do |task| %>
+          <div class="col-4">
+            <p><%= task.name %></p>
+          </div>
+        <% end %>
+      </div>
+
+      <%= form_tag "/bookings/#{@booking.id}/validation", method:"patch", class: "border-top pt-4" %>
+        <%= label_tag("Un petit mot qui pourrai aider notre helper ?") %>
+        <%= text_area_tag(:comment, "", size: "50x5", class: "seko-search-bar") %>
+        <h3 class="mb-3 mt-3"><strong><%= @booking.helper.price %> € x <%= (@booking.end_time  - @booking.start_time)/3600 %>heures </strong> </h3>
+        <h3 class="mb-3"><strong>Total : <%= @total %> €</strong></h3>
+        <%= submit_tag 'Valider ma reservation', class: "btn seko-button search-button" %>
     </div>
   </div>
-</div>
 </div>

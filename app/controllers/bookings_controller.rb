@@ -34,7 +34,7 @@ class BookingsController < ApplicationController
   end
 
   def update_task
-    tasks = params.select { |_key, value| value == "1" }.keys
+    tasks = params.select { |_key, value| value == "on" }.keys
     tasks.each do |task|
       Task.create(name: task, booking: @booking)
     end
@@ -43,7 +43,7 @@ class BookingsController < ApplicationController
   end
 
   def update_validation
-    @booking.update(booking_step: 2)
+    @booking.update(comment: params[:comment], booking_step: 2)
     redirect_to senior_path
   end
 

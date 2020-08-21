@@ -257,7 +257,7 @@ puts '...Antho Helper creation Finished!'
 puts "Creating Diplomas..."
 helper1.save
 Diploma.create(
-  name: "Assistante de vie (sans diplôme)",
+  name: "Assistant(e) de vie (sans diplôme)",
   user: helper1
 )
 
@@ -273,13 +273,13 @@ Diploma.create(
 
 helper3.save
 Diploma.create(
-  name: "Assistante de vie (sans diplôme)",
+  name: "Assistant(e) de vie (sans diplôme)",
   user: helper3
 )
 
 helper4.save
 Diploma.create(
-  name: "Assistante de vie (sans diplôme)",
+  name: "Assistant(e) de vie (sans diplôme)",
   user: helper4
 )
 
@@ -311,19 +311,19 @@ Diploma.create(
 
 helper8.save
 Diploma.create(
-  name: "Assistante de vie (sans diplôme)",
+  name: "Assistant(e) de vie (sans diplôme)",
   user: helper8
 )
 
 helper9.save
 Diploma.create(
-  name: "Assistante de vie (sans diplôme)",
+  name: "Assistant(e) de vie (sans diplôme)",
   user: helper9
 )
 
 helper10.save
 Diploma.create(
-  name: "Assistante de vie (sans diplôme)",
+  name: "Assistant(e) de vie (sans diplôme)",
   user: helper10
 )
 

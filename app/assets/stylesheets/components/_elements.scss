@@ -4,6 +4,8 @@
   border-radius: 16px;
   height: 40px;
   color: white;
+  width: 90%;
+  text-align:center;
 }
 
 .seko-button:hover {
@@ -12,6 +14,8 @@
   border-radius: 16px;
   height: 40px;
   color: white;
+  width: 90%;
+  text-align:center;
 }
 
 .seko-search-bar {
@@ -47,7 +51,7 @@
   background-color: #F5F5F7;
 }
 
-p, li{
+p, li, label{
   color: #4E4957;
 }
 
@@ -57,4 +61,8 @@ h4 {
 
 h3 {
   color: #42a5f5;
+}
+
+.fa-star {
+  color: #FFD700;
 }

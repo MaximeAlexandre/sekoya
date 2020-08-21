@@ -3,18 +3,31 @@
     <div class="top-show seko-in-card">
       <div class="mr-4">
         <div>
-          <img class="avatar-large ml-2" src="https://kitt.lewagon.com/placeholder/users/anthomanto" alt="" >
+          <img class="avatar-large ml-2" src="<%= @helper.photo %>" alt="" >
         </div>
       </div>
       <div class="seko-flex seko-show-in-card">
-      <div>
-        <h3><%= @helper.first_name.capitalize %> <%= @helper.last_name.capitalize %></h3>
-        <small>Inscrit depuis <%= @registration_duration %></small><br>
-        <small><%= @helper.car %>Véhiculé</small>
-      </div>
-      <div>
-      <p>Note + nombre d'avis</p>
-      </div>
+        <div>
+          <h3><%= @helper.first_name.capitalize %> <%= @helper.last_name.capitalize %></h3>
+          <small>Inscrit depuis <%= @registration_duration %></small><br>
+          <small><%= @helper.car %>Véhiculé</small>
+        </div>
+        <div>
+          <% if @reviews.empty? %>
+            <p> No reviews currently </p>
+          <% else %>
+            <% @reviews.each do |review| %>
+            <% review.note.times do %>
+              <i class="fas fa-star"> </i>
+                <% end %>
+                <% (5 - review.note).times do %>
+                <% end %>
+              <div class="ml-4 text-center">
+               <p >(<%= @reviews.length %> avis)</p>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
       </div>
     </div>
     <div class="mt-4 ml-2">
@@ -31,10 +44,10 @@
     </div>
     <div class="border-top mt-4 ml-2 pt-4">
       <h4>Reviews</h4>
-      <ul class="m-2">
-        <li class="m-2">review + content</li>
-        <li class="m-2">review + content</li>
-        <li class="m-2">review + content</li>
+      <p><% @reviews.each do |review| %></p>
+      <ul class="reviews m-2">
+        <li class="m-2"><%= review.content %> (<%= review.booking.senior.first_name %>)</li>
+        <% end %>
       </ul>
     </div>
   </div>
