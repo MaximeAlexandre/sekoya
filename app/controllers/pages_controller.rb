@@ -40,7 +40,7 @@ class PagesController < ApplicationController
   end
 
   def futur(list)
-    list.where("date >= ?", Date.today).where.not("status = ? or status = ? or status = ?", "pending","refusé", "annulé")
+    list.where("date >= ? and status = ?", Date.today, "accepté")
   end
 
   def past(list)
