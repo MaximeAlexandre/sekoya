@@ -12,9 +12,8 @@
                         <p><%= @booking_next.helper.first_name %> <%= @booking_next.helper.last_name %></p>
                         <p><%= @booking_next.date %> : <%= @booking_next.start_time.strftime("%R") %> - <%= @booking_next.end_time.strftime("%R") %></p>
                         <p>Tasks</p>
-                        <p><%= @booking_next.status %></p>
                         <p>Status : <%= render :partial => "colorstatus", locals: { booking: @booking_next } %></p>
-                        <button class="seko-button">Details</button>
+                        <%= link_to 'Details', booking_path(@booking_next), class: "btn seko-button"%>
                     <% end %>
                 </div>
             </div>
@@ -35,8 +34,8 @@
                 <p><%= booking.helper.first_name %> <%= booking.helper.last_name %></p>
                 <p><%= booking.date %> : <%= booking.start_time.strftime("%R") %>-<%= booking.end_time.strftime("%R") %></p>
                 <p>Tasks</p>
-                <p><%= booking.status %></p>
-                <button class="seko-button">Details</button>
+                <p>Status : <%= render :partial => "colorstatus", locals: { booking: booking } %></p>
+                <%= link_to 'Details', booking_path(booking), class: "btn seko-button"%>
             </div>
         <% end %>
         <% @pending.each do |booking| %>
@@ -45,12 +44,10 @@
                 <p><%= booking.helper.first_name %> <%= booking.helper.last_name %></p>
                 <p><%= booking.date %> : <%= booking.start_time.strftime("%R") %>-<%= booking.end_time.strftime("%R") %></p>
                 <p>Tasks</p>
-                <p><%= booking.status %></p>
                 <p>Status : <%= render :partial => "colorstatus", locals: { booking: booking } %></p>
-                <button class="seko-button">Details</button>
-                <button class="seko-button"> <%= link_to "Cancel", status_change_path(booking, status: "annulé"),
-                    method: :patch, data: { confirm: 'Are you sure?' } %>
-                </button>
+                <%= link_to 'Details', booking_path(booking), class: "btn seko-button"%>
+                <%= link_to "Cancel", status_change_path(booking, status: "annulé"),
+                method: :patch, data: { confirm: 'Are you sure?' }, class: "btn seko-button" %>
             </div>
         <% end %>
         <% @avenir.each do |booking| %>
@@ -59,26 +56,20 @@
                 <p><%= booking.helper.first_name %> <%= booking.helper.last_name %></p>
                 <p><%= booking.date %> : <%= booking.start_time.strftime("%R") %>-<%= booking.end_time.strftime("%R") %></p>
                 <p>Tasks</p>
-                <p><%= booking.status %></p>
                 <p>Status : <%= render :partial => "colorstatus", locals: { booking: booking } %></p>
-                <button class="seko-button">Details</button>
-                <% if booking.status ==  "accepté" || booking.status ==  "pending" %>
-                    <button class="seko-button"> <%= link_to "Cancel", status_change_path(booking, status: "annulé"),
-                        method: :patch, data: { confirm: 'Are you sure?' } %>
-                    </button>
-                <% end %>
+                <%= link_to 'Details', booking_path(booking), class: "btn seko-button"%>
+                <%= link_to "Cancel", status_change_path(booking, status: "annulé"),
+                method: :patch, data: { confirm: 'Are you sure?' }, class: "btn seko-button" %>
             </div>
         <% end %>
         <% @historique.each do |booking| %>
             <div class="seko-card">
-                <p>all</p>
+                <p>historique</p>
                 <p><%= booking.helper.first_name %> <%= booking.helper.last_name %></p>
                 <p><%= booking.date %> : <%= booking.start_time.strftime("%R") %>-<%= booking.end_time.strftime("%R") %></p>
                 <p>Tasks</p>
-                <p><%= booking.status %></p>
                 <p>Status : <%= render :partial => "colorstatus", locals: { booking: booking } %></p>
-                <button class="seko-button">Details</button>
-            </div>
+                <%= link_to 'Details', booking_path(booking), class: "btn seko-button"%>            </div>
         <% end %>
     </div>
 </div>
