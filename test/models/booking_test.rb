@@ -9,7 +9,6 @@
 #  end_time     :time
 #  start_time   :time
 #  status       :string
-#  task         :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  helper_id    :bigint           not null

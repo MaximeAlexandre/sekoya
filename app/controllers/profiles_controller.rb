@@ -20,6 +20,7 @@ class ProfilesController < ApplicationController
   end
 
   def helper_details
+    @diplomas = Diploma.where(user_id: @helper.id)
     @registration_duration = registered_for(@helper)
     @booking = Booking.new
     @booking.helper = @helper
