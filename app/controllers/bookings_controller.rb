@@ -30,7 +30,14 @@ class BookingsController < ApplicationController
   def edit_validation
     @tasks = Task.where(booking_id: @booking.id)
     @diplomas = Diploma.where(user_id: @booking.helper.id)
-    @total = (@booking.end_time - @booking.start_time)/3600*@booking.helper.price
+    @reviews = []
+    helper = @booking.helper
+    bookings = Booking.where(helper_id: helper.id)
+    bookings.each do |booking|
+      review = Review.find_by(booking_id: booking.id)
+      @reviews << review unless review.nil?
+    end
+    @total = (@booking.end_time - @booking.start_time) / 3600 * @booking.helper.price
   end
 
   def update_task

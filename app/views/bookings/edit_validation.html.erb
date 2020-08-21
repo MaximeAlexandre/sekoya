@@ -13,13 +13,13 @@
         <h3><%= @booking.helper.first_name %> <%= @booking.helper.last_name %></h3>
         <div>
           <% @reviews.each do |review| %>
-          <% review.note.times do %>
-            <i class="fas fa-star"> </i>
-              <% end %>
-              <% (5 - review.note).times do %>
-              <% end %>
+            <% review.note.times do %>
+              <i class="fas fa-star"> </i>
+            <% end %>
+            <% (5 - review.note).times do %>
+            <% end %>
             <div class="ml-4 text-center">
-             <p >(<%= @reviews.length %> avis)</p>
+              <p >(<%= @reviews.length %> avis)</p>
             </div>
           <% end %>
         </div>

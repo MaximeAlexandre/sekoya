@@ -5,6 +5,7 @@ class ProfilesController < ApplicationController
   def helper_list
     @address = params[:address_input]
     @helpers = User.where(role: "helper")
+    @reviews = []
     if params[:address_input].present?
       @near_helpers = @helpers.near(params[:address_input], 10)
       if params[:diploma] == "Certifications"
@@ -27,11 +28,11 @@ class ProfilesController < ApplicationController
     @booking.senior = current_user
     @reviews = []
     bookings = Booking.where(helper_id: @helper.id)
-      bookings.each do |booking|
-        review = Review.find_by(booking_id: booking.id)
-          @reviews << review unless review.nil?
-        end
-        @average_rating = Review.average(:note)
+    bookings.each do |booking|
+      review = Review.find_by(booking_id: booking.id)
+      @reviews << review unless review.nil?
+    end
+    @average_rating = Review.average(:note)
   end
 
   private
