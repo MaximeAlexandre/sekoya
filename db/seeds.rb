@@ -242,7 +242,7 @@ helper11 = User.new(
                 C'est pour cela que j'ai choisi ce métier.\
                 J'aime jouer au échec et me ballader au bord de mer.",
   price: "12",
-  photo: "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png"
+  photo: "https://kitt.lewagon.com/placeholder/users/anthomanto"
 )
 
 puts '...Helpers creation Finished!'
