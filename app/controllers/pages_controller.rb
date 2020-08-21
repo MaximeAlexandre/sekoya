@@ -32,7 +32,7 @@ class PagesController < ApplicationController
 
   def senior_week(list)
     # week = [Date.today] ; (1..6).each { |i| week << Date.today + i }; list.where(date: week)
-    list.where("date >= ? and date <= ?", Date.today, Date.today+6).where(status: "accepté")
+    list.where("date >= ? and date <= ? and status = ?", Date.today, Date.today+6, "accepté")
   end
 
   def pending(list)
@@ -40,7 +40,7 @@ class PagesController < ApplicationController
   end
 
   def futur(list)
-    list.where("date >= ?", Date.today).where.not("status = ? or status = ?", "refusé", "annulé")
+    list.where("date >= ?", Date.today).where.not("status = ? or status = ? or status = ?", "pending","refusé", "annulé")
   end
 
   def past(list)
