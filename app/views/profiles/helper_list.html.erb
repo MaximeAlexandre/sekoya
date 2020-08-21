@@ -36,11 +36,25 @@
               <div>
                 <h3><%= helper.first_name %> <%= helper.last_name %></h3>
                 <p><%= helper.car %></p>
-                <p>
                   <% Diploma.where(user_id: helper.id).each do |diploma| %>
                     <%= diploma.name %>
                   <% end %>
-                </p>
+              <div>
+                  <% if @reviews.empty? %>
+                <p> No reviews currently </p>
+                  <% else %>
+                  <% @reviews.each do |review| %>
+                    <% review.note.times do %>
+                      <i class="fas fa-star"> </i>
+                    <% end %>
+                  <% (5 - review.note).times do %>
+                  <% end %>
+                  <div class="ml-4 text-center">
+                   <p >(<%= @reviews.length %> avis)</p>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
               </div>
                 <div>
                   <p><%= helper.price %>€</p>

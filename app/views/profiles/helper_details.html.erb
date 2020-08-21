@@ -13,15 +13,19 @@
           <small><%= @helper.car %>Véhiculé</small>
         </div>
         <div>
-          <% @reviews.each do |review| %>
-          <% review.note.times do %>
-            <i class="fas fa-star"> </i>
-              <% end %>
-              <% (5 - review.note).times do %>
-              <% end %>
-            <div class="ml-4 text-center">
-             <p >(<%= @reviews.length %> avis)</p>
-            </div>
+          <% if @reviews.empty? %>
+            <p> No reviews currently </p>
+          <% else %>
+            <% @reviews.each do |review| %>
+            <% review.note.times do %>
+              <i class="fas fa-star"> </i>
+                <% end %>
+                <% (5 - review.note).times do %>
+                <% end %>
+              <div class="ml-4 text-center">
+               <p >(<%= @reviews.length %> avis)</p>
+              </div>
+            <% end %>
           <% end %>
         </div>
       </div>

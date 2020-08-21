@@ -5,7 +5,6 @@ class ProfilesController < ApplicationController
   def helper_list
     @address = params[:address_input]
     @helpers = User.where(role: "helper")
-      @average_rating = Review.average(:note)
     if params[:address_input].present?
       @near_helpers = @helpers.near(params[:address_input], 10)
       if params[:diploma] == "Certifications"
