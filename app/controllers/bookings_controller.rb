@@ -51,12 +51,15 @@ class BookingsController < ApplicationController
   end
 
   def update_status
-    if params[:status] == "validate"
-      @booking.update(status: "accepté")
-    elsif params[:status] == "refused"
-      @booking.update(status: "refusé")
-    elsif params[:status] == "cancelled"
-      @booking.update(status: "annulé")
+    if params[:status] == "accepté"
+      @booking.update(status: params[:status])
+      redirect_to helper_path(@booking)
+    elsif params[:status] == "refusé"
+      @booking.update(status: params[:status])
+      redirect_to helper_path(@booking)
+    elsif params[:status] == "annulé"
+      @booking.update(status: params[:status])
+      redirect_to senior_path(@booking)
     end
   end
 

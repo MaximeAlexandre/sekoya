@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get "/bookings/:id/edit_validation", to: "bookings#edit_validation", as: 'validation'
   patch "/bookings/:id/tasks", to: "bookings#update_task", as: 'booking_update_tasks'
   patch "/bookings/:id/validation", to: "bookings#update_validation", as: 'booking_update_validation'
-
+  patch "/bookings/:id/status", to: "bookings#update_status", as: 'status_change'
   get "/senior", to: "pages#senior", as: 'senior'
   get "/helper", to: "pages#helper", as: 'helper'
 end
