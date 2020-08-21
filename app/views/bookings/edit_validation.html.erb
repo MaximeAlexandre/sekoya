@@ -1,26 +1,27 @@
 <div>
   <h3 class="text-center">Vous avez sélectionné notre super Helper <%= @booking.helper.first_name %> </h3>
 </div>
+
 <div class="recap-card">
   <div class="seko-card col-6 p-4 m-2">
-    <div class="seko-in-card m-3 seko-flex">
-      <div class="col-3">
-        <img class="avatar-extra-large" src="https://kitt.lewagon.com/placeholder/users/anthomanto" alt="" >
+    <div class="seko-in-card-recap m-3 seko-flex">
+      <div class="col-3 mt-4">
+        <img class="avatar-extra-large" src="<%= @booking.helper.photo %>" alt="" >
       </div>
 
-      <div class="seko-card m-3 p-3 col-4">
-        <img src="" alt="" >
-        <p><%= @booking.helper.first_name %> <%= @booking.helper.last_name %></p>
-        <p><%= @booking.helper.description %></p>
+      <div class="p-3 col-12">
+        <h3><%= @booking.helper.first_name %> <%= @booking.helper.last_name %></h3>
         <p>review + X reviews</p>
         <p><%= @booking.helper.car %></p>
+        <h4>Formation</h4>
         <% @diplomas.each do |diploma| %>
-          <p><%= diploma.name %></p>
+          <ul>
+          <li><%= diploma.name %></li>
+          </ul>
         <% end %>
-        <p><%= @booking.helper.price %>€</p>
       </div>
-
-      <div class="seko-card m-3 p-3 col-4 text-center">
+</div>
+      <div class=" m-3 p-3 text-center">
         <p>Votre adresse </p>
         <p><%= current_user.address %> </p>
         <p> Date prévue : <%= @booking.date %> de <%= @booking.start_time.strftime("%H:%M%p") %> à <%= @booking.end_time.strftime("%H:%M%p") %></p>
@@ -29,9 +30,10 @@
         <p><%= task.name %></p>
           <% end %>
         <br>
-        <h3> <strong><%= @booking.helper.price %> € x <%= (@booking.end_time  - @booking.start_time)/3600 %>heures </strong> </h3>
-        <%= link_to 'Valider', booking_path(@booking)%>
+        <h3 class="mb-3"> <strong><%= @booking.helper.price %> € x <%= (@booking.end_time  - @booking.start_time)/3600 %>heures </strong> </h3>
+        <%= link_to 'Valider', booking_path(@booking), class: "btn seko-button search-button"%>
       </div>
     </div>
   </div>
+</div>
 </div>
