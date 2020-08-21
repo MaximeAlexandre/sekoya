@@ -30,7 +30,7 @@ import "bootstrap";
 import { initFlatpickr } from '../plugins/init_flatpickr';
 import { initUpdateNavbarOnScroll } from '../components/navbar.js';
 import { initStarRating } from '../plugins/init_star_rating';
-
+import { initDuration } from '../components/time_pickr';
 
 
 document.addEventListener('turbolinks:load', () => {
@@ -39,4 +39,5 @@ document.addEventListener('turbolinks:load', () => {
   initFlatpickr();
   initUpdateNavbarOnScroll();
   initStarRating();
+  initDuration();
 });
