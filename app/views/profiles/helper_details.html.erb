@@ -56,7 +56,7 @@
     <form action="/profiles/<%= @helper.id %>/bookings" method="POST">
       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
       <div class="form-inputs">
-        <input class="form-control datepicker seko-card" name="date" type="date" value="2020-08-19" id="example-date-input" hidden>
+        <input class="form-control datepicker seko-card" name="date" type="date" value=<%= Date.today %> id="example-date-input" hidden>
         <div class="hour-block seko-show-in-card m-3">
           <div class="time-block">
             <label for="start_time">Heure de début</label>
@@ -64,7 +64,7 @@
               <% (7..20).to_a.each do |hour| %>
                 <option value="<%= hour %>"><%= hour %>:00</option>
               <% end %>
-            </select>
+            </select> 
           </div>
           <div class="time-block">
             <label for="end_time">Heure de fin</label>
@@ -76,6 +76,7 @@
           </div>
         </div>
       </div>
+      <p id="total" data-price="<%= @helper.price %>"> <strong><%= (8  - 7) %> heure - Total : <%= (8  - 7)*@helper.price %> €</strong> </p>
       <input class="btn seko-button btn-show" type="submit" value="Valider" class="mt-4">
     </form>
   </div>
