@@ -16,16 +16,16 @@
 .home-men {
   margin-top: 200px;
   display: flex;
-
 }
 
 .standing-men {
   margin-top: 100px;
-  margin-right: 100px;
+  margin-right: 13vw;
+  // margin-right: 200px;
 }
 
 .welcome {
-  margin-bottom: 200px;
+  margin-bottom: 100px;
 }
 
 .blob{
@@ -33,8 +33,9 @@
     top: 0;
     left: 0;
     z-index: -100;
-    width: 800px;
-    margin-left: 600px;
+    width: 50vw;
+    margin-left: 39vw;
+    height: 115vh;
 }
 
 .blob2{
@@ -42,8 +43,9 @@
     top: 0;
     left: 0;
     z-index: -100;
-    width: 800px;
-    margin-left: 800px;
+    width: 50vw;
+    margin-left: 52vw;
+    height: 115vh;
 }
 
 .blob3{
@@ -51,6 +53,7 @@
     top: 0;
     left: 0;
     z-index: -100;
-    width: 800px;
-    margin-left: 400px;
+    width: 50vw;
+    margin-left: 26vw;
+    height: 115vh;
 }
