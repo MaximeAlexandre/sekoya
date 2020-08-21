@@ -20,7 +20,7 @@ User.create(
   last_name: "Belmondo",
   email: "jean-paul.belmondo@gmail.com",
   password: "azertyuiop",
-  address: "70 Rue de la République, 13002 Marseille",
+  address: "70 Rue de la République 13002 Marseille",
   mobile_number: "0607080901",
   role: "senior",
   photo: "https://i.pinimg.com/564x/78/20/f5/7820f5c991ced2c7d5f42a71662c2cf6.jpg"
@@ -31,7 +31,7 @@ User.create(
   last_name: "Tare",
   email: "guy.tare@gmail.com",
   password: "azerty2",
-  address: "Cours Julien, 13006 Marseille",
+  address: "Cours Julien 13006 Marseille",
   mobile_number: "0689754534",
   role: "senior",
   photo: "https://figurants.com/oc-content/uploads/119/12020.jpg"
@@ -42,7 +42,7 @@ User.create(
   last_name: "Delacroix",
   email: "ginette.delacroix@gmail.com",
   password: "123456",
-  address: "150 Rue Paradis, 13006 Marseille",
+  address: "150 Rue Paradis 13006 Marseille",
   mobile_number: "0745389721",
   role: "senior",
   photo: "https://i.pinimg.com/originals/dc/58/dd/dc58dd29018ea05feba4a3d27e34e9c3.jpg"
@@ -53,24 +53,14 @@ User.create(
   last_name: "De Perse",
   email: "veronique.de-perse@gmail.com",
   password: "987654",
-  address: "35 Avenue de Mazargues, Marseille",
+  address: "35 Avenue de Mazargues Marseille",
   mobile_number: "0645389723",
   role: "senior",
   photo: "https://static.actu.fr/uploads/2019/10/52422310b2088478af1b58ee2811f4bad289c15f7368a7294282f7496a84510bfd19495c-854x568.jpg"
 )
 
-User.create(
-  first_name: "Germaine",
-  last_name: "Delaplace",
-  email: "germaine.delaplace@gmail.com",
-  password: "azerty",
-  address: "33 rue thomassin lyon",
-  mobile_number: "0756349876",
-  role: "senior",
-  photo: "https://images.unsplash.com/photo-1447005497901-b3e9ee359928?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80"
-)
-
 puts "...Seniors creation finished"
+
 
 puts "Creating 5 fake female helpers in Lyon..."
 helper1 = User.new(
@@ -78,7 +68,7 @@ helper1 = User.new(
   last_name: "Florens",
   email: "pauline.florens@lewagon.org",
   password: "azerty",
-  address: "rue de la charité, 69002 Lyon",
+  address: "Rue de la Charité 69002 Lyon",
   mobile_number: "0645893723",
   role: "helper",
   description: "Entretenir la maison de la personne accompagnée, en faisant le ménage, les petits travaux d'entretien et de réparation nécessaires, la lessive et le repassage.\
@@ -93,7 +83,7 @@ helper2 = User.new(
   last_name: "Gregoix",
   email: "valerie.gregoix@gmail.com",
   password: "azerty",
-  address: "20 Rue burdeau, 69001 Lyon",
+  address: "20 Rue Burdeau 69001 Lyon",
   mobile_number: "0689348273",
   role: "helper",
   description: "Entretenir la maison de la personne accompagnée, en faisant le ménage, les petits travaux d'entretien et de réparation nécessaires, la lessive et le repassage.\
@@ -148,7 +138,7 @@ helper5 = User.new(
   photo: "https://images.generated.photos/MaDcv47jIe8_YaOCjSw8KMp8TGgntDiJZ3mUYvEUjy8/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAxMjk3MDIuanBn.jpg"
 )
 
-puts '...Helpers creation Finished!'
+puts '...Female helpers creation Finished!'
 
 
 puts "Creating 5 fake male helpers in Lyon..."
@@ -227,15 +217,31 @@ helper10 = User.new(
   photo: "https://images.generated.photos/HPHniRqwQMNv0vYt2LfsuLejbMxBXh-_Fr3mTRa4Z-Y/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA2NDU0NjJfMDE5/MTI1N18wMjk3MDY1/LmpwZw.jpg"
 )
 
-puts '...Helpers creation Finished!'
+puts '...Male helpers creation Finished!'
+
+
+puts "Creating Antho Grandma..."
+User.create(
+  first_name: "Germaine",
+  last_name: "Delaplace",
+  email: "germaine.delaplace@gmail.com",
+  password: "azerty",
+  address: "33 Rue Thomassin Lyon",
+  mobile_number: "0756349876",
+  role: "senior",
+  photo: "https://images.unsplash.com/photo-1447005497901-b3e9ee359928?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80"
+)
+
+puts '...Antho Grandma creation Finished!'
+
 
 puts "Creating Antho Helper..."
 helper11 = User.new(
   first_name: "Anthony",
   last_name: "Manto",
-  email: "anthony.manto8@gmail.com",
+  email: "anthony.manto@gmail.com",
   password: "azerty",
-  address: "Rue edmond rostand, 69002 Lyon",
+  address: "55 Rue Paradis 13006 Marseille",
   mobile_number: "0623987867",
   role: "helper",
   description: "Aider mon prochain est bien qu'un métier, c'est une passion.\
@@ -245,7 +251,7 @@ helper11 = User.new(
   photo: "https://kitt.lewagon.com/placeholder/users/anthomanto"
 )
 
-puts '...Helpers creation Finished!'
+puts '...Antho Helper creation Finished!'
 
 
 puts "Creating Diplomas..."
