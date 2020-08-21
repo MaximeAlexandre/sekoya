@@ -1,64 +1,93 @@
-<div class="row d-flex justify-content-center">
-    <div class="col-sm-9 text-center">
+<div class="">
+    <div class="text-center">
       <h3>Comment  <%= @booking.helper.first_name %> peut il vous aider ? </h3>
       <h4> Vous pouvez choisir jusqu'à X activités </h4>
     </div>
 
-  <div class="d-flex justify-content-center pt-5">
 
+
+<div class="seko-card recap-card container mb-4 mt-5">
   <%= form_tag "/bookings/#{@booking.id}/tasks", method:"patch" %>
-      <div class="compagnie d-flex-column justify-content p-4">
-        <p> COMPAGNIE</p>
-        <div>
-          <%= check_box_tag 'Promenade' %>
+    <div class="seko-flex">
+      <div class="p-4">
+        <p class="text-center">COMPAGNIE</p>
+
+        <div class="category-choice m-3">
+          <input type="checkbox" name="Promenade" hidden>
           <%= label_tag ('Promenade') %>
         </div>
-        <div>
-          <%= check_box_tag 'Loisirs' %>
+
+        <div class="category-choice m-3">
+          <input type="checkbox" name="Loisirs" hidden>
           <%= label_tag ('Loisirs') %>
         </div>
-        <div>
-          <%= check_box_tag 'Activités' %>
-          <%= label_tag ('Activités (intellectuelles ou sportives') %>
+
+        <div class="category-choice m-3">
+          <input type="checkbox" name="Activité intellectuelle" hidden>
+          <%= label_tag ('Activités intellectuelles') %>
         </div>
-      </div>
-      <div class="aide d-flex-column justify-content p-4">
-        <p> AIDE </p>
-        <div>
-        <%= check_box_tag 'Se lever / Se coucher' %>
-        <%= label_tag ('Se lever / Se coucher') %>
+
+        <div class="category-choice m-3">
+          <input type="checkbox" name="Activité sportive" hidden>
+          <%= label_tag ('Activités sportives') %>
         </div>
-        <div>
-        <%= check_box_tag "Se laver / S'habiller" %>
-        <%= label_tag ("Se laver / S'habiller") %>
-        </div>
-        <div>
-        <%= check_box_tag 'Ménage' %>
-        <%= label_tag ('Ménage') %>
-        </div>
-        <div>
-        <%= check_box_tag 'Courses' %>
-        <%= label_tag ('Courses') %>
-        </div>
-      </div>
-      <div class="accompagnement d-flex-column justify-content p-4">
-        <p>ACCOMPAGNEMENT</p>
-        <div>
-        <%= check_box_tag 'Accompagnement à un RDV médical' %>
-        <%= label_tag ('Accompagnement à un RDV médical') %>
-        </div>
-        <div>
-        <%= check_box_tag 'Prise de Médicaments' %>
-        <%= label_tag ('Prise de Médicaments') %>
-        </div>
-        <div>
-        <%= check_box_tag "Gestion d'une pathologie ou d'un Handicap" %>
-        <%= label_tag ("Gestion d'une pathologie ou d'un handicap") %>
-        </div>
-      </div>
-      <div>
-         <%= submit_tag 'Valider' %>
+
       </div>
 
+      <div class="p-4">
+        <p class="text-center">AIDE</p>
+
+        <div class="category-choice m-3">
+          <input type="checkbox" name="Se lever / Se coucher" hidden>
+          <%= label_tag ('Se lever / Se coucher') %>
+        </div>
+
+        <div class="category-choice m-3">
+          <input type="checkbox" name="Se laver / S'habiller" hidden>
+          <%= label_tag ("Se laver / S'habiller") %>
+        </div>
+
+        <div class="category-choice m-3">
+          <input type="checkbox" name="Ménage" hidden>
+          <%= label_tag ('Ménage') %>
+        </div>
+
+        <div class="category-choice m-3">
+          <input type="checkbox" name="Courses" hidden>
+          <%= label_tag ('Courses') %>
+        </div>
+      </div>
+
+      <div class="accompagnement d-flex-column justify-content p-4">
+        <p class="text-center">ACCOMPAGNEMENT</p>
+        <div class="category-choice m-3">
+          <input type="checkbox" name="Accompagnement à un rendez-vous" hidden>
+          <%= label_tag ('Accompagnement à un rendez-vous') %>
+        </div>
+
+        <div class="category-choice m-3">
+          <input type="checkbox" name="Prise de médicaments" hidden>
+          <%= label_tag ('Prise de Médicaments') %>
+        </div>
+
+        <div class="category-choice m-3">
+          <input type="checkbox" name="Gestion d'une pathologie ou d'un Handicap" hidden>
+          <%= label_tag ("Gestion d'une pathologie") %>
+        </div>
+
+        <div class="category-choice m-3">
+          <input type="checkbox" name="Gestion d'une pathologie ou d'un Handicap" hidden>
+          <%= label_tag ("Gestion d'un handicap") %>
+        </div>
+
+      </div>
+
+    </div>
+
+      <div style="text-align:center;">
+         <%= submit_tag 'Valider', class: "btn seko-button mb-4" %>
+      </div>
+
+  </div>
   </div>
 </div>
