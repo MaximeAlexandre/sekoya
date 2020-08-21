@@ -42,7 +42,7 @@ class BookingsController < ApplicationController
   end
 
   def update_validation
-    @booking.update(booking_step: 2)
+    @booking.update(comment: params[:comment], booking_step: 2)
     redirect_to senior_path
   end
 
