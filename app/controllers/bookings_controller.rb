@@ -39,27 +39,25 @@ class BookingsController < ApplicationController
     end
     @senior = current_user
     @booking.senior = @senior
-    @booking.booking_step += 1
-    @booking.save
+    @booking.update(booking_step: 1)
     redirect_to validation_path(@booking)
   end
 
   def update_validation
-    @booking.booking_step += 1
-    @booking.save
-    redirect_to booking_path(@booking)
+    @booking.update(booking_step: 2)
+    redirect_to senior_path
   end
 
   def update_status
     if params[:status] == "accepté"
       @booking.update(status: params[:status])
-      redirect_to helper_path(@booking)
+      redirect_to helper_path
     elsif params[:status] == "refusé"
       @booking.update(status: params[:status])
-      redirect_to helper_path(@booking)
+      redirect_to helper_path
     elsif params[:status] == "annulé"
       @booking.update(status: params[:status])
-      redirect_to senior_path(@booking)
+      redirect_to senior_path
     end
   end
 
