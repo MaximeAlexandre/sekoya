@@ -12,9 +12,8 @@
                         <p><%= @booking_next.senior.first_name %> <%= @booking_next.senior.last_name %></p>
                         <p><%= @booking_next.date %> : <%= @booking_next.start_time.strftime("%R") %>-<%= @booking_next.end_time.strftime("%R") %></p>
                         <p>Tasks</p>
-                        <p><%= @booking_next.status %></p>
                         <p>Status : <%= render :partial => "colorstatus", locals: { booking: @booking_next } %></p>
-                        <button class="seko-button">Details</button>
+                        <%= link_to 'Details', booking_path(@booking_next), class: "btn seko-button"%>
                     <% end %>
                 </div>
             </div>
@@ -35,10 +34,8 @@
                 <p><%= booking.senior.first_name %> <%= booking.senior.last_name %></p>
                 <p><%= booking.date %> : <%= booking.start_time.strftime("%R") %>-<%= booking.end_time.strftime("%R") %></p>
                 <p>Tasks</p>
-                <p><%= booking.status %></p>
                 <p>Status : <%= render :partial => "colorstatus", locals: { booking: booking } %></p>
-                <button class="seko-button">Details</button>
-            </div>
+                <%= link_to 'Details', booking_path(booking), class: "btn seko-button"%>            </div>
         <% end %>
         <% @pending.each do |booking| %>
             <div class="seko-card">
@@ -46,15 +43,12 @@
                 <p><%= booking.senior.first_name %> <%= booking.senior.last_name %></p>
                 <p><%= booking.date %> : <%= booking.start_time.strftime("%R") %>-<%= booking.end_time.strftime("%R") %></p>
                 <p>Tasks</p>
-                <p><%= booking.status %></p>
                 <p>Status : <%= render :partial => "colorstatus", locals: { booking: booking } %></p>
-                <button class="seko-button">Details</button>
-                <button class="seko-button"> <%= link_to "Accept", status_change_path(booking, status: "accepté"),
-                    method: :patch, data: { confirm: 'Do you accept?' } %>
-                </button>
-                <button class="seko-button"> <%= link_to "Refuse", status_change_path(booking, status: "refusé"),
-                    method: :patch, data: { confirm: 'Do you refuse?' } %>
-                </button>
+                <%= link_to 'Details', booking_path(booking), class: "btn seko-button"%>
+                <%= link_to "Accept", status_change_path(booking, status: "accepté"),
+                method: :patch, data: { confirm: 'Do you accept?' }, class: "btn seko-button" %>
+                <%= link_to "Refuse", status_change_path(booking, status: "refusé"),
+                method: :patch, data: { confirm: 'Do you refuse?' }, class: "btn seko-button" %>>
             </div>
         <% end %>
         <% @avenir.each do |booking| %>
@@ -63,28 +57,18 @@
                 <p><%= booking.senior.first_name %> <%= booking.senior.last_name %></p>
                 <p><%= booking.date %> : <%= booking.start_time.strftime("%R") %>-<%= booking.end_time.strftime("%R") %></p>
                 <p>Tasks</p>
-                <p><%= booking.status %></p>
                 <p>Status : <%= render :partial => "colorstatus", locals: { booking: booking } %></p>
-                <button class="seko-button">Details</button>
-                <% if booking.status ==  "pending" %>
-                    <button class="seko-button"> <%= link_to "Accept", status_change_path(booking, status: "accepté"),
-                        method: :patch, data: { confirm: 'Do you accept?' } %>
-                    </button>
-                    <button class="seko-button"> <%= link_to "Refuse", status_change_path(booking, status: "refusé"),
-                        method: :patch, data: { confirm: 'Do you refuse?' } %>
-                    </button>
-                <% end %>
+                <%= link_to 'Details', booking_path(booking), class: "btn seko-button"%>
             </div>
         <% end %>
         <% @historique.each do |booking| %>
             <div class="seko-card">
-                <p>all</p>
+                <p>historique</p>
                 <p><%= booking.senior.first_name %> <%= booking.senior.last_name %></p>
                 <p><%= booking.date %> : <%= booking.start_time.strftime("%R") %>-<%= booking.end_time.strftime("%R") %></p>
                 <p>Tasks</p>
-                <p><%= booking.status %></p>
                 <p>Status : <%= render :partial => "colorstatus", locals: { booking: booking } %></p>
-                <button class="seko-button">Details</button>
+                <%= link_to 'Details', booking_path(booking), class: "btn seko-button"%>
             </div>
         <% end %>
     </div>
