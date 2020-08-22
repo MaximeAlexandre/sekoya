@@ -1,20 +1,8 @@
 
   <div class="bloc-home seko-flex">
 
-    <div class="slogans">
-      <div class="welcome">
-      <h1>Sekoya réinvente l'aide à domicile</h1>
-      <h3>Nos seniors sont toujours zen après le passage de nos helpers</h3>
-      </div>
-      <div class="col-11 seko-card p-3">
-      <form action="/profiles" method="get">
-        <h4 class="mb-3 text-center">Trouvez une aide à domicile autour de vous</h4>
-        <input class="form-control seko-search-bar" name="address_input" type="text" value="<%= @address %>" placeholder="Trouvez des aidants autour de vous" aria-label="Search" required>
-        <input  type="submit" value="Chercher" class="search-button btn seko-button mt-4">
-      </form>
-      </div>
-    </div>
-    <div class="seko-flex  mt-5">
+
+    <div class="seko-flex mt-5 ">
       <svg class="blob" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
         <path fill="#ADE8F4" d="M31.7,-52.8C42.1,-48.9,52.3,-42.5,50.6,-33.3C48.8,-24.1,35.2,-12,35.9,0.4C36.6,12.8,51.6,25.7,53.9,35.8C56.2,46,45.7,53.5,34.6,50.5C23.5,47.4,11.8,33.7,-2.4,37.8C-16.6,42,-33.2,64.1,-41.6,65.6C-50,67.1,-50.2,48.1,-54.3,33.8C-58.4,19.4,-66.3,9.7,-64.2,1.2C-62.1,-7.2,-49.9,-14.5,-39.9,-18.7C-29.9,-22.9,-22.2,-24,-15.9,-30.3C-9.7,-36.7,-4.8,-48.3,2.9,-53.3C10.6,-58.3,21.3,-56.8,31.7,-52.8Z" transform="translate(100 100)" />
       </svg>
@@ -29,6 +17,20 @@
       <div class=""><%= image_tag "men.png" , width: 168, height: 205%></div>
       </div>
       <div class="standing-men"><%= image_tag "men (2).png", width: 236, height: 316 %></div>
+    </div>
+
+    <div class="slogans col-6">
+      <div class="welcome col-12">
+      <h1>Sekoya réinvente l'aide à domicile</h1>
+      <h3>Nos seniors sont toujours zen après le passage de nos helpers</h3>
+      </div>
+      <div class="col-8 seko-card seko-home-form p-3">
+      <form action="/profiles" method="get">
+        <h4 class="mb-3 text-center">Trouvez une aide à domicile autour de vous</h4>
+        <input class="form-control seko-search-bar" name="address_input" type="text" value="<%= @address %>" placeholder="Trouvez des aidants autour de vous" aria-label="Search" required>
+        <input  type="submit" value="Chercher" class="search-button btn seko-button mt-4 ml-4">
+      </form>
+      </div>
     </div>
   </div>
 

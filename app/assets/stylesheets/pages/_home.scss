@@ -4,28 +4,34 @@
 }
 
 .slogans {
-  margin-bottom: 70px;
-  margin-top: 100px;
-  margin-left: 100px;
+  margin-top: 6%;
+  margin-left: 50%;
 }
 
-.bloc-home {
 
-}
 
 .home-men {
-  margin-top: 200px;
+  position: absolute;
+  top: 100;
+  left: 0;
+  z-index: -50;
+  margin-top: 15%;
   display: flex;
-
+  margin-left: 8%;
 }
 
 .standing-men {
-  margin-top: 100px;
-  margin-right: 100px;
+  position: absolute;
+  top: 100;
+  left: 0;
+  z-index: -50;
+  margin-top: 7%;
+  margin-left: 30%;
+
 }
 
 .welcome {
-  margin-bottom: 200px;
+  margin-bottom: 20%;
 }
 
 .blob{
@@ -33,17 +39,18 @@
     top: 0;
     left: 0;
     z-index: -100;
-    width: 800px;
-    margin-left: 600px;
+    width: 50vw;
+    margin-left: 2%;
+    margin-top: 4%;
 }
 
 .blob2{
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -100;
-    width: 800px;
-    margin-left: 800px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -100;
+  width: 60vw;
+  margin-left: 8%;
 }
 
 .blob3{
@@ -51,6 +58,10 @@
     top: 0;
     left: 0;
     z-index: -100;
-    width: 800px;
-    margin-left: 400px;
+    width: 60vw;
+    margin-left: -14%;
+}
+
+.seko-home-form {
+  width: 60vw;
 }
