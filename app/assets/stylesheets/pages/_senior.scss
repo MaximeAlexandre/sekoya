@@ -1,2 +1,24 @@
-.senior-short-block {
+.senior-long-block {
+  width: 90vw;
+  }
+
+  .seko-senior-btn {
+    width: 100%;
+    background: linear-gradient(270deg, #42A5F5 0%, #97D5DF 100%);
+    box-shadow: 0px 15px 30px rgba(20, 102, 204, 0.16);
+    border-radius: 16px;
+    height: 40px;
+    color: white;
+    width: 90%;
+    text-align:center;
+  }
+
+.seko-cancel-area {
+  width: 10%;
+}
+
+.seko-column {
+  display: flex;
+  flex-direction: column;
+
 }
