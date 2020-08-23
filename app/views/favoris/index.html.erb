@@ -1,0 +1,8 @@
+<div>
+    <%@favoris.each do |booking| %>
+        <div>
+            <p> <%= booking.helper.first_name %> <%= booking.helper.last_name %></p>
+            <%= render :partial => "remove_favoris", locals: { booking: booking, helpers: @favoris_helper } %>
+        </div>
+    <% end  %>
+</div>
