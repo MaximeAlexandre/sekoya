@@ -20,11 +20,15 @@
             <img class="avatar-large" src="<%= @booking_next.helper.photo %>" alt="" >
           </div>
           <div class="col-10">
+            <div class="seko-flex">
           <p><%= @booking_next.helper.first_name %> <%= @booking_next.helper.last_name %></p>
-          <p><%= @booking_next.date %> : <%= @booking_next.start_time.strftime("%R") %> - <%= @booking_next.end_time.strftime("%R") %></p>
+          <p><%= @booking_next.date.strftime("%d/%m/%Y") %> : <%= @booking_next.start_time.strftime("%R") %> - <%= @booking_next.end_time.strftime("%R") %></p>
 
           <p><%= render :partial => "colorstatus", locals: { booking: @booking_next } %></p>
+          <div>
           <%= render :partial => "favoris", locals: { booking: @booking_next, helpers: @favoris_helper, path: "dashboard" } %>
+          </div>
+        </div>
           </div>
           </div>
           <% end %>
@@ -41,8 +45,7 @@
       </div>
 
       <div class="seko-card text-center p-2 m-3">
-        <%= link_to favoris_index_path do %>
-
+        <%= link_to favoris_index_path do%>
         <h1>Mes favoris</h1>
         <p>Retouvez vos helpers préférés.</p>
         <% end %>
@@ -63,19 +66,19 @@
       <ul class="nav" id="myTab" role="tablist">
 
         <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="week-tab" data-toggle="tab" href="#week" role="tab" aria-controls="week" aria-selected="true">Cette semaine</a>
+          <a class="nav-link active dashboard-nav-btn" id="week-tab" data-toggle="tab" href="#week" role="tab" aria-controls="week" aria-selected="true">Cette semaine</a>
         </li>
 
         <li class="nav-item" role="presentation">
-          <a class="nav-link" id="pending-tab" data-toggle="tab" href="#pending" role="tab" aria-controls="pending" aria-selected="false">En attente</a>
+          <a class="nav-link dashboard-nav-btn" id="pending-tab" data-toggle="tab" href="#pending" role="tab" aria-controls="pending" aria-selected="false">En attente</a>
         </li>
 
         <li class="nav-item" role="presentation">
-          <a class="nav-link" id="futur-tab" data-toggle="tab" href="#futur" role="tab" aria-controls="futur" aria-selected="false">A venir</a>
+          <a class="nav-link dashboard-nav-btn" id="futur-tab" data-toggle="tab" href="#futur" role="tab" aria-controls="futur" aria-selected="false">A venir</a>
         </li>
 
         <li class="nav-item" role="presentation">
-          <a class="nav-link" id="historique-tab" data-toggle="tab" href="#historique" role="tab" aria-controls="historique" aria-selected="false">Historique</a>
+          <a class="nav-link dashboard-nav-btn" id="historique-tab" data-toggle="tab" href="#historique" role="tab" aria-controls="historique" aria-selected="false">Historique</a>
         </li>
 
       </ul>
@@ -87,27 +90,44 @@
           <%= link_to booking_path(booking) do%>
 
           <div class="seko-card pl-3 pt-3 mb-3 pr-4 seko-flex senior-long-block">
-
+            <div class="seko-flex">
             <div>
-              <img class="avatar-large" src="<%= booking.helper.photo %>" alt="" >
+              <img class="avatar-large mt-3" src="<%= booking.helper.photo %>" alt="" >
             </div>
 
-            <div>
-              <p><%= booking.helper.first_name %> <%= booking.helper.last_name %></p>
-              <p><%= booking.date %> : <%= booking.start_time.strftime("%R") %>-<%= booking.end_time.strftime("%R") %></p>
+            <div class="ml-4 pr-4 border-right pt-4 border-left pl-4 seko-part-card">
+              <h4><%= booking.helper.first_name %> <%= booking.helper.last_name %></h4>
+              <p><%= booking.date.strftime("%d/%m/%Y") %> : <%= booking.start_time.strftime("%R") %>-<%= booking.end_time.strftime("%R") %></p>
               <p><%= render :partial => "colorstatus", locals: { booking: booking } %></p>
-              <%= render :partial => "favoris", locals: { booking: booking, helpers: @favoris_helper, path: "dashboard" } %>
             </div>
 
-            <div>
+            <div class="ml-4 pr-4 border-right pt-4 seko-part-card">
+              <h4>Prestations:</h4>
               <% booking.tasks.each do |task| %>
-              <p><%= task.name %></p>
+              <ul>
+              <li><%= task.name %></li>
+              </ul>
               <% end %>
+            </div>
+            <div class="ml-4 mt-4 seko-part-card-price">
+              <h4>Prix</h4>
+                <p><%= booking.helper.price %>€ par heure</p>
+            </div>
+            <div>
+            </div>
+
+            </div>
+            <div class="col-3 seko-cancel-area border-left pt-4 pl-4">
+            <%= link_to "Profil de l'aidant", profile_path(booking.helper), class: "btn seko-button mt-4" %>
+            </div>
+            <div>
+            <%= render :partial => "favoris", locals: { booking: booking, helpers: @favoris_helper, path: "dashboard" } %>
             </div>
             </div>
           <% end %>
           <% end %>
         </div>
+
         <div class="tab-pane fade" id="pending" role="tabpanel" aria-labelledby="pending-tab">
           <% @pending.each do |booking| %>
           <%= link_to booking_path(booking) do%>
@@ -115,15 +135,16 @@
         <div class="seko-flex">
 
             <div>
-              <img class="avatar-large" src="<%= booking.helper.photo %>" alt="" >
+              <img class="avatar-large mt-3" src="<%= booking.helper.photo %>" alt="" >
             </div>
 
-            <div class="ml-4 pr-4 border-right pt-4">
+            <div class="ml-4 pr-4 border-right pt-4 border-left pl-4 seko-part-card">
               <h4><%= booking.helper.first_name %> <%= booking.helper.last_name %></h4>
               <p><%= booking.date.strftime("%d/%m/%Y") %> : <%= booking.start_time.strftime("%R") %>-<%= booking.end_time.strftime("%R") %></p>
               <p><%= render :partial => "colorstatus", locals: { booking: booking } %></p>
             </div>
-            <div class="ml-4 pr-4 border-right pt-4">
+
+            <div class="ml-4 pr-4 border-right pt-4 seko-part-card">
               <h4>Prestations:</h4>
               <% booking.tasks.each do |task| %>
               <ul>
@@ -132,18 +153,21 @@
               <% end %>
             </div>
 
-            <div class="ml-4 mt-4">
+            <div class="ml-4 mt-4 seko-part-card-price">
               <h4>Prix</h4>
               <p><%= booking.helper.price %>€ par heure</p>
             </div>
 
             </div>
-            <div class="col-3 senior-cancel-area">
-              <p class="text-center">Voulez vous annuler cette réservation?</p>
-              <%= link_to "Cancel", status_change_path(booking, status: "annulé"),
-              method: :patch, data: { confirm: 'Are you sure?' }, class: "btn seko-senior-btn" %>
+            <div class="col-3 seko-cancel-area border-left pt-4 pl-4">
+              <%= link_to "Profil de l'aidant", profile_path(booking.helper), class: "btn seko-button mt-4" %>
+              <%= link_to "Annuler cette demande", status_change_path(booking, status: "annulé"),
+              method: :patch, data: { confirm: 'Are you sure?' }, class: "btn seko-cancel-button mt-4" %>
             </div>
 
+            <div>
+            <%= render :partial => "favoris", locals: { booking: booking, helpers: @favoris_helper, path: "dashboard" } %>
+            </div>
             </div>
           <% end %>
           <% end %>
@@ -157,26 +181,35 @@
             <div class="seko-flex">
 
             <div>
-              <img class="avatar-large" src="<%= booking.helper.photo %>" alt="" >
+              <img class="avatar-large mt-3" src="<%= booking.helper.photo %>" alt="" >
             </div>
 
-            <div>
+            <div class="ml-4 pr-4 border-right pt-4 border-left pl-4 seko-part-card">
               <p><%= booking.helper.first_name %> <%= booking.helper.last_name %></p>
-              <p><%= booking.date %> : <%= booking.start_time.strftime("%R") %>-<%= booking.end_time.strftime("%R") %></p>
+              <p><%= booking.date.strftime("%d/%m/%Y") %> : <%= booking.start_time.strftime("%R") %>-<%= booking.end_time.strftime("%R") %></p>
               <p><%= render :partial => "colorstatus", locals: { booking: booking } %></p>
             </div>
 
-            <div>
+            <div class="ml-4 pr-4 border-right pt-4 seko-part-card">
+              <h4>Prestations:</h4>
               <% booking.tasks.each do |task| %>
-              <p><%= task.name %></p>
+              <ul>
+              <li><%= task.name %></li>
+              </ul>
               <% end %>
             </div>
+            <div class="ml-4 mt-4 seko-part-card-price">
+              <h4>Prix</h4>
+              <p><%= booking.helper.price %>€ par heure</p>
             </div>
-            <div class=" col-3 seko-cancel-area">
-              <p class="text-center">Voulez vous annuler cette réservation?</p>
-              <%= link_to "Cancel", status_change_path(booking, status: "annulé"),
-              method: :patch, data: { confirm: 'Are you sure?' }, class: "btn seko-senior-btn" %>
-              <%= render :partial => "favoris", locals: { booking: booking, helpers: @favoris_helper, path: "dashboard" } %>
+            </div>
+            <div class=" col-3 seko-cancel-area seko-part-card border-left pt-4 pl-4">
+              <%= link_to "Profil de l'aidant", profile_path(booking.helper), class: "btn seko-button mt-4" %>
+              <%= link_to "Annuler cette réservation", status_change_path(booking, status: "annulé"),
+              method: :patch, data: { confirm: 'Are you sure?' }, class: "btn seko-cancel-button mt-4" %>
+            </div>
+            <div>
+            <%= render :partial => "favoris", locals: { booking: booking, helpers: @favoris_helper, path: "dashboard" } %>
             </div>
           </div>
           <% end %>
@@ -187,23 +220,36 @@
               <% @historique.each do |booking| %>
               <%= link_to booking_path(booking) do%>
 
-              <div class="seko-card pl-3 pt-3 mb-3 pr-4 seko-flex">
-
+              <div class="seko-card pl-3 pt-3 mb-3 pr-4 seko-flex senior-long-block">
+                <div class="seko-flex">
                 <div>
-                  <img class="avatar-large" src="<%= booking.helper.photo %>" alt="" >
+                  <img class="avatar-large mt-3" src="<%= booking.helper.photo %>" alt="" >
                 </div>
 
-                <div>
-                  <p><%= booking.helper.first_name %> <%= booking.helper.last_name %></p>
-                  <p><%= booking.date %> : <%= booking.start_time.strftime("%R") %>-<%= booking.end_time.strftime("%R") %></p>
+                <div class="ml-4 pr-4 border-right border-left pl-4 pt-4 seko-part-card">
+                  <h4><%= booking.helper.first_name %> <%= booking.helper.last_name %></h4>
+                  <p><%= booking.date.strftime("%d/%m/%Y") %> : <%= booking.start_time.strftime("%R") %>-<%= booking.end_time.strftime("%R") %></p>
                   <p><%= render :partial => "colorstatus", locals: { booking: booking } %></p>
-                  <%= render :partial => "favoris", locals: { booking: booking, helpers: @favoris_helper, path: "dashboard" } %>
                 </div>
 
-                <div>
+                <div class="ml-4 pr-4 border-right pt-4 seko-part-card">
+                  <h4>Prestations:</h4>
                   <% booking.tasks.each do |task| %>
-                  <p><%= task.name %></p>
+                  <ul>
+                  <li><%= task.name %></li>
+                  </ul>
                   <% end %>
+                </div>
+                <div class="ml-4 mt-4 seko-cancel-area seko-part-card-price">
+                  <h4>Prix</h4>
+                  <p><%= booking.helper.price %>€ par heure</p>
+                </div>
+                </div>
+                <div class="ml-4 seko-cancel-area seko-part-card border-left pt-4 pl-4">
+                  <%= link_to "Profil de l'aidant", profile_path(booking.helper), class: "btn seko-button mt-4" %>
+                </div>
+                <div>
+                <%= render :partial => "favoris", locals: { booking: booking, helpers: @favoris_helper, path: "dashboard" } %>
                 </div>
                 </div>
                 <% end %>
