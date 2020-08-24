@@ -14,7 +14,8 @@ class FavorisController < ApplicationController
         booking = Booking.find(params[:id])
         favori = Favori.find_by(booking: booking)
         favori.destroy
-        redirect_to favoris_index_path
+        redirect_to favoris_index_path if params[:path] == "favoris"
+        redirect_to senior_path if params[:path] == "dashboard"
     end
 
 end
