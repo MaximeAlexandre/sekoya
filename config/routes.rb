@@ -17,4 +17,7 @@ Rails.application.routes.draw do
   patch "/bookings/:id/status", to: "bookings#update_status", as: 'status_change'
   get "/senior", to: "pages#senior", as: 'senior'
   get "/helper", to: "pages#helper", as: 'helper'
+  get "/favoris", to: "favoris#index", as: 'favoris_index'
+  post "/favoris", to: "favoris#create"
+  delete "/favoris/:id", to: "favoris#destroy",as: 'favoris_destroy'
 end

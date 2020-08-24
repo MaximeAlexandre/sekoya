@@ -5,19 +5,27 @@
   <div class="form-group mt-4">
     <form action="/profiles" method="GET">
       <div class="d-flex flex-row bd-highlight mb-4 seko-card">
+          <label class="mt-4 ml-4" for="address_input">Adresse</label>
+          <input class="form-control seko-search-bar m-3" style="width: 250px" name="address_input" type="text" value="<%= params[:address_input] %>" placeholder="Trouvez des aidants autour de vous" aria-label="Search" required>
         <div>
           <label class="mt-4 ml-4" for="diploma">Filtrer</label>
         </div>
-        <div class="m-3">
+        <div class="m-3" style="width: 250px">
           <select name="diploma" class="form-control seko-search-bar" id="exampleFormControlSelect1">
             <option selected>Certifications</option>
-            <option>Certification Parkinson</option>
-            <option>Certification Epee et monstres</option>
-            <option>Certification gomu gomu</option>
+            <% @diplomas_name.each do |diploma_name| %>
+              <option><%= diploma_name %></option>
+            <% end %>
           </select>
-          <input type="text" value="<%= @address %>" name="address_input" hidden>
         </div>
-        <div class="m-3">
+        <div class="text-center ml-4" style="padding-top: 15px;">
+          <p style="margin-bottom: 0;">Véhiculé</p>
+          <input type="radio" id="yes" name="car" value="true">
+          <label for="yes">Oui</label>
+          <input type="radio" id="no" name="car" value="false">
+          <label for="no">Non</label>
+        </div>
+        <div class="m-3 ml-5">
           <input class="btn seko-button filter-btn" type="submit" value="↺">
         </div>
       </div>
@@ -25,7 +33,7 @@
   </div>
 
   <div>
-    <% @near_helpers.each do |helper| %>
+    <% @helpers.each do |helper| %>
     <%= link_to profile_path(helper), :style=>'color: black;' do %>
     <div class="col-12">
       <div class="seko-card seko-flex mt-3 col-8">
@@ -34,11 +42,19 @@
         </div>
         <div class="seko-in-card seko-flex seko-in-card-list m-3 col-8">
           <div>
-            <h3><%= helper.first_name %> <%= helper.last_name %></h3>
-            <p><%= helper.car %></p>
-            <% Diploma.where(user_id: helper.id).each do |diploma| %>
-              <%= diploma.name %>
-            <% end %>
+            <div class="d-flex flex-row justify-content-between align-items-center">
+              <h3><%= helper.first_name %> <%= helper.last_name %></h3>
+              <% if helper.car %>
+                <i class="fas fa-car"></i>
+              <% else %>
+                <i class="fas fa-walking"></i>
+              <% end %>
+            </div>
+            <ul>
+              <% Diploma.where(user_id: helper.id).each do |diploma| %>
+                <li><%= diploma.name %></li>
+              <% end %>
+            </ul>
             <div>
               <%  @reviews =[]%>
               <% bookings = Booking.where(helper_id: helper.id) %>

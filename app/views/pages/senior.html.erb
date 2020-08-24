@@ -24,6 +24,7 @@
           <p><%= @booking_next.date %> : <%= @booking_next.start_time.strftime("%R") %> - <%= @booking_next.end_time.strftime("%R") %></p>
 
           <p><%= render :partial => "colorstatus", locals: { booking: @booking_next } %></p>
+          <%= render :partial => "favoris", locals: { booking: @booking_next, helpers: @favoris_helper } %>
           </div>
           </div>
           <% end %>
@@ -41,6 +42,7 @@
 
       <div class="seko-card text-center p-2 m-3">
         <h1>Mes favoris</h1>
+        <%= link_to "Retouvez vos helpers préférés.", favoris_index_path, class: "btn seko-senior-btn" %>
         <p>Retouvez vos helpers préférés.</p>
       </div>
 
@@ -92,6 +94,7 @@
               <p><%= booking.helper.first_name %> <%= booking.helper.last_name %></p>
               <p><%= booking.date %> : <%= booking.start_time.strftime("%R") %>-<%= booking.end_time.strftime("%R") %></p>
               <p><%= render :partial => "colorstatus", locals: { booking: booking } %></p>
+              <%= render :partial => "favoris", locals: { booking: booking, helpers: @favoris_helper } %>
             </div>
 
             <div>
@@ -129,6 +132,7 @@
               <p class="text-center">Voulez vous annuler cette réservation?</p>
               <%= link_to "Cancel", status_change_path(booking, status: "annulé"),
               method: :patch, data: { confirm: 'Are you sure?' }, class: "btn seko-senior-btn" %>
+              <%= render :partial => "favoris", locals: { booking: booking, helpers: @favoris_helper } %>
             </div>
 
             </div>
@@ -163,6 +167,7 @@
               <p class="text-center">Voulez vous annuler cette réservation?</p>
               <%= link_to "Cancel", status_change_path(booking, status: "annulé"),
               method: :patch, data: { confirm: 'Are you sure?' }, class: "btn seko-senior-btn" %>
+              <%= render :partial => "favoris", locals: { booking: booking, helpers: @favoris_helper } %>
             </div>
           </div>
           <% end %>
@@ -183,6 +188,7 @@
                   <p><%= booking.helper.first_name %> <%= booking.helper.last_name %></p>
                   <p><%= booking.date %> : <%= booking.start_time.strftime("%R") %>-<%= booking.end_time.strftime("%R") %></p>
                   <p><%= render :partial => "colorstatus", locals: { booking: booking } %></p>
+                  <%= render :partial => "favoris", locals: { booking: booking, helpers: @favoris_helper } %>
                 </div>
 
                 <div>
