@@ -1,4 +1,7 @@
 <% unless helpers.include?(booking.helper) %>
     <%= link_to "Add to Favoris", favoris_path(booking: booking),
     method: :post, data: { confirm: 'Are you sure?' }, class: "btn seko-senior-btn" %>
+<% else  %>
+    <%= link_to "Remove from Favoris", favoris_destroy_path(booking, path: path),
+    method: :delete, data: { confirm: 'Are you sure?' }, class: "btn seko-senior-btn" %>
 <% end  %>

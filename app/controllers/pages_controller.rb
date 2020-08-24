@@ -7,14 +7,14 @@ class PagesController < ApplicationController
   end
 
   def senior
-    @bookings = Booking.where(booking_step: 2).where(senior_id: current_user.id).order(date: :asc, start_time: :asc)
+    @bookings = Booking.where("booking_step = ? and senior_id = ?", 2, current_user.id).order(date: :asc, start_time: :asc)
     @booking_next = @bookings.find_by(status: "accepté")
     list_4_senior(@bookings)
     favoris
   end
 
   def helper
-    @bookings = Booking.where(helper_id: current_user.id).order(date: :asc, start_time: :asc)
+    @bookings = Booking.where("booking_step = ? and helper_id = ?", 2, current_user.id).order(date: :asc, start_time: :asc)
     @booking_next = @bookings.find_by(status: "accepté")
     list_4_helper(@bookings)
   end
