@@ -2,6 +2,9 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home]
 
   def home
+    if user_signed_in?
+      redirect_to helper_path if current_user.role == "helper"
+    end
     @address = ""
     @address = current_user.address if user_signed_in?
   end
