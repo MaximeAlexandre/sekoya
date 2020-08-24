@@ -41,7 +41,9 @@ document.addEventListener('turbolinks:load', () => {
   initUpdateNavbarOnScroll();
   initStarRating();
   initCheckBoxes();
-  initUserChoice();
+  
+  if (document.querySelector('#ask_senior') || document.querySelector('#ask_helper')) {
+    initUserChoice();
+  }
   initDuration();
-
 });
