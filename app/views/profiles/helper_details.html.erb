@@ -16,11 +16,11 @@
           <% if @reviews.empty? %>
             <p> No reviews currently </p>
           <% else %>
-            <p> Moyenne : <%=  @average_rating %></p>
+            <p> Moyenne : <%= @average_rating %></p>
+            <div class="ml-4 text-center">
+              <p >(<%= @reviews.length %> avis)</p>
+            </div>
           <% end %>
-              <div class="ml-4 text-center">
-               <p >(<%= @reviews.length %> avis)</p>
-              </div>
         </div>
       </div>
     </div>

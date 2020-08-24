@@ -7,8 +7,12 @@ class ProfilesController < ApplicationController
       @address = params[:address_input]
       @helpers = User.where(role: "helper")
       @diplomas_name = diplomas_name_list
+
       near_helpers = @helpers.near(params[:address_input], 10)
       @helpers = near_helpers_filter(params, near_helpers)
+
+      @cheaper_helper = @helpers.min_by(&:price)
+      @best_note_helper = User.find(best_average_rating(@helpers)[:helper_id])
     else
       redirect_to '#'
     end
@@ -20,21 +24,14 @@ class ProfilesController < ApplicationController
     @booking = Booking.new
     @booking.helper = @helper
     @booking.senior = current_user
-    @reviews = []
-    bookings = Booking.where(helper_id: @helper.id)
-    bookings.each do |booking|
-      review = Review.find_by(booking_id: booking.id)
-      @reviews << review unless review.nil?
-    end
-    @average_rating = @reviews.collect(&:note).sum.to_f/@reviews.length if @reviews.length > 0
-
+    @reviews = reviews_list(@helper)
+    @average_rating = average_rating(@reviews)
   end
 
   private
 
   def set_user
     @helper = User.find(params[:id])
-    # authorize @helper
   end
 
   def registered_for(helper)
@@ -58,15 +55,55 @@ class ProfilesController < ApplicationController
   end
 
   def near_helpers_filter(params, near_helpers)
-    if params[:diploma].present? && params[:diploma] != "Certifications" && params[:car].present?
-      near_helpers = near_helpers.select { |helper| helper.diplomas.where(name: params[:diploma]).present? }
-      near_helpers.select { |helper| helper.car.to_s == params[:car] }
-    elsif params[:diploma].present? && params[:diploma] != "Certifications"
-      near_helpers.select { |helper| helper.diplomas.where(name: params[:diploma]).present? }
+    if params[:diploma].present? && params[:car].present?
+      helpers = diploma_filter(params, near_helpers)
+      car_filter(params, helpers)
+    elsif params[:diploma].present?
+      diploma_filter(params, near_helpers)
     elsif params[:car].present?
-      near_helpers.select { |helper| helper.car.to_s == params[:car] }
+      car_filter(params, near_helpers)
     else
       near_helpers
     end
+  end
+
+  def car_filter(params, near_helpers)
+    return near_helpers.select { |helper| helper.car.to_s == params[:car] } if params[:car] != "Tous"
+
+    near_helpers
+  end
+
+  def diploma_filter(params, near_helpers)
+    return near_helpers.select { |helper| helper.diplomas.where(name: params[:diploma]).present? } if params[:diploma] != "Toutes"
+
+    near_helpers
+  end
+
+  def best_average_rating(helpers)
+    average_rating_helpers = []
+    helpers.each do |helper|
+      reviews = reviews_list(helper)
+      next if reviews.empty?
+
+      average_rating_helpers << {
+        helper_id: helper.id,
+        average_note: reviews.collect(&:note).sum.to_f / reviews.length
+      }
+    end
+    average_rating_helpers.max_by { |rating| rating[:average_note] }
+  end
+
+  def reviews_list(helper)
+    reviews = []
+    bookings = Booking.where(helper_id: helper.id)
+    bookings.each do |booking|
+      review = Review.find_by(booking_id: booking.id)
+      reviews << review unless review.nil?
+    end
+    reviews
+  end
+
+  def average_rating(reviews)
+    reviews.collect(&:note).sum.to_f / reviews.length unless reviews.empty?
   end
 end
