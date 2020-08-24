@@ -8,15 +8,13 @@ class PagesController < ApplicationController
 
   def senior
     @bookings = Booking.where("booking_step = ? and senior_id = ?", 2, current_user.id).order(date: :asc, start_time: :asc)
-    @booking_next = @bookings.find_by(status: "accepté")
-    list_4_senior(@bookings)
+    lists_5_senior(@bookings)
     favoris
   end
 
   def helper
     @bookings = Booking.where("booking_step = ? and helper_id = ?", 2, current_user.id).order(date: :asc, start_time: :asc)
-    @booking_next = @bookings.find_by(status: "accepté")
-    list_4_helper(@bookings)
+    lists_5_helper(@bookings)
   end
 
   private
@@ -42,18 +40,24 @@ class PagesController < ApplicationController
     list.where("date < ? or status = ? or status = ?", Date.today, "refusé", "annulé")
   end
 
-  def list_4_senior(bookings)
+  def booking_next(list)
+    @booking_next = list.first
+  end
+
+  def lists_5_senior(bookings)
     @senior_week = senior_week(bookings)
     @pending = pending(bookings)
     @avenir = futur(bookings)
     @historique = past(bookings)
+    booking_next(@avenir)
   end
 
-  def list_4_helper(bookings)
+  def lists_5_helper(bookings)
     @helper_day = helper_day(bookings)
     @pending = pending(bookings)
     @avenir = futur(bookings)
     @historique = past(bookings)
+    booking_next(@avenir)
   end
 
   def favoris
