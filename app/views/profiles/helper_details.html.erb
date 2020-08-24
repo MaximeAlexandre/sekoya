@@ -16,17 +16,11 @@
           <% if @reviews.empty? %>
             <p> No reviews currently </p>
           <% else %>
-            <% @reviews.each do |review| %>
-            <% review.note.times do %>
-              <i class="fas fa-star"> </i>
-                <% end %>
-                <% (5 - review.note).times do %>
-                <% end %>
+            <p> Moyenne : <%=  @average_rating %></p>
+          <% end %>
               <div class="ml-4 text-center">
                <p >(<%= @reviews.length %> avis)</p>
               </div>
-            <% end %>
-          <% end %>
         </div>
       </div>
     </div>
@@ -44,8 +38,8 @@
     </div>
     <div class="border-top mt-4 ml-2 pt-4">
       <h4>Reviews</h4>
-      <p><% @reviews.each do |review| %></p>
       <ul class="reviews m-2">
+        <% @reviews.each do |review| %>
         <li class="m-2"><%= review.content %> (<%= review.booking.senior.first_name %>)</li>
         <% end %>
       </ul>
@@ -64,7 +58,7 @@
               <% (7..20).to_a.each do |hour| %>
                 <option value="<%= hour %>"><%= hour %>:00</option>
               <% end %>
-            </select> 
+            </select>
           </div>
           <div class="time-block">
             <label for="end_time">Heure de fin</label>

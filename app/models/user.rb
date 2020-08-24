@@ -52,4 +52,8 @@ class User < ApplicationRecord
   validates :description, presence: true, if: proc { |user| user.role == "helper" }
   validates :price, presence: true, if: proc { |user| user.role == "helper" }
   validates :mobile_number, presence: true, uniqueness: true
+
+  def average_review
+    reviews.sum('note') / reviews.count if reviews.count > 0
+  end
 end
