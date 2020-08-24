@@ -17,12 +17,12 @@
             <p> No reviews currently </p>
           <% else %>
             <%(@average_rating).to_i.times do%>
-            <i class="fas fa-star"> </i>
+              <i class="fas fa-star"> </i>
             <% end %>
+            <div class="ml-4 text-center">
+              <p>(<%= @reviews.length %> avis)</p>
+            </div>
           <% end %>
-              <div class="ml-4 text-center">
-               <p >(<%= @reviews.length %> avis)</p>
-              </div>
         </div>
       </div>
     </div>
