@@ -1,31 +1,68 @@
-<% @tasks.each do |task| %>
-  <%= task.name %>
-<% end %>
-
-<p>  Liste des commentaires </p>
-<% @booking.reviews.each do |review| %>
- <% review.note.times do%>
-   <i class="fas fa-star"> </i>
- <% end %>
- <p><%=  review.content %> (<%= review.booking.senior.first_name %>) </p>
-<% end %>
-<div class="container">
-  <div class="row">
-    <div class="col-xs-4">
-      <% if @booking.display_review_form(current_user) %>
-      <%= simple_form_for [@booking, @review] do |f| %>
-        <%= f.error_notification %>
-        <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-        <div class="form-inputs">
-          <%= f.input :content, label: 'Laisser un commentaire'%>
-          <%= f.input :note, collection: 1..5, label: 'Notez votre experience'%>
+<div class="show-flex container mt-5">
+  <div class="seko-card text-center mr-5 p-4">
+    <p> DETAILS DE LA RESERVATION </p>
+    <p> DATE : <%= @booking.date.strftime("%d/%m/%Y")  %> </p>
+    <p> ENTRE <%=  @booking.start_time.strftime("%H:%M") %> ET <%=  @booking.end_time.strftime("%H:%M")%></p>
+    <small> Tâches prévues: </small>
+      <% @booking.tasks.each do |task| %><br>
+       <%= task.name %>
+      <% end %>
+  </div>
+  <div class="col-7 seko-card show-profil-card mr-5 p-4">
+    <div class="top-show seko-in-card">
+      <div class="mr-4">
+        <div>
+          <% if current_user.role == "helper" %>
+            <img class="avatar-large ml-2" src="<%= @booking.senior.photo %>" alt="" >
+          <% else %>
+            <img class="avatar-large ml-2" src="<%= @booking.helper.photo %>" alt="" >
+          <% end %>
         </div>
-        <div class="seko-button">
-          <%= f.button :submit, 'Ajouter un commentaire' %>
+      </div>
+      <div class="seko-flex seko-show-in-card">
+        <div>
+          <% if current_user.role == "helper" %>
+            <h3><%= @booking.senior.first_name.capitalize %> <%= @booking.senior.last_name.capitalize %></h3>
+            <p> Adresse : <%= @booking.senior.address %></p>
+          <% else %>
+            <h3><%= @booking.helper.first_name.capitalize %> <%= @booking.helper.last_name.capitalize %></h3>
+          <% end %>
         </div>
+      </div>
+    </div>
+    <div class="seko-button m-2 p-2 text-center">
+      <% if current_user.role == "helper" %>
+         <a href="tel:@booking.senior.mobile_number"> Contacter <%= @booking.senior.first_name %> au <%= @booking.senior.mobile_number %></a>
+      <% else %>
+          <a href="tel:@booking.helper.mobile_number"> Contacter <%= @booking.helper.first_name %> au <%= @booking.helper.mobile_number %></a>
       <% end %>
     </div>
-    <% end %>
+    <div>
+        <% @booking.reviews.each do |review| %>
+          <% review.note.times do%>
+          <i class="fas fa-star"> </i>
+        <% end %>
+        <p><%=  review.content %> (<%= review.booking.senior.first_name %>) </p>
+        <% end %>
+    </div>
+    <div class="container col-4 lg-12">
+        <div class="row">
+          <div class="col-xs-4">
+            <% if @booking.display_review_form(current_user) %>
+              <%= simple_form_for [@booking, @review] do |f| %>
+                <%= f.error_notification %>
+                <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+                <div class="form-inputs">
+                  <%= f.input :content, label: 'Laisser un commentaire'%>
+                  <%= f.input :note, collection: 1..5, label: 'Notez votre experience'%>
+                </div>
+                <div class="seko-button">
+                  <%= f.button :submit, 'Ajouter un commentaire' %>
+                </div>
+              <% end %>
+          </div>
+            <% end %>
+        </div>
+    </div>
   </div>
 
-</div>

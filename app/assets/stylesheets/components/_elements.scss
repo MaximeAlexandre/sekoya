@@ -58,7 +58,7 @@
 }
 
  body {
-  background-color: #F5F5F7;
+  background-color: #FAFAFA;
 }
 
 p, li, label{
@@ -66,11 +66,11 @@ p, li, label{
 }
 
 h4 {
-  color: #42a5f5;
+  color: #1F82D1;
 }
 
 h3 {
-  color: #42a5f5;
+  color: #1F82D1;
 }
 
 .fa-star {
@@ -95,4 +95,84 @@ h3 {
 
 .mtop-5 {
   margin-top: 3px;
+
+.seko-part-card {
+  width: 280px;
+  height: 20vh;
+}
+
+.seko-part-card-price {
+  width: 120px;
+  height: 20vh;
+}
+
+.seko-part-card-helper {
+  width: 280px;
+  height: 20vh;
+}
+
+.seko-cancel-button {
+  background: linear-gradient(270deg, #9E3B1C 0%, #F35252 100%);
+  box-shadow: 0px 15px 30px rgba(20, 102, 204, 0.16);
+  border-radius: 16px;
+  height: 40px;
+  color: white;
+  width: 90%;
+  text-align:center;
+}
+
+.seko-cancel-button:hover {
+  background: linear-gradient(270deg, #9E3B1C 0%, #F35252 100%);
+  box-shadow: 0px 15px 30px rgba(243, 39, 39, 0.3);
+  border-radius: 16px;
+  height: 40px;
+  color: white;
+  width: 90%;
+  text-align:center;
+}
+
+.seko-small-button {
+    background: linear-gradient(270deg, #FF9C7D 0%, #FF8686 100%);
+    box-shadow: 0px 15px 30px rgba(20, 102, 204, 0.16);
+    border-radius: 50px;
+    color: white;
+    width: 50px;
+    height: 50px;
+    padding: 15px;
+    text-align:center;
+}
+
+.seko-small-button:hover {
+  background: linear-gradient(270deg, #FF9C7D 0%, #FF8686 100%);
+  box-shadow: 0px 15px 30px rgba(20, 102, 204, 0.16);
+  border-radius: 50px;
+  color: red;
+  width: 50px;
+  height: 50px;
+  padding: 15px;
+  text-align:center;
+}
+
+.dashboard-nav-btn {
+  color: #42a5f5;
+  opacity: 0.4;
+  flex: 0 0 30%;
+  text-align: center;
+  border-radius: 14px;
+  &:hover {
+    opacity: 0.6;
+    cursor: pointer;
+  }
+  &.active {
+  color: #42a5f5;
+  opacity: 1;
+  }
+}
+
+a {
+  color: black;
+}
+a:hover {
+  color: black;
+  text-decoration: none;
 }
