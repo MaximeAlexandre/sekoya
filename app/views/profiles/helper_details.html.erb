@@ -16,7 +16,9 @@
           <% if @reviews.empty? %>
             <p> No reviews currently </p>
           <% else %>
-            <p> Moyenne : <%=  @average_rating %></p>
+            <%(@average_rating).to_i.times do%>
+            <i class="fas fa-star"> </i>
+            <% end %>
           <% end %>
               <div class="ml-4 text-center">
                <p >(<%= @reviews.length %> avis)</p>
@@ -29,7 +31,7 @@
       <p><%= @helper.description %></p>
     </div>
     <div class="border-top mt-4 ml-2 pt-4">
-      <h4>Certifications</h4>
+      <h4>Certifications :</h4>
       <ul class="m-2">
         <% @diplomas.each do |diploma| %>
           <li class="m-2"><%= diploma.name %></li>

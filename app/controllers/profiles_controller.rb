@@ -21,7 +21,7 @@ class ProfilesController < ApplicationController
     @booking.helper = @helper
     @booking.senior = current_user
     @reviews = []
-    bookings = Booking.where(helper_id: @helper.id)
+    bookings = Booking.where(helper_id: helper.id)
     bookings.each do |booking|
       review = Review.find_by(booking_id: booking.id)
       @reviews << review unless review.nil?

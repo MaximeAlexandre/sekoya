@@ -66,7 +66,9 @@
                 <p> No reviews currently </p>
               <% else %>
                 <div class="ml-4 text-center">
-                  Moyenne : <%=  @reviews.collect(&:note).sum.to_f/@reviews.length if @reviews.length > 0 %>
+                  <%  (@reviews.collect(&:note).sum.to_f/@reviews.length if @reviews.length > 0).to_i.times do %>
+                   <i class="fas fa-star"> </i>
+                  <% end %>
                   <p >(<%= @reviews.length %> avis)</p>
                 </div>
               <% end %>
