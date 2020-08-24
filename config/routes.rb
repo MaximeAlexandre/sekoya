@@ -20,5 +20,4 @@ Rails.application.routes.draw do
   get "/favoris", to: "favoris#index", as: 'favoris_index'
   post "/favoris", to: "favoris#create"
   delete "/favoris/:id", to: "favoris#destroy",as: 'favoris_destroy'
-
 end
