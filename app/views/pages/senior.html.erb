@@ -41,9 +41,11 @@
       </div>
 
       <div class="seko-card text-center p-2 m-3">
+        <%= link_to favoris_index_path do %>
+
         <h1>Mes favoris</h1>
-        <%= link_to "Retouvez vos helpers préférés.", favoris_index_path, class: "btn seko-senior-btn" %>
         <p>Retouvez vos helpers préférés.</p>
+        <% end %>
       </div>
 
     </div>
@@ -116,23 +118,30 @@
               <img class="avatar-large" src="<%= booking.helper.photo %>" alt="" >
             </div>
 
-            <div>
-              <p><%= booking.helper.first_name %> <%= booking.helper.last_name %></p>
-              <p><%= booking.date %> : <%= booking.start_time.strftime("%R") %>-<%= booking.end_time.strftime("%R") %></p>
+            <div class="ml-4 pr-4 border-right pt-4">
+              <h4><%= booking.helper.first_name %> <%= booking.helper.last_name %></h4>
+              <p><%= booking.date.strftime("%d/%m/%Y") %> : <%= booking.start_time.strftime("%R") %>-<%= booking.end_time.strftime("%R") %></p>
               <p><%= render :partial => "colorstatus", locals: { booking: booking } %></p>
             </div>
-
-            <div>
+            <div class="ml-4 pr-4 border-right pt-4">
+              <h4>Prestations:</h4>
               <% booking.tasks.each do |task| %>
-              <p><%= task.name %></p>
+              <ul>
+              <li><%= task.name %></li>
+            </ul>
               <% end %>
             </div>
+
+            <div class="ml-4 mt-4">
+              <h4>Prix</h4>
+              <p><%= booking.helper.price %>€ par heure</p>
+            </div>
+
             </div>
             <div class="col-3 senior-cancel-area">
               <p class="text-center">Voulez vous annuler cette réservation?</p>
               <%= link_to "Cancel", status_change_path(booking, status: "annulé"),
               method: :patch, data: { confirm: 'Are you sure?' }, class: "btn seko-senior-btn" %>
-              <%= render :partial => "favoris", locals: { booking: booking, helpers: @favoris_helper, path: "dashboard" } %>
             </div>
 
             </div>
