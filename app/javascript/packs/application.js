@@ -39,6 +39,7 @@ document.addEventListener('turbolinks:load', () => {
   initFlatpickr();
   initUpdateNavbarOnScroll();
   initStarRating();
-  initDuration();
   initCheckBoxes();
+  initDuration();
+
 });

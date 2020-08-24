@@ -6,7 +6,6 @@ class ProfilesController < ApplicationController
     if params[:address_input].present?
       @address = params[:address_input]
       @helpers = User.where(role: "helper")
-      @reviews = []
       @diplomas_name = diplomas_name_list
       near_helpers = @helpers.near(params[:address_input], 10)
       @helpers = near_helpers_filter(params, near_helpers)
@@ -27,7 +26,8 @@ class ProfilesController < ApplicationController
       review = Review.find_by(booking_id: booking.id)
       @reviews << review unless review.nil?
     end
-    @average_rating = Review.average(:note)
+    @average_rating = @reviews.collect(&:note).sum.to_f/@reviews.length if @reviews.length > 0
+
   end
 
   private
