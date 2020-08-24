@@ -40,20 +40,19 @@
               <%= diploma.name %>
             <% end %>
             <div>
-             <%  @reviews =[]%>
+              <%  @reviews =[]%>
               <% bookings = Booking.where(helper_id: helper.id) %>
-              <% bookings.each do |booking| %>
-
+                <% bookings.each do |booking| %>
                 <% review = Review.find_by(booking_id: booking.id) %>
-               <% @reviews << review unless review.nil? %>
+                <% @reviews << review unless review.nil? %>
               <% end %>
               <% if @reviews.empty? %>
                 <p> No reviews currently </p>
               <% else %>
-                Moyenne : <%=  @reviews.collect(&:note).sum.to_f/@reviews.length if @reviews.length > 0 %>
-                  <div class="ml-4 text-center">
-                    <p >(<%= @reviews.length %> avis)</p>
-                  </div>
+                <div class="ml-4 text-center">
+                  Moyenne : <%=  @reviews.collect(&:note).sum.to_f/@reviews.length if @reviews.length > 0 %>
+                  <p >(<%= @reviews.length %> avis)</p>
+                </div>
               <% end %>
             </div>
           </div>
