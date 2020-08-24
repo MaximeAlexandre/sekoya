@@ -6,3 +6,25 @@
 .seko-in-card-list {
   // width: 100px;
 }
+
+.seko-small-button-index {
+  background: linear-gradient(270deg, #42A5F5 0%, #97D5DF 100%);
+  box-shadow: 0px 15px 30px rgba(20, 102, 204, 0.16);
+  border-radius: 50px;
+  color: white;
+  width: 50px;
+  height: 40px;
+  padding: 10px;
+  text-align:center;
+}
+
+.seko-small-button-index:hover {
+  background: linear-gradient(270deg, #42A5F5 0%, #97D5DF 100%);
+  box-shadow: 0px 15px 30px rgba(0, 150, 199, 0.3);
+  border-radius: 50px;
+  color: white;
+  width: 50px;
+  height: 40px;
+  padding: 10px;
+  text-align:center;
+}

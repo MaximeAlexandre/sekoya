@@ -1,53 +1,62 @@
 <div class="container">
 <h1>Mes Favoris</h1>
-    <%@favoris.each do |booking| %>
-        <div class="seko-card seko-flex mt-3 col-8">
-            <div>
-                <%= link_to profile_path(booking.helper), :style=>'color: black;' do %>
-                    <img class="avatar-extra-large mt-3 ml-2" src="<%= booking.helper.photo %>" alt="" >
-                <% end %>
-                <%= render :partial => "remove_favoris", locals: { booking: booking, path: "favoris" } %>
-            </div>
-            <div class="seko-in-card seko-flex seko-in-card-list m-3 col-8">
-            <%= link_to profile_path(booking.helper), :style=>'color: black;' do %>
-            <div>
-                <div class="d-flex flex-row justify-content-between align-items-center">
-                    <h3><%= booking.helper.first_name %> <%= booking.helper.last_name %></h3>
-                    <% if booking.helper.car %>
-                        <i class="fas fa-car"></i>
-                    <% else %>
-                        <i class="fas fa-walking"></i>
-                    <% end %>
-                </div>
-                <ul>
-                    <% Diploma.where(user_id: booking.helper.id).each do |diploma| %>
-                        <li><%= diploma.name %></li>
-                    <% end %>
-                </ul>
-                <div>
-                    <%  @reviews =[]%>
-                    <% bookings = Booking.where(helper_id: booking.helper.id) %>
-                        <% bookings.each do |booking| %>
-                        <% review = Review.find_by(booking_id: booking.id) %>
-                        <% @reviews << review unless review.nil? %>
-                    <% end %>
-                    <% if @reviews.empty? %>
-                        <p> No reviews currently </p>
-                    <% else %>
-                        <div class="ml-4 text-center">
-                        Moyenne : <%=  @reviews.collect(&:note).sum.to_f/@reviews.length if @reviews.length > 0 %>
-                        <p >(<%= @reviews.length %> avis)</p>
-                        </div>
-                    <% end %>
-                </div>
-            </div>
-            <div>
-                <p><%= booking.helper.price %>€</p>
-            </div>
+<div>
+  <% @favoris.each do |booking| %>
+    <%= link_to profile_path(booking.helper), :style=>'color: black;', class: "remove_favoris"  do %>
+
+      <!-- Entire card -->
+      <div class="seko-card seko-flex col-12 mb-3">
+        <%= render :partial => "remove_favoris", locals: { booking: booking, path: "favoris" } %>
+
+        <!-- Avatar -->
+        <div class="mb-3 d-flex flex-column flex-grow-1 align-items-center justify-content-center">
+          <img class="avatar-extra-large mt-3 ml-2" src="<%= booking.helper.photo %>" alt="" >
         </div>
-      <% end %>
-    </div>
-    <% end  %>
-    <p>------------------</p>
-    <%= link_to "Back", senior_path, class: "btn seko-senior-btn" %>
+
+        <!-- Full name and diplomas -->
+        <div class="seko-in-card seko-flex m-3 col-9">
+          <div class="d-flex flex-column align-items-left w-70">
+            <div class="d-flex flex-row align-items-end">
+              <h3><%= booking.helper.first_name %> <%= booking.helper.last_name %></h3>
+              <% if booking.helper.car %>
+                <i class="fas fa-car ml-3 mb-3"></i>
+              <% end %>
+            </div>
+            <ul class="pl-20" style="list-style-type: none;">
+              <% Diploma.where(user_id: booking.helper.id).each do |diploma| %>
+                <li><%= diploma.name %></li>
+              <% end %>
+            </ul>
+          </div>
+
+          <!-- Notes and price -->
+          <div class="d-flex flex-column justify-content-between align-items-right">
+            <% @reviews = [] %>
+            <% bookings = Booking.where(helper_id: booking.helper.id) %>
+              <% bookings.each do |booking| %>
+              <% review = Review.find_by(booking_id: booking.id) %>
+              <% @reviews << review unless review.nil? %>
+            <% end %>
+            <% if @reviews.empty? %>
+              <p class="text-right">(<%= @reviews.length %> avis)</p>
+            <% else %>
+              <div class="text-right">
+                <%  (@reviews.collect(&:note).sum.to_f/@reviews.length if @reviews.length > 0).to_i.times do %>
+                  <i class="fas fa-star"> </i>
+                <% end %>
+                <p >(<%= @reviews.length %> avis)</p>
+              </div>
+            <% end %>
+            <div class="text-right">
+              <p style="margin-bottom: 0;"><%= booking.helper.price %>€ / heure</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= link_to "Retourner au dashboard", senior_path, class: "btn seko-button-show" %>
 </div>
+</div>
+
