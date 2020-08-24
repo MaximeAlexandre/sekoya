@@ -358,7 +358,8 @@ booking1 = Booking.new(
   end_time: "09",
   helper: helper11,
   senior: senior1,
-  status: "past"
+  status: "refusé",
+  booking_step: 2
 )
 
 senior2.save
@@ -368,7 +369,8 @@ booking2 = Booking.new(
   end_time: "14",
   helper: helper11,
   senior: senior2,
-  status: "past"
+  status: "annulé",
+  booking_step: 2
 )
 
 senior3.save
@@ -378,7 +380,8 @@ booking3 = Booking.new(
   end_time: "14",
   helper: helper11,
   senior: senior3,
-  status: "past"
+  status: "accepté",
+  booking_step: 2
 )
 
 senior4.save
@@ -388,7 +391,8 @@ booking4 = Booking.new(
   end_time: "16",
   status: "pending",
   helper: helper11,
-  senior: senior4
+  senior: senior4,
+  booking_step: 2
 )
 
 booking5 = Booking.new(
@@ -397,7 +401,8 @@ booking5 = Booking.new(
   end_time: "11",
   status: "pending",
   helper: helper11,
-  senior: senior1
+  senior: senior1,
+  booking_step: 2
 )
 
 booking6 = Booking.new(
@@ -406,7 +411,8 @@ booking6 = Booking.new(
   end_time: "14",
   status: "pending",
   helper: helper11,
-  senior: senior2
+  senior: senior2,
+  booking_step: 2
 )
 
 booking7 = Booking.new(
@@ -415,7 +421,8 @@ booking7 = Booking.new(
   end_time: "12",
   status: "accepté",
   helper: helper11,
-  senior: senior3
+  senior: senior3,
+  booking_step: 2
 )
 
 booking8 = Booking.new(
@@ -424,16 +431,18 @@ booking8 = Booking.new(
   end_time: "19",
   status: "accepté",
   helper: helper11,
-  senior: senior4
+  senior: senior4,
+  booking_step: 2
 )
 
 booking9 = Booking.new(
   date: "20/08/2020",
   start_time: "12",
   end_time: "16",
-  status: "past",
+  status: "accepté",
   helper: helper11,
-  senior: senior2
+  senior: senior2,
+  booking_step: 2
 )
 
 booking10 = Booking.new(
@@ -442,7 +451,8 @@ booking10 = Booking.new(
   end_time: "08",
   status: "pending",
   helper: helper11,
-  senior: senior3
+  senior: senior3,
+  booking_step: 2
 )
 
 booking11 = Booking.new(
@@ -451,7 +461,8 @@ booking11 = Booking.new(
   end_time: "19",
   status: "accepté",
   helper: helper11,
-  senior: senior4
+  senior: senior4,
+  booking_step: 2
 )
 
 booking1.save
@@ -617,36 +628,40 @@ booking12 = Booking.new(
   date: "19/08/2020",
   start_time: "08",
   end_time: "10",
-  status: "past",
+  status: "refusé",
   helper: helper1,
-  senior: senior5
+  senior: senior5,
+  booking_step: 2
 )
 
 booking13 = Booking.new(
   date: "21/08/2020",
   start_time: "10",
   end_time: "12",
-  status: "past",
+  status: "accepté",
   helper: helper2,
-  senior: senior5
+  senior: senior5,
+  booking_step: 2
 )
 
 booking14 = Booking.new(
   date: "21/08/2020",
   start_time: "18",
   end_time: "20",
-  status: "past",
+  status: "accepté",
   helper: helper2,
   senior: senior5,
+  booking_step: 2
 )
 
 booking15 = Booking.new(
   date: "25/08/2020",
   start_time: "11",
   end_time: "14",
-  status: "past",
+  status: "annulé",
   helper: helper6,
   senior: senior5,
+  booking_step: 2
 )
 
 booking16 = Booking.new(
@@ -655,7 +670,8 @@ booking16 = Booking.new(
   end_time: "20",
   status: "pending",
   helper: helper4,
-  senior: senior5
+  senior: senior5,
+  booking_step: 2
 )
 
 booking17 = Booking.new(
@@ -664,7 +680,8 @@ booking17 = Booking.new(
   end_time: "14",
   status: "pending",
   helper: helper8,
-  senior: senior5
+  senior: senior5,
+  booking_step: 2
 )
 
 booking18 = Booking.new(
@@ -673,7 +690,8 @@ booking18 = Booking.new(
   end_time: "20",
   status: "accepté",
   helper: helper2,
-  senior: senior5
+  senior: senior5,
+  booking_step: 2
 )
 
 booking19 = Booking.new(
@@ -682,7 +700,8 @@ booking19 = Booking.new(
   end_time: "17",
   status: "accepté",
   helper: helper9,
-  senior: senior5
+  senior: senior5,
+  booking_step: 2
 )
 
 booking12.save
