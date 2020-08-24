@@ -32,7 +32,7 @@ class PagesController < ApplicationController
   end
 
   def pending(list)
-    list.where(status: "pending")
+    list.where("date >= ? and status = ?", Date.today, "pending")
   end
 
   def futur(list)
