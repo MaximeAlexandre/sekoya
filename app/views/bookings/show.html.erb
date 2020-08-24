@@ -32,9 +32,9 @@
     </div>
     <div class="seko-button m-2 p-2 text-center">
       <% if current_user.role == "helper" %>
-         <a href="@booking.senior.mobile_number"> Contacter <%= @booking.senior.first_name %> au <%= @booking.senior.mobile_number %></a>
+         <a href="tel:@booking.senior.mobile_number"> Contacter <%= @booking.senior.first_name %> au <%= @booking.senior.mobile_number %></a>
       <% else %>
-          <a href="@booking.senior.mobile_number"> Contacter <%= @booking.helper.first_name %> au <%= @booking.helper.mobile_number %></a>
+          <a href="tel:@booking.helper.mobile_number"> Contacter <%= @booking.helper.first_name %> au <%= @booking.helper.mobile_number %></a>
       <% end %>
     </div>
     <div>
