@@ -72,8 +72,10 @@
           </div>
         </div>
       </div>
-      <p id="total" data-price="<%= @helper.price %>"> <strong><%= (8  - 7) %> heure - Total : <%= (8  - 7)*@helper.price %> €</strong> </p>
-      <input class="btn seko-button btn-show" type="submit" value="Valider" class="mt-4">
+      <div class="text-center m-4">
+      <h4 id="total" data-price="<%= @helper.price %>"> <strong><%= (8  - 7) %> heure - Total : <%= (8  - 7)*@helper.price %> €</strong> </h4>
+      </div>
+      <input class="btn seko-button-show" type="submit" value="Valider">
     </form>
   </div>
 </div>
