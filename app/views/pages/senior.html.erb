@@ -120,7 +120,7 @@
             <%= link_to "Profil de l'aidant", profile_path(booking.helper), class: "btn seko-button" %>
             </div>
             <div>
-            <%= render :partial => "favoris", locals: { booking: booking, helpers: @favoris_helper, path: "dashboard" } %>
+              <%= render :partial => "favoris", locals: { booking: booking, helpers: @favoris_helper, path: "dashboard" } %>
             </div>
             </div>
           <% end %>
