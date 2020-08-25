@@ -137,15 +137,20 @@
             <img class="avatar-large mt-3 ml-2" src="<%= helper.photo %>" alt="" >
           </div>
 
-          <!-- Full name and diplomas -->
+          <!-- Name, diplomas, notes and price -->
           <div class="seko-in-card seko-flex m-3 col-9">
+
+            <!-- Full name and diplomas -->
             <div class="d-flex flex-column align-items-left w-70">
+              <!-- Full name -->
               <div class="d-flex flex-row align-items-end">
                 <h3><%= helper.first_name %> <%= helper.last_name %></h3>
                 <% if helper.car %>
                   <i class="fas fa-car ml-3 mb-3"></i>
                 <% end %>
               </div>
+
+              <!-- Diplomas -->
               <ul class="pl-20" style="list-style-type: none;">
                 <% Diploma.where(user_id: helper.id).each do |diploma| %>
                   <li><%= diploma.name %></li>
@@ -155,6 +160,8 @@
 
             <!-- Notes and price -->
             <div class="d-flex flex-column justify-content-between align-items-right">
+
+              <!-- Notes -->
               <% if @reviews.empty? %>
                 <p class="text-right">(<%= @reviews.length %> avis)</p>
               <% else %>
@@ -165,11 +172,15 @@
                   <p >(<%= @reviews.length %> avis)</p>
                 </div>
               <% end %>
+
+              <!-- Price -->
               <div class="text-right">
                 <p style="margin-bottom: 0;"><%= helper.price %>€ / heure</p>
               </div>
             </div>
           </div>
+
+          <!-- Tooltip to display the last 3 reviews -->
           <div class="tooltiptext">
             <h4>Derniers commentaires</h4>
             <% if @reviews.empty? %>
