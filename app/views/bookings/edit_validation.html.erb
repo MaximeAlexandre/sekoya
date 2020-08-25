@@ -21,23 +21,21 @@
               <i class="fas fa-car ml-3 mb-3"></i>
             <% end %>
           </div>
-          <ul class="pl-20" style="list-style-type: none;">
-            <% Diploma.where(user_id: @booking.helper.id).each do |diploma| %>
-              <li><%= diploma.name %></li>
-            <% end %>
-          </ul>
+          <% Diploma.where(user_id: @booking.helper.id).each do |diploma| %>
+            <li><%= diploma.name %></li>
+          <% end %>
         </div>
 
         <!-- Notes and price -->
         <div class="d-flex flex-column justify-content-between align-items-right">
-          <% @reviews.each do |review| %>
-            <% review.note.times do %>
-              <i class="fas fa-star"> </i>
-            <% end %>
-            <% (5 - review.note).times do %>
-            <% end %>
-            <div class="ml-4 text-center">
-              <p >(<%= @reviews.length %> avis)</p>
+          <% if @reviews.empty? %>
+            <p> No reviews currently </p>
+          <% else %>
+            <div class="text-right">
+              <%(@average_rating).to_i.times do%>
+                <i class="fas fa-star"> </i>
+              <% end %>
+              <p>(<%= @reviews.length %> avis)</p>
             </div>
           <% end %>
           <div class="text-right">
@@ -47,18 +45,24 @@
       </div>
     </div>
 
+    <!-- Address, Date/Time, Tasks, Comment, Total Price -->
     <div class=" m-3 p-3 text-center">
+      <!-- Address and Date/Time -->
       <div class="d-flex flex-row justify-content-around">
+        <!-- Address -->
         <div>
           <h4>Votre adresse</h4>
           <p><%= current_user.address %></p>
         </div>
+
+        <!-- Date/Time -->
         <div>
           <h4>Date et heure</h4>
           <p><%= @booking.date.strftime("%d/%m/%Y") %> de <%= @booking.start_time.strftime("%H:%M") %> à <%= @booking.end_time.strftime("%H:%M") %></p>
         </div>
       </div>
 
+      <!-- Tasks -->
       <h4 class="border-top pt-4"> Activités choisies</h4>
       <div class="row justify-content-center">
         <% @tasks.each do |task| %>
@@ -68,10 +72,12 @@
         <% end %>
       </div>
 
+      <!-- Comment and Total Price -->
       <%= form_tag "/bookings/#{@booking.id}/validation", method:"patch", class: "border-top pt-4" %>
         <%= label_tag("Un petit mot qui pourrai aider notre helper ?") %>
+        <br>
         <%= text_area_tag(:comment, "", size: "50x5", class: "seko-search-bar") %>
-        <h3 class="mb-3 mt-3"><strong><%= @booking.helper.price %> € x <%= (@booking.end_time  - @booking.start_time)/3600 %>heures </strong> </h3>
+        <h3 class="mb-3 mt-3"><strong><%= @booking.helper.price %> € x <%= ((@booking.end_time  - @booking.start_time)/3600).to_i %> heures </strong> </h3>
         <h3 class="mb-3"><strong>Total : <%= @total %> €</strong></h3>
         <%= submit_tag 'Valider ma reservation', class: "btn seko-button search-button" %>
     </div>

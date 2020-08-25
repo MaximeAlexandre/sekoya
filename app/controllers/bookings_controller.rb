@@ -22,6 +22,10 @@ class BookingsController < ApplicationController
   def show
     @tasks = Task.where(booking_id: @booking.id)
     @review = Review.new
+    @diplomas = Diploma.where(user_id: @booking.helper.id)
+    @total = (@booking.end_time - @booking.start_time) / 3600 * @booking.helper.price
+    @reviews = reviews_list(@helper)
+    @average_rating = average_rating(@reviews)
   end
 
   def edit_tasks
@@ -38,6 +42,7 @@ class BookingsController < ApplicationController
       @reviews << review unless review.nil?
     end
     @total = (@booking.end_time - @booking.start_time) / 3600 * @booking.helper.price
+    @average_rating = @reviews.collect(&:note).sum.to_f / @reviews.length unless @reviews.empty?
   end
 
   def update_task
@@ -91,5 +96,18 @@ class BookingsController < ApplicationController
     #  updated_at :datetime         not null
     #  helper_id  :bigint           not null
     #  senior_id  :bigint           not null
+  end
+
+  def reviews_list(helper)
+    reviews = []
+    bookings = Booking.where(helper_id: @booking.helper.id)
+    bookings.each do |booking|
+      review = Review.find_by(booking_id: booking.id)
+      reviews << review unless review.nil?
+    end
+    reviews
+  end
+  def average_rating(reviews)
+    reviews.collect(&:note).sum.to_f / reviews.length unless reviews.empty?
   end
 end

@@ -20,12 +20,14 @@ class ProfilesController < ApplicationController
 
   def helper_details
     @diplomas = Diploma.where(user_id: @helper.id)
+    @exist_booking = Booking.where(helper_id: @helper.id).first
     @registration_duration = registered_for(@helper)
     @booking = Booking.new
     @booking.helper = @helper
     @booking.senior = current_user
     details_reviews(@helper)
     today_start_time
+    favoris
   end
 
   private
@@ -116,5 +118,10 @@ class ProfilesController < ApplicationController
     time = Time.now
     @starting_hour = time.hour + 1
     @starting_hour += 1 unless time.min == 0
+
+  def favoris
+    @favoris = Booking.joins(:favoris).where(senior: current_user)
+    @favoris_helper = []
+    @favoris.each { |booking| @favoris_helper << booking.helper }
   end
 end

@@ -37,8 +37,8 @@ class Booking < ApplicationRecord
   validates :status, presence: true
   validate :end_time_after_start_time
 
-  def display_review_form(user)
-    (self.date < Date.today) && (Booking.find_by(senior_id: user.id).nil?)
+  def display_review_form
+    (self.date < Date.today) && (self.reviews.empty?)
   end
 
   private
@@ -48,6 +48,4 @@ class Booking < ApplicationRecord
 
     errors.add(:end_time, "must be after the start time") if end_time < start_time
   end
-
-
 end
