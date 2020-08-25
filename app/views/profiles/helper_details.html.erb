@@ -8,30 +8,43 @@
       </div>
       <div class="seko-flex seko-show-in-card">
         <div>
-          <h3><%= @helper.first_name.capitalize %> <%= @helper.last_name.capitalize %></h3>
-          <small>Inscrit depuis <%= @registration_duration %></small><br>
-          <small><%= @helper.car %>Véhiculé</small>
-        </div>
-        <div>
-          <% if @reviews.empty? %>
-            <p> No reviews currently </p>
-          <% else %>
-            <%(@average_rating).to_i.times do%>
-              <i class="fas fa-star"> </i>
+          <div class="d-flex flex-row align-items-end">
+            <h3><%= @helper.first_name.capitalize %> <%= @helper.last_name.capitalize %></h3>
+            <% if @helper.car %>
+              <i class="fas fa-car ml-3 mb-3"></i>
             <% end %>
-            <div class="ml-4 text-center">
-              <p>(<%= @reviews.length %> avis)</p>
-            </div>
-          <% end %>
+          </div>
+          <p>Inscrit depuis <%= @registration_duration %></p>
+        </div>
+        <div class="d-flex flex-column justify-content-between">
+          <div>
+            <% if @reviews.empty? %>
+              <p> No reviews currently </p>
+            <% else %>
+              <%(@average_rating).to_i.times do%>
+                <i class="fas fa-star"> </i>
+              <% end %>
+              <div class="ml-4 text-center">
+                <p>(<%= @reviews.length %> avis)</p>
+              </div>
+            <% end %>
+          </div>
+          <div class="text-right">
+            <p style="margin-bottom: 0;"><%= @helper.price %>€ / heure</p>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- Description -->
     <div class="mt-4 ml-2">
       <h4>Profil</h4>
       <p><%= @helper.description %></p>
     </div>
+
+    <!-- Diplomas / Formations -->
     <div class="border-top mt-4 ml-2 pt-4">
-      <h4>Certifications </h4>
+      <h4>Diplômes / Formations</h4>
       <ul class="m-2">
         <% @diplomas.each do |diploma| %>
           <li class="m-2"><%= diploma.name %></li>
@@ -40,19 +53,32 @@
     </div>
     <div class="border-top mt-4 ml-2 pt-4">
       <h4>Reviews</h4>
-      <ul class="reviews m-2">
+      <% if @reviews.empty? %>
+        <p>Cet helper n'a pas encore de commentaires</p>
+      <% else %>
         <% @reviews.each do |review| %>
-        <li class="m-2"><%= review.content %> (<%= review.booking.senior.first_name %>)</li>
+          <div class="mb-4">
+            <% review.note.times do%>
+              <i class="fas fa-star"> </i>
+            <% end %>
+            <p><%= review.content %></p>
+            <p class="ml-3">
+              <img class="avatar" src="<%= review.booking.senior.photo %>" alt="" >
+              &nbsp
+              <%= review.booking.senior.first_name %>
+            </p>
+          </div>
         <% end %>
-      </ul>
+      <% end %>
     </div>
   </div>
 
+  <!-- Calendrier -->
   <div class="seko-card date-block">
     <form action="/profiles/<%= @helper.id %>/bookings" method="POST">
       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
       <div class="form-inputs">
-        <input class="form-control datepicker seko-card" name="date" type="date" value=<%= Date.today %> id="example-date-input" hidden>
+        <input class="form-control datepicker seko-card" name="date" type="date" value="<%= Date.today %>" id="example-date-input" hidden>
         <div class="hour-block seko-show-in-card m-3">
           <div class="time-block">
             <label for="start_time">Heure de début</label>
