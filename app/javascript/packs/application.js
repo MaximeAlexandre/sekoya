@@ -30,7 +30,7 @@ import "bootstrap";
 import { initFlatpickr } from '../plugins/init_flatpickr';
 import { initUpdateNavbarOnScroll } from '../components/navbar.js';
 import { initStarRating } from '../plugins/init_star_rating';
-import { initDuration } from '../components/time_pickr';
+import { initBookingChoice } from '../components/booking_choice';
 import { initCheckBoxes } from '../components/check_task';
 import { initUserChoice } from '../components/user_choice';
 
@@ -45,5 +45,7 @@ document.addEventListener('turbolinks:load', () => {
   if (document.querySelector('#ask_senior') || document.querySelector('#ask_helper')) {
     initUserChoice();
   }
-  initDuration();
+  if (document.querySelector('#start_time') || document.querySelector('#end_time')) {
+    initBookingChoice();
+  }
 });

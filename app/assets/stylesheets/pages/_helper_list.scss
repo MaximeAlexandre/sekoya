@@ -6,3 +6,81 @@
 .seko-in-card-list {
   // width: 100px;
 }
+
+.seko-small-button-index {
+  background: linear-gradient(270deg, #42A5F5 0%, #97D5DF 100%);
+  box-shadow: 0px 15px 30px rgba(20, 102, 204, 0.16);
+  border-radius: 50px;
+  color: white;
+  width: 50px;
+  height: 40px;
+  padding: 10px;
+  text-align:center;
+}
+
+.seko-small-button-index:hover {
+  background: linear-gradient(270deg, #42A5F5 0%, #97D5DF 100%);
+  box-shadow: 0px 15px 30px rgba(0, 150, 199, 0.3);
+  border-radius: 50px;
+  color: white;
+  width: 50px;
+  height: 40px;
+  padding: 10px;
+  text-align:center;
+}
+
+// Tooltip
+.tooltip-perso {
+  position: relative;
+
+  //Tooltip content
+  .tooltiptext {
+    visibility: hidden;
+    width: 48%;
+    background: white;
+    border: 2px solid rgba(0, 150, 199, 0.2);
+    border-radius: 14px;
+    box-shadow: 0px 15px 30px rgba(0, 150, 199, 0.1);
+    text-align: left;
+    padding: 20px;
+
+    // Position the tooltip text
+    position: absolute;
+    z-index: 1;
+    left: 102%;
+
+    // Fade in tooltip
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+
+  // Tooltip arrow
+  &::after {
+    content: "";
+    visibility: hidden;
+    position: absolute;
+    top: 50%;
+    right: -20px;
+    margin-top: -10px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent transparent white;
+  }
+
+  // Show the tooltip text when you mouse over the tooltip container
+  &:hover {
+    .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+    &::after {
+      visibility: visible;
+    }
+  }
+}
+
+.best-note-offer {
+  margin-bottom: 0;
+  font-size: 20px;
+  color: #377FFC;
+}

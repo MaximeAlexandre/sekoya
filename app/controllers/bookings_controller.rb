@@ -42,6 +42,7 @@ class BookingsController < ApplicationController
       @reviews << review unless review.nil?
     end
     @total = (@booking.end_time - @booking.start_time) / 3600 * @booking.helper.price
+    @average_rating = @reviews.collect(&:note).sum.to_f / @reviews.length unless @reviews.empty?
   end
 
   def update_task
