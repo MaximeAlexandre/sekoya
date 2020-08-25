@@ -1,13 +1,14 @@
 .category-choice {
   background: #2082D1;
   padding-top: 10px;
+  color: white;
   width: 300px;
-  opacity: .4;
+  opacity: .3;
   text-align: center;
   box-shadow: 2px 2px 3px 3px rgba(0, 150, 199, 0.3) inset;
   border-radius: 14px;
   &:hover {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: pointer;
   }
   &.active {
@@ -15,6 +16,8 @@
   }
 }
 
-label {
+.task-label {
   color: white;
 }
+
+
