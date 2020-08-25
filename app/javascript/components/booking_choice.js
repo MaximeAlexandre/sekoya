@@ -33,6 +33,7 @@ const changeDuration = () => {
         endHourUse = startHour + 1
         endHour.value = String(endHourUse);
     }
+
     const duree = endHourUse - startHour;
     const hour = pluriel(duree)
     

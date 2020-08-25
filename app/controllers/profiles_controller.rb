@@ -25,6 +25,8 @@ class ProfilesController < ApplicationController
     @booking = Booking.new
     @booking.helper = @helper
     @booking.senior = current_user
+    @reviews = reviews_list(@helper)
+    @average_rating = average_rating(@reviews)
     details_reviews(@helper)
     today_start_time
     favoris
