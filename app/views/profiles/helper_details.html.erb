@@ -45,7 +45,9 @@
     <div class="mt-4 ml-2">
       <div class="d-flex flex-row justify-content-between align-items-end">
         <h4>Profil</h4>
-        <%= render :partial => "pages/favoris", locals: { booking: @exist_booking, helpers: @favoris_helper, path: "helper_details" } %>
+        <% unless @exist_booking.nil? %>
+          <%= render :partial => "pages/favoris", locals: { booking: @exist_booking, helpers: @favoris_helper, path: "helper_details" } %>
+        <% end %>
       </div>
       <br>
       <p><%= @helper.description %></p>
@@ -88,11 +90,14 @@
       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
       <div class="form-inputs">
         <input class="form-control datepicker seko-card-details" name="date" type="date" value="<%= Date.today %>" id="example-date-input" hidden>
+        <div id="not_today" class="<%= "hidden" if @starting_hour <= 20 %>">
+          <p>Plus de résa possible pour ce jour</p>
+        </div>
         <div id="select_booking_hours" class="<%= "hidden" if @starting_hour > 20 %>">
           <div class="hour-block seko-show-in-card m-3">
             <div class="time-block">
               <label for="start_time">Heure de début</label>
-              <select class="seko-search-bar"  name="start_time" id="start_time" value="<%= @starting_hour %>"> 
+              <select class="seko-search-bar"  name="start_time" id="start_time" value="<%= @starting_hour %>">
                 <% (7..20).to_a.each do |hour| %>
                   <% if (@starting_hour == hour) %>
                     <option value="<%= hour %>" selected><%= hour %>:00</option>
@@ -119,9 +124,6 @@
             <h4 id="total" data-price="<%= @helper.price %>"> <strong>1 heure - Total : <%= 1*@helper.price.to_i %> €</strong> </h4>
           </div>
           <input class="btn seko-button-show" type="submit" value="Valider">
-        </div>
-        <div id="not_today" class="">
-          <p>not today</p>
         </div>
       </div>
     </form>
