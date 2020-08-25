@@ -37,15 +37,15 @@ import { initUserChoice } from '../components/user_choice';
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
-  initFlatpickr();
-  initUpdateNavbarOnScroll();
+  // initFlatpickr();
+  // initUpdateNavbarOnScroll();
   initStarRating();
-  initCheckBoxes();
-  
-  if (document.querySelector('#ask_senior') || document.querySelector('#ask_helper')) {
-    initUserChoice();
-  }
-  if (document.querySelector('#start_time') || document.querySelector('#end_time')) {
-    initBookingChoice();
-  }
+  // initCheckBoxes();
+
+  // if (document.querySelector('#ask_senior') || document.querySelector('#ask_helper')) {
+  //   initUserChoice();
+  // }
+  // if (document.querySelector('#start_time') || document.querySelector('#end_time')) {
+  //   initBookingChoice();
+  // }
 });
