@@ -21,6 +21,7 @@ class BookingsController < ApplicationController
 
   def show
     @tasks = Task.where(booking_id: @booking.id)
+    @review = Review.new
     @diplomas = Diploma.where(user_id: @booking.helper.id)
     @total = (@booking.end_time - @booking.start_time) / 3600 * @booking.helper.price
     @reviews = reviews_list(@helper)

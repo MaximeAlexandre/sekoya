@@ -1,110 +1,131 @@
-<div>
-  <% if current_user.role == "helper" %>
-  <h3 class="text-center">Vous avez été sélectionné par </h3>
-    <% else %>
-  <h3 class="text-center">Vous avez sélectionné notre super Helper </h3>
-  <% end %>
-</div>
+
+<h3 class="text-center">Voici le détail de votre réservation</h3>
+
+
+<div class="container w-50">
+
 <!-- Entire card -->
-<div class="recap-card">
-  <div class="seko-card col-7 p-4 m-2">
-    <div class="seko-card seko-flex col-8">
+  <div class="seko-card p-2 m-1">
        <!-- Avatar -->
-      <div class="mb-3 d-flex flex-column flex-grow-1 align-items-center justify-content-center">
-        <% if current_user.role == "helper" %>
-            <img class="avatar-large mt-3 ml-2" src="<%= @booking.senior.photo %>" alt="" >
-        <% else %>
-            <img class="avatar-large mt-3 ml-2" src="<%= @booking.helper.photo %>" alt="" >
-        <% end %>
-      </div>
-      <!-- Full name and diplomas -->
-      <div class="seko-in-card seko-flex-column m-3 col-9">
-        <div class="col-12">
-          <% if current_user.role == "helper" %>
-            <h3><%= @booking.senior.first_name %> <%= @booking.senior.last_name %></h3>
-          <% else %>
-            <h3><%= @booking.helper.first_name %> <%= @booking.helper.last_name %></h3>
-          <% end %>
-        </div>
-        <% unless current_user.role == "helper" || @booking.helper.car == false %>
-            <i class="fas fa-car ml-3 mb-3"></i>
-        <% end %>
-        <div>
-          <%  unless current_user.role == "helper" %>
-            <ul class="pl-20" style="list-style-type: none;">
-              <% @diplomas.each do |diploma| %>
-                <li><%= diploma.name %></li>
-              <% end %>
-            </ul>
-          <% end %>
-        <div>
-          <% if current_user.role == "helper" %>
-              <p> </p>
-          <% elsif @reviews.empty? %>
-              <p class="text-right">(<%= @reviews.length %> avis)</p>
-          <% else %>
-              <div class="text-right">
-                <%  @average_rating.to_i.times do %>
-                  <i class="fas fa-star"> </i>
-                <% end %>
-                <p >(<%= @reviews.length %> avis)</p>
-              </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-    <div class="col-7 seko-cancel-area border-left pt-4 pl-4">
-        <button class="btn seko-button mb-3">Imprimer au format PDF</button>
-        <button class="btn seko-button mb-3">Ajouter à votre calendrier</button>
-      </div>
-    </div>
-    <!-- Contact -->
-    <div class="button mt-3 ml-3 text-center">
-      <h3> Une question ou un imprévu de dernière minute ? </h3>
+    <div class="seko-flex">
       <% if current_user.role == "helper" %>
-             <a href="tel:@booking.senior.mobile_number" class="btn seko-button search-button"> Contacter <%= @booking.senior.first_name %> </a>
+        <div>
+          <img class="avatar-senior avatar-large mt-3 ml-2 space-between" src="<%= @booking.senior.photo %>" alt="" >
+        </div>
       <% else %>
-          <a href="tel:@booking.helper.mobile_number" class="btn seko-button search-button"> Contacter <%= @booking.helper.first_name %> </a>
+        <div>
+            <img class="avatar-large mt-3 ml-2" src="<%= @booking.helper.photo %>" alt="" >
+        </div>
       <% end %>
+      <!-- Full name and diplomas -->
+    <% if current_user.role == "helper" %>
+      <div class="seko-flex m-3 col-9">
+    <% else %>
+      <div class="seko-in-card seko-flex m-3 col-9">
+    <% end %>
+        <div class="seko-flex-column">
+            <% if current_user.role == "helper" %>
+              <h3 class="mt-4 mb-4"><%= @booking.senior.first_name %> <%= @booking.senior.last_name %></h3>
+            <% else %>
+            <div class="d-flex flex-row align-items-end">
+
+              <h3 ><%= @booking.helper.first_name %> <%= @booking.helper.last_name %></h3>
+            <% unless current_user.role == "helper" || @booking.helper.car == false %>
+                <i class="fas fa-car ml-3 mb-3"></i>
+            <% end %>
+            </div>
+             <% end %>
+                <%  unless current_user.role == "helper" %>
+                    <% @diplomas.each do |diploma| %>
+                      <li><%= diploma.name %></li>
+                    <% end %>
+                <% end %>
+        </div>
+        <div class="seko-flex-column">
+          <% if current_user.role == "helper" %>
+          <% elsif @reviews.empty? %>
+              <p class="mt-4 text-right">(<%= @reviews.length %> avis)</p>
+          <% else %>
+            <%  @average_rating.to_i.times do %>
+              <i class="fas fa-star"> </i>
+            <% end %>
+              <p class="mt-2 text-right">(<%= @reviews.length %> avis)</p>
+            <% end %>
+            <% if current_user.role == "helper"%>
+
+            <% else %>
+            <p style="margin-bottom: 0"><strong> <%= @booking.helper.price %> € / heure</strong></p>
+            <% end %>
+
+
+        </div>
+      </div>
+    </div>
+      <!-- Contact -->
+    <div class="seko-flex m-3 border-bottom-4">
+          <button class="btn seko-button m-2">Imprimer la facture</button>
+          <% if current_user.role == "helper" %>
+                 <a href="tel:@booking.senior.mobile_number" class="btn seko-button m-2"> Contacter <%= @booking.senior.first_name %> </a>
+          <% else %>
+              <a href="tel:@booking.helper.mobile_number" class="btn seko-button m-2"> Contacter <%= @booking.helper.first_name %> </a>
+          <% end %>
     </div>
     <div class=" m-3 p-3 text-center">
       <div class="d-flex flex-row justify-content-around">
         <div>
-          <% if current_user.role == "helper" %>
-            <h4>Son adresse</h4>
-            <p><%= @booking.senior.address %></p>
-          <% else %>
-            <h4> Votre adresse</h4>
-            <p> <%= @booking.senior.address %> </p>
-          <% end %>
+            <% if current_user.role == "helper" %>
+              <h4>Son adresse</h4>
+              <p><%= @booking.senior.address %></p>
+            <% else %>
+              <h4> Votre adresse</h4>
+              <p> <%= @booking.senior.address %> </p>
+            <% end %>
         </div>
         <div>
-          <h4>Date et heure</h4>
-          <p><%= @booking.date.strftime("%d/%m/%Y") %> de <%= @booking.start_time.strftime("%H:%M") %> à <%= @booking.end_time.strftime("%H:%M") %></p>
+            <h4>Date et heure</h4>
+            <p> le <%= @booking.date.strftime("%d/%m/%Y") %> de <%= @booking.start_time.strftime("%H:%M") %> à <%= @booking.end_time.strftime("%H:%M") %></p>
         </div>
+        </div>
+        <h4 class="border-top pt-4"> Activités choisies</h4>
+        <div class="row justify-content-center">
+          <% @tasks.each do |task| %>
+            <div class="col-4">
+              <p><%= task.name %></p>
+            </div>
+          <% end %>
+        </div>
+        <div class="border-top pt-4">
+          <% if @booking.comment.present? %>
+            <h4> Informations complémentaires transmises par <%= @booking.senior.first_name %> </h4>
+            <%= @booking.comment %>
+          <% end %>
+        </div>
+          <h3 class="mb-1 mt-3"><strong><%= (@booking.end_time  - @booking.start_time).to_i/3600 %> heures </strong> </h3>
+          <h3 class="mb-1"><strong>Total : <%= @total %> €</strong></h3>
       </div>
-      <h4 class="border-top pt-4"> Activités choisies</h4>
-      <div class="row justify-content-center">
-        <% @tasks.each do |task| %>
-          <div class="col-4">
-            <p><%= task.name %></p>
-          </div>
-        <% end %>
+      <div class="col-12">
+              <% if @booking.display_review_form && current_user.role == "senior" %>
+                <%= simple_form_for [@booking, @review] do |f| %>
+                  <%= f.error_notification %>
+                  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+              <div class="form-inputs">
+                <%= f.input :content, label: 'Laisser un commentaire'%>
+                <%= f.input :note, collection: 1..5, label: 'Notez votre experience'%>
+              </div>
       </div>
-      <div class="border-top pt-4">
-        <% if @booking.comment.present? %>
-          <h4> Informations complémentaires transmises par <%= @booking.senior.first_name %> </h4>
-          <%= @booking.comment %>
-        <% end %>
+      <div class="btn seko-button w-100 mb-3">
+                  <%= f.button :submit, 'Ajouter un commentaire' %>
       </div>
-        <h3 class="mb-3 mt-3"><strong><%= @booking.helper.price %> € x <%= (@booking.end_time  - @booking.start_time)/3600 %>heures </strong> </h3>
-        <h3 class="mb-3"><strong>Total : <%= @total %> €</strong></h3>
-        <% if current_user.role == "helper" %>
-          <%= link_to 'Back', helper_path, class: "btn seko-button search-button" %>
-        <% else %>
-           <%= link_to 'Back', senior_path, class: "btn seko-button search-button" %>
-        <% end %>
+         <% end %>
+      <% end %>
     </div>
+        <% if current_user.role == "helper" %>
+            <%= link_to 'Retour au dashboard', helper_path, class: "btn seko-button w-100"%>
+        <% else %>
+             <%= link_to 'Retour au dashboard', senior_path, class: "btn seko-button w-100"%>
+        <% end %>
   </div>
 </div>
+
+
 
