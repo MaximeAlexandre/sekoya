@@ -4,14 +4,32 @@
 
 <div class="recap-card">
   <div class="seko-card col-6 p-4 m-2">
-    <div class="seko-in-card-recap m-3 seko-flex">
-      <div class="col-3 mt-4">
-        <img class="avatar-extra-large" src="<%= @booking.helper.photo %>" alt="" >
+
+    <div class="seko-flex col-12">
+
+      <!-- Avatar -->
+      <div class="mb-3 d-flex flex-column flex-grow-1 align-items-center justify-content-center">
+        <img class="avatar-large mt-3 ml-2" src="<%= @booking.helper.photo %>" alt="" >
       </div>
 
-      <div class="p-3 col-12">
-        <h3><%= @booking.helper.first_name %> <%= @booking.helper.last_name %></h3>
-        <div>
+      <!-- Full name and diplomas -->
+      <div class="seko-in-card seko-flex m-3 col-9">
+        <div class="d-flex flex-column align-items-left w-70">
+          <div class="d-flex flex-row align-items-end">
+            <h3><%= @booking.helper.first_name %> <%= @booking.helper.last_name %></h3>
+            <% if @booking.helper.car %>
+              <i class="fas fa-car ml-3 mb-3"></i>
+            <% end %>
+          </div>
+          <ul class="pl-20" style="list-style-type: none;">
+            <% Diploma.where(user_id: @booking.helper.id).each do |diploma| %>
+              <li><%= diploma.name %></li>
+            <% end %>
+          </ul>
+        </div>
+
+        <!-- Notes and price -->
+        <div class="d-flex flex-column justify-content-between align-items-right">
           <% @reviews.each do |review| %>
             <% review.note.times do %>
               <i class="fas fa-star"> </i>
@@ -22,14 +40,10 @@
               <p >(<%= @reviews.length %> avis)</p>
             </div>
           <% end %>
+          <div class="text-right">
+            <p style="margin-bottom: 0;"><%= @booking.helper.price %>€ / heure</p>
+          </div>
         </div>
-        <p><%= @booking.helper.car %></p>
-        <h4>Formation</h4>
-        <% @diplomas.each do |diploma| %>
-          <ul>
-          <li><%= diploma.name %></li>
-          </ul>
-        <% end %>
       </div>
     </div>
 
