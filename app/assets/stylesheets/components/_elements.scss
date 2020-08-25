@@ -23,6 +23,12 @@
   border-radius: 14px;
 }
 
+.seko-card-details {
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0px 15px 30px rgba(0, 150, 199, 0.1);
+}
+
 .seko-card {
   background: white;
   border-radius: 14px;
@@ -40,14 +46,8 @@
   margin-top: 15px;
 }
 
-.seko-card-helper-list:hover {
-  margin-top: 30px;
-  margin-bottom: 30px;
-  transition: all 0.3s ease-in-out;
-}
-
 .seko-in-card {
-  box-shadow: -1px 2px 10px 3px rgba(0, 0, 0, 0.1) inset;
+  box-shadow: -1px 2px 10px 3px rgba(0, 0, 0, 0.2) inset;
   padding: 25px;
   border-radius: 14px;
 }
@@ -61,7 +61,11 @@
   background-color: #FAFAFA;
 }
 
-p, li, label{
+p, li {
+  color: #4E4957;
+}
+
+.other-task {
   color: #4E4957;
 }
 
@@ -98,12 +102,12 @@ h3 {
 }
 
 .seko-part-card {
-  width: 280px;
+  width: 260px;
   height: 20vh;
 }
 
 .seko-part-card-price {
-  width: 120px;
+  width: 165px;
   height: 20vh;
 }
 
@@ -177,4 +181,10 @@ a {
 a:hover {
   color: black;
   text-decoration: none;
+}
+
+.remove-favoris {
+ position: absolute;
+ top: -25px;
+ right: -10px;
 }

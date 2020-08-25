@@ -1,7 +1,7 @@
 <div class="">
     <div class="text-center">
-      <h3>Comment  <%= @booking.helper.first_name %> peut il vous aider ? </h3>
-      <h4> Vous pouvez choisir jusqu'à X activités </h4>
+      <h3>Comment  <%= @booking.helper.first_name %> peut vous aider ? </h3>
+      <h4>Vous pouvez choisir jusqu'à <%= ((@booking.end_time  - @booking.start_time)/3600).to_i %> activités </h4>
     </div>
 
 
@@ -10,7 +10,7 @@
   <%= form_tag "/bookings/#{@booking.id}/tasks", method:"patch" %>
     <div class="seko-flex">
       <div class="p-4">
-        <p class="text-center">COMPAGNIE</p>
+        <h4 class="text-center">COMPAGNIE</h4>
 
         <div class="category-choice m-3">
           <input type="checkbox" name="Promenade" hidden>
@@ -35,7 +35,7 @@
       </div>
 
       <div class="p-4">
-        <p class="text-center">AIDE</p>
+        <h4 class="text-center">AIDE</h4>
 
         <div class="category-choice m-3">
           <input type="checkbox" name="Se lever / Se coucher" hidden>
@@ -59,7 +59,7 @@
       </div>
 
       <div class="accompagnement d-flex-column justify-content p-4">
-        <p class="text-center">ACCOMPAGNEMENT</p>
+        <h4 class="text-center">ACCOMPAGNEMENT</h4>
         <div class="category-choice m-3">
           <input type="checkbox" name="Accompagnement à un rendez-vous" hidden>
           <%= label_tag ('Accompagnement à un rendez-vous') %>
