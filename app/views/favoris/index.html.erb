@@ -1,4 +1,4 @@
-<div class="container">
+<div class="w-50 container">
 <h1>Mes Favoris</h1>
 <div>
   <% @favoris.each do |booking| %>
@@ -14,7 +14,7 @@
         </div>
 
         <!-- Full name and diplomas -->
-        <div class="seko-in-card seko-flex m-3 col-9">
+        <div class="seko-in-card seko-flex m-3 col-8">
           <div class="d-flex flex-column align-items-left w-70">
             <div class="d-flex flex-row align-items-end">
               <h3><%= booking.helper.first_name %> <%= booking.helper.last_name %></h3>

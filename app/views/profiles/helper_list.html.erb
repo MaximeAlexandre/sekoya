@@ -7,10 +7,10 @@
   <div class="form-group mt-4">
     <form action="/profiles" method="GET">
       <div class="d-flex flex-row bd-highlight mb-4 seko-card">
-          <label class="mt-4 ml-4" for="address_input">Adresse</label>
+          <label class="mt-4 ml-4 other-task" for="address_input">Adresse</label>
           <input class="form-control seko-search-bar m-3" style="width: 250px" name="address_input" type="text" value="<%= params[:address_input] %>" placeholder="Trouvez des aidants autour de vous" aria-label="Search" required>
         <div>
-          <label class="mt-4 ml-4" for="diploma">Formation</label>
+          <label class="mt-4 ml-4 other-task" for="diploma">Formation</label>
         </div>
         <div class="m-3" style="width: 250px">
           <select name="diploma" class="form-control seko-search-bar" id="exampleFormControlSelect1">
@@ -21,7 +21,7 @@
           </select>
         </div>
 
-        <label class="mt-4 ml-4" for="diploma">Véhiculé</label>
+        <label class="mt-4 ml-4 other-task" for="diploma">Véhiculé</label>
         <div class="m-3" style="width: 100px">
           <select name="car" class="form-control seko-search-bar" id="exampleFormControlSelect1">
             <option selected>Tous</option>

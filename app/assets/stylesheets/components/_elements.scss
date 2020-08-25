@@ -55,7 +55,11 @@
   background-color: #FAFAFA;
 }
 
-p, li, label{
+p, li {
+  color: #4E4957;
+}
+
+.other-task {
   color: #4E4957;
 }
 
@@ -92,12 +96,12 @@ h3 {
 }
 
 .seko-part-card {
-  width: 280px;
+  width: 260px;
   height: 20vh;
 }
 
 .seko-part-card-price {
-  width: 120px;
+  width: 165px;
   height: 20vh;
 }
 
