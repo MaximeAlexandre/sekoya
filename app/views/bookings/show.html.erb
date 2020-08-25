@@ -38,14 +38,15 @@
             </ul>
           <% end %>
         <div>
-
-          <% if @reviews.empty? %>
+          <% if current_user.role == "helper" %>
+              <p> </p>
+          <% elsif @reviews.empty? %>
               <p class="text-right">(<%= @reviews.length %> avis)</p>
           <% else %>
               <div class="text-right">
-                <%  (@reviews.collect(&:note).sum.to_f/@reviews.length if @reviews.length > 0).to_i.times do %>
+                <%  @average_rating.to_i.times do %>
                   <i class="fas fa-star"> </i>
-              <% end %>
+                <% end %>
                 <p >(<%= @reviews.length %> avis)</p>
               </div>
           <% end %>
