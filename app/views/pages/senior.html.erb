@@ -27,6 +27,7 @@
           <p><%= render :partial => "colorstatus", locals: { booking: @booking_next } %></p>
           <div>
           <%= render :partial => "favoris", locals: { booking: @booking_next, helpers: @favoris_helper, path: "dashboard" } %>
+          <h4 class="mt-4">Prix : <%= ((@booking_next.helper.price)*((@booking_next.end_time  - @booking_next.start_time)/3600).to_i).to_i %>€</h4>
           </div>
         </div>
           </div>
@@ -110,15 +111,15 @@
               <% end %>
             </div>
             <div class="ml-4 mt-4 seko-part-card-price">
-              <h4>Prix</h4>
+              <h4>Prix : <%= ((booking.helper.price)*((booking.end_time  - booking.start_time)/3600).to_i).to_i %>€</h4>
                 <p><%= booking.helper.price %>€ par heure</p>
-            </div>
+              </div>
             <div>
             </div>
 
             </div>
             <div class="col-3 seko-cancel-area border-left pt-4 pl-4">
-            <%= link_to "Profil de l'aidant", profile_path(booking.helper), class: "btn seko-button mt-4" %>
+            <%= link_to "Profil de l'aidant", profile_path(booking.helper), class: "btn seko-button" %>
             </div>
             <div>
             <%= render :partial => "favoris", locals: { booking: booking, helpers: @favoris_helper, path: "dashboard" } %>
@@ -154,13 +155,13 @@
             </div>
 
             <div class="ml-4 mt-4 seko-part-card-price">
-              <h4>Prix</h4>
+              <h4>Prix : <%= ((booking.helper.price)*((booking.end_time  - booking.start_time)/3600).to_i).to_i %>€</h4>
               <p><%= booking.helper.price %>€ par heure</p>
             </div>
 
             </div>
             <div class="col-3 seko-cancel-area border-left pt-4 pl-4">
-              <%= link_to "Profil de l'aidant", profile_path(booking.helper), class: "btn seko-button mt-4" %>
+              <%= link_to "Profil de l'aidant", profile_path(booking.helper), class: "btn seko-button" %>
               <%= link_to "Annuler cette demande", status_change_path(booking, status: "annulé"),
               method: :patch, data: { confirm: 'Are you sure?' }, class: "btn seko-cancel-button mt-4" %>
             </div>
@@ -199,12 +200,12 @@
               <% end %>
             </div>
             <div class="ml-4 mt-4 seko-part-card-price">
-              <h4>Prix</h4>
+              <h4>Prix : <%= ((booking.helper.price)*((booking.end_time  - booking.start_time)/3600).to_i).to_i %>€</h4>
               <p><%= booking.helper.price %>€ par heure</p>
             </div>
             </div>
             <div class=" col-3 seko-cancel-area seko-part-card border-left pt-4 pl-4">
-              <%= link_to "Profil de l'aidant", profile_path(booking.helper), class: "btn seko-button mt-4" %>
+              <%= link_to "Profil de l'aidant", profile_path(booking.helper), class: "btn seko-button" %>
               <%= link_to "Annuler cette réservation", status_change_path(booking, status: "annulé"),
               method: :patch, data: { confirm: 'Are you sure?' }, class: "btn seko-cancel-button mt-4" %>
             </div>
@@ -241,12 +242,12 @@
                   <% end %>
                 </div>
                 <div class="ml-4 mt-4 seko-cancel-area seko-part-card-price">
-                  <h4>Prix</h4>
+                  <h4>Prix : <%= ((booking.helper.price)*((booking.end_time  - booking.start_time)/3600).to_i).to_i %>€</h4>
                   <p><%= booking.helper.price %>€ par heure</p>
                 </div>
                 </div>
                 <div class="ml-4 seko-cancel-area seko-part-card border-left pt-4 pl-4">
-                  <%= link_to "Profil de l'aidant", profile_path(booking.helper), class: "btn seko-button mt-4" %>
+                  <%= link_to "Profil de l'aidant", profile_path(booking.helper), class: "btn seko-button" %>
                 </div>
                 <div>
                 <%= render :partial => "favoris", locals: { booking: booking, helpers: @favoris_helper, path: "dashboard" } %>

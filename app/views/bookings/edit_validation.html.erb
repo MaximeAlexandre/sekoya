@@ -74,7 +74,7 @@
         <%= label_tag("Un petit mot qui pourrai aider notre helper ?") %>
         <br>
         <%= text_area_tag(:comment, "", size: "50x5", class: "seko-search-bar") %>
-        <h3 class="mb-3 mt-3"><strong><%= @booking.helper.price %> € x <%= (@booking.end_time  - @booking.start_time)/3600 %>heures </strong> </h3>
+        <h3 class="mb-3 mt-3"><strong><%= @booking.helper.price %> € x <%= ((@booking.end_time  - @booking.start_time)/3600).to_i %>heures </strong> </h3>
         <h3 class="mb-3"><strong>Total : <%= @total %> €</strong></h3>
         <%= submit_tag 'Valider ma reservation', class: "btn seko-button search-button" %>
     </div>

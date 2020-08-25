@@ -2,12 +2,12 @@
 <h1>Mes Favoris</h1>
 <div>
   <% @favoris.each do |booking| %>
-    <%= link_to profile_path(booking.helper), :style=>'color: black;', class: "remove_favoris"  do %>
 
       <!-- Entire card -->
-      <div class="seko-card seko-flex col-12 mb-3">
+      <div class="col-12 mb-5">
         <%= render :partial => "remove_favoris", locals: { booking: booking, path: "favoris" } %>
-
+        <%= link_to profile_path(booking.helper) do %>
+        <div class="seko-flex seko-card">
         <!-- Avatar -->
         <div class="mb-3 d-flex flex-column flex-grow-1 align-items-center justify-content-center">
           <img class="avatar-extra-large mt-3 ml-2" src="<%= booking.helper.photo %>" alt="" >
@@ -53,9 +53,9 @@
           </div>
         </div>
       </div>
+      </div>
     <% end %>
   <% end %>
-
   <%= link_to "Retourner au dashboard", senior_path, class: "btn seko-button-show" %>
 </div>
 </div>

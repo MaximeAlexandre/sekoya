@@ -1,9 +1,8 @@
 .category-choice {
-  background: white;
+  background: #2082D1;
   padding-top: 10px;
   width: 300px;
   opacity: .4;
-  flex: 0 0 30%;
   text-align: center;
   box-shadow: 2px 2px 3px 3px rgba(0, 150, 199, 0.3) inset;
   border-radius: 14px;
@@ -12,9 +11,10 @@
     cursor: pointer;
   }
   &.active {
-  background-color: white;
-  color: #42a5f5;
-  opacity: 0.8;
-  border: solid 1px #42a5f5;
+  opacity: 1;
   }
+}
+
+label {
+  color: white;
 }
