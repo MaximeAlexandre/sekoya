@@ -118,10 +118,19 @@
   <!-- Helpers list 10kms around the given address -->
   <div>
     <% @helpers.each do |helper| %>
-      <%= link_to profile_path(helper), :style=>'color: black;' do %>
+
+      <!-- Collect all the reviews for each helpers -->
+      <% @reviews = [] %>
+      <% bookings = Booking.where(helper_id: helper.id) %>
+        <% bookings.each do |booking| %>
+        <% review = Review.find_by(booking_id: booking.id) %>
+        <% @reviews << review unless review.nil? %>
+      <% end %>
+
+      <%= link_to profile_path(helper), style: 'color: black;' do %>
 
         <!-- Entire card -->
-        <div class="seko-card seko-card-helper-list seko-flex col-8">
+        <div class="seko-card seko-card-helper-list seko-flex col-8 tooltip-perso">
 
           <!-- Avatar -->
           <div class="mb-3 d-flex flex-column flex-grow-1 align-items-center justify-content-center">
@@ -146,12 +155,6 @@
 
             <!-- Notes and price -->
             <div class="d-flex flex-column justify-content-between align-items-right">
-              <% @reviews = [] %>
-              <% bookings = Booking.where(helper_id: helper.id) %>
-                <% bookings.each do |booking| %>
-                <% review = Review.find_by(booking_id: booking.id) %>
-                <% @reviews << review unless review.nil? %>
-              <% end %>
               <% if @reviews.empty? %>
                 <p class="text-right">(<%= @reviews.length %> avis)</p>
               <% else %>
@@ -166,6 +169,26 @@
                 <p style="margin-bottom: 0;"><%= helper.price %>€ / heure</p>
               </div>
             </div>
+          </div>
+          <div class="tooltiptext">
+            <h4>Derniers commentaires</h4>
+            <% if @reviews.empty? %>
+              <p>Cet helper n'a pas encore de commentaires</p>
+            <% else %>
+              <% @reviews[0..2].each do |review| %>
+                <div class="border-top pt-3">
+                  <% review.note.times do%>
+                    <i class="fas fa-star"> </i>
+                  <% end %>
+                  <p><%= review.content %></p>
+                  <p>
+                    <img class="avatar" src="<%= review.booking.senior.photo %>" alt="" >
+                    &nbsp
+                    <%= review.booking.senior.first_name %>
+                  </p>
+                </div>
+              <% end %>
+            <% end %>
           </div>
         </div>
       <% end %>

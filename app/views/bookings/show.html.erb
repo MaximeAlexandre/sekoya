@@ -40,8 +40,8 @@
     <div>
         <% @booking.reviews.each do |review| %>
           <% review.note.times do%>
-          <i class="fas fa-star"> </i>
-        <% end %>
+            <i class="fas fa-star"> </i>
+          <% end %>
         <p><%=  review.content %> (<%= review.booking.senior.first_name %>) </p>
         <% end %>
     </div>

@@ -28,3 +28,45 @@
   padding: 10px;
   text-align:center;
 }
+
+.tooltip-perso {
+  position: relative;
+}
+
+.tooltip-perso .tooltiptext {
+  visibility: hidden;
+  width: 49%;
+  background: white;
+  border: 2px solid rgba(0, 150, 199, 0.2);
+  border-radius: 14px;
+  box-shadow: 0px 15px 30px rgba(0, 150, 199, 0.1);
+  text-align: left;
+  padding: 20px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  left: 101%;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+/* Tooltip arrow */
+.tooltip-perso .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent white transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip-perso:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
