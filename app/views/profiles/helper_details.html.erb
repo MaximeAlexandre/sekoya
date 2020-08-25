@@ -53,29 +53,42 @@
       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
       <div class="form-inputs">
         <input class="form-control datepicker seko-card" name="date" type="date" value=<%= Date.today %> id="example-date-input" hidden>
-        <div class="hour-block seko-show-in-card m-3">
-          <div class="time-block">
-            <label for="start_time">Heure de début</label>
-            <select class="seko-search-bar"  name="start_time" id="start_time">
-              <% (7..20).to_a.each do |hour| %>
-                <option value="<%= hour %>"><%= hour %>:00</option>
-              <% end %>
-            </select>
+        <div id="select_booking_hours" class="<%= "hidden" if @starting_hour > 20 %>">
+          <div class="hour-block seko-show-in-card m-3">
+            <div class="time-block">
+              <label for="start_time">Heure de début</label>
+              <select class="seko-search-bar"  name="start_time" id="start_time" value="<%= @starting_hour %>"> 
+                <% (7..20).to_a.each do |hour| %>
+                  <% if (@starting_hour == hour) %>
+                    <option value="<%= hour %>" selected><%= hour %>:00</option>
+                  <% else  %>
+                    <option value="<%= hour %>" class="<%= "hidden" if @starting_hour > hour %>"><%= hour %>:00</option>
+                  <% end %>
+                <% end %>
+              </select>
+            </div>
+            <div class="time-block">
+              <label for="end_time">Heure de fin</label>
+              <select class="seko-search-bar" name="end_time" id="end_time" value="<%= @starting_hour + 1 %>">
+                <% (8..21).to_a.each do |hour| %>
+                  <% if ((@starting_hour + 1) == hour) %>
+                    <option value="<%= hour %>" selected><%= hour %>:00</option>
+                  <% else  %>
+                    <option value="<%= hour %>" class="<%= "hidden" if (@starting_hour + 1) > hour %>"><%= hour %>:00</option>
+                  <% end %>
+                <% end %>
+              </select>
+            </div>
           </div>
-          <div class="time-block">
-            <label for="end_time">Heure de fin</label>
-            <select class="seko-search-bar" name="end_time" id="end_time">
-              <% (8..21).to_a.each do |hour| %>
-                <option value="<%= hour %>"><%= hour %>:00</option>
-              <% end %>
-            </select>
+          <div class="text-center m-4">
+            <h4 id="total" data-price="<%= @helper.price %>"> <strong>1 heure - Total : <%= 1*@helper.price.to_i %> €</strong> </h4>
           </div>
+          <input class="btn seko-button-show" type="submit" value="Valider">
+        </div>
+        <div id="not_today" class="">
+          <p>not today</p>
         </div>
       </div>
-      <div class="text-center m-4">
-      <h4 id="total" data-price="<%= @helper.price %>"> <strong><%= (8  - 7) %> heure - Total : <%= (8  - 7)*@helper.price %> €</strong> </h4>
-      </div>
-      <input class="btn seko-button-show" type="submit" value="Valider">
     </form>
   </div>
 </div>
