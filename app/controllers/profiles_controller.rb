@@ -118,6 +118,7 @@ class ProfilesController < ApplicationController
     time = Time.now
     @starting_hour = time.hour + 1
     @starting_hour += 1 unless time.min == 0
+  end
 
   def favoris
     @favoris = Booking.joins(:favoris).where(senior: current_user)
