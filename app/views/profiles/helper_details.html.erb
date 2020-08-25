@@ -66,7 +66,7 @@
             <label for="end_time">Heure de fin</label>
             <select class="seko-search-bar" name="end_time" id="end_time">
               <% (8..21).to_a.each do |hour| %>
-                <option value="<%= hour %>" id="hour<%= hour %>"><%= hour %>:00</option>
+                <option value="<%= hour %>"><%= hour %>:00</option>
               <% end %>
             </select>
           </div>
