@@ -25,7 +25,7 @@
               <p>De <%= @booking_next.start_time.strftime("%R") %> à <%= @booking_next.end_time.strftime("%R") %></p>
             </div>
             <div>
-              <h4>Prix : <%= ((@booking_next.helper.price)*((@booking_next.end_time  - @booking_next.start_time)/3600).to_i).to_i %>€</h4>
+              <p>Prix : <%= ((@booking_next.helper.price)*((@booking_next.end_time  - @booking_next.start_time)/3600).to_i).to_i %>€</p>
             </div>
           </div>
           <% end %>
