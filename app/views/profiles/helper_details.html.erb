@@ -56,7 +56,7 @@
         <div class="hour-block seko-show-in-card m-3">
           <div class="time-block">
             <label for="start_time">Heure de début</label>
-            <select class="seko-search-bar"  name="start_time">
+            <select class="seko-search-bar"  name="start_time" id="start_time">
               <% (7..20).to_a.each do |hour| %>
                 <option value="<%= hour %>"><%= hour %>:00</option>
               <% end %>
@@ -64,7 +64,7 @@
           </div>
           <div class="time-block">
             <label for="end_time">Heure de fin</label>
-            <select class="seko-search-bar" name="end_time">
+            <select class="seko-search-bar" name="end_time" id="end_time">
               <% (8..21).to_a.each do |hour| %>
                 <option value="<%= hour %>"><%= hour %>:00</option>
               <% end %>
