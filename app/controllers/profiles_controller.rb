@@ -27,6 +27,8 @@ class ProfilesController < ApplicationController
     @booking.senior = current_user
     @reviews = reviews_list(@helper)
     @average_rating = average_rating(@reviews)
+    details_reviews(@helper)
+    today_start_time
     favoris
   end
 
@@ -107,6 +109,17 @@ class ProfilesController < ApplicationController
 
   def average_rating(reviews)
     reviews.collect(&:note).sum.to_f / reviews.length unless reviews.empty?
+  end
+
+  def details_reviews(helper)
+    @reviews = reviews_list(helper)
+    @average_rating = average_rating(@reviews)
+  end
+
+  def today_start_time # Date.today
+    time = Time.now
+    @starting_hour = time.hour + 1
+    @starting_hour += 1 unless time.min == 0
   end
 
   def favoris
