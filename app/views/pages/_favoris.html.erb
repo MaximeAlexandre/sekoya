@@ -1,5 +1,5 @@
 <% unless helpers.include?(booking.helper) %>
-    <%= link_to "♡", favoris_path(booking: booking),
+    <%= link_to "♡", favoris_path(booking: booking, path: path),
     method: :post, class: "btn seko-small-button ml-5" %>
 <% else  %>
     <%= link_to "♥", favoris_destroy_path(booking, path: path),

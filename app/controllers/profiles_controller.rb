@@ -20,12 +20,14 @@ class ProfilesController < ApplicationController
 
   def helper_details
     @diplomas = Diploma.where(user_id: @helper.id)
+    @exist_booking = Booking.where(helper_id: @helper.id).first
     @registration_duration = registered_for(@helper)
     @booking = Booking.new
     @booking.helper = @helper
     @booking.senior = current_user
     @reviews = reviews_list(@helper)
     @average_rating = average_rating(@reviews)
+    favoris
   end
 
   private
@@ -105,5 +107,11 @@ class ProfilesController < ApplicationController
 
   def average_rating(reviews)
     reviews.collect(&:note).sum.to_f / reviews.length unless reviews.empty?
+  end
+
+  def favoris
+    @favoris = Booking.joins(:favoris).where(senior: current_user)
+    @favoris_helper = []
+    @favoris.each { |booking| @favoris_helper << booking.helper }
   end
 end

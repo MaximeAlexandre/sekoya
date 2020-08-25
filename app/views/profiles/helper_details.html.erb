@@ -1,5 +1,5 @@
 <div class="show-flex container mt-5">
-  <div class="col-7 seko-card show-profil-card mr-5 p-4">
+  <div class="col-7 seko-card-details show-profil-card mr-5 p-4">
     <div class="top-show seko-in-card">
       <div class="mr-4">
         <div>
@@ -16,19 +16,24 @@
           </div>
           <p>Inscrit depuis <%= @registration_duration %></p>
         </div>
-        <div class="d-flex flex-column justify-content-between">
+
+        <!-- Notes and Price -->
+        <div class="d-flex flex-column justify-content-between align-items-right">
+          <!-- Notes -->
           <div>
             <% if @reviews.empty? %>
               <p> No reviews currently </p>
             <% else %>
-              <%(@average_rating).to_i.times do%>
-                <i class="fas fa-star"> </i>
-              <% end %>
-              <div class="ml-4 text-center">
+              <div class="text-right">
+                <%(@average_rating).to_i.times do%>
+                  <i class="fas fa-star"> </i>
+                <% end %>
                 <p>(<%= @reviews.length %> avis)</p>
               </div>
             <% end %>
           </div>
+
+          <!-- Price -->
           <div class="text-right">
             <p style="margin-bottom: 0;"><%= @helper.price %>€ / heure</p>
           </div>
@@ -38,7 +43,11 @@
 
     <!-- Description -->
     <div class="mt-4 ml-2">
-      <h4>Profil</h4>
+      <div class="d-flex flex-row justify-content-between align-items-end">
+        <h4>Profil</h4>
+        <%= render :partial => "pages/favoris", locals: { booking: @exist_booking, helpers: @favoris_helper, path: "helper_details" } %>
+      </div>
+      <br>
       <p><%= @helper.description %></p>
     </div>
 
@@ -74,11 +83,11 @@
   </div>
 
   <!-- Calendrier -->
-  <div class="seko-card date-block">
+  <div class="seko-card-details date-block">
     <form action="/profiles/<%= @helper.id %>/bookings" method="POST">
       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
       <div class="form-inputs">
-        <input class="form-control datepicker seko-card" name="date" type="date" value="<%= Date.today %>" id="example-date-input" hidden>
+        <input class="form-control datepicker seko-card-details" name="date" type="date" value="<%= Date.today %>" id="example-date-input" hidden>
         <div class="hour-block seko-show-in-card m-3">
           <div class="time-block">
             <label for="start_time">Heure de début</label>
