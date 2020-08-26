@@ -20,9 +20,9 @@ const startingHour = () => {
 
 const hideUnusedEnd = (option, startHour) => {
     if (option.value <= startHour) {
-        option.classList.add('hidden');
+        option.disabled = true;
     } else {
-        option.classList.remove('hidden');
+        option.disabled = false;
     }
 }
 
@@ -61,6 +61,7 @@ const visible= (day) => {
     const startHour = document.getElementById("start_time");
     const endHour = document.getElementById("end_time");
     const block = document.getElementById("select_booking_hours");
+    const notToday = document.getElementById("not_today");
     const today = date();
     let hourMin = startingHour()
     if (hourMin < Number(startHour.options[0].value)) {
@@ -73,22 +74,24 @@ const visible= (day) => {
         };
         if (hourMin > 20) {
             block.classList.add('hidden');
+            notToday.classList.remove('hidden')
             startHour.value = store_start;
             hourMin = store_start;
         };
     } else {
+        notToday.classList.add('hidden');
         block.classList.remove('hidden');
     };
 
     for (let option of startHour.options) {
         if (day === today) {
             if (Number(option.value) < hourMin) {
-                option.classList.add('hidden');
+                option.disabled = true;
             } else {
-                option.classList.remove('hidden');
+                option.disabled = false;
             };
         } else {
-                option.classList.remove('hidden');
+                option.disabled = false;
         };
     };
 
