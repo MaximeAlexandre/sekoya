@@ -1,4 +1,7 @@
-<h2>Forgot your password?</h2>
+<div class="container col-4 seko-card p-3">
+
+
+<h2 class="text-center">Mot de passe oublié?</h2>
 
 <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
   <%= f.error_notification %>
@@ -7,12 +10,15 @@
     <%= f.input :email,
                 required: true,
                 autofocus: true,
-                input_html: { autocomplete: "email" } %>
+                input_html: { autocomplete: "email", class: 'seko-search-bar' } %>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Send me reset password instructions" %>
+  <div class="form-actions text-center">
+    <%= f.button :submit, "Réinitialiser mon mot de passe", class: 'btn seko-button w-100 mt-3' %>
   </div>
 <% end %>
+</div>
 
+<div class="seko-flex container col-4 p-3">
 <%= render "devise/shared/links" %>
+</div>
