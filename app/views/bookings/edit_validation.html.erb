@@ -29,7 +29,7 @@
         <!-- Notes and price -->
         <div class="d-flex flex-column justify-content-between align-items-right">
           <% if @reviews.empty? %>
-            <p> No reviews currently </p>
+            <p> Pas encore d'avis </p>
           <% else %>
             <div class="text-right">
               <%(@average_rating).to_i.times do%>

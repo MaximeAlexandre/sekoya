@@ -13,3 +13,8 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+
+.min-height {
+  min-height: calc(100vh - 175px);
+}
