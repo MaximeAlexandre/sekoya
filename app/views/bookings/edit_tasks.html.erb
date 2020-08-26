@@ -1,7 +1,7 @@
-<div class="">
+<div>
     <div class="text-center">
-      <h3>Comment  <%= @booking.helper.first_name %> peut vous aider ? </h3>
-      <h4>Vous pouvez choisir jusqu'à <%= ((@booking.end_time  - @booking.start_time)/3600).to_i %> activités </h4>
+      <h3>Comment <%= @booking.helper.first_name %> peut vous aider ?</h3>
+      <p>Vous pouvez choisir jusqu'à <%= ((@booking.end_time  - @booking.start_time)/3600).to_i %> activités.</p>
     </div>
 
 
