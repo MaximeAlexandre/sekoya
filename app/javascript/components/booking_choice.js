@@ -49,27 +49,39 @@ const changeDuration = () => {
 const visible= (day) => {
     const startHour = document.getElementById("start_time");
     const endHour = document.getElementById("end_time");
-    const block = document.getElementById("select_booking_hours")
-    const today = date()
+    const block = document.getElementById("select_booking_hours");
+    const today = date();
+    let hourMin = 0;
+    if (new Date().getMinutes() != 0) {
+        hourMin = new Date().getHours() + 2;
+    } else {
+        hourMin = new Date().getHours() + 1;
+    }
+    if (hourMin < Number(startHour.options[0].value)) {
+        hourMin = Number(startHour.options[0].value);
+    }
+    const store_start = Number(startHour.value)
+    if (day === today) {
+        if (startHour.value < hourMin) {
+            startHour.value = hourMin;
+        };
+        if (Number(startHour.value) > 20) {
+            block.classList.add('hidden');
+            startHour.value = store_start;
+        };
+    } else {
+        block.classList.remove('hidden');
+    };
 
     for (let option of startHour.options) {
         if (day === today) {
-            if (new Date().getMinutes() != 0) {
-                startHour.value = new Date().getHours() + 2;
-                if (startHour.value > 20) {
-                    block.classList.add('hidden')
-                    }
-            } else {
-                startHour.value = new Date().getHours() + 1;
-                if (startHour.value > 20) {
-                    block.classList.add('hidden')
-                }
-            };
-            if (option.value < Number(startHour.value)) {
+            if (Number(option.value) < hourMin) {
                 option.classList.add('hidden');
+            } else {
+                option.classList.remove('hidden');
             };
         } else {
-            option.classList.remove('hidden');
+                option.classList.remove('hidden');
         };
     };
 
