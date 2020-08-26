@@ -67,10 +67,10 @@ const visible= (day) => {
     }
     const store_start = Number(startHour.options[0].value)
     if (day === today) {
-        if (startHour.value < hourMin) {
+        if (hourMin > Number(startHour.value)) {
             startHour.value = hourMin;
         };
-        if (Number(startHour.value) > 20) {
+        if (hourMin > 20) {
             block.classList.add('hidden');
             startHour.value = store_start;
             hourMin = store_start;
