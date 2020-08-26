@@ -19,7 +19,7 @@ senior1 = User.new(
   first_name: "Jean paul",
   last_name: "Belmondo",
   email: "jean-paul.belmondo@gmail.com",
-  password: "azertyuiop",
+  password: "azerty",
   address: "70 Rue de la République 13002 Marseille",
   mobile_number: "0607080901",
   role: "senior",
@@ -30,7 +30,7 @@ senior2 = User.new(
   first_name: "Guy",
   last_name: "Tare",
   email: "guy.tare@gmail.com",
-  password: "azerty2",
+  password: "azerty",
   address: "Cours Julien 13006 Marseille",
   mobile_number: "0689754534",
   role: "senior",
@@ -41,7 +41,7 @@ senior3 = User.new(
   first_name: "Ginette",
   last_name: "Delacroix",
   email: "ginette.delacroix@gmail.com",
-  password: "123456",
+  password: "azerty",
   address: "150 Rue Paradis 13006 Marseille",
   mobile_number: "0745389721",
   role: "senior",
@@ -52,7 +52,7 @@ senior4 = User.new(
   first_name: "Veronique",
   last_name: "De Perse",
   email: "veronique.de-perse@gmail.com",
-  password: "987654",
+  password: "azerty",
   address: "35 Avenue de Mazargues Marseille",
   mobile_number: "0645389723",
   role: "senior",
@@ -239,6 +239,7 @@ senior5 = User.new(
   address: "33 Rue Thomassin Lyon",
   mobile_number: "0756349876",
   role: "senior",
+  pathologie: "Parkinson",
   photo: "https://images.unsplash.com/photo-1447005497901-b3e9ee359928?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80"
 )
 
@@ -255,7 +256,7 @@ helper11 = User.new(
   mobile_number: "0623987867",
   role: "helper",
   car: true,
-  description: "Aider mon prochain est bien qu'un métier, c'est une passion.\
+  description: "Aider mon prochain est bien plus qu'un métier, c'est une passion.\
                 C'est pour cela que j'ai choisi ce métier.\
                 J'aime jouer au échec et me ballader au bord de mer.",
   price: "12",
