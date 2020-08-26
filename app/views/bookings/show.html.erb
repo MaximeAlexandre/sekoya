@@ -6,11 +6,11 @@
     <div class="seko-flex">
       <% if current_user.role == "helper" %>
       <div>
-        <img class="avatar-senior avatar-large mt-3 ml-2 space-between" src="<%= @booking.senior.photo %>" alt="" >
+        <img class="avatar-senior avatar-large mt-3 ml-4" src="<%= @booking.senior.photo %>" alt="" >
       </div>
       <% else %>
       <div>
-        <img class="avatar-large mt-3 ml-2" src="<%= @booking.helper.photo %>" alt="" >
+        <img class="avatar-large mt-3 ml-4" src="<%= @booking.helper.photo %>" alt="" >
       </div>
       <% end %>
       <!-- Full name and diplomas -->
@@ -100,21 +100,21 @@
         <%= simple_form_for [@booking, @review] do |f| %>
         <%= f.error_notification %>
         <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-        <div class="form-inputs">
-          <%= f.input :content, label: 'Laisser un commentaire'%>
-          <%= f.input :note, collection: 1..5, label: 'Notez votre experience'%>
+        <div class="form-inputs border-top pt-4">
+          <h4><%= f.input :note, collection: 1..5, label: 'Notez votre experience'%></h4>
+          <h4 class="text-center border-top pt-4"><%= f.input :content, label: 'Laisser un commentaire'%></h4>
         </div>
-        <div class="btn seko-button w-100 mb-3">
-          <%= f.button :submit, 'Ajouter un commentaire' %>
+        <div class="w-100 mb-3">
+          <%= f.button :submit, 'Ajouter un commentaire', :class => "btn seko-button w-100" %>
         </div>
         <% end %>
         <% end %>
       </div>
     </div>
     <% if current_user.role == "helper" %>
-    <%= link_to 'Retour au dashboard', helper_path, class: "btn seko-button w-100"%>
+    <%= link_to 'Retour au tableau de bord', helper_path, class: "btn seko-button w-100 mt-3 mb-3"%>
     <% else %>
-    <%= link_to 'Retour au dashboard', senior_path, class: "btn seko-button w-100"%>
+    <%= link_to 'Retour au tableau de bord', senior_path, class: "btn seko-button w-100 mt-3 mb-3"%>
     <% end %>
   </div>
 </div>

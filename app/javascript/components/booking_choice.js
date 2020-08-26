@@ -8,11 +8,21 @@ const date = () => {
     return today
 }
 
+const startingHour = () => {
+    let hourMin = 0;
+    if (new Date().getMinutes() != 0) {
+        hourMin = new Date().getHours() + 2;
+    } else {
+        hourMin = new Date().getHours() + 1;
+    }
+    return hourMin
+}
+
 const hideUnusedEnd = (option, startHour) => {
     if (option.value <= startHour) {
-        option.classList.add('hidden');
+        option.disabled = true;
     } else {
-        option.classList.remove('hidden');
+        option.disabled = false;
     }
 }
 
@@ -50,27 +60,38 @@ const changeDuration = () => {
 const visible= (day) => {
     const startHour = document.getElementById("start_time");
     const endHour = document.getElementById("end_time");
-    const block = document.getElementById("select_booking_hours")
-    const today = date()
+    const block = document.getElementById("select_booking_hours");
+    const notToday = document.getElementById("not_today");
+    const today = date();
+    let hourMin = startingHour()
+    if (hourMin < Number(startHour.options[0].value)) {
+        hourMin = Number(startHour.options[0].value);
+    }
+    const store_start = Number(startHour.options[0].value)
+    if (day === today) {
+        if (hourMin > Number(startHour.value)) {
+            startHour.value = hourMin;
+        };
+        if (hourMin > 20) {
+            block.classList.add('hidden');
+            notToday.classList.remove('hidden')
+            startHour.value = store_start;
+            hourMin = store_start;
+        };
+    } else {
+        notToday.classList.add('hidden');
+        block.classList.remove('hidden');
+    };
 
     for (let option of startHour.options) {
         if (day === today) {
-            if (new Date().getMinutes() != 0) {
-                startHour.value = new Date().getHours() + 2;
-                if (startHour.value > 20) {
-                    block.classList.add('hidden')
-                    }
+            if (Number(option.value) < hourMin) {
+                option.disabled = true;
             } else {
-                startHour.value = new Date().getHours() + 1;
-                if (startHour.value > 20) {
-                    block.classList.add('hidden')
-                }
-            };
-            if (option.value < Number(startHour.value)) {
-                option.classList.add('hidden');
+                option.disabled = false;
             };
         } else {
-            option.classList.remove('hidden');
+                option.disabled = false;
         };
     };
 

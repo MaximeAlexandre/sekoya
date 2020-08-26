@@ -3,14 +3,14 @@
   <!-- Next booking, Wallet and Planning -->
   <div class="seko-flex">
     <div class="col-6">
-      <div class="ml-3">
-        <%= render :partial => "bonjour" %>
+      <div>
+        <h1 style="color: #1E80FC;"><%= "Bonjour #{current_user.first_name} !" %></h1>
       </div>
 
       <!-- Next booking -->
       <div>
-        <h3 class="ml-3">Prochaine prestation</h3>
-        <div class="seko-card p-3 m-3">
+        <h2 class="mb-3">Prochaine prestation</h2>
+        <div class="seko-card p-3">
           <% if @booking_next.nil? %>
             <p>Vous n'avez pas de prestation à venir</p>
           <% else %>
@@ -25,7 +25,7 @@
               <p>De <%= @booking_next.start_time.strftime("%R") %> à <%= @booking_next.end_time.strftime("%R") %></p>
             </div>
             <div>
-              <p>Prix : <%= ((@booking_next.helper.price)*((@booking_next.end_time  - @booking_next.start_time)/3600).to_i).to_i %>€</p>
+              <h4>Prix : <%= ((@booking_next.helper.price)*((@booking_next.end_time  - @booking_next.start_time)/3600).to_i).to_i %>€</h4>
             </div>
           </div>
           <% end %>
@@ -98,7 +98,7 @@
             </div>
 
             <div class="m-4 pr-4 border-right seko-part-card">
-              <h4>Prestations:</h4>
+              <h4>Prestations :</h4>
               <% booking.tasks.each do |task| %>
               <li><%= task.name %></li>
               <% end %>
@@ -138,7 +138,7 @@
             </div>
 
             <div class="m-4 pr-4 border-right seko-part-card">
-              <h4>Prestations:</h4>
+              <h4>Prestations :</h4>
               <% booking.tasks.each do |task| %>
               <li><%= task.name %></li>
               <% end %>
@@ -181,7 +181,7 @@
             </div>
 
             <div class="m-4 pr-4 border-right seko-part-card">
-              <h4>Prestations:</h4>
+              <h4>Prestations :</h4>
               <% booking.tasks.each do |task| %>
               <li><%= task.name %></li>
               <% end %>
@@ -192,8 +192,12 @@
             </div>
             </div>
             <div class=" col-3 seko-cancel-area seko-part-card border-left m-4 pl-4">
+              <% if booking.date >= Date.today + 7 %>
               <%= link_to "Annuler cette réservation", status_change_path(booking, status: "annulé"),
               method: :patch, data: { confirm: 'Are you sure?' }, class: "btn seko-cancel-button" %>
+              <% else %>
+              <button class="btn seko-under-seven-btn">Vous ne pouvez plus annuler  cette réservation</button>
+              <% end %>
             </div>
           </div>
           <% end %>
@@ -219,7 +223,7 @@
                 </div>
 
                 <div class="m-4 pr-4 border-right seko-part-card">
-                  <h4>Prestations:</h4>
+                  <h4>Prestations :</h4>
                   <% booking.tasks.each do |task| %>
                   <li><%= task.name %></li>
                   <% end %>

@@ -1,6 +1,14 @@
 <div class="show-flex container mt-5">
   <div class="col-7 seko-card-details show-profil-card mr-5 p-4">
-    <div class="top-show seko-in-card">
+    <div class=" ml-2">
+      <div class="d-flex flex-row justify-content-between align-items-end">
+        <h1 style="color: #1E80FC;">Profil</h1>
+        <% unless @exist_booking.nil? %>
+          <%= render :partial => "pages/favoris", locals: { booking: @exist_booking, helpers: @favoris_helper, path: "helper_details" } %>
+        <% end %>
+      </div>
+    </div>
+    <div class="top-show seko-in-card mt-3">
       <div class="mr-4">
         <div>
           <img class="avatar-large ml-2" src="<%= @helper.photo %>" alt="" >
@@ -35,23 +43,16 @@
 
           <!-- Price -->
           <div class="text-right">
-            <p style="margin-bottom: 0;"><%= @helper.price %>€ / heure</p>
+            <h4 style="margin-bottom: 0;"><%= @helper.price %>€ / heure</h4>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Description -->
-    <div class="mt-4 ml-2">
-      <div class="d-flex flex-row justify-content-between align-items-end">
-        <h4>Profil</h4>
-        <% unless @exist_booking.nil? %>
-          <%= render :partial => "pages/favoris", locals: { booking: @exist_booking, helpers: @favoris_helper, path: "helper_details" } %>
-        <% end %>
-      </div>
-      <br>
-      <p><%= @helper.description %></p>
-    </div>
+    <h4 class="mt-4">Description</h4>
+    <p><%= @helper.description %></p>
+
 
     <!-- Diplomas / Formations -->
     <div class="border-top mt-4 ml-2 pt-4">
@@ -62,6 +63,8 @@
         <% end %>
       </ul>
     </div>
+
+    <!-- Reviews -->
     <div class="border-top mt-4 ml-2 pt-4">
       <h4>Reviews</h4>
       <% if @reviews.empty? %>
@@ -74,7 +77,7 @@
             <% end %>
             <p><%= review.content %></p>
             <p class="ml-3">
-              <img class="avatar" src="<%= review.booking.senior.photo %>" alt="" >
+              <img class="avatar avatar-senior-small" src="<%= review.booking.senior.photo %>" alt="" >
               &nbsp
               <%= review.booking.senior.first_name %>
             </p>
@@ -85,24 +88,29 @@
   </div>
 
   <!-- Calendrier -->
-  <div class="seko-card-details date-block">
+  <div class="seko-card-details date-block sticky-top" style="top: 60px;">
     <form action="/profiles/<%= @helper.id %>/bookings" method="POST">
       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
       <div class="form-inputs">
         <input class="form-control datepicker seko-card-details" name="date" type="date" value="<%= Date.today %>" id="example-date-input" hidden>
-        <div id="not_today" class="<%= "hidden" if @starting_hour <= 20 %>">
-          <p>Plus de résa possible pour ce jour</p>
+        <div id="not_today" class="seko-show-in-card m-3 <%= "hidden" if @starting_hour <= 20 %>">
+          <p>Plus de réservation possible pour ce jour.</p>
+          <p>Vous ne pouvez plus reserver le jour même à partir de 19h.</p>
+          <p>Selectionez une autre date.</p>
         </div>
         <div id="select_booking_hours" class="<%= "hidden" if @starting_hour > 20 %>">
           <div class="hour-block seko-show-in-card m-3">
             <div class="time-block">
               <label for="start_time">Heure de début</label>
               <select class="seko-search-bar"  name="start_time" id="start_time" value="<%= @starting_hour %>">
+                <% @starting_hour = 7 if @starting_hour > 20 %>
                 <% (7..20).to_a.each do |hour| %>
-                  <% if (@starting_hour == hour) %>
-                    <option value="<%= hour %>" selected><%= hour %>:00</option>
+                  <% if (@starting_hour > hour) %>
+                    <option value="<%= hour %>" disabled><%= hour %>:00</option>>
+                  <% elsif (@starting_hour == hour) %>
+                    <option value="<%= hour %>" selected><%= hour %>:00</option>>
                   <% else  %>
-                    <option value="<%= hour %>" class="<%= "hidden" if @starting_hour > hour %>"><%= hour %>:00</option>
+                    <option value="<%= hour %>"><%= hour %>:00</option>
                   <% end %>
                 <% end %>
               </select>
@@ -111,10 +119,12 @@
               <label for="end_time">Heure de fin</label>
               <select class="seko-search-bar" name="end_time" id="end_time" value="<%= @starting_hour + 1 %>">
                 <% (8..21).to_a.each do |hour| %>
-                  <% if ((@starting_hour + 1) == hour) %>
+                  <% if ((@starting_hour + 1) > hour) %>
+                    <option value="<%= hour %>" disabled><%= hour %>:00</option>
+                  <% elsif ((@starting_hour + 1) == hour) %>
                     <option value="<%= hour %>" selected><%= hour %>:00</option>
                   <% else  %>
-                    <option value="<%= hour %>" class="<%= "hidden" if (@starting_hour + 1) > hour %>"><%= hour %>:00</option>
+                    <option value="<%= hour %>"><%= hour %>:00</option>
                   <% end %>
                 <% end %>
               </select>
