@@ -100,11 +100,14 @@
             <div class="time-block">
               <label for="start_time">Heure de début</label>
               <select class="seko-search-bar"  name="start_time" id="start_time" value="<%= @starting_hour %>">
+                <% @starting_hour = 7 if @starting_hour > 20 %>
                 <% (7..20).to_a.each do |hour| %>
-                  <% if (@starting_hour == hour) %>
-                    <option value="<%= hour %>" selected><%= hour %>:00</option>
+                  <% if (@starting_hour > hour) %>
+                    <option value="<%= hour %>" disabled><%= hour %>:00</option>>
+                  <% elsif (@starting_hour == hour) %>
+                    <option value="<%= hour %>" selected><%= hour %>:00</option>>
                   <% else  %>
-                    <option value="<%= hour %>" class="<%= "hidden" if @starting_hour > hour %>"><%= hour %>:00</option>
+                    <option value="<%= hour %>"><%= hour %>:00</option>
                   <% end %>
                 <% end %>
               </select>
@@ -113,10 +116,12 @@
               <label for="end_time">Heure de fin</label>
               <select class="seko-search-bar" name="end_time" id="end_time" value="<%= @starting_hour + 1 %>">
                 <% (8..21).to_a.each do |hour| %>
-                  <% if ((@starting_hour + 1) == hour) %>
+                  <% if ((@starting_hour + 1) > hour) %>
+                    <option value="<%= hour %>" disabled><%= hour %>:00</option>
+                  <% elsif ((@starting_hour + 1) == hour) %>
                     <option value="<%= hour %>" selected><%= hour %>:00</option>
                   <% else  %>
-                    <option value="<%= hour %>" class="<%= "hidden" if (@starting_hour + 1) > hour %>"><%= hour %>:00</option>
+                    <option value="<%= hour %>"><%= hour %>:00</option>
                   <% end %>
                 <% end %>
               </select>
