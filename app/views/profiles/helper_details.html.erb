@@ -1,6 +1,14 @@
 <div class="show-flex container mt-5">
   <div class="col-7 seko-card-details show-profil-card mr-5 p-4">
-    <div class="top-show seko-in-card">
+    <div class=" ml-2">
+      <div class="d-flex flex-row justify-content-between align-items-end">
+        <h1 style="color: #1E80FC;">Profil</h1>
+        <% unless @exist_booking.nil? %>
+          <%= render :partial => "pages/favoris", locals: { booking: @exist_booking, helpers: @favoris_helper, path: "helper_details" } %>
+        <% end %>
+      </div>
+    </div>
+    <div class="top-show seko-in-card mt-3">
       <div class="mr-4">
         <div>
           <img class="avatar-large ml-2" src="<%= @helper.photo %>" alt="" >
@@ -35,23 +43,16 @@
 
           <!-- Price -->
           <div class="text-right">
-            <p style="margin-bottom: 0;"><%= @helper.price %>€ / heure</p>
+            <h4 style="margin-bottom: 0;"><%= @helper.price %>€ / heure</h4>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Description -->
-    <div class="mt-4 ml-2">
-      <div class="d-flex flex-row justify-content-between align-items-end">
-        <h4>Profil</h4>
-        <% unless @exist_booking.nil? %>
-          <%= render :partial => "pages/favoris", locals: { booking: @exist_booking, helpers: @favoris_helper, path: "helper_details" } %>
-        <% end %>
-      </div>
-      <br>
-      <p><%= @helper.description %></p>
-    </div>
+    <h4 class="mt-4">Description</h4>
+    <p><%= @helper.description %></p>
+
 
     <!-- Diplomas / Formations -->
     <div class="border-top mt-4 ml-2 pt-4">
