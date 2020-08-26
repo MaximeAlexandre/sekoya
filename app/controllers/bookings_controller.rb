@@ -24,8 +24,9 @@ class BookingsController < ApplicationController
     @review = Review.new
     @diplomas = Diploma.where(user_id: @booking.helper.id)
     @total = (@booking.end_time - @booking.start_time) / 3600 * @booking.helper.price
-    @reviews = reviews_list(@helper)
+    @reviews = reviews_list
     @average_rating = average_rating(@reviews)
+    map(@booking)
   end
 
   def edit_tasks
@@ -98,7 +99,7 @@ class BookingsController < ApplicationController
     #  senior_id  :bigint           not null
   end
 
-  def reviews_list(helper)
+  def reviews_list
     reviews = []
     bookings = Booking.where(helper_id: @booking.helper.id)
     bookings.each do |booking|
@@ -109,5 +110,16 @@ class BookingsController < ApplicationController
   end
   def average_rating(reviews)
     reviews.collect(&:note).sum.to_f / reviews.length unless reviews.empty?
+  end
+
+  def map(booking)
+    @flats = User.where(id: booking.senior).geocoded # returns flats with coordinates
+
+    @markers = @flats.map do |flat|
+      {
+        lat: flat.latitude,
+        lng: flat.longitude
+      }
+    end
   end
 end
