@@ -1,13 +1,9 @@
 <div class="ml-5 mr-5">
-
   <div class="seko-flex">
-
     <div class="col-6">
-
       <div>
         <%= render :partial => "bonjour" %>
       </div>
-
       <div>
         <h2 class="mb-3">Prochaine prestation</h2>
         <div class="seko-card p-2">
@@ -16,105 +12,86 @@
           <% else %>
           <%= link_to booking_path(@booking_next) do %>
           <div class="seko-flex">
-          <div>
-            <img class="avatar-large" src="<%= @booking_next.helper.photo %>" alt="" >
-          </div>
-          <div class="col-10">
-            <div class="seko-flex">
-          <h4><%= @booking_next.helper.first_name %> <%= @booking_next.helper.last_name %></h4>
-          <p>Le <%= @booking_next.date.strftime("%d/%m/%Y") %></p>
-          <p>De <%= @booking_next.start_time.strftime("%R") %>h à <%= @booking_next.end_time.strftime("%R") %>h</p>
-          <div>
-          <%= render :partial => "favoris", locals: { booking: @booking_next, helpers: @favoris_helper, path: "dashboard" } %>
-          <h4 class="mt-4">Prix : <%= ((@booking_next.helper.price)*((@booking_next.end_time  - @booking_next.start_time)/3600).to_i).to_i %>€</h4>
-          </div>
-        </div>
-          </div>
+            <div>
+              <img class="avatar-large" src="<%= @booking_next.helper.photo %>" alt="" >
+            </div>
+            <div class="col-10">
+              <div class="seko-flex">
+                <h4><%= @booking_next.helper.first_name %> <%= @booking_next.helper.last_name %></h4>
+                <p>Le <%= @booking_next.date.strftime("%d/%m/%Y") %></p>
+                <p>De <%= @booking_next.start_time.strftime("%R") %>h à <%= @booking_next.end_time.strftime("%R") %>h</p>
+                <div>
+                  <%= render :partial => "favoris", locals: { booking: @booking_next, helpers: @favoris_helper, path: "dashboard" } %>
+                  <h4 class="mt-4">Prix : <%= ((@booking_next.helper.price)*((@booking_next.end_time  - @booking_next.start_time)/3600).to_i).to_i %>€</h4>
+                </div>
+              </div>
+            </div>
           </div>
           <% end %>
           <% end %>
-        </div>
       </div>
-
     </div>
-
-    <div class="col-6">
-
-      <div class="seko-card p-2 text-center m-3">
+  </div>
+  <div class="col-6">
+    <div class="seko-card p-2 text-center m-3">
         <%= render :partial => "wallet" %>
-      </div>
-
-      <div class="seko-card text-center p-2 m-3">
+    </div>
+    <div class="seko-card text-center p-2 m-3">
         <%= link_to favoris_index_path do%>
         <h1>Mes favoris</h1>
         <p>Retouvez vos helpers préférés.</p>
         <% end %>
-      </div>
-
     </div>
-
   </div>
-
-  <div class="ml-3 mr-3">
-
+</div>
+<div class="ml-3 mr-3">
     <div>
-    <h2 class="mt-2">Bookings</h2>
+      <h2 class="mt-2">Bookings</h2>
     </div>
-
     <div>
-
       <ul class="nav" id="myTab" role="tablist">
-
         <li class="nav-item" role="presentation">
           <a class="nav-link active dashboard-nav-btn" id="week-tab" data-toggle="tab" href="#week" role="tab" aria-controls="week" aria-selected="true">Cette semaine</a>
         </li>
-
         <li class="nav-item" role="presentation">
           <a class="nav-link dashboard-nav-btn" id="pending-tab" data-toggle="tab" href="#pending" role="tab" aria-controls="pending" aria-selected="false">En attente (<%= @pending.length %>)</a>
         </li>
-
         <li class="nav-item" role="presentation">
           <a class="nav-link dashboard-nav-btn" id="futur-tab" data-toggle="tab" href="#futur" role="tab" aria-controls="futur" aria-selected="false">A venir</a>
         </li>
-
         <li class="nav-item" role="presentation">
           <a class="nav-link dashboard-nav-btn" id="historique-tab" data-toggle="tab" href="#historique" role="tab" aria-controls="historique" aria-selected="false">Historique</a>
         </li>
-
       </ul>
-
       <div class="tab-content" id="myTabContent">
-
         <div class="tab-pane fade show active" id="week" role="tabpanel" aria-labelledby="week-tab">
           <% @senior_week.each do |booking| %>
           <%= link_to booking_path(booking) do%>
-
           <div class="seko-card pl-3 mb-3 pr-4 seko-flex senior-long-block">
             <div class="seko-flex">
-            <div>
-              <img class="avatar-large mt-3" src="<%= booking.helper.photo %>" alt="" >
-            </div>
+              <div>
+                <img class="avatar-large mt-3" src="<%= booking.helper.photo %>" alt="" >
+              </div>
 
-            <div class="m-4 pr-4 border-right border-left pl-4 seko-part-card">
-              <h4><%= booking.helper.first_name %> <%= booking.helper.last_name %></h4>
-              <p>Le <%= booking.date.strftime("%d/%m/%Y") %></p>
-              <p>De <%= booking.start_time.strftime("%R") %>h à <%= booking.end_time.strftime("%R") %>h</p>
-              <p><%= render :partial => "colorstatus", locals: { booking: booking } %></p>
-            </div>
+              <div class="m-4 pr-4 border-right border-left pl-4 seko-part-card">
+                <h4><%= booking.helper.first_name %> <%= booking.helper.last_name %></h4>
+                <p>Le <%= booking.date.strftime("%d/%m/%Y") %></p>
+                <p>De <%= booking.start_time.strftime("%R") %>h à <%= booking.end_time.strftime("%R") %>h</p>
+                <p><%= render :partial => "colorstatus", locals: { booking: booking } %></p>
+              </div>
 
-            <div class="mt-4 pr-2 border-right seko-part-card">
-              <h4>Prestations :</h4>
-              <% booking.tasks.each do |task| %>
-              <li><%= task.name %></li>
-              <% end %>
-            </div>
-            <div class="mt-4 ml-3 seko-part-card-price">
-              <h4>Prix : <%= ((booking.helper.price)*((booking.end_time  - booking.start_time)/3600).to_i).to_i %>€</h4>
+              <div class="mt-4 pr-2 border-right seko-part-card">
+                <h4>Prestations :</h4>
+                <% booking.tasks.each do |task| %>
+                <li><%= task.name %></li>
+                <% end %>
+              </div>
+              <div class="mt-4 ml-3 seko-part-card-price">
+                <h4>Prix : <%= ((booking.helper.price)*((booking.end_time  - booking.start_time)/3600).to_i).to_i %>€</h4>
                 <p><%= booking.helper.price %>€ par heure</p>
               </div>
-            <div>
-            </div>
-
+              <div>
+              </div>
             </div>
             <div class="col-3 seko-cancel-area border-left pl-4 m-4">
             <%= link_to "Profil de l'aidant", profile_path(booking.helper), class: "btn seko-button" %>
@@ -122,83 +99,71 @@
             <div>
               <%= render :partial => "favoris", locals: { booking: booking, helpers: @favoris_helper, path: "dashboard" } %>
             </div>
-            </div>
+          </div>
           <% end %>
           <% end %>
         </div>
-
         <div class="tab-pane fade" id="pending" role="tabpanel" aria-labelledby="pending-tab">
           <% @pending.each do |booking| %>
           <%= link_to booking_path(booking) do%>
           <div class="seko-card pl-3 mb-3 pr-4 seko-flex senior-long-block">
-        <div class="seko-flex">
-
-            <div>
-              <img class="avatar-large mt-3" src="<%= booking.helper.photo %>" alt="" >
-            </div>
-
-            <div class="m-4 pr-4 border-right border-left pl-4 seko-part-card">
-              <h4><%= booking.helper.first_name %> <%= booking.helper.last_name %></h4>
-              <p>Le <%= booking.date.strftime("%d/%m/%Y") %></p>
-              <p>De <%= booking.start_time.strftime("%R") %>h à <%= booking.end_time.strftime("%R") %>h</p>
-              <p><%= render :partial => "colorstatus", locals: { booking: booking } %></p>
-            </div>
-
-            <div class="mt-4 pr-4 border-right seko-part-card">
-              <h4>Prestations :</h4>
-              <% booking.tasks.each do |task| %>
-              <li><%= task.name %></li>
-              <% end %>
-            </div>
-
-            <div class="mt-4 ml-3 seko-part-card-price">
-              <h4>Prix : <%= ((booking.helper.price)*((booking.end_time  - booking.start_time)/3600).to_i).to_i %>€</h4>
-              <p><%= booking.helper.price %>€ par heure</p>
-            </div>
-
+            <div class="seko-flex">
+              <div>
+                <img class="avatar-large mt-3" src="<%= booking.helper.photo %>" alt="" >
+              </div>
+              <div class="m-4 pr-4 border-right border-left pl-4 seko-part-card">
+                <h4><%= booking.helper.first_name %> <%= booking.helper.last_name %></h4>
+                <p>Le <%= booking.date.strftime("%d/%m/%Y") %></p>
+                <p>De <%= booking.start_time.strftime("%R") %>h à <%= booking.end_time.strftime("%R") %>h</p>
+                <p><%= render :partial => "colorstatus", locals: { booking: booking } %></p>
+              </div>
+              <div class="mt-4 pr-4 border-right seko-part-card">
+                <h4>Prestations :</h4>
+                <% booking.tasks.each do |task| %>
+                <li><%= task.name %></li>
+                <% end %>
+              </div>
+              <div class="mt-4 ml-3 seko-part-card-price">
+                <h4>Prix : <%= ((booking.helper.price)*((booking.end_time  - booking.start_time)/3600).to_i).to_i %>€</h4>
+                <p><%= booking.helper.price %>€ par heure</p>
+              </div>
             </div>
             <div class="col-3 seko-cancel-area border-left m-4 pl-4">
               <%= link_to "Profil de l'aidant", profile_path(booking.helper), class: "btn seko-button" %>
               <%= link_to "Annuler cette demande", status_change_path(booking, status: "annulé"),
               method: :patch, data: { confirm: 'Are you sure?' }, class: "btn seko-cancel-button mt-4" %>
             </div>
-
             <div>
             <%= render :partial => "favoris", locals: { booking: booking, helpers: @favoris_helper, path: "dashboard" } %>
             </div>
-            </div>
+          </div>
           <% end %>
           <% end %>
         </div>
-
         <div class="tab-pane fade" id="futur" role="tabpanel" aria-labelledby="futur-tab">
           <% @avenir.each do |booking| %>
           <%= link_to booking_path(booking) do%>
-
           <div class="seko-card pl-3 mb-3 pr-4 seko-flex senior-long-block">
             <div class="seko-flex">
-
-            <div>
-              <img class="avatar-large mt-3" src="<%= booking.helper.photo %>" alt="" >
-            </div>
-
-            <div class="m-4 pr-4 border-right border-left pl-4 seko-part-card">
-              <h4><%= booking.helper.first_name %> <%= booking.helper.last_name %></h4>
-              <p>Le <%= booking.date.strftime("%d/%m/%Y") %></p>
-              <p>De <%= booking.start_time.strftime("%R") %>h à <%= booking.end_time.strftime("%R") %>h</p>
-              <p><%= render :partial => "colorstatus", locals: { booking: booking } %></p>
-            </div>
-
-            <div class="mt-4 pr-4 border-right seko-part-card">
-              <h4>Prestations :</h4>
-              <% booking.tasks.each do |task| %>
-              <li><%= task.name %></li>
-              <% end %>
-            </div>
-            <div class="ml-3 mt-4 seko-part-card-price">
-              <h4>Prix : <%= ((booking.helper.price)*((booking.end_time  - booking.start_time)/3600).to_i).to_i %>€</h4>
-              <p><%= booking.helper.price %>€ par heure</p>
-            </div>
+              <div>
+                <img class="avatar-large mt-3" src="<%= booking.helper.photo %>" alt="" >
+              </div>
+              <div class="m-4 pr-4 border-right border-left pl-4 seko-part-card">
+                <h4><%= booking.helper.first_name %> <%= booking.helper.last_name %></h4>
+                <p>Le <%= booking.date.strftime("%d/%m/%Y") %></p>
+                <p>De <%= booking.start_time.strftime("%R") %>h à <%= booking.end_time.strftime("%R") %>h</p>
+                <p><%= render :partial => "colorstatus", locals: { booking: booking } %></p>
+              </div>
+              <div class="mt-4 pr-4 border-right seko-part-card">
+                <h4>Prestations :</h4>
+                <% booking.tasks.each do |task| %>
+                <li><%= task.name %></li>
+                <% end %>
+              </div>
+              <div class="ml-3 mt-4 seko-part-card-price">
+                <h4>Prix : <%= ((booking.helper.price)*((booking.end_time  - booking.start_time)/3600).to_i).to_i %>€</h4>
+                <p><%= booking.helper.price %>€ par heure</p>
+              </div>
             </div>
             <div class=" col-3 seko-cancel-area seko-part-card border-left m-4 pl-4">
               <%= link_to "Profil de l'aidant", profile_path(booking.helper), class: "btn seko-button" %>
@@ -216,34 +181,30 @@
           <% end %>
           <% end %>
         </div>
-
         <div class="tab-pane fade" id="historique" role="tabpanel" aria-labelledby="historique-tab">
               <% @historique.each do |booking| %>
               <%= link_to booking_path(booking) do%>
-
               <div class="seko-card pl-3 mb-3 pr-4 seko-flex senior-long-block">
                 <div class="seko-flex">
-                <div>
-                  <img class="avatar-large mt-3" src="<%= booking.helper.photo %>" alt="" >
-                </div>
-
-                <div class="m-4 pr-4 border-right border-left pl-4 seko-part-card">
-                  <h4><%= booking.helper.first_name %> <%= booking.helper.last_name %></h4>
-                  <p>Le <%= booking.date.strftime("%d/%m/%Y") %></p>
-                  <p>De <%= booking.start_time.strftime("%R") %>h à <%= booking.end_time.strftime("%R") %>h</p>
-                  <p><%= render :partial => "colorstatus", locals: { booking: booking } %></p>
-                </div>
-
-                <div class="mt-4 pr-4 border-right seko-part-card">
-                  <h4>Prestations :</h4>
-                  <% booking.tasks.each do |task| %>
-                  <li><%= task.name %></li>
-                  <% end %>
-                </div>
-                <div class="ml-3 mt-4 seko-part-card-price">
-                  <h4>Prix : <%= ((booking.helper.price)*((booking.end_time  - booking.start_time)/3600).to_i).to_i %>€</h4>
-                  <p><%= booking.helper.price %>€ par heure</p>
-                </div>
+                  <div>
+                    <img class="avatar-large mt-3" src="<%= booking.helper.photo %>" alt="" >
+                  </div>
+                  <div class="m-4 pr-4 border-right border-left pl-4 seko-part-card">
+                    <h4><%= booking.helper.first_name %> <%= booking.helper.last_name %></h4>
+                    <p>Le <%= booking.date.strftime("%d/%m/%Y") %></p>
+                    <p>De <%= booking.start_time.strftime("%R") %>h à <%= booking.end_time.strftime("%R") %>h</p>
+                    <p><%= render :partial => "colorstatus", locals: { booking: booking } %></p>
+                  </div>
+                  <div class="mt-4 pr-4 border-right seko-part-card">
+                    <h4>Prestations :</h4>
+                    <% booking.tasks.each do |task| %>
+                    <li><%= task.name %></li>
+                    <% end %>
+                  </div>
+                  <div class="ml-3 mt-4 seko-part-card-price">
+                    <h4>Prix : <%= ((booking.helper.price)*((booking.end_time  - booking.start_time)/3600).to_i).to_i %>€</h4>
+                    <p><%= booking.helper.price %>€ par heure</p>
+                  </div>
                 </div>
                 <div class="col-3 seko-cancel-area seko-part-card border-left m-4 pl-4">
                   <%= link_to "Profil de l'aidant", profile_path(booking.helper), class: "btn seko-button" %>
@@ -251,13 +212,11 @@
                 <div>
                 <%= render :partial => "favoris", locals: { booking: booking, helpers: @favoris_helper, path: "dashboard" } %>
                 </div>
-                </div>
+              </div>
                 <% end %>
                 <% end %>
         </div>
-
       </div>
-
     </div>
-
+  </div>
 </div>

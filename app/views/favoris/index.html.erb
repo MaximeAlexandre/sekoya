@@ -38,7 +38,7 @@
               <% @reviews << review unless review.nil? %>
             <% end %>
             <% if @reviews.empty? %>
-              <p class="text-right">(<%= @reviews.length %> avis)</p>
+              <p class="text-right">Pas encore d'avis</p>
             <% else %>
               <div class="text-right">
                 <%  (@reviews.collect(&:note).sum.to_f/@reviews.length if @reviews.length > 0).to_i.times do %>
