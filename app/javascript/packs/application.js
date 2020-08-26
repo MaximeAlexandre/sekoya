@@ -24,6 +24,7 @@ require("channels")
 
 // External imports
 import "bootstrap";
+import 'mapbox-gl/dist/mapbox-gl.css';
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
 // import '../plugins/flatpickr';
@@ -33,10 +34,14 @@ import { initStarRating } from '../plugins/init_star_rating';
 import { initBookingChoice } from '../components/booking_choice';
 import { initCheckBoxes } from '../components/check_task';
 import { initUserChoice } from '../components/user_choice';
+import { initMapbox } from '../plugins/init_mapbox';
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
+  if (document.querySelector('#map')) {
+    initMapbox();
+  }  
   initFlatpickr();
   initUpdateNavbarOnScroll();
   initStarRating();
@@ -48,4 +53,6 @@ document.addEventListener('turbolinks:load', () => {
   if (document.querySelector('#start_time') || document.querySelector('#end_time')) {
     initBookingChoice();
   }
+
+  
 });

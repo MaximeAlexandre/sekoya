@@ -1,4 +1,4 @@
-<h3 class="text-center">Voici le détail de votre réservation</h3>
+<h3 class="text-center"><%= "Voici le détail de votre réservation" if current_user == @booking.senior%></h3>
 <div class="container w-50">
   <!-- Entire card -->
   <div class="seko-card p-2 m-1">
@@ -6,7 +6,7 @@
     <div class="seko-flex">
       <% if current_user.role == "helper" %>
       <div>
-        <img class="avatar-senior avatar-large mt-3 ml-2 space-between" src="<%= @booking.senior.photo %>" alt="" >
+        <img class="avatar-senior avatar-large m-3 space-between" src="<%= @booking.senior.photo %>" alt="" >
       </div>
       <% else %>
       <div>
@@ -21,7 +21,7 @@
           <% end %>
           <div class="seko-flex-column">
             <% if current_user.role == "helper" %>
-            <h3 class="mt-4 mb-4"><%= @booking.senior.first_name %> <%= @booking.senior.last_name %></h3>
+            <h3 class="mt-4 mb-4"><span style="color:black">Voici le détail la réservation de</span> <%= @booking.senior.first_name %> <%= @booking.senior.last_name %></h3>
             <% else %>
             <div class="d-flex flex-row align-items-end">
               <h3 ><%= @booking.helper.first_name %> <%= @booking.helper.last_name %></h3>
@@ -53,15 +53,12 @@
           </div>
         </div>
       </div>
+      <div id="map"
+      class="<%= "hidden" if current_user == @booking.senior %>"
+      style="width: 100%; height: 500px; border-radius:14px;"
+      data-markers="<%= @markers.to_json %>"
+      data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>   
       <!-- Contact -->
-    <div class="seko-flex m-3 border-bottom-4">
-      <button class="btn seko-button m-2">Imprimer la facture</button>
-      <% if current_user.role == "helper" %>
-        <a href="tel:@booking.senior.mobile_number" class="btn seko-button m-2"> Contacter <%= @booking.senior.first_name %> </a>
-      <% else %>
-        <a href="tel:@booking.helper.mobile_number" class="btn seko-button m-2"> Contacter <%= @booking.helper.first_name %> </a>
-      <% end %>
-    </div>
     <div class=" m-3 p-3 text-center">
       <div class="d-flex flex-row justify-content-around">
         <div>
@@ -108,6 +105,14 @@
           <%= f.button :submit, 'Ajouter un commentaire', :class => "btn seko-button w-100" %>
         </div>
         <% end %>
+        <% end %>
+      </div>
+      <div class="seko-flex m-3 border-bottom-4">
+        <button class="btn seko-button m-2">Imprimer la facture</button>
+        <% if current_user.role == "helper" %>
+          <a href="tel:@booking.senior.mobile_number" class="btn seko-button m-2"> Contacter <%= @booking.senior.first_name %> </a>
+        <% else %>
+          <a href="tel:@booking.helper.mobile_number" class="btn seko-button m-2"> Contacter <%= @booking.helper.first_name %> </a>
         <% end %>
       </div>
     </div>
