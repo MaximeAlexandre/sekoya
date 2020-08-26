@@ -26,7 +26,15 @@
     <div id="invisible-navbar"></div>
     <%= render 'shared/navbar' %>
     <%= render 'shared/flashes' %>
-
-    <%= yield %>
+    <div class="min-height">
+      <%= yield %>
+    </div>
+    <% unless controller.action_name == "home" %>
+      <div class="footer ">
+        <div class="footer-copyright">
+          <p>made with <i class="fas fa-heart"></i> by SEKOYA</p>
+        </div>
+      </div>
+    <% end %>
   </body>
 </html>
