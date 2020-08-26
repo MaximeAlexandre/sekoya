@@ -25,7 +25,7 @@
               <p>De <%= @booking_next.start_time.strftime("%R") %> à <%= @booking_next.end_time.strftime("%R") %></p>
             </div>
             <div>
-              <p>Prix : <%= ((@booking_next.helper.price)*((@booking_next.end_time  - @booking_next.start_time)/3600).to_i).to_i %>€</p>
+              <h4>Prix : <%= ((@booking_next.helper.price)*((@booking_next.end_time  - @booking_next.start_time)/3600).to_i).to_i %>€</h4>
             </div>
           </div>
           <% end %>
@@ -192,8 +192,12 @@
             </div>
             </div>
             <div class=" col-3 seko-cancel-area seko-part-card border-left m-4 pl-4">
+              <% if booking.date >= Date.today + 7 %>
               <%= link_to "Annuler cette réservation", status_change_path(booking, status: "annulé"),
               method: :patch, data: { confirm: 'Are you sure?' }, class: "btn seko-cancel-button" %>
+              <% else %>
+              <button class="btn seko-under-seven-btn">Vous ne pouvez plus annuler  cette réservation</button>
+              <% end %>
             </div>
           </div>
           <% end %>
