@@ -8,6 +8,16 @@ const date = () => {
     return today
 }
 
+const startingHour = () => {
+    let hourMin = 0;
+    if (new Date().getMinutes() != 0) {
+        hourMin = new Date().getHours() + 2;
+    } else {
+        hourMin = new Date().getHours() + 1;
+    }
+    return hourMin
+}
+
 const hideUnusedEnd = (option, startHour) => {
     if (option.value <= startHour) {
         option.classList.add('hidden');
@@ -51,16 +61,11 @@ const visible= (day) => {
     const endHour = document.getElementById("end_time");
     const block = document.getElementById("select_booking_hours");
     const today = date();
-    let hourMin = 0;
-    if (new Date().getMinutes() != 0) {
-        hourMin = new Date().getHours() + 2;
-    } else {
-        hourMin = new Date().getHours() + 1;
-    }
+    let hourMin = startingHour()
     if (hourMin < Number(startHour.options[0].value)) {
         hourMin = Number(startHour.options[0].value);
     }
-    const store_start = Number(startHour.value)
+    const store_start = Number(startHour.options[0].value)
     if (day === today) {
         if (startHour.value < hourMin) {
             startHour.value = hourMin;
@@ -68,6 +73,7 @@ const visible= (day) => {
         if (Number(startHour.value) > 20) {
             block.classList.add('hidden');
             startHour.value = store_start;
+            hourMin = store_start;
         };
     } else {
         block.classList.remove('hidden');
