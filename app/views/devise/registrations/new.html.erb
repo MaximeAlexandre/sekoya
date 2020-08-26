@@ -13,7 +13,7 @@
       <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <%= f.error_notification %>
 
-        <div class="form-inputs">
+        <div class="form-inputs seko-card p-3">
           <%= f.input :email,
                       required: true,
                       autofocus: true,
@@ -54,12 +54,13 @@
                       required: true %>
         </div>
 
-        <div class="form-actions">
-          <%= f.button :submit, "Sign up" %>
+
+        <div class="form-actions seko-flex">
+          <%= f.button :submit, "S'inscrire", class: "btn seko-button w-50 m-3" %>
+          <%= render "devise/shared/links" %>
+        </div>
         </div>
       <% end %>
-      <%= render "devise/shared/links" %>
-    </div>
   </div>
 
   <div class="hidden" id="helper_register">
@@ -70,7 +71,7 @@
       <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <%= f.error_notification %>
 
-        <div class="form-inputs">
+        <div class="form-inputs seko-card p-3">
           <%= f.input :email,
                       required: true,
                       autofocus: true,
@@ -128,11 +129,11 @@
 
         </div>
 
-        <div class="form-actions">
-          <%= f.button :submit, "Sign up" %>
+        <div class="form-actions seko-flex">
+          <%= f.button :submit, "S'inscrire", class: 'btn seko-button w-50 m-3' %>
+          <%= render "devise/shared/links" %>
         </div>
       <% end %>
-      <%= render "devise/shared/links" %>
     </div>
   </div>
 </div>
