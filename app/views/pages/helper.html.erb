@@ -3,14 +3,14 @@
   <!-- Next booking, Wallet and Planning -->
   <div class="seko-flex">
     <div class="col-6">
-      <div class="ml-3">
-        <%= render :partial => "bonjour" %>
+      <div>
+        <h1 style="color: #1E80FC;"><%= "Bonjour #{current_user.first_name} !" %></h1>
       </div>
 
       <!-- Next booking -->
       <div>
-        <h3 class="ml-3">Prochaine prestation</h3>
-        <div class="seko-card p-3 m-3">
+        <h2 class="mb-3">Prochaine prestation</h2>
+        <div class="seko-card p-3">
           <% if @booking_next.nil? %>
             <p>Vous n'avez pas de prestation à venir</p>
           <% else %>
@@ -98,7 +98,7 @@
             </div>
 
             <div class="m-4 pr-4 border-right seko-part-card">
-              <h4>Prestations:</h4>
+              <h4>Prestations :</h4>
               <% booking.tasks.each do |task| %>
               <li><%= task.name %></li>
               <% end %>
@@ -138,7 +138,7 @@
             </div>
 
             <div class="m-4 pr-4 border-right seko-part-card">
-              <h4>Prestations:</h4>
+              <h4>Prestations :</h4>
               <% booking.tasks.each do |task| %>
               <li><%= task.name %></li>
               <% end %>
@@ -181,7 +181,7 @@
             </div>
 
             <div class="m-4 pr-4 border-right seko-part-card">
-              <h4>Prestations:</h4>
+              <h4>Prestations :</h4>
               <% booking.tasks.each do |task| %>
               <li><%= task.name %></li>
               <% end %>
@@ -223,7 +223,7 @@
                 </div>
 
                 <div class="m-4 pr-4 border-right seko-part-card">
-                  <h4>Prestations:</h4>
+                  <h4>Prestations :</h4>
                   <% booking.tasks.each do |task| %>
                   <li><%= task.name %></li>
                   <% end %>
