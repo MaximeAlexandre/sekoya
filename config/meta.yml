@@ -1,0 +1,5 @@
+meta_product_name: "Sekoya"
+meta_title: "Sekoya - réinvente l'aide à domicile"
+meta_description: "Relevant description"
+meta_image: "sekoya_logo.png" # should exist in `app/assets/images/`
+twitter_account: "@anthony4213"   # required for Twitter Cards
