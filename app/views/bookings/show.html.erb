@@ -1,4 +1,8 @@
-<h3 class="text-center"><%= "Voici le détail de votre réservation" if current_user == @booking.senior%></h3>
+<% if current_user == @booking.senior %>
+  <div class="text-center">
+    <h3>Votre réservation est <%= render :partial => "./pages/colorstatus", locals: { booking: @booking } %></h3>
+  </div>
+<% end %>
 <div class="container w-50">
   <!-- Entire card -->
   <div class="seko-card p-2 m-1">
@@ -21,16 +25,15 @@
       <% end %>
           <div class="seko-flex-column">
             <% if current_user.role == "helper" %>
-              <h3 class="mt-4 mb-4"><span style="color:black">Voici le détail la réservation de</span> <%= @booking.senior.first_name %> <%= @booking.senior.last_name %></h3>
+              <h3 class="mt-1"><span style="color:black">Voici le détail la réservation de</span> <%= @booking.senior.first_name %> <%= @booking.senior.last_name %></h3>
+              <p>Cette reservation est <%= render :partial => "./pages/colorstatus", locals: { booking: @booking } %></p>
             <% else %>
               <div class="d-flex flex-row align-items-end">
                 <h3 ><%= @booking.helper.first_name %> <%= @booking.helper.last_name %></h3>
-                <% unless current_user.role == "helper" || @booking.helper.car == false %>
+                <% if @booking.helper.car %>
                   <i class="fas fa-car ml-3 mb-3"></i>
                 <% end %>
               </div>
-            <% end %>
-            <% unless current_user.role == "helper" %>
               <% @diplomas.each do |diploma| %>
                 <li><%= diploma.name %></li>
               <% end %>
@@ -54,12 +57,13 @@
           </div>
         </div>
       </div>
-      <div id="map"
-        class="<%= "hidden" if current_user == @booking.senior %>"
-        style="width: 100%; height: 500px; border-radius: 14px;"
-        data-markers="<%= @markers.to_json %>"
-        data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
-      </div>   
+      <% if current_user == @booking.helper %>
+        <div id="map"
+          style="width: 100%; height: 500px; border-radius: 14px;"
+          data-markers="<%= @markers.to_json %>"
+          data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+        </div>
+      <% end %> 
       <!-- Contact -->
       <div class=" m-3 p-3 text-center">
         <div class="d-flex flex-row justify-content-around">
@@ -85,13 +89,13 @@
             </div>
           <% end %>
         </div>
-        <div class="border-top pt-4">
-          <% if @booking.comment.present? %>
-            <h4> Informations complémentaires transmises par <%= @booking.senior.first_name %> </h4>
+        <% if @booking.comment.present? %>
+        <h4 class="border-top pt-4"> Informations complémentaires transmises par <%= @booking.senior.first_name %> </h4>
+        <div class="row justify-content-center">
             <%= @booking.comment %>
-          <% end %>
         </div>
-        <h3 class="mb-1 mt-3"><strong><%= (@booking.end_time  - @booking.start_time).to_i/3600 %> heures </strong> </h3>
+        <% end %>
+        <h3 class="mb-1 mt-3 border-top pt-4"><strong><%= (@booking.end_time  - @booking.start_time).to_i/3600 %> heures </strong> </h3>
         <h3 class="mb-1"><strong>Total : <%= @total %> €</strong></h3>
       </div>
       <div class="col-12">
@@ -110,11 +114,22 @@
         <% end %>
       </div>
       <div class="seko-flex m-3 border-bottom-4">
-        <button class="btn seko-button m-2">Imprimer la facture</button>
-        <% if current_user.role == "helper" %>
-          <a href="tel:@booking.senior.mobile_number" class="btn seko-button m-2"> Contacter <%= @booking.senior.first_name %> </a>
+        <% if @booking.status == "pending" && @booking.helper == current_user %>
+          <%= link_to "Accepter la demande", status_change_path(@booking, status: "accepté", path: "booking"),
+          method: :patch, data: { confirm: 'Voulez vous accepter cette réservation?' }, class: "btn seko-button m-2" %>
+          <%= link_to "Refuser la demande", status_change_path(@booking, status: "refusé", path: "booking"),
+          method: :patch, data: { confirm: 'Voulez vous refuser cette réservation?' }, class: "btn seko-cancel-button m-2" %>
+        <% elsif @booking.status == "pending" && @booking.senior == current_user %>
+          <%= link_to "Profil de l'aidant", profile_path(@booking.helper), class: "btn seko-button m-2" %>
+          <%= link_to "Annuler cette demande", status_change_path(@booking, status: "annulé"),
+          method: :patch, data: { confirm: 'Voulez vous annuler cette réservation?' }, class: "btn seko-cancel-button m-2" %>
         <% else %>
-          <a href="tel:@booking.helper.mobile_number" class="btn seko-button m-2"> Contacter <%= @booking.helper.first_name %> </a>
+          <button class="btn seko-button m-2">Imprimer la facture</button>
+          <% if current_user.role == "helper" %>
+            <a href="tel:@booking.senior.mobile_number" class="btn seko-button m-2"> Contacter <%= @booking.senior.first_name %> </a>
+          <% else %>
+            <a href="tel:@booking.helper.mobile_number" class="btn seko-button m-2"> Contacter <%= @booking.helper.first_name %> </a>
+          <% end %>
         <% end %>
       </div>
     </div>

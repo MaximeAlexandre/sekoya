@@ -132,7 +132,7 @@
             <div class="col-3 seko-cancel-area border-left m-4 pl-4">
               <%= link_to "Profil de l'aidant", profile_path(booking.helper), class: "btn seko-button" %>
               <%= link_to "Annuler cette demande", status_change_path(booking, status: "annulé"),
-              method: :patch, data: { confirm: 'Are you sure?' }, class: "btn seko-cancel-button mt-4" %>
+              method: :patch, data: { confirm: 'Voulez vous annuler cette réservation?' }, class: "btn seko-cancel-button mt-4" %>
             </div>
             <div>
             <%= render :partial => "favoris", locals: { booking: booking, helpers: @favoris_helper, path: "dashboard" } %>
