@@ -1,8 +1,7 @@
 <% if current_user == @booking.senior %>
-<div class="text-center">
-  <h3>Votre réservation est <%= render :partial => "./pages/colorstatus", locals: { booking: @booking } %></h3>
-</div>
-  
+  <div class="text-center">
+    <h3>Votre réservation est <%= render :partial => "./pages/colorstatus", locals: { booking: @booking } %></h3>
+  </div>
 <% end %>
 <div class="container w-50">
   <!-- Entire card -->
