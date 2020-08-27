@@ -193,8 +193,8 @@
             </div>
             <div class=" col-3 seko-cancel-area seko-part-card border-left m-4 pl-4">
               <% if booking.date >= Date.today + 7 %>
-              <%= link_to "Annuler cette réservation", status_change_path(booking, status: "annulé"),
-              method: :patch, data: { confirm: 'Are you sure?' }, class: "btn seko-cancel-button" %>
+              <%= link_to "Annuler cette réservation", status_change_path(booking, status: "refusé"),
+              method: :patch, data: { confirm: 'Are you sure?' }, class: "btn seko-cancel-button" %> 
               <% else %>
               <button class="btn seko-under-seven-btn">Vous ne pouvez plus annuler  cette réservation</button>
               <% end %>
