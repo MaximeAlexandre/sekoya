@@ -6,13 +6,15 @@
   height: 55px;
   color: rgba(0,0,0,0.3);
   width: 100%;
-  position: fixed;
+  position: relative;
   bottom: 0;
 }
 
-.footer-links {
-
+.footer-copyright {
+  position: absolute;
+  bottom: 0;
 }
+
 .footer-links a {
   color: black;
   opacity: 0.15;
