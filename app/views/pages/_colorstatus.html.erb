@@ -1,8 +1,8 @@
 
 <% if booking.status == "pending" %>
-    <p style='color: orange;'>en attente</p>
+    <span style='color: orange;'>en attente</span>
 <% elsif booking.status == "accepté" %>
-    <p style='color: green;'><%= "accepté" %></p>
+    <span style='color: green;'><%= "accepté" %></span>
 <% else %>
-    <p style='color: red;'><%= booking.status %></p>
+    <span style='color: red;'><%= booking.status %></span>
 <% end %>
