@@ -2,10 +2,12 @@
   background: #F4F4F4;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  height: 60px;
+  justify-content: center;
+  height: 55px;
   color: rgba(0,0,0,0.3);
   width: 100%;
+  position: fixed;
+  bottom: 0;
 }
 
 .footer-links {

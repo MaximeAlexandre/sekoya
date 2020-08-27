@@ -11,7 +11,7 @@
     />
     <%= favicon_link_tag %>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
     <title><%= meta_title %></title>
     <meta name="description" content="<%= meta_description %>">
 
@@ -46,12 +46,13 @@
     <div id="invisible-navbar"></div>
     <%= render 'shared/navbar' %>
     <%= render 'shared/flashes' %>
-    <div class="min-height">
-      <%= yield %>
-    </div>
+      <div class="min-heigth">
+        <%= yield %>
+      </div>
+      <div id="invisible-navbar"></div>
     <% unless controller.action_name == "home" %>
-      <div class="footer mt-5">
-        <div class="footer-copyright ml-5">
+      <div class="footer">
+        <div class="footer-copyright">
           <p>made with <i class="fas fa-heart"></i> by SEKOYA</p>
         </div>
       </div>
