@@ -35,6 +35,8 @@ import { initBookingChoice } from '../components/booking_choice';
 import { initCheckBoxes } from '../components/check_task';
 import { initUserChoice } from '../components/user_choice';
 import { initMapbox } from '../plugins/init_mapbox';
+import { initAutocomplete } from '../plugins/init_autocomplete';
+
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
@@ -42,6 +44,7 @@ document.addEventListener('turbolinks:load', () => {
   if (document.querySelector('#map')) {
     initMapbox();
   }
+
   initFlatpickr();
   initUpdateNavbarOnScroll();
   initStarRating();
@@ -52,5 +55,8 @@ document.addEventListener('turbolinks:load', () => {
   }
   if (document.querySelector('#start_time') || document.querySelector('#end_time')) {
     initBookingChoice();
+  }
+  if (document.querySelector('#flat_address') {
+     initAutocomplete();
   }
 });
