@@ -38,7 +38,7 @@ class Booking < ApplicationRecord
   validate :end_time_after_start_time
 
   def display_review_form
-    (self.date < Date.today) && (self.reviews.empty?)
+    (self.date < Date.today) && (self.reviews.empty?) && (self.status == "accepté")
   end
 
   private
