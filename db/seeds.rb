@@ -188,9 +188,10 @@ ha_valerie = User.new(
   mobile_number: "0689348273",
   role: "helper",
   car: true,
-  description: "Entretenir la maison de la personne accompagnée, en faisant le ménage, les petits travaux d'entretien et de réparation nécessaires, la lessive et le repassage.\
-                Subvenir aux besoins alimentaires, depuis les courses jusqu'à la prise des repas.\
-                Aider à l'autonomie physique, en assistant la marche, le réveil et le coucher.",
+  description: "En activité depuis plus de 10 ans, ce métier est une vraie passion.\
+                J’aime le contact avec les autres et la satisfaction de rendre service.\
+                J’ai suivi de nombreuses formations pour répondre à tout type de pathologie et je suis une véritable fée du logis.\
+                La routine quotidienne peut parfois être pesante alors laisser moi être votre rayon de soleil de la journée.",
   price: "30",
   photo: "https://images.generated.photos/m-X6WsWGaIcWmZS6WzeVS6mT8mtL4Qc2OqbRbMSRRHM/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAyOTI2MTQuanBn.jpg"
 )
@@ -549,52 +550,6 @@ task20 = Task.create(
 
 # Pending bookings
 s_veronique.save
-booking4 = Booking.new(
-  date: "04/09/2020",
-  start_time: "11",
-  end_time: "16",
-  status: "pending",
-  helper: h_anthony,
-  senior: s_veronique,
-  booking_step: 2
-)
-booking4.save
-task7 = Task.create(
-  name: "Ménage",
-  booking: booking4
-)
-
-task8 = Task.create(
-  name: "Courses",
-  booking: booking4
-)
-
-task9 = Task.create(
-  name: "Gestion d'une pathologie",
-  booking: booking4
-)
-
-
-booking5 = Booking.new(
-  date: "02/09/2020",
-  start_time: "9",
-  end_time: "11",
-  status: "pending",
-  helper: h_anthony,
-  senior: s_jean_paul,
-  booking_step: 2
-)
-booking5.save
-task10 = Task.create(
-  name: "Loisirs",
-  booking: booking5
-)
-
-task11 = Task.create(
-  name: "Accompagnement à un RDV",
-  booking: booking5
-)
-
 
 booking6 = Booking.new(
   date: "01/09/2020",
@@ -610,7 +565,6 @@ task12 = Task.create(
   name: "Prise de Médicaments",
   booking: booking6
 )
-
 task13 = Task.create(
   name: "Courses",
   booking: booking6
@@ -639,45 +593,28 @@ task15 = Task.create(
 )
 
 
-booking8 = Booking.new(
+booking5 = Booking.new(
   date: "31/08/2020",
-  start_time: "15",
-  end_time: "17",
+  start_time: "9",
+  end_time: "11",
   status: "accepté",
   helper: h_anthony,
-  senior: s_veronique,
+  senior: s_jean_paul,
   booking_step: 2
 )
-booking8.save
-task16 = Task.create(
-  name: "Prise de Médicaments",
-  booking: booking8
+booking5.save
+task10 = Task.create(
+  name: "Loisirs",
+  booking: booking5
 )
-
-task17 = Task.create(
-  name: "Gestion d'une pathologie",
-  booking: booking8
-)
-
-
-booking10 = Booking.new(
-  date: "04/09/2020",
-  start_time: "20",
-  end_time: "21",
-  status: "pending",
-  helper: h_anthony,
-  senior: s_ginette,
-  booking_step: 2
-)
-booking10.save
-task21 = Task.create(
-  name: "Se lever / Se coucher",
-  booking: booking10
+task11 = Task.create(
+  name: "Accompagnement à un RDV",
+  booking: booking5
 )
 
 
 booking11 = Booking.new(
-  date: "02/09/2020",
+  date: "08/09/2020",
   start_time: "17",
   end_time: "19",
   status: "accepté",
@@ -695,6 +632,87 @@ task23 = Task.create(
   name: "Gestion d'une pathologie",
   booking: booking11
 )
+
+s_michel.save
+booking20 = Booking.new(
+  date: "07/09/2020",
+  start_time: "10",
+  end_time: "11",
+  status: "accepté",
+  helper: h_anthony,
+  senior: s_michel,
+  booking_step: 2
+)
+booking20.save
+task43 = Task.new(
+  name: "Promenade",
+  booking: booking20
+)
+task43.save
+
+
+s_charles.save
+booking21 = Booking.new(
+  date: "08/09/2020",
+  start_time: "14",
+  end_time: "15",
+  status: "accepté",
+  helper: h_anthony,
+  senior: s_charles,
+  booking_step: 2
+)
+booking21.save
+task44 = Task.new(
+  name: "Activités intellectuelles",
+  booking: booking21
+)
+task44.save
+
+
+s_mireille.save
+booking22 = Booking.new(
+  date: "01/09/2020",
+  start_time: "16",
+  end_time: "18",
+  status: "accepté",
+  helper: h_anthony,
+  senior: s_mireille,
+  booking_step: 2
+)
+booking22.save
+task45 = Task.new(
+  name: "Promenade",
+  booking: booking22
+)
+task45.save
+task46 = Task.new(
+  name: "Loisirs",
+  booking: booking22
+)
+task46.save
+
+
+s_ghislaine.save
+booking23 = Booking.new(
+  date: "07/09/2020",
+  start_time: "7",
+  end_time: "9",
+  status: "accepté",
+  helper: h_anthony,
+  senior: s_ghislaine,
+  booking_step: 2
+)
+booking23.save
+task47 = Task.new(
+  name: "Se lever / se coucher",
+  booking: booking23
+)
+task47.save
+task48 = Task.new(
+  name: "Se laver / s'habiller",
+  booking: booking23
+)
+task48.save
 puts '...Antho Bookings creation finished'
 
 
@@ -754,7 +772,7 @@ booking13 = Booking.new(
   start_time: "10",
   end_time: "12",
   status: "accepté",
-  helper: ha_valerie,
+  helper: ha_raquel,
   senior: s_germaine,
   booking_step: 2
 )
@@ -774,7 +792,7 @@ booking14 = Booking.new(
   start_time: "18",
   end_time: "20",
   status: "accepté",
-  helper: ha_valerie,
+  helper: ha_raquel,
   senior: s_germaine,
   booking_step: 2
 )
@@ -817,46 +835,6 @@ task32 = Task.create(
 
 
 # Pending bookings
-booking16 = Booking.new(
-  date: "03/09/2020",
-  start_time: "18",
-  end_time: "20",
-  status: "pending",
-  helper: ha_raquel,
-  senior: s_germaine,
-  booking_step: 2
-)
-booking16.save
-task33 = Task.create(
-  name: "Prise de médicaments",
-  booking: booking16
-)
-
-task34 = Task.create(
-  name: "Se lever / Se coucher",
-  booking: booking16
-)
-
-
-booking17 = Booking.new(
-  date: "31/08/2020",
-  start_time: "14",
-  end_time: "16",
-  status: "pending",
-  helper: hj_fabien,
-  senior: s_germaine,
-  booking_step: 2
-)
-booking17.save
-task35 = Task.create(
-  name: "Ménage",
-  booking: booking17
-)
-
-task36 = Task.create(
-  name: "Courses",
-  booking: booking17
-)
 
 
 # Futur bookings
@@ -865,7 +843,7 @@ booking18 = Booking.new(
   start_time: "18",
   end_time: "20",
   status: "accepté",
-  helper: ha_valerie,
+  helper: ha_raquel,
   senior: s_germaine,
   booking_step: 2
 )
@@ -905,7 +883,7 @@ puts '... Germaine fake bookinks creation finished'
 
 puts 'Creating Germaine Fake reviews...'
 Review.create(
-  content: "Valérie est LA personne qu'il me fallait. Si je pouvais je ne choisirai qu'elle!",
+  content: "Raquel est LA personne qu'il me fallait. Si je pouvais je ne choisirai qu'elle!",
   note: "5",
   booking: booking13
 )
@@ -916,88 +894,6 @@ Review.create(
   booking: booking14
 )
 puts '...Germaine fake reviews creation finished'
-
-s_michel.save
-booking20 = Booking.new(
-  date: "01/09/2020",
-  start_time: "10",
-  end_time: "11",
-  status: "accepté",
-  helper: h_anthony,
-  senior: s_michel,
-  booking_step: 2
-)
-booking20.save
-task43 = Task.new(
-  name: "Promenade",
-  booking: booking20
-)
-task43.save
-
-
-s_charles.save
-booking21 = Booking.new(
-  date: "08/09/2020",
-  start_time: "14",
-  end_time: "15",
-  status: "accepté",
-  helper: h_anthony,
-  senior: s_charles,
-  booking_step: 2
-)
-booking21.save
-task44 = Task.new(
-  name: "Activités intellectuelles",
-  booking: booking21
-)
-task44.save
-
-
-s_mireille.save
-booking22 = Booking.new(
-  date: "01/09/2020",
-  start_time: "16",
-  end_time: "18",
-  status: "accepté",
-  helper: h_anthony,
-  senior: s_mireille,
-  booking_step: 2
-)
-booking22.save
-task45 = Task.new(
-  name: "Promenade",
-  booking: booking22
-)
-task45.save
-task46 = Task.new(
-  name: "Loisirs",
-  booking: booking22
-)
-task46.save
-
-
-s_ghislaine.save
-booking23 = Booking.new(
-  date: "01/09/2020",
-  start_time: "7",
-  end_time: "9",
-  status: "accepté",
-  helper: h_anthony,
-  senior: s_ghislaine,
-  booking_step: 2
-)
-booking23.save
-task47 = Task.new(
-  name: "Se lever / se coucher",
-  booking: booking23
-)
-task47.save
-task48 = Task.new(
-  name: "Se laver / s'habiller",
-  booking: booking23
-)
-task48.save
-
 
 
 
@@ -1039,7 +935,7 @@ task50 = Task.new(
 )
 task50.save
 Review.create(
-  content: "Justin n'a pas l'air très à l'aise avec les personnes agées, il devrait être plus à l'écoute.",
+  content: "Justin n'a pas l'air très à l'aise avec les personnes agées, mais il écoute attentivement pour s'ameliorer.",
   note: "3",
   booking: booking25
 )
@@ -1062,33 +958,13 @@ task51 = Task.new(
 )
 task51.save
 Review.create(
-  content: "Victor est aimable comme une porte de prison. Je vous le déconseille.",
-  note: "1",
+  content: "Victor est aimable mais devrait être plus attentif.",
+  note: "3",
   booking: booking26
 )
 
 
 s_edith.save
-booking27 = Booking.new(
-  date: "04/07/2020",
-  start_time: "7",
-  end_time: "9",
-  status: "accepté",
-  helper: ha_raquel,
-  senior: s_edith,
-  booking_step: 2
-)
-booking27.save
-task52 = Task.new(
-  name: "Se lever / se coucher",
-  booking: booking27
-)
-task52.save
-Review.create(
-  content: "Raquel est agréable mais ne parle pas encore très bien français, il est donc parfois difficile de se comprendre.",
-  note: "4",
-  booking: booking27
-)
 
 
 s_irene.save
@@ -1108,7 +984,7 @@ task53 = Task.new(
 )
 task53.save
 Review.create(
-  content: "Aurore est un amour mais toujours sur son tel, elle me fait penser à ma petite fille.",
+  content: "Aurore est un amour mais toujours sur son téléphone. Elle me fait penser à ma petite fille.",
   note: "3",
   booking: booking28
 )
@@ -1152,7 +1028,57 @@ task55 = Task.new(
 )
 task55.save
 Review.create(
-  content: "Pierre est vraiment agréable mais est arrivé avec du retard.",
+  content: "Malgré un petit retard, Pierre est vraiment agréable et a sû compenser son retard par sa gentillesse et .",
   note: "4",
   booking: booking30
+)
+
+booking31 = Booking.new(
+  date: "21/08/2020",
+  start_time: "10",
+  end_time: "12",
+  status: "accepté",
+  helper: ha_valerie,
+  senior: s_edith,
+  booking_step: 2
+)
+booking31.save
+task56 = Task.create(
+  name: "Ménage",
+  booking: booking31
+)
+
+task57 = Task.create(
+  name: "Courses",
+  booking: booking31,
+)
+Review.create(
+  content: "Valerie est geniale, elle est polyvalente et adore discuter tout en faisant les tâches demandés.",
+  note: "5",
+  booking: booking31
+)
+
+
+booking32 = Booking.new(
+  date: "21/08/2020",
+  start_time: "18",
+  end_time: "20",
+  status: "accepté",
+  helper: ha_valerie,
+  senior: s_irene,
+  booking_step: 2
+)
+booking32.save
+task58 = Task.create(
+  name: "Promenade",
+  booking: booking32
+)
+task59 = Task.create(
+  name: "Se lever / Se coucher",
+  booking: booking32
+)
+Review.create(
+  content: "La compagnie de Valerie est des plus agréable. Elle est très attentive et s'interesse à tout ce que l'on dit",
+  note: "5",
+  booking: booking32
 )
