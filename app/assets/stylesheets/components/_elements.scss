@@ -235,3 +235,29 @@ a:hover {
   width: 90%;
   text-align:center;
 }
+
+.return-btn {
+  background: linear-gradient(270deg, #42A5F5 0%, #97D5DF 100%);
+  color: white;
+  border-radius: 50px;
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 50px;
+  height: 40px;
+  padding: 10px;
+  text-align:center;
+}
+
+.return-btn:hover {
+  background: linear-gradient(270deg, #42A5F5 0%, #97D5DF 100%);
+  color: white;
+  border-radius: 50px;
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 50px;
+  height: 40px;
+  padding: 10px;
+  text-align:center;
+}
