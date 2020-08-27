@@ -46,7 +46,8 @@
 </div>
 <div class="ml-3 mr-3">
     <div>
-      <h2 class="mt-2">Bookings</h2>
+      <h2 class="mt-2">Prestations</h2>
+      
     </div>
     <div>
       <ul class="nav" id="myTab" role="tablist">
@@ -81,7 +82,7 @@
               </div>
 
               <div class="mt-4 pr-2 border-right seko-part-card">
-                <h4>Prestations :</h4>
+                <h4>Activités :</h4>
                 <% booking.tasks.each do |task| %>
                 <li><%= task.name %></li>
                 <% end %>
@@ -118,7 +119,7 @@
                 <p><%= render :partial => "colorstatus", locals: { booking: booking } %></p>
               </div>
               <div class="mt-4 pr-4 border-right seko-part-card">
-                <h4>Prestations :</h4>
+                <h4>Activités :</h4>
                 <% booking.tasks.each do |task| %>
                 <li><%= task.name %></li>
                 <% end %>
@@ -155,7 +156,7 @@
                 <p><%= render :partial => "colorstatus", locals: { booking: booking } %></p>
               </div>
               <div class="mt-4 pr-4 border-right seko-part-card">
-                <h4>Prestations :</h4>
+                <h4>Activités :</h4>
                 <% booking.tasks.each do |task| %>
                 <li><%= task.name %></li>
                 <% end %>
@@ -196,7 +197,7 @@
                     <p><%= render :partial => "colorstatus", locals: { booking: booking } %></p>
                   </div>
                   <div class="mt-4 pr-4 border-right seko-part-card">
-                    <h4>Prestations :</h4>
+                    <h4>Activités :</h4>
                     <% booking.tasks.each do |task| %>
                     <li><%= task.name %></li>
                     <% end %>
