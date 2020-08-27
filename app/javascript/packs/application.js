@@ -44,7 +44,7 @@ document.addEventListener('turbolinks:load', () => {
   if (document.querySelector('#map')) {
     initMapbox();
   }
-  initAutocomplete();
+
   initFlatpickr();
   initUpdateNavbarOnScroll();
   initStarRating();
@@ -56,6 +56,7 @@ document.addEventListener('turbolinks:load', () => {
   if (document.querySelector('#start_time') || document.querySelector('#end_time')) {
     initBookingChoice();
   }
-
-
+  if (document.querySelector('#flat_address') {
+     initAutocomplete();
+  }
 });
