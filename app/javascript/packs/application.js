@@ -49,14 +49,14 @@ document.addEventListener('turbolinks:load', () => {
   initUpdateNavbarOnScroll();
   initStarRating();
   initCheckBoxes();
+  initAutocomplete('search_address');
+  initAutocomplete('filter_address');
+
 
   if (document.querySelector('#ask_senior') || document.querySelector('#ask_helper')) {
     initUserChoice();
   }
   if (document.querySelector('#start_time') || document.querySelector('#end_time')) {
     initBookingChoice();
-  }
-  if (document.querySelector('#flat_address') {
-     initAutocomplete();
   }
 });

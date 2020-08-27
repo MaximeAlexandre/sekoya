@@ -1,19 +1,20 @@
 <div class="container">
   <div class="text-center">
-    <h1 style="margin-bottom: 0">Voici les Helpers autour de <span style="color: #377FFC"><%= params[:address_input] %></span></h1>
+    <h1 style="margin-bottom: 0">Voici les Helpers autour de votre adresse</h1>
+    <h4><span style="color: #377FFC"><%= params[:address_input] %></span></h1></h4>
     <small>Dans un rayon de 10km </small>
   </div>
 
   <!-- Filter bar -->
   <div class="form-group mt-4">
     <form action="/profiles" method="GET">
-      <div class="d-flex flex-row bd-highlight mb-4 seko-card">
-          <label class="mt-4 ml-4 other-task" for="address_input">Adresse</label>
-          <input class="form-control seko-search-bar m-3" style="width: 250px" name="address_input" type="text" value="<%= params[:address_input] %>" placeholder="Trouvez des aidants autour de vous" aria-label="Search" id="index-search" required>
-        <div>
-          <label class="mt-4 ml-4 other-task" for="diploma">Formation</label>
+      <div class="bd-highlight seko-card seko-flex pt-3 pr-3 align-items-center">
+        <label class="ml-4 other-task" for="address_input">Adresse :</label>
+        <div class="form-group d-flex align-items-center" style="width: 27%;">
+          <input class="form-control seko-search-bar" style="width: 250px;" name="address_input" type="text" value="<%= params[:address_input] %>" placeholder="Trouvez des aidants autour de vous" aria-label="Search" id="filter_address" required>
         </div>
-        <div class="m-3" style="width: 250px">
+          <label class="ml-4 other-task" for="diploma">Formation :</label>
+        <div class="form-group d-flex align-items-center" style="width: 250px">
           <select name="diploma" class="form-control seko-search-bar" id="exampleFormControlSelect1">
             <option selected>Toutes</option>
             <% @diplomas_name.each do |diploma_name| %>
@@ -22,8 +23,8 @@
           </select>
         </div>
 
-        <label class="mt-4 ml-4 other-task" for="diploma">Véhiculé</label>
-        <div class="m-3" style="width: 100px">
+        <label class="ml-4 other-task" for="diploma">Véhiculé :</label>
+        <div class="form-group d-flex align-items-center" style="width: 100px">
           <select name="car" class="form-control seko-search-bar" id="exampleFormControlSelect2">
             <option selected>Tous</option>
             <option value="true">Oui</option>
@@ -31,7 +32,7 @@
           </select>
         </div>
 
-        <div class="m-3 ml-5">
+        <div class=" ml-3 mb-3">
           <input class="btn seko-small-button-index" type="submit" value="↺">
         </div>
       </div>
