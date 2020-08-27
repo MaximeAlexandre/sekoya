@@ -12,7 +12,7 @@ class ProfilesController < ApplicationController
       @helpers = near_helpers_filter(params, near_helpers)
 
       @cheaper_helper = @helpers.min_by(&:price)
-      @best_note_helper = User.find(best_average_rating(@helpers)[:helper_id])
+      @best_note_helper = @helpers.empty? ? nil : User.find(best_average_rating(@helpers)[:helper_id])
     else
       redirect_to '#'
     end
