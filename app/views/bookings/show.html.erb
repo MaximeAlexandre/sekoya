@@ -81,7 +81,7 @@
             <p> le <%= @booking.date.strftime("%d/%m/%Y") %> de <%= @booking.start_time.strftime("%H:%M") %> à <%= @booking.end_time.strftime("%H:%M") %></p>
           </div>
         </div>
-        
+
         <h4 class="border-top pt-4"> Activités choisies</h4>
         <div class="row justify-content-center">
           <% @tasks.each do |task| %>
@@ -122,9 +122,9 @@
       </div>
       <div class="seko-flex m-3 border-bottom-4">
         <% if @booking.status == "pending" && @booking.helper == current_user %>
-          <%= link_to "Accepter la demande", status_change_path(@booking, status: "accepté", path: "booking"),
+          <%= link_to "Accepter la demande", status_change_path(@booking, status: "accepté"),
           method: :patch, data: { confirm: 'Voulez vous accepter cette réservation?' }, class: "btn seko-button m-2" %>
-          <%= link_to "Refuser la demande", status_change_path(@booking, status: "refusé", path: "booking"),
+          <%= link_to "Refuser la demande", status_change_path(@booking, status: "refusé"),
           method: :patch, data: { confirm: 'Voulez vous refuser cette réservation?' }, class: "btn seko-cancel-button m-2" %>
         <% elsif @booking.status == "pending" && @booking.senior == current_user %>
           <%= link_to "Profil de l'aidant", profile_path(@booking.helper), class: "btn seko-button m-2" %>
