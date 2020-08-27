@@ -1,5 +1,7 @@
 <div class="show-flex container mt-5">
   <div class="col-7 seko-card-details show-profil-card mr-5 p-4">
+    <%= link_to "⟵", request.referer.present? ? request.referer : default_path, class: 'return-btn' %>
+
     <div class=" ml-2">
       <div class="d-flex flex-row justify-content-between align-items-end">
         <h1 style="color: #1E80FC;">Profil</h1>
