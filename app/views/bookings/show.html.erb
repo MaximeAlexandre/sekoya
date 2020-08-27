@@ -81,6 +81,7 @@
             <p> le <%= @booking.date.strftime("%d/%m/%Y") %> de <%= @booking.start_time.strftime("%H:%M") %> à <%= @booking.end_time.strftime("%H:%M") %></p>
           </div>
         </div>
+        
         <h4 class="border-top pt-4"> Activités choisies</h4>
         <div class="row justify-content-center">
           <% @tasks.each do |task| %>
@@ -89,11 +90,17 @@
             </div>
           <% end %>
         </div>
+        <% unless @booking.senior.pathology.nil? %>
+          <h4 class="border-top pt-4"> Pathologie </h4>
+          <div class="row justify-content-center">
+              <p><%= @booking.senior.pathology %></p>
+          </div>
+        <% end %>
         <% if @booking.comment.present? %>
-        <h4 class="border-top pt-4"> Informations complémentaires transmises par <%= @booking.senior.first_name %> </h4>
-        <div class="row justify-content-center">
-            <%= @booking.comment %>
-        </div>
+          <h4 class="border-top pt-4"> Informations complémentaires transmises par <%= @booking.senior.first_name %> </h4>
+          <div class="row justify-content-center">
+              <%= @booking.comment %>
+          </div>
         <% end %>
         <h3 class="mb-1 mt-3 border-top pt-4"><strong><%= (@booking.end_time  - @booking.start_time).to_i/3600 %> heures </strong> </h3>
         <h3 class="mb-1"><strong>Total : <%= @total %> €</strong></h3>
