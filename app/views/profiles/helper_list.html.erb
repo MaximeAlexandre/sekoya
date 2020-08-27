@@ -169,7 +169,7 @@
 
               <!-- Notes -->
               <% if @reviews.empty? %>
-                <p class="text-right">(<%= @reviews.length %> avis)</p>
+                <p class="text-right">Cet helper n'a pas encore d'avis</p>
               <% else %>
                 <div class="text-right">
                   <%  (@reviews.collect(&:note).sum.to_f/@reviews.length if @reviews.length > 0).to_i.times do %>
@@ -190,7 +190,7 @@
           <div class="tooltiptext">
             <h4>Derniers commentaires</h4>
             <% if @reviews.empty? %>
-              <p>Cet helper n'a pas encore de commentaires</p>
+              <p>Cet helper n'a pas encore d'avis</p>
             <% else %>
               <% @reviews[0..2].each do |review| %>
                 <div class="border-top pt-3">
