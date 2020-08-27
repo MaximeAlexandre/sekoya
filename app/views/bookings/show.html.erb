@@ -106,7 +106,7 @@
         <h3 class="mb-1"><strong>Total : <%= @total %> €</strong></h3>
       </div>
       <div class="col-12">
-        <% if @booking.display_review_form && current_user.role == "senior" %>
+        <% if @booking.display_review_form && current_user == @booking.senior  %>
           <%= simple_form_for [@booking, @review] do |f| %>
             <%= f.error_notification %>
             <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
@@ -118,6 +118,8 @@
               <%= f.button :submit, 'Ajouter un commentaire', :class => "btn seko-button w-100" %>
             </div>
           <% end %>
+        <% elsif !@booking.reviews.empty? %>
+          <p class="text-center border-top pt-4">Vous avez déjà posté un commentaire pour ce rendez-vous.</p>
         <% end %>
       </div>
       <div class="seko-flex m-3 border-bottom-4">
