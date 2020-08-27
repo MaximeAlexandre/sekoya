@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_20_150138) do
+ActiveRecord::Schema.define(version: 2020_08_26_214754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,18 @@ ActiveRecord::Schema.define(version: 2020_08_20_150138) do
     t.integer "booking_step"
     t.index ["helper_id"], name: "index_bookings_on_helper_id"
     t.index ["senior_id"], name: "index_bookings_on_senior_id"
+  end
+
+  create_table "calendar_events", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.string "event"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_calendar_events_on_user_id"
   end
 
   create_table "diplomas", force: :cascade do |t|
@@ -84,12 +96,16 @@ ActiveRecord::Schema.define(version: 2020_08_20_150138) do
     t.float "latitude"
     t.float "longitude"
     t.string "photo"
+    t.string "access_token"
+    t.string "refresh_token"
+    t.string "expires_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "bookings", "users", column: "helper_id"
   add_foreign_key "bookings", "users", column: "senior_id"
+  add_foreign_key "calendar_events", "users"
   add_foreign_key "diplomas", "users"
   add_foreign_key "favoris", "bookings"
   add_foreign_key "reviews", "bookings"

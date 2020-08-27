@@ -3,12 +3,14 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  access_token           :string
 #  activity_start_date    :date
 #  address                :string
 #  car                    :boolean
 #  description            :text
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
+#  expires_at             :string
 #  first_name             :string
 #  handicap               :string
 #  last_name              :string
@@ -18,6 +20,7 @@
 #  pathology              :string
 #  photo                  :string
 #  price                  :float
+#  refresh_token          :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
