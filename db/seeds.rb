@@ -331,27 +331,27 @@ hj_justin = User.new(
 puts '...Male helpers creation Finished!'
 
 
-puts "Creating Antho Grandma..."
-s_germaine = User.new(
-  first_name: "Germaine",
-  last_name: "Delaplace",
-  email: "germaine.delaplace@gmail.com",
-  password: "azerty",
+puts "Creating family test..."
+test_family = User.new(
+  first_name: "Sylvia",
+  last_name: "Hide",
+  email: "sekofamilytest@test.com",
+  password: "sekofamily",
   address: "33 Rue Thomassin Lyon",
   mobile_number: "0756349876",
   role: "senior",
   pathology: "Parkinson",
   photo: "https://images.unsplash.com/photo-1447005497901-b3e9ee359928?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80"
 )
-puts '...Antho Grandma creation Finished!'
+puts '...family test creation Finished!'
 
 
-puts "Creating Antho Helper..."
-h_anthony = User.new(
-  first_name: "Anthony",
-  last_name: "Manto",
-  email: "anthony.manto@gmail.com",
-  password: "azerty",
+puts "Creating test Helper..."
+test_helper = User.new(
+  first_name: "Sylvain",
+  last_name: "Jack",
+  email: "sekohelpertest@test.com",
+  password: "sekohelper",
   address: "55 Rue Paradis 13006 Marseille",
   mobile_number: "0623987867",
   role: "helper",
@@ -362,7 +362,7 @@ h_anthony = User.new(
   price: "12",
   photo: "https://kitt.lewagon.com/placeholder/users/anthomanto"
 )
-puts '...Antho Helper creation Finished!'
+puts '...test Helper creation Finished!'
 
 
 puts "Creating Diplomas..."
@@ -442,26 +442,26 @@ Diploma.create(
   user: hj_justin
 )
 
-h_anthony.save
+test_helper.save
 Diploma.create(
   name: "Alzheimer",
-  user: h_anthony
+  user: test_helper
 )
 Diploma.create(
   name: "Savoir être",
-  user: h_anthony
+  user: test_helper
 )
 puts '...Diplomas creation Finished!'
 
 
-puts 'Creating Antho fake bookings...'
+puts 'Creating test_helper fake bookings...'
 # Historic bookings
 s_jean_paul.save
 booking1 = Booking.new(
-  date: "17/08/2020",
+  date: (Date.today - 8).strftime("%d/%m/%Y"),
   start_time: "08",
   end_time: "09",
-  helper: h_anthony,
+  helper: test_helper,
   senior: s_jean_paul,
   status: "refusé",
   booking_step: 2
@@ -475,10 +475,10 @@ task1 = Task.create(
 
 s_guy.save
 booking2 = Booking.new(
-  date: "17/08/2020",
+  date: (Date.today - 8).strftime("%d/%m/%Y"),
   start_time: "11",
   end_time: "14",
-  helper: h_anthony,
+  helper: test_helper,
   senior: s_guy,
   status: "annulé",
   booking_step: 2
@@ -502,10 +502,10 @@ task4 = Task.create(
 
 s_ginette.save
 booking3 = Booking.new(
-  date: "19/08/2020",
+  date: (Date.today - 6).strftime("%d/%m/%Y"),
   start_time: "11",
   end_time: "13",
-  helper: h_anthony,
+  helper: test_helper,
   senior: s_ginette,
   status: "accepté",
   booking_step: 2
@@ -523,11 +523,11 @@ task6 = Task.create(
 
 
 booking9 = Booking.new(
-  date: "20/08/2020",
+  date: (Date.today - 5).strftime("%d/%m/%Y"),
   start_time: "12",
   end_time: "16",
   status: "accepté",
-  helper: h_anthony,
+  helper: test_helper,
   senior: s_guy,
   booking_step: 2
 )
@@ -552,11 +552,11 @@ task20 = Task.create(
 s_veronique.save
 
 booking6 = Booking.new(
-  date: "01/09/2020",
+  date: (Date.today + 7).strftime("%d/%m/%Y"),
   start_time: "12",
   end_time: "14",
   status: "pending",
-  helper: h_anthony,
+  helper: test_helper,
   senior: s_guy,
   booking_step: 2
 )
@@ -573,11 +573,11 @@ task13 = Task.create(
 
 # Futur bookings
 booking7 = Booking.new(
-  date: "28/08/2020",
+  date: (Date.today + 3).strftime("%d/%m/%Y"),
   start_time: "20",
   end_time: "21",
   status: "accepté",
-  helper: h_anthony,
+  helper: test_helper,
   senior: s_ginette,
   booking_step: 2
 )
@@ -594,11 +594,11 @@ task15 = Task.create(
 
 
 booking5 = Booking.new(
-  date: "31/08/2020",
+  date: (Date.today + 6).strftime("%d/%m/%Y"),
   start_time: "9",
   end_time: "11",
   status: "accepté",
-  helper: h_anthony,
+  helper: test_helper,
   senior: s_jean_paul,
   booking_step: 2
 )
@@ -614,11 +614,11 @@ task11 = Task.create(
 
 
 booking11 = Booking.new(
-  date: "08/09/2020",
+  date: (Date.today + 14).strftime("%d/%m/%Y"),
   start_time: "17",
   end_time: "19",
   status: "accepté",
-  helper: h_anthony,
+  helper: test_helper,
   senior: s_veronique,
   booking_step: 2
 )
@@ -635,11 +635,11 @@ task23 = Task.create(
 
 s_michel.save
 booking20 = Booking.new(
-  date: "07/09/2020",
+  date: (Date.today + 13).strftime("%d/%m/%Y"),
   start_time: "10",
   end_time: "11",
   status: "accepté",
-  helper: h_anthony,
+  helper: test_helper,
   senior: s_michel,
   booking_step: 2
 )
@@ -653,11 +653,11 @@ task43.save
 
 s_charles.save
 booking21 = Booking.new(
-  date: "08/09/2020",
+  date: (Date.today + 14).strftime("%d/%m/%Y"),
   start_time: "14",
   end_time: "15",
   status: "accepté",
-  helper: h_anthony,
+  helper: test_helper,
   senior: s_charles,
   booking_step: 2
 )
@@ -671,11 +671,11 @@ task44.save
 
 s_mireille.save
 booking22 = Booking.new(
-  date: "01/09/2020",
+  date: (Date.today + 7).strftime("%d/%m/%Y"),
   start_time: "16",
   end_time: "18",
   status: "accepté",
-  helper: h_anthony,
+  helper: test_helper,
   senior: s_mireille,
   booking_step: 2
 )
@@ -694,11 +694,11 @@ task46.save
 
 s_ghislaine.save
 booking23 = Booking.new(
-  date: "07/09/2020",
+  date: (Date.today + 12).strftime("%d/%m/%Y"),
   start_time: "7",
   end_time: "9",
   status: "accepté",
-  helper: h_anthony,
+  helper: test_helper,
   senior: s_ghislaine,
   booking_step: 2
 )
@@ -713,24 +713,24 @@ task48 = Task.new(
   booking: booking23
 )
 task48.save
-puts '...Antho Bookings creation finished'
+puts '...test_helper Bookings creation finished'
 
 
-puts 'Creating fake Antho reviews...'
+puts 'Creating fake test_helper reviews...'
 Review.create(
-  content: "Anthony est très agréable. J'en avais entendu parler par une amie et il répond totalement à mes attentes.",
+  content: "Sylvain est très agréable. J'en avais entendu parler par une amie et il répond totalement à mes attentes.",
   note: 5,
   booking: booking9
 )
 
 Review.create(
-  content: "Anthony est un garçon charmant, attentionné et serviable. je le recommande vivement!!",
+  content: "Sylvain est un garçon charmant, attentionné et serviable. je le recommande vivement!!",
   note: 4,
   booking: booking2
 )
 
 Review.create(
-  content: "Je ne suis pas totalement satisfait de SEKOYA et de son helper Anthony.",
+  content: "Je ne suis pas totalement satisfait de SEKOYA et de son helper Sylvain.",
   note: 2,
   booking: booking1
 )
@@ -740,19 +740,19 @@ Review.create(
   note: 3,
   booking: booking3
 )
-puts '...Antho fake reviews creation finished'
+puts '...test_helper fake reviews creation finished'
 
 
 puts 'Creating Germaine fake bookings...'
-s_germaine.save
+test_family.save
 # Historic bookings
 booking12 = Booking.new(
-  date: "19/08/2020",
+  date: (Date.today - 6).strftime("%d/%m/%Y"),
   start_time: "08",
   end_time: "10",
   status: "refusé",
   helper: hj_pauline,
-  senior: s_germaine,
+  senior: test_family,
   booking_step: 2
 )
 booking12.save
@@ -768,12 +768,12 @@ task25 = Task.create(
 
 
 booking13 = Booking.new(
-  date: "21/08/2020",
+  date: (Date.today - 4).strftime("%d/%m/%Y"),
   start_time: "10",
   end_time: "12",
   status: "accepté",
   helper: ha_raquel,
-  senior: s_germaine,
+  senior: test_family,
   booking_step: 2
 )
 booking13.save
@@ -788,12 +788,12 @@ task27 = Task.create(
 )
 
 booking14 = Booking.new(
-  date: "21/08/2020",
+  date: (Date.today - 4).strftime("%d/%m/%Y"),
   start_time: "18",
   end_time: "20",
   status: "accepté",
   helper: ha_raquel,
-  senior: s_germaine,
+  senior: test_family,
   booking_step: 2
 )
 booking14.save
@@ -809,12 +809,12 @@ task29 = Task.create(
 
 
 booking15 = Booking.new(
-  date: "25/08/2020",
+  date: (Date.today - 1).strftime("%d/%m/%Y"),
   start_time: "11",
   end_time: "14",
   status: "annulé",
   helper: ha_victor,
-  senior: s_germaine,
+  senior: test_family,
   booking_step: 2
 )
 booking15.save
@@ -839,12 +839,12 @@ task32 = Task.create(
 
 # Futur bookings
 booking18 = Booking.new(
-  date: "04/09/2020",
+  date: (Date.today + 7).strftime("%d/%m/%Y"),
   start_time: "18",
   end_time: "20",
   status: "accepté",
   helper: ha_raquel,
-  senior: s_germaine,
+  senior: test_family,
   booking_step: 2
 )
 booking18.save
@@ -860,12 +860,12 @@ task38 = Task.create(
 
 
 booking19 = Booking.new(
-  date: "01/09/2020",
+  date: (Date.today + 5).strftime("%d/%m/%Y"),
   start_time: "15",
   end_time: "17",
   status: "accepté",
   helper: hj_pierre,
-  senior: s_germaine,
+  senior: test_family,
   booking_step: 2
 )
 booking19.save
