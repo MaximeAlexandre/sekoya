@@ -17,7 +17,11 @@ Rails.application.routes.draw do
   patch "/bookings/:id/status", to: "bookings#update_status", as: 'status_change'
   get "/senior", to: "pages#senior", as: 'senior'
   get "/helper", to: "pages#helper", as: 'helper'
+  get 'calendars/show', to:"calendars#show", as: 'calendar'
+  get 'calendars/form', to:"calendars#form",as: 'sch_form'
+  post "calendars/sch_generate", to: "calendars#sch_generate", as: 'sch_generate'
   get "/favoris", to: "favoris#index", as: 'favoris_index'
   post "/favoris", to: "favoris#create"
   delete "/favoris/:id", to: "favoris#destroy",as: 'favoris_destroy'
+
 end

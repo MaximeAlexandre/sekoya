@@ -16,6 +16,8 @@
           <div class="dropdown-menu dropdown-menu-right seko-card" aria-labelledby="navbarDropdown">
             <% if current_user.role == "helper" %>
               <%= link_to "Helper", helper_path, class: "dropdown-item" %>
+              <%= link_to "Horraires", sch_form_path, class: "dropdown-item" %>
+              <%= link_to "Calendrier", calendar_path, class: "dropdown-item" %>
             <% else %>
               <%= link_to "Senior", senior_path, class: "dropdown-item" %>
             <% end %>
