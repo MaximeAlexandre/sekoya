@@ -18,7 +18,7 @@
 #  longitude              :float
 #  mobile_number          :string
 #  pathology              :string
-#  photo                  :string
+#  photo                  :string           default("https://www.flaticon.com/svg/static/icons/svg/3237/3237472.svg")
 #  price                  :float
 #  refresh_token          :string
 #  remember_created_at    :datetime
