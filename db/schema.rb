@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(version: 2020_10_27_150325) do
     t.float "price"
     t.float "latitude"
     t.float "longitude"
-    t.string "photo"
+    t.string "photo", default: "https://www.flaticon.com/svg/static/icons/svg/3237/3237472.svg"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
