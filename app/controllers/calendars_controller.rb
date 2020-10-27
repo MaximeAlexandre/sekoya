@@ -31,7 +31,6 @@ class CalendarsController < ApplicationController
     sch_form=form_convert(@sch_begin, @sch_end)
     sch_save(@sch_begin, @sch_end, sch_form)
 
-    #binding.pry
     redirect_to sch_form_path
   end
 
@@ -75,8 +74,6 @@ class CalendarsController < ApplicationController
   # Schedule LOAD functions -------------------
 
   def sch_extraction
-    # users = User.where(name: 'David', occupation: 'Code Artist').order(created_at: :desc)
-    # user_id: current_user.id ou user:current_user
     return Schedule.where(user:current_user)
   end
 
@@ -118,7 +115,6 @@ class CalendarsController < ApplicationController
     #return sch_hash #temp for test
     sch_hash.keys.each do |y|
       sch_hash[y].keys.each do |m|
-        # save schedule:sch_hash[y][m] year:y.to_i month:m.to_i user:current_user
         if sch_db.find_by(user:current_user, year:y, month:m).nil?
           sch = Schedule.create(user:current_user, year:y.to_i, month:m.to_i, occurrences:sch_hash[y][m].map{|o|o.to_s})
           #sch_hash[y][m].each do |o| sch.occurrences << o.to_s end
