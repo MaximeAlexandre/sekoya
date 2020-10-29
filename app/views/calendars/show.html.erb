@@ -1,0 +1,23 @@
+<h1>Callendar#show</h1>
+<p>Find me in app/views/calendars/show.html.erb</p>
+<div class='calendar'></div>
+<div id='calendar'></div>
+
+<p><%= @sch_begin %> - <%= @sch_end %></p>
+
+<div>
+  <p>exemple gem ice_cube</p>
+  <p><%= @schedule_rule %></p>
+  <p><%= @schedule_days %><%= @schedule_days.length %></p>
+</div>
+
+<div>
+  <p>database</p>
+  <p>nombre de schedules de user : <%= @load.length %></p>
+  <p>Exemple Schedule.last : <%= @load.last %></p>
+  <p>user : <%= @load.last.user_id %> , year : <%= @load.last.year %> , month : <%= @load.last.month %></p>
+  <p>occurrences : <%= @load.last.occurrences.length %></p>
+  <%= @load.last.occurrences %>
+</div>
+<p>deploy content all schedules</p>
+<%= @load_deploy %>

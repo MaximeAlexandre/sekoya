@@ -1,0 +1,27 @@
+<h1>Callendar#form</h1>
+<p>Find me in app/views/calendars/form.html.erb</p>
+
+<%= form_with(url:sch_generate_path, method: "post") do %>
+<p>start date : <%= @sch_begin %> # datepickr plus tard</p>
+<p>end date : <%= @sch_end %> # datepickr plus tard</p>
+  <div class="d-flex">
+    <div class="d-inline-flex">
+      <ul class="calendar_form" style="list-style-type: none;">
+        <%= "heures" %>
+        <% for h in 8..20 do %>
+          <li><%= "#{h}h-#{h+1}h" %></li>
+        <% end %>  
+      </ul>
+    </div>
+    <%= render :partial => "day_form", locals: { day: "lundi" } %>
+    <%= render :partial => "day_form", locals: { day: "mardi" } %>
+    <%= render :partial => "day_form", locals: { day: "mercredi" } %>
+    <%= render :partial => "day_form", locals: { day: "jeudi" } %>
+    <%= render :partial => "day_form", locals: { day: "vendredi" } %>
+  </div>
+  <%= submit_tag("OK") %>
+<% end %>
+
+
+
+
