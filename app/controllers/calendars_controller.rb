@@ -5,7 +5,10 @@ class CalendarsController < ApplicationController
     @sch_duration = @sch_begin + 3600
     hour = 10
     @schedule = IceCube::Schedule.new(start = @sch_begin) do |s| # , :end_time => @sch_duration
-      s.add_recurrence_rule IceCube::Rule.daily.day(:friday).hour_of_day(hour).minute_of_hour(0).second_of_minute(0)
+      s.add_recurrence_rule IceCube::Rule.daily.day(:friday)
+      .hour_of_day(hour)
+      .minute_of_hour(0)
+      .second_of_minute(0)
     end
     @schedule_rule = @schedule
     @schedule_days = @schedule.occurrences(@sch_end)
@@ -51,7 +54,11 @@ class CalendarsController < ApplicationController
     week.keys.each do |d|
       for h in week[d][:array] do
         schedule = IceCube::Schedule.new(start = sch_begin) do |s|
-          s.add_recurrence_rule IceCube::Rule.daily.day(week[d][:eng].to_sym).hour_of_day(h).minute_of_hour(0).second_of_minute(0)
+          s.add_recurrence_rule IceCube::Rule.daily
+          .day(week[d][:eng].to_sym)
+          .hour_of_day(h)
+          .minute_of_hour(0)
+          .second_of_minute(0)
         end
         for o in schedule.occurrences(sch_end) do
         sch_form << o
@@ -106,6 +113,7 @@ class CalendarsController < ApplicationController
     sch_db = sch_extraction(sch_type)
     sch_old = load_convert(sch_db)
     sch_full = sch_merge(sch_begin, sch_end, schedule, sch_old)
+
     # Sort by year and month
     sch_hash={}
     for o in sch_full do
@@ -118,6 +126,7 @@ class CalendarsController < ApplicationController
         sch_hash[o.year.to_s][o.month.to_s] = list
       end
     end
+
     # Save or Update
     sch_hash.keys.each do |y|
       sch_hash[y].keys.each do |m|
