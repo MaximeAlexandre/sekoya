@@ -5,7 +5,8 @@ class CalendarsController < ApplicationController
     @sch_duration = @sch_begin + 3600
     hour = 10
     @schedule = IceCube::Schedule.new(start = @sch_begin) do |s| # , :end_time => @sch_duration
-      s.add_recurrence_rule IceCube::Rule.daily.day(:friday)
+      s.add_recurrence_rule IceCube::Rule.daily
+      .day(:friday)
       .hour_of_day(hour)
       .minute_of_hour(0)
       .second_of_minute(0)
@@ -75,6 +76,8 @@ class CalendarsController < ApplicationController
       mercredi: {array: [], eng: "wednesday"},
       jeudi: {array: [], eng: "thursday"},
       vendredi: {array: [], eng: "friday"}
+      #samedi: {array: [], eng: "saturday"}
+      #dimanche: {array: [], eng: "sunday"}
     }
     week.keys.map do |d|
       week[d][:array]=form_convert_day(d.to_s)
