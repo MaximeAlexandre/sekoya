@@ -93,7 +93,6 @@ class CalendarsController < ApplicationController
   def sch_merge(sch_begin, sch_end, schedule, sch_old)
     sch_new = []
     sch_old.each do |i| sch_new << i if i > sch_end || i < sch_begin end
-    binding.pry
     return sch_new + schedule
   end
 
