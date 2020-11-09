@@ -3,21 +3,25 @@
 <div class='calendar'></div>
 <div id='calendar'></div>
 
-<p><%= @sch_begin %> - <%= @sch_end %></p>
+<p>Begin at <%= @sch_begin %> - end at <%= @sch_end %></p>
 
 <div>
   <p>exemple gem ice_cube</p>
   <p><%= @schedule_rule %></p>
   <p><%= @schedule_days %><%= @schedule_days.length %></p>
 </div>
-
+<p>------------------</p>
 <div>
   <p>database</p>
   <p>nombre de schedules de user : <%= @load.length %></p>
+  <p>---</p>
   <p>Exemple Schedule.last : <%= @load.last %></p>
-  <p>user : <%= @load.last.user_id %> , year : <%= @load.last.year %> , month : <%= @load.last.month %></p>
-  <p>occurrences : <%= @load.last.occurrences.length %></p>
+  <p>- user : <%= @load.last.user_id %></p>
+  <p>- year : <%= @load.last.year %> , month : <%= @load.last.month %></p>
+  <p>- sch_type : <%= @load.last.sch_type %></p>
+  <p>- number of occurrences : <%= @load.last.occurrences.length %></p>
   <%= @load.last.occurrences %>
 </div>
+<p>----------</p>
 <p>deploy content all schedules</p>
 <%= @load_deploy %>

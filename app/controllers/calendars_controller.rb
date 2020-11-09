@@ -48,10 +48,10 @@ class CalendarsController < ApplicationController
 
   def form_convert_schedule(sch_begin, sch_end, week)
     sch_form=[]
-    for d in week do
-      for h in d[0] do
+    week.keys.each do |d|
+      for h in week[d][:array] do
         schedule = IceCube::Schedule.new(start = sch_begin) do |s|
-          s.add_recurrence_rule IceCube::Rule.daily.day(d[2].to_sym).hour_of_day(h).minute_of_hour(0).second_of_minute(0)
+          s.add_recurrence_rule IceCube::Rule.daily.day(week[d][:eng].to_sym).hour_of_day(h).minute_of_hour(0).second_of_minute(0)
         end
         for o in schedule.occurrences(sch_end) do
         sch_form << o
@@ -62,10 +62,15 @@ class CalendarsController < ApplicationController
   end
 
   def form_convert(sch_begin, sch_end)
-    week=[[[],"lundi","monday"],[[],"mardi","tuesday"],[[],"mercredi","wednesday"],
-    [[],"jeudi","thursday"],[[],"vendredi","friday"]]
-    for d in week do
-      d[0]=form_convert_day(d[1])
+    week = {
+      lundi: {array: [], eng: "monday"},
+      mardi: {array: [], eng: "tuesday"},
+      mercredi: {array: [], eng: "wednesday"},
+      jeudi: {array: [], eng: "thursday"},
+      vendredi: {array: [], eng: "friday"}
+    }
+    week.keys.map do |d|
+      week[d][:array]=form_convert_day(d.to_s)
     end
     sch_form = form_convert_schedule(sch_begin, sch_end, week)
     return sch_form
@@ -73,8 +78,8 @@ class CalendarsController < ApplicationController
 
   # Schedule LOAD functions -------------------
 
-  def sch_extraction
-    return Schedule.where(user:current_user)
+  def sch_extraction(type = "usual")
+    return Schedule.where(user: current_user, sch_type: type)
   end
 
   def load_convert(sch_db)
@@ -96,10 +101,12 @@ class CalendarsController < ApplicationController
     return sch_new + schedule
   end
 
-  def sch_save(sch_begin, sch_end, schedule)
-    sch_db = sch_extraction
+  def sch_save(sch_begin, sch_end, schedule, sch_type = "usual")
+    # load & merge to obtain the new schedule
+    sch_db = sch_extraction(sch_type)
     sch_old = load_convert(sch_db)
     sch_full = sch_merge(sch_begin, sch_end, schedule, sch_old)
+    # Sort by year and month
     sch_hash={}
     for o in sch_full do
       if sch_hash[o.year.to_s].nil?
@@ -111,15 +118,21 @@ class CalendarsController < ApplicationController
         sch_hash[o.year.to_s][o.month.to_s] = list
       end
     end
-    #return sch_hash #temp for test
+    # Save or Update
     sch_hash.keys.each do |y|
       sch_hash[y].keys.each do |m|
-        if sch_db.find_by(user:current_user, year:y, month:m).nil?
-          sch = Schedule.create(user:current_user, year:y.to_i, month:m.to_i, occurrences:sch_hash[y][m].map{|o|o.to_s})
+        if sch_db.find_by(user: current_user, year: y, month: m, sch_type: sch_type).nil?
+          sch = Schedule.create(
+            user: current_user,
+            year: y.to_i,
+            month: m.to_i,
+            sch_type: sch_type,
+            occurrences: sch_hash[y][m].map{|o|o.to_s},
+          )
           #sch_hash[y][m].each do |o| sch.occurrences << o.to_s end
           sch.save
         else
-          sch = sch_db.find_by(user:current_user, year:y, month:m)
+          sch = sch_db.find_by(user: current_user, year: y, month: m, sch_type: sch_type)
           sch.update(occurrences:sch_hash[y][m].map{|o|o.to_s})
         end
       end
