@@ -5,6 +5,7 @@
 #  id          :bigint           not null, primary key
 #  month       :integer
 #  occurrences :string           default([]), is an Array
+#  sch_type    :string
 #  year        :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
@@ -21,4 +22,6 @@
 class Schedule < ApplicationRecord
   belongs_to :user
   serialize :occurences, Array
+
+  validates :sch_type, inclusion: { in: %w(usual except) }
 end
