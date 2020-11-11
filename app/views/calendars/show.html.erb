@@ -15,12 +15,14 @@
   <p>database</p>
   <p>nombre de schedules de user : <%= @load.length %></p>
   <p>---</p>
-  <p>Exemple Schedule.last : <%= @load.last %></p>
-  <p>- user : <%= @load.last.user_id %></p>
-  <p>- year : <%= @load.last.year %> , month : <%= @load.last.month %></p>
-  <p>- sch_type : <%= @load.last.sch_type %></p>
-  <p>- number of occurrences : <%= @load.last.occurrences.length %></p>
-  <%= @load.last.occurrences %>
+  <% if @load.length > 0 %>
+    <p>Exemple Schedule.last : <%= @load.last %></p>
+    <p>- user : <%= @load.last.user_id %></p>
+    <p>- year : <%= @load.last.year %> , month : <%= @load.last.month %></p>
+    <p>- sch_type : <%= @load.last.sch_type %></p>
+    <p>- number of occurrences : <%= @load.last.occurrences.length %></p>
+    <%= @load.last.occurrences %>
+  <% end %>
 </div>
 <p>----------</p>
 <p>deploy content all schedules</p>
