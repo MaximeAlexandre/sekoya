@@ -19,6 +19,11 @@ class CalendarsController < ApplicationController
 
     @load = sch_extraction
     @load_deploy = load_convert(@load)
+
+    @bookings = bookings_list
+    @busy = busy_list(@bookings)
+
+    @vs = vs(@load_deploy,@busy)
   end
 
   def form
@@ -40,6 +45,29 @@ class CalendarsController < ApplicationController
 
   private
 
+  # bookings for comparaison
+  def bookings_list
+    return Booking.where("booking_step = ? and helper_id = ? and status = ?", 2, current_user.id, "accepté").order(date: :asc, start_time: :asc)
+  end
+
+  def busy_list(bookings)
+    busy = []
+    bookings.each do |b|
+      busy << [b.date,b.end_time.hour - b.start_time.hour]
+    end
+    return busy
+  end
+
+  def vs(load_deploy,busy)
+    free = []
+    load_deploy.each{|i| free << i}
+    busy.each do |b|
+      for i in 0...b[1]
+        free.delete(b[0] + i.hour)
+      end
+    end
+    return free
+  end
   # From Form to Schedule functions -------------------
 
   def form_convert_day(day)

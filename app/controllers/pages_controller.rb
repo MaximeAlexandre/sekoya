@@ -29,6 +29,7 @@ class PagesController < ApplicationController
   def senior_week(list)
     # week = [Date.today] ; (1..6).each { |i| week << Date.today + i }; list.where(date: week)
     list.where("date >= ? and date <= ? and status = ?", Date.today, Date.today+6, "accepté")
+    #list.where("date >= ? and date < ? and status = ?", Date.today, Date.today+7, "accepté")
   end
 
   def pending(list)
