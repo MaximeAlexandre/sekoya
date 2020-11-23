@@ -47,13 +47,16 @@ class CalendarsController < ApplicationController
 
   # bookings for comparaison
   def bookings_list
-    return Booking.where("booking_step = ? and helper_id = ? and status = ?", 2, current_user.id, "accepté").order(date: :asc, start_time: :asc)
+    #return Booking.where("booking_step = ? and helper_id = ? and status = ?", 2, current_user.id, "accepté").order(date: :asc, start_time: :asc)
+    return Booking.where(booking_step: 2, helper_id: current_user.id)
+    .where("status = ? or status = ?", "accepté", "pending")
+    .order(date: :asc, start_time: :asc)
   end
 
   def busy_list(bookings)
     busy = []
     bookings.each do |b|
-      busy << [b.date,b.end_time.hour - b.start_time.hour]
+      busy << [b.date.in_time_zone("Paris"),b.end_time.hour - b.start_time.hour]
     end
     return busy
   end
@@ -68,6 +71,7 @@ class CalendarsController < ApplicationController
     end
     return free
   end
+
   # From Form to Schedule functions -------------------
 
   def form_convert_day(day)
@@ -126,9 +130,8 @@ class CalendarsController < ApplicationController
     return sch_deploy
   end
 
-  def sch_load # not for save, read only
-    #sch_db = sch_extraction
-    #return load_convert(sch_db)
+  def sch_load(type = "usual") # not for save, read only
+    return load_convert(sch_extraction(type))
   end
 
   # Schedule SAVE functions -------------------

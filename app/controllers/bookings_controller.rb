@@ -46,6 +46,8 @@ class BookingsController < ApplicationController
     @average_rating = @reviews.collect(&:note).sum.to_f / @reviews.length unless @reviews.empty?
   end
 
+  # Update -----------------
+
   def update_task
     tasks = params.select { |_key, value| value == "on" }.keys
     tasks.each do |task|
@@ -109,6 +111,8 @@ class BookingsController < ApplicationController
     #  senior_id  :bigint           not null
   end
 
+  # Reviews --------------------
+
   def reviews_list
     reviews = []
     bookings = Booking.where(helper_id: @booking.helper.id)
@@ -121,6 +125,8 @@ class BookingsController < ApplicationController
   def average_rating(reviews)
     reviews.collect(&:note).sum.to_f / reviews.length unless reviews.empty?
   end
+
+  # Map -----------------------
 
   def map(booking)
     @flats = User.where(id: booking.senior).geocoded # returns flats with coordinates
