@@ -35,6 +35,7 @@ class ProfilesController < ApplicationController
     @free_spots = sch_load(@helper.id)
     @busy = busy_load(@helper.id)
     @vs = vs(@free_spots,@busy)
+    @free_days = free_days(@vs)
   end
 
   private
@@ -182,5 +183,11 @@ class ProfilesController < ApplicationController
       end
     end
     return free
+  end
+
+  def free_days(vs)
+    days = []
+    vs.each {|dt| days << dt.to_date.to_s unless days.include?(dt.to_date.to_s)}
+    return days
   end
 end
