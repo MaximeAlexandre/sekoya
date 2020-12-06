@@ -5,8 +5,9 @@
 #  id           :bigint           not null, primary key
 #  booking_step :integer
 #  comment      :text
-#  date         :date
+#  date         :datetime
 #  end_time     :time
+#  hour_number  :integer
 #  start_time   :time
 #  status       :string
 #  created_at   :datetime         not null

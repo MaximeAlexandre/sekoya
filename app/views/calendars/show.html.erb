@@ -26,4 +26,20 @@
 </div>
 <p>----------</p>
 <p>deploy content all schedules</p>
+<p>all schedules length = <%= @load_deploy.length %></p>
 <%= @load_deploy %>
+<p>----------</p>
+<p>Bookings</p>
+<%= @bookings %>
+<p></p>
+<% if @bookings.length > 0 %>
+  <%= @bookings.last.date %>
+  <p><%= @bookings.last.end_time.hour - @bookings.last.start_time.hour %> hours long</p>
+  <p><%= @bookings.last.hour_number %> hours long</p>
+<% end %>
+<p>-----</p>
+<%= @busy %>
+<p>---</p>
+<p>Spots disponibles = <%= @vs.length %>, <%= @load_deploy.length - @vs.length %> free 
+spots have been occupied by bookings</p>
+<%= @vs %>

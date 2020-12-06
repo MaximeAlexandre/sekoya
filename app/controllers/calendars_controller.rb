@@ -19,6 +19,11 @@ class CalendarsController < ApplicationController
 
     @load = sch_extraction
     @load_deploy = load_convert(@load)
+
+    @bookings = bookings_list
+    @busy = busy_list(@bookings)
+
+    @vs = vs(@load_deploy,@busy)
   end
 
   def form
@@ -39,6 +44,33 @@ class CalendarsController < ApplicationController
   end
 
   private
+
+  # bookings for comparaison
+  def bookings_list
+    #return Booking.where("booking_step = ? and helper_id = ? and status = ?", 2, current_user.id, "accepté").order(date: :asc, start_time: :asc)
+    return Booking.where(booking_step: 2, helper_id: current_user.id)
+    .where("status = ? or status = ?", "accepté", "pending")
+    .order(date: :asc, start_time: :asc)
+  end
+
+  def busy_list(bookings)
+    busy = []
+    bookings.each do |b|
+      busy << [b.date.in_time_zone("Paris"),b.end_time.hour - b.start_time.hour]
+    end
+    return busy
+  end
+
+  def vs(load_deploy,busy)
+    free = []
+    load_deploy.each{|i| free << i}
+    busy.each do |b|
+      for i in 0...b[1]
+        free.delete(b[0] + i.hour)
+      end
+    end
+    return free
+  end
 
   # From Form to Schedule functions -------------------
 
@@ -98,9 +130,8 @@ class CalendarsController < ApplicationController
     return sch_deploy
   end
 
-  def sch_load # not for save, read only
-    #sch_db = sch_extraction
-    #return load_convert(sch_db)
+  def sch_load(type = "usual") # not for save, read only
+    return load_convert(sch_extraction(type))
   end
 
   # Schedule SAVE functions -------------------

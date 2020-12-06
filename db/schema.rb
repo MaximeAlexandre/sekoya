@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2020_12_04_221152) do
   end
 
   create_table "bookings", force: :cascade do |t|
-    t.date "date"
+    t.datetime "date"
     t.time "start_time"
     t.time "end_time"
     t.text "comment"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 2020_12_04_221152) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "booking_step"
+    t.integer "hour_number"
     t.index ["helper_id"], name: "index_bookings_on_helper_id"
     t.index ["senior_id"], name: "index_bookings_on_senior_id"
   end
