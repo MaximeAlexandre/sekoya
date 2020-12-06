@@ -5,7 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
 require 'date'
+require 'open-uri'
+require 'faker'
 
 Review.destroy_all
 Favori.destroy_all
@@ -13,6 +16,10 @@ Task.destroy_all
 Diploma.destroy_all
 Booking.destroy_all
 User.destroy_all
+
+url = Faker::Avatar.image(slug: "my-own-slug", size: "50x50")
+filename = File.basename(URI.parse(url).path)
+file = URI.open(url)
 
 diplomas = ["Alzheimer", "Parkinson", "Savoir-être", "Bientraitance", "Accompagnement des personnes en situation de handicap", "Accompagnement à la fin de vie"]
 
@@ -25,8 +32,8 @@ s_jean_paul = User.new(
   address: "70 Rue de la République 13002 Marseille",
   mobile_number: "0607080901",
   role: "senior",
-  photo: "https://i.pinimg.com/564x/78/20/f5/7820f5c991ced2c7d5f42a71662c2cf6.jpg"
 )
+s_jean_paul.photo.attach(io: file, filename: filename)
 
 s_guy = User.new(
   first_name: "Guy",
@@ -37,8 +44,8 @@ s_guy = User.new(
   mobile_number: "0689754534",
   role: "senior",
   pathology: "Alzheimer",
-  photo: "https://figurants.com/oc-content/uploads/119/12020.jpg"
 )
+s_guy.photo.attach(io: file, filename: filename)
 
 s_michel = User.new(
   first_name: "Michel",
@@ -48,8 +55,8 @@ s_michel = User.new(
   address: "126 Cours Lieutaud 13006 Marseille",
   mobile_number: "0689754563",
   role: "senior",
-  photo: "https://i.pinimg.com/564x/63/17/ff/6317ff537160558e10aa441937443ccc.jpg"
 )
+s_michel.photo.attach(io: file, filename: filename)
 
 s_charles = User.new(
   first_name: "Charles",
@@ -60,8 +67,8 @@ s_charles = User.new(
   mobile_number: "0689754384",
   role: "senior",
   pathology: "Alzheimer",
-  photo: "https://sciencenode.org/img/Happy_Old_Man_cropped.jpg"
 )
+s_charles.photo.attach(io: file, filename: filename)
 puts "...Male seniors creation finished"
 
 
@@ -75,8 +82,8 @@ s_ginette = User.new(
   mobile_number: "0745389721",
   role: "senior",
   pathology: "Alzheimer",
-  photo: "https://i.pinimg.com/originals/dc/58/dd/dc58dd29018ea05feba4a3d27e34e9c3.jpg"
 )
+s_ginette.photo.attach(io: file, filename: filename)
 
 s_veronique = User.new(
   first_name: "Veronique",
@@ -87,8 +94,8 @@ s_veronique = User.new(
   mobile_number: "0645389723",
   role: "senior",
   pathology: "Alzheimer",
-  photo: "https://static.actu.fr/uploads/2019/10/52422310b2088478af1b58ee2811f4bad289c15f7368a7294282f7496a84510bfd19495c-854x568.jpg"
 )
+s_veronique.photo.attach(io: file, filename: filename)
 
 s_mireille = User.new(
   first_name: "Mireille",
@@ -99,8 +106,8 @@ s_mireille = User.new(
   mobile_number: "0646479723",
   role: "senior",
   pathology: "Alzheimer",
-  photo: "https://images.pexels.com/photos/2269739/pexels-photo-2269739.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
 )
+s_mireille.photo.attach(io: file, filename: filename)
 
 s_ghislaine = User.new(
   first_name: "Ghislaine",
@@ -110,8 +117,8 @@ s_ghislaine = User.new(
   address: "12 Rue Louis Braille 13005 Marseille",
   mobile_number: "0646389723",
   role: "senior",
-  photo: "https://images.pexels.com/photos/4894604/pexels-photo-4894604.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
 )
+s_ghislaine.photo.attach(io: file, filename: filename)
 puts "...Female seniors creation finished"
 
 
@@ -124,8 +131,8 @@ s_eric = User.new(
   address: "72 Boulevard Yves Farge 69007 Lyon",
   mobile_number: "0646673423",
   role: "senior",
-  photo: "https://images.pexels.com/photos/6110/man-holiday-people-face.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
 )
+s_eric.photo.attach(io: file, filename: filename)
 
 s_sylvain = User.new(
   first_name: "Sylvain",
@@ -135,8 +142,8 @@ s_sylvain = User.new(
   address: "7 Rue Georges Gouy 69007 Lyon",
   mobile_number: "0648453423",
   role: "senior",
-  photo: "https://images.pexels.com/photos/3617391/pexels-photo-3617391.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
 )
+s_sylvain.photo.attach(io: file, filename: filename)
 
 s_edith = User.new(
   first_name: "Edith",
@@ -146,8 +153,8 @@ s_edith = User.new(
   address: "84 Rue Vauban 69006 Lyon",
   mobile_number: "0684950423",
   role: "senior",
-  photo: "https://images.pexels.com/photos/1729931/pexels-photo-1729931.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
 )
+s_edith.photo.attach(io: file, filename: filename)
 
 s_irene = User.new(
   first_name: "Irene",
@@ -157,8 +164,8 @@ s_irene = User.new(
   address: "Place Carnot 69002 Lyon",
   mobile_number: "0673849423",
   role: "senior",
-  photo: "https://images.unsplash.com/photo-1566616213894-2d4e1baee5d8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1051&q=80"
 )
+s_irene.photo.attach(io: file, filename: filename)
 puts "...Lyon seniors creation finished"
 
 
@@ -176,8 +183,8 @@ hj_pauline = User.new(
                 Subvenir aux besoins alimentaires, depuis les courses jusqu'à la prise des repas.\
                 Aider à l'autonomie physique, en assistant la marche, le réveil et le coucher.",
   price: "20",
-  photo: "https://ca.slack-edge.com/T02NE0241-UHZPDCTL7-9f02287d72ad-512"
 )
+hj_pauline.photo.attach(io: file, filename: filename)
 
 ha_valerie = User.new(
   first_name: "Valerie",
@@ -193,8 +200,8 @@ ha_valerie = User.new(
                 J’ai suivi de nombreuses formations pour répondre à tout type de pathologie et je suis une véritable fée du logis.\
                 La routine quotidienne peut parfois être pesante alors laisser moi être votre rayon de soleil de la journée.",
   price: "30",
-  photo: "https://images.generated.photos/m-X6WsWGaIcWmZS6WzeVS6mT8mtL4Qc2OqbRbMSRRHM/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAyOTI2MTQuanBn.jpg"
 )
+ha_valerie.photo.attach(io: file, filename: filename)
 
 hj_aurore = User.new(
   first_name: "Aurore",
@@ -209,8 +216,9 @@ hj_aurore = User.new(
                 Subvenir aux besoins alimentaires, depuis les courses jusqu'à la prise des repas.\
                 Aider à l'autonomie physique, en assistant la marche, le réveil et le coucher.",
   price: "15",
-  photo: "https://images.generated.photos/Kx0rWsHEaHYJfnyKQ2F2NYMDW0Dw01XM78bwut1LUw8/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA5NzI1MTQuanBn.jpg"
 )
+  hj_aurore.photo.attach(io: file, filename: filename)
+
 
 ha_raquel = User.new(
   first_name: "Raquel",
@@ -225,8 +233,8 @@ ha_raquel = User.new(
                 Subvenir aux besoins alimentaires, depuis les courses jusqu'à la prise des repas.\
                 Aider à l'autonomie physique, en assistant la marche, le réveil et le coucher.",
   price: "18",
-  photo: "https://images.generated.photos/0IaqV1Hx_aHnX0XfiaBQ6X6QACzahBz9IGXwndnhMEI/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA5NzQ5NjEuanBn.jpg"
 )
+ha_raquel.photo.attach(io: file, filename: filename)
 
 ha_danielle = User.new(
   first_name: "Danielle",
@@ -241,8 +249,8 @@ ha_danielle = User.new(
                 Subvenir aux besoins alimentaires, depuis les courses jusqu'à la prise des repas.\
                 Aider à l'autonomie physique, en assistant la marche, le réveil et le coucher.",
   price: "25",
-  photo: "https://images.generated.photos/MaDcv47jIe8_YaOCjSw8KMp8TGgntDiJZ3mUYvEUjy8/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAxMjk3MDIuanBn.jpg"
 )
+ha_danielle.photo.attach(io: file, filename: filename)
 
 puts '...Female helpers creation Finished!'
 
@@ -261,8 +269,8 @@ ha_victor = User.new(
                 Subvenir aux besoins alimentaires, depuis les courses jusqu'à la prise des repas.\
                 Aider à l'autonomie physique, en assistant la marche, le réveil et le coucher.",
   price: "40",
-  photo: "https://images.generated.photos/CSATONvRC9keZlwb9PUw4oLqgJLqk81qfuKyRit1SOI/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAzMzI1ODBfMDkx/NDY0MV8wNTQ1MDcx/LmpwZw.jpg"
 )
+ha_victor.photo.attach(io: file, filename: filename)
 
 ha_alain = User.new(
   first_name: "Alain",
@@ -277,8 +285,8 @@ ha_alain = User.new(
                 Subvenir aux besoins alimentaires, depuis les courses jusqu'à la prise des repas.\
                 Aider à l'autonomie physique, en assistant la marche, le réveil et le coucher.",
   price: "35",
-  photo: "https://images.generated.photos/e95zMhqDrBWx-r-h6i8fUnIQZ0ZmaIrQggB3U4jUWYU/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAyNTAyMTNfMDMx/NDAwOF8wMDY3OTM1/LmpwZw.jpg"
 )
+ha_alain.photo.attach(io: file, filename: filename)
 
 hj_fabien = User.new(
   first_name: "Fabien",
@@ -293,8 +301,8 @@ hj_fabien = User.new(
                 Subvenir aux besoins alimentaires, depuis les courses jusqu'à la prise des repas.\
                 Aider à l'autonomie physique, en assistant la marche, le réveil et le coucher.",
   price: "12",
-  photo: "https://images.generated.photos/AocIc2LuUhr1UHLbnB_Ia89vW7xNtpKHlA-cXHK6Sz4/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA4MjE4NDRfMDcx/MzI4Nl8wMjE0Njk2/LmpwZw.jpg"
 )
+hj_fabien.photo.attach(io: file, filename: filename)
 
 hj_pierre = User.new(
   first_name: "Pierre",
@@ -309,8 +317,8 @@ hj_pierre = User.new(
                 Subvenir aux besoins alimentaires, depuis les courses jusqu'à la prise des repas.\
                 Aider à l'autonomie physique, en assistant la marche, le réveil et le coucher.",
   price: "13",
-  photo: "https://images.generated.photos/J8LElKhm6YfUaeJR_xgEk8Jt3WPVh7Dxv4CUGZPq6KQ/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAyNjg2NjdfMDQ0/MjY4OF8wNzg4MzQ0/LmpwZw.jpg"
 )
+hj_pierre.photo.attach(io: file, filename: filename)
 
 hj_justin = User.new(
   first_name: "Justin",
@@ -325,8 +333,8 @@ hj_justin = User.new(
                 Subvenir aux besoins alimentaires, depuis les courses jusqu'à la prise des repas.\
                 Aider à l'autonomie physique, en assistant la marche, le réveil et le coucher.",
   price: "15",
-  photo: "https://images.generated.photos/HPHniRqwQMNv0vYt2LfsuLejbMxBXh-_Fr3mTRa4Z-Y/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA2NDU0NjJfMDE5/MTI1N18wMjk3MDY1/LmpwZw.jpg"
 )
+hj_justin.photo.attach(io: file, filename: filename)
 
 puts '...Male helpers creation Finished!'
 
@@ -341,8 +349,8 @@ test_family = User.new(
   mobile_number: "0756349876",
   role: "senior",
   pathology: "Parkinson",
-  photo: "https://images.unsplash.com/photo-1447005497901-b3e9ee359928?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80"
 )
+test_family.photo.attach(io: file, filename: filename)
 puts '...family test creation Finished!'
 
 
@@ -360,8 +368,8 @@ test_helper = User.new(
                 C'est pour cela que j'ai choisi ce métier.\
                 J'aime jouer au échec et me ballader au bord de mer.",
   price: "12",
-  photo: "https://kitt.lewagon.com/placeholder/users/anthomanto"
 )
+test_helper.photo.attach(io: file, filename: filename)
 puts '...test Helper creation Finished!'
 
 

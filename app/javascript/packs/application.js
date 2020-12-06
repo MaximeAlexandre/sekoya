@@ -36,6 +36,7 @@ import { initCheckBoxes } from '../components/check_task';
 import { initUserChoice } from '../components/user_choice';
 import { initMapbox } from '../plugins/init_mapbox';
 import { initAutocomplete } from '../plugins/init_autocomplete';
+import { initAccountChoice } from '../components/account_choice';
 
 
 document.addEventListener('turbolinks:load', () => {
@@ -49,14 +50,21 @@ document.addEventListener('turbolinks:load', () => {
   initUpdateNavbarOnScroll();
   initStarRating();
   initCheckBoxes();
+  initAutocomplete('user_address');
   initAutocomplete('search_address');
   initAutocomplete('filter_address');
+
 
 
   if (document.querySelector('#ask_senior') || document.querySelector('#ask_helper')) {
     initUserChoice();
   }
+
   if (document.querySelector('#start_time') || document.querySelector('#end_time')) {
     initBookingChoice();
+  }
+
+  if (document.querySelector('#senior_account') || document.querySelector('#family_account')) {
+    initAccountChoice();
   }
 });
