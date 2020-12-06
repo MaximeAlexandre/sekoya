@@ -5,6 +5,7 @@
 #  id                     :bigint           not null, primary key
 #  activity_start_date    :date
 #  address                :string
+#  address2               :string
 #  car                    :boolean
 #  description            :text
 #  email                  :string           default(""), not null
@@ -45,6 +46,8 @@ class User < ApplicationRecord
 
   has_many :reviews, through: :bookings
   has_many :favoris, through: :bookings
+
+  has_one_attached :photo
 
   validates :first_name, presence: true
   validates :last_name, presence: true

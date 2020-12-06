@@ -13,7 +13,7 @@
     <div class="top-show seko-in-card mt-3">
       <div class="mr-4">
         <div>
-          <img class="avatar-large ml-2" src="<%= @helper.photo %>" alt="" >
+          <%= cl_image_tag @helper.photo.key %>
         </div>
       </div>
       <div class="seko-flex seko-show-in-card">
@@ -79,7 +79,7 @@
             <% end %>
             <p><%= review.content %></p>
             <p class="ml-3">
-              <img class="avatar avatar-senior-small" src="<%= review.booking.senior.photo %>" alt="" >
+              <%= cl_image_tag review.booking.senior.photo.key %>
               &nbsp
               <%= review.booking.senior.first_name %>
             </p>

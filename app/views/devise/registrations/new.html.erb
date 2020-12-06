@@ -1,138 +1,30 @@
 <div>
-  <div id="choice">
-    <h2>Are you a :</h2>
-    <button id="ask_senior">Senior</button>
-    <button id="ask_helper">helper</button>
+  <div id="choice" class="text-center">
+    <h2>Bienvenue sur SEKOYA </h2>
+        <button id="ask_senior" class="seko-button w-25 m-3" >Vous recherchez une aide à domicile </button>
+        <button id="ask_helper" class="seko-button w-25 m-3">Vous souhaitez devenir partenaire de SEKOYA </button>
   </div>
 
   <div class="hidden" id="senior_register">
-    <div class="text-center">
-      <h2>Sign up senior</h2>
+    <div id="choice_account" class="text-center">
+      <h2>Etes vous le bénéficiaire de la prestation ?</h2>
+        <button id="senior_account" class="seko-button w-25 m-3">Oui</button>
+        <button id="family_account" class="seko-button w-25 m-3">Non</button>
     </div>
-    <div class="container w-50">
-      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-        <%= f.error_notification %>
-
-        <div class="form-inputs seko-card p-3">
-          <%= f.input :email,
-                      required: true,
-                      autofocus: true,
-                      input_html: { autocomplete: "email", class: "seko-search-bar" } %>
-          <%= f.input :password,
-                      required: true,
-                      hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                      input_html: { autocomplete: "new-password", class: "seko-search-bar" } %>
-          <%= f.input :password_confirmation,
-                      required: true,
-                      input_html: { autocomplete: "new-password", class: "seko-search-bar" } %>
-          <%= f.input :first_name,
-                      label: "Prénom",
-                      required: true,
-                      input_html: { class: "seko-search-bar" } %>
-          <%= f.input :last_name,
-                      label: "Nom de famille",
-                      required: true,
-                      input_html: { class: "seko-search-bar" } %>
-          <%= f.input :address,
-                      label: "Adresse",
-                      required: true,
-                      input_html: { class: "seko-search-bar" }  %>
-          <%= f.input :mobile_number,
-                      label: "Portable",
-                      required: true,
-                      input_html: { class: "seko-search-bar" } %>
-          <%= f.input :description,
-                      required: true,
-                      input_html: { class: "seko-search-bar" } %>
-          <%= f.input :role,
-                      label: "Vous êtes ?",
-                      as: :radio_buttons,
-                      collection: [
-                        ['aide à domicile', 'helper'],
-                        ['personne aidée', 'senior']
-                      ],
-                      required: true %>
-        </div>
-
-        <div class="form-actions seko-flex">
-          <%= f.button :submit, "S'inscrire", class: "btn seko-button w-50 m-3" %>
-          <%= render "devise/shared/links" %>
-        </div>
-      <% end %>
+    <div class="hidden" id="new_senior">
+      <div class="container w-50">
+        <%= render partial: "new_senior" %>
+      </div>
+    </div>
+    <div class="hidden" id="new_family">
+      <div class="container w-50">
+        <%= render partial: "new_family" %>
+      </div>
     </div>
   </div>
 
   <div class="hidden" id="helper_register">
-    <div class="text-center">
-      <h2>Sign up helper</h2>
-    </div>
     <div class="container w-50">
-      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-        <%= f.error_notification %>
-
-        <div class="form-inputs seko-card p-3">
-          <%= f.input :email,
-                      required: true,
-                      autofocus: true,
-                      input_html: { autocomplete: "email", class: "seko-search-bar" } %>
-          <%= f.input :password,
-                      required: true,
-                      hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                      input_html: { autocomplete: "new-password", class: "seko-search-bar" } %>
-          <%= f.input :password_confirmation,
-                      required: true,
-                      input_html: { autocomplete: "new-password", class: "seko-search-bar" } %>
-          <%= f.input :first_name,
-                      label: "Prénom",
-                      required: true,
-                      input_html: { class: "seko-search-bar" } %>
-          <%= f.input :last_name,
-                      label: "Nom de famille",
-                      required: true,
-                      input_html: { class: "seko-search-bar" } %>
-          <%= f.input :address,
-                      label: "Adresse",
-                      required: true,
-                      input_html: { class: "seko-search-bar" }  %>
-          <%= f.input :mobile_number,
-                      label: "Portable",
-                      required: true,
-                      input_html: { class: "seko-search-bar" } %>
-          <%= f.input :description,
-                      required: true,
-                      input_html: { class: "seko-search-bar" } %>
-          <%= f.input :role,
-                      label: "Vous êtes ?",
-                      as: :radio_buttons,
-                      collection: [
-                        ['aide à domicile', 'helper'],
-                        ['personne aidée', 'senior']
-                      ],
-                      required: true %>
-          <%= f.input :car,
-                      label: "Avez vous un moyen de locomotion ?",
-                      as: :radio_buttons,
-                      collection: [
-                        ['Oui', true],
-                        ['Non', false]
-                      ],
-                      required: true %>
-          <%= f.input :price,
-                      label: "Prix horaire",
-                      required: true,
-                      input_html: { class: "seko-search-bar" } %>
-          <%# <%= f.input :diploma,
-                      label: "Diplômes/Certifications",
-                      required: true,
-                      input_html: { class: "seko-search-bar" } %>
-
-        </div>
-
-        <div class="form-actions seko-flex">
-          <%= f.button :submit, "S'inscrire", class: 'btn seko-button w-50 m-3' %>
-          <%= render "devise/shared/links" %>
-        </div>
-      <% end %>
     </div>
   </div>
 </div>

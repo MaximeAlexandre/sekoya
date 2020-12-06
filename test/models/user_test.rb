@@ -5,6 +5,7 @@
 #  id                     :bigint           not null, primary key
 #  activity_start_date    :date
 #  address                :string
+#  address2               :string
 #  car                    :boolean
 #  description            :text
 #  email                  :string           default(""), not null
