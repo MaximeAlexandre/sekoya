@@ -56,6 +56,7 @@ document.addEventListener('turbolinks:load', () => {
 
 
 
+
   if (document.querySelector('#ask_senior') || document.querySelector('#ask_helper')) {
     initUserChoice();
   }

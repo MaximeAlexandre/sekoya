@@ -35,7 +35,7 @@
                         required: false,
                         input_html: { class: "seko-search-bar" }  %>
             <%= f.hidden_field :role, value: "senior" %>
-            <%= f.input :photo, as: :file, direct_upload: true %>
+            <%= f.input :photo, as: :file, direct_upload: true, :use_default_url => true %>
 
             <h3> Aidez SEKOYA à mieux vous connaitre </h3>
 
