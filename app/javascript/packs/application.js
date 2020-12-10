@@ -50,12 +50,26 @@ document.addEventListener('turbolinks:load', () => {
   initUpdateNavbarOnScroll();
   initStarRating();
   initCheckBoxes();
-  initAutocomplete('user_address');
-  initAutocomplete('search_address');
-  initAutocomplete('filter_address');
 
+  if (document.querySelector('#senior_address')) {
+    initAutocomplete('senior_address');
+  };
 
+  if (document.querySelector('#family_address')) {
+    initAutocomplete('family_address');
+  };
 
+  if (document.querySelector('#helper_address')) {
+    initAutocomplete('helper_address');
+  };
+
+  if (document.querySelector('#search_address')) {
+    initAutocomplete('search_address');
+  };
+
+  if (document.querySelector('#filter_address')) {
+    initAutocomplete('filter_address');
+  };
 
   if (document.querySelector('#ask_senior') || document.querySelector('#ask_helper')) {
     initUserChoice();
