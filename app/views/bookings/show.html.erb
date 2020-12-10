@@ -10,11 +10,19 @@
     <div class="seko-flex">
       <% if current_user.role == "helper" %>
       <div>
-        <img class="avatar-senior avatar-large m-3 space-between" src="<%= @booking.senior.photo %>" alt="" >
+        <% if !@booking.senior.photo.present?%>
+          <%= cl_image_tag("default_photo.png", :default_image=>"default_photo", :gravity=>"face", :width=>100, :crop=>"thumb") %>
+        <% else %>
+          <%= cl_image_tag @booking.senior.photo.key, class: "avatar avatar-senior" %>
+        <% end %>
       </div>
       <% else %>
       <div>
-        <img class="avatar-large mt-3 ml-4" src="<%= @booking.helper.photo %>" alt="" >
+        <% if !@booking.helper.photo.present?%>
+          <%= cl_image_tag("default_photo.png", :default_image=>"default_photo", :gravity=>"face", :width=>100, :crop=>"thumb") %>
+        <% else %>
+          <%= cl_image_tag @booking.helper.photo.key, class: "avatar avatar-large" %>
+        <% end %>
       </div>
       <% end %>
       <!-- Full name and diplomas -->
@@ -25,7 +33,7 @@
       <% end %>
           <div class="seko-flex-column">
             <% if current_user.role == "helper" %>
-              <h3 class="mt-1"><span style="color:black">Voici le détail la réservation de</span> <%= @booking.senior.first_name %> <%= @booking.senior.last_name %></h3>
+              <h3 class="mt-1"><span style="color:black">Voici le détail de la réservation de</span> <%= @booking.senior.first_name %> <%= @booking.senior.last_name %></h3>
               <p>Cette reservation est <%= render :partial => "./pages/colorstatus", locals: { booking: @booking } %></p>
             <% else %>
               <div class="d-flex flex-row align-items-end">
