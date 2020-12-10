@@ -13,7 +13,11 @@
           <%= link_to booking_path(@booking_next) do %>
           <div class="seko-flex">
             <div>
-              <%= cl_image_tag @booking_next.helper.photo.key %>
+              <% if !@booking_next.helper.photo.present? %>
+                <%= cl_image_tag("default_photo.png", :default_image=>"default_photo", :gravity=>"face", :width=>100, :crop=>"thumb") %>
+              <% else %>
+                <%= cl_image_tag @booking_next.helper.photo.key, class: "avatar avatar-senior" %>
+              <% end %>
             </div>
             <div class="col-10">
               <div class="seko-flex">
@@ -71,7 +75,11 @@
           <div class="seko-card pl-3 mb-3 pr-4 seko-flex senior-long-block">
             <div class="seko-flex">
               <div>
-                <%= cl_image_tag booking.helper.photo.key %>
+                <% if !booking.helper.photo.present? %>
+                  <%= cl_image_tag("default_photo.png", :default_image=>"default_photo", :gravity=>"face", :width=>100, :crop=>"thumb") %>
+                <% else %>
+                  <%= cl_image_tag booking.helper.photo.key, class: "avatar avatar-senior" %>
+                <% end %>
               </div>
 
               <div class="m-4 pr-4 border-right border-left pl-4 seko-part-card">
@@ -110,7 +118,11 @@
           <div class="seko-card pl-3 mb-3 pr-4 seko-flex senior-long-block">
             <div class="seko-flex">
               <div>
-                <%= cl_image_tag booking.helper.photo.key %>
+                <% if !booking.helper.photo.present? %>
+                  <%= cl_image_tag("default_photo.png", :default_image=>"default_photo", :gravity=>"face", :width=>100, :crop=>"thumb") %>
+                <% else %>
+                  <%= cl_image_tag booking.helper.photo.key, class: "avatar avatar-senior" %>
+                <% end %>
               </div>
               <div class="m-4 pr-4 border-right border-left pl-4 seko-part-card">
                 <h4><%= booking.helper.first_name %> <%= booking.helper.last_name %></h4>
@@ -147,7 +159,11 @@
           <div class="seko-card pl-3 mb-3 pr-4 seko-flex senior-long-block">
             <div class="seko-flex">
               <div>
-                <%= cl_image_tag booking.helper.photo.key %>
+               <% if !booking.helper.photo.present? %>
+                  <%= cl_image_tag("default_photo.png", :default_image=>"default_photo", :gravity=>"face", :width=>100, :crop=>"thumb") %>
+                <% else %>
+                  <%= cl_image_tag booking.helper.photo.key, class: "avatar avatar-senior" %>
+                <% end %>
               </div>
               <div class="m-4 pr-4 border-right border-left pl-4 seko-part-card">
                 <h4><%= booking.helper.first_name %> <%= booking.helper.last_name %></h4>
@@ -188,7 +204,11 @@
               <div class="seko-card pl-3 mb-3 pr-4 seko-flex senior-long-block">
                 <div class="seko-flex">
                   <div>
-                    <%= cl_image_tag booking.helper.photo.key %>
+                    <% if !booking.helper.photo.present? %>
+                      <%= cl_image_tag("default_photo.png", :default_image=>"default_photo", :gravity=>"face", :width=>100, :crop=>"thumb") %>
+                    <% else %>
+                      <%= cl_image_tag booking.helper.photo.key, class: "avatar avatar-senior" %>
+                    <% end %>
                   </div>
                   <div class="m-4 pr-4 border-right border-left pl-4 seko-part-card">
                     <h4><%= booking.helper.first_name %> <%= booking.helper.last_name %></h4>

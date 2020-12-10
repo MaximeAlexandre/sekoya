@@ -13,7 +13,11 @@
     <div class="top-show seko-in-card mt-3">
       <div class="mr-4">
         <div>
-          <%= cl_image_tag @helper.photo.key %>
+          <% if !@helper.photo.present? %>
+            <%= cl_image_tag("default_photo.png", :default_image=>"default_photo", :gravity=>"face", :width=>100, :crop=>"thumb") %>
+          <% else %>
+            <%= cl_image_tag @helper.photo.key, class: "avatar avatar-senior" %>
+          <% end %>
         </div>
       </div>
       <div class="seko-flex seko-show-in-card">
@@ -79,7 +83,11 @@
             <% end %>
             <p><%= review.content %></p>
             <p class="ml-3">
-              <%= cl_image_tag review.booking.senior.photo.key %>
+              <% if !review.booking.senior.photo.present? %>
+                <%= cl_image_tag("default_photo.png", :default_image=>"default_photo", :gravity=>"face", :width=>50, :crop=>"thumb") %>
+              <% else %>
+                <%= cl_image_tag review.booking.senior.photo.key, class: "avavat avatar-senior-small" %>
+              <% end %>
               &nbsp
               <%= review.booking.senior.first_name %>
             </p>
