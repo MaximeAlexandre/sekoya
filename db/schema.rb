@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_04_221152) do
+ActiveRecord::Schema.define(version: 2020_12_10_095019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,7 +116,7 @@ ActiveRecord::Schema.define(version: 2020_12_04_221152) do
     t.float "price"
     t.float "latitude"
     t.float "longitude"
-    t.string "photo", default: "https://www.flaticon.com/svg/static/icons/svg/3237/3237472.svg"
+    t.string "photo", default: "https://res.cloudinary.com/dh78qytaz/image/upload/d_default_photo/v1607589287/default_photo.png"
     t.string "address2"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

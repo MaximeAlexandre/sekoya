@@ -12,7 +12,11 @@
     <ul class="navbar-nav mr-auto">
       <% if user_signed_in? %>
         <li class="nav-item dropdown">
-          <%= cl_image_tag current_user.photo.key, class: "avatar avatar-senior-small dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+          <% if !current_user.photo.present?%>
+            <%= cl_image_tag("default_photo.png", :default_image=>"default_photo", :gravity=>"face", :width=>50, :crop=>"thumb", data: { toggle: "dropdown" })%>
+          <% else %>
+            <%= cl_image_tag current_user.photo.key, class: "avatar avatar-senior-small dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+          <% end %>
           <div class="dropdown-menu dropdown-menu-right seko-card" aria-labelledby="navbarDropdown">
             <% if current_user.role == "helper" %>
               <%= link_to "Helper", helper_path, class: "dropdown-item" %>
