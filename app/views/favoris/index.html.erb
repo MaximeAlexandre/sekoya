@@ -10,7 +10,11 @@
         <div class="seko-flex seko-card">
         <!-- Avatar -->
         <div class="mb-3 d-flex flex-column flex-grow-1 align-items-center justify-content-center">
-          <%= cl_image_tag booking.helper.photo.key %>
+          <% if !booking.helper.photo.present? %>
+            <%= cl_image_tag("default_photo.png", :default_image=>"default_photo", :gravity=>"face", :width=>100, :crop=>"thumb")%>
+          <% else %>
+            <%= cl_image_tag booking.helper.photo.key, class: "avatar avatar-senior" %>
+          <% end %>
         </div>
 
         <!-- Full name and diplomas -->
