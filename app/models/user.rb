@@ -17,7 +17,7 @@
 #  longitude              :float
 #  mobile_number          :string
 #  pathology              :string
-#  photo                  :string
+#  photo                  :string           default("https://res.cloudinary.com/dh78qytaz/image/upload/d_default_photo/v1607589287/default_photo.png")
 #  price                  :float
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
