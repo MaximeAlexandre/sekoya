@@ -10,84 +10,85 @@
   <%= form_tag "/bookings/#{@booking.id}/tasks", method:"patch" %>
     <div class="seko-flex">
       <div class="p-4">
-        <h4 class="text-center">COMPAGNIE</h4>
+        <h4 class="text-center">Taches courantes</h4>
 
         <div class="category-choice m-3">
-          <input type="checkbox" name="Promenade" hidden>
-          <%= label_tag ('Promenade') %>
+          <input type="checkbox" name="Aide ménagère" hidden>
+          <%= label_tag ('Aide ménagère') %>
         </div>
 
         <div class="category-choice m-3">
-          <input type="checkbox" name="Loisirs" hidden>
-          <%= label_tag ('Loisirs') %>
+          <input type="checkbox" name="Aide aux courses" hidden>
+          <%= label_tag ('Aide aux courses') %>
         </div>
 
         <div class="category-choice m-3">
-          <input type="checkbox" name="Activité intellectuelle" hidden>
-          <%= label_tag ('Activités intellectuelles') %>
+          <input type="checkbox" name="Bricolage et petits travaux" hidden>
+          <%= label_tag ('Bricolage et petits travaux') %>
         </div>
 
         <div class="category-choice m-3">
-          <input type="checkbox" name="Activité sportive" hidden>
-          <%= label_tag ('Activités sportives') %>
+          <input type="checkbox" name="Jardinage" hidden>
+          <%= label_tag ('Jardinage') %>
         </div>
 
       </div>
 
       <div class="p-4">
-        <h4 class="text-center">AIDE</h4>
+        <h4 class="text-center">Aide</h4>
 
         <div class="category-choice m-3">
-          <input type="checkbox" name="Se lever / Se coucher" hidden>
-          <%= label_tag ('Se lever / Se coucher') %>
+          <input type="checkbox" name="Préparation et aide au repas" hidden>
+          <%= label_tag ('Préparation et aide au repas') %>
         </div>
 
         <div class="category-choice m-3">
-          <input type="checkbox" name="Se laver / S'habiller" hidden>
-          <%= label_tag ("Se laver / S'habiller") %>
+          <input type="checkbox" name="Aide administrative ou informatique" hidden>
+          <%= label_tag ("Aide administrative ou informatique") %>
         </div>
 
         <div class="category-choice m-3">
-          <input type="checkbox" name="Ménage" hidden>
-          <%= label_tag ('Ménage') %>
+          <input type="checkbox" name="Toilette et habillement" hidden>
+          <%= label_tag ('Toilette et habillement') %>
         </div>
 
         <div class="category-choice m-3">
-          <input type="checkbox" name="Courses" hidden>
-          <%= label_tag ('Courses') %>
+          <input type="checkbox" name="Aide au lever/coucher" hidden>
+          <%= label_tag ('Aide au lever/coucher') %>
         </div>
       </div>
 
       <div class="accompagnement d-flex-column justify-content p-4">
-        <h4 class="text-center">ACCOMPAGNEMENT</h4>
+        <h4 class="text-center">Accompagnement</h4>
         <div class="category-choice m-3">
           <input type="checkbox" name="Accompagnement à un rendez-vous" hidden>
           <%= label_tag ('Accompagnement à un rendez-vous') %>
         </div>
 
         <div class="category-choice m-3">
-          <input type="checkbox" name="Prise de médicaments" hidden>
-          <%= label_tag ('Prise de Médicaments') %>
+          <input type="checkbox" name="Activité physique" hidden>
+          <%= label_tag ('Activité physique') %>
         </div>
 
         <div class="category-choice m-3">
-          <input type="checkbox" name="Gestion d'une pathologie ou d'un Handicap" hidden>
-          <%= label_tag ("Gestion d'une pathologie") %>
+          <input type="checkbox" name="Stimulation et loisirs" hidden>
+          <%= label_tag ("Stimulation et loisirs") %>
         </div>
 
         <div class="category-choice m-3">
-          <input type="checkbox" name="Gestion d'une pathologie ou d'un Handicap" hidden>
-          <%= label_tag ("Gestion d'un handicap") %>
+          <input type="checkbox" name="Promenade" hidden>
+          <%= label_tag ("Promenade") %>
         </div>
 
       </div>
 
     </div>
+      </div>
 
-      <div style="text-align:center;">
+      <div class="col-4 seko-center" style="text-align:center;">
          <%= submit_tag 'Valider', class: "btn seko-button mb-4" %>
       </div>
 
-  </div>
+
   </div>
 </div>

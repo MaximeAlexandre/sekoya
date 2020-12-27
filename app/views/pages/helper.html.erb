@@ -8,7 +8,7 @@
       </div>
 
       <!-- Next booking -->
-      <div>
+<!--       <div>
         <h2 class="mb-3">Prochaine prestation</h2>
         <div class="seko-card p-3">
           <% if @booking_next.nil? %>
@@ -36,30 +36,30 @@
           <% end %>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Wallet and Planning -->
-    <div class="col-6">
-      <!-- Wallet -->
-      <div class="seko-card p-2 text-center m-3">
+<!--     <div class="col-6">
+ -->      <!-- Wallet -->
+<!--       <div class="seko-card p-2 text-center m-3">
         <%= render :partial => "wallet" %>
-      </div>
+      </div> -->
 
       <!-- Planning -->
-      <a target="_blank" href="https://calendar.google.com/calendar/r">
+<!--       <a target="_blank" href="https://calendar.google.com/calendar/r">
       <div class="seko-card text-center p-2 m-3">
         <h1>Mon planning</h1>
         <p>Retouvez votre planning</p>
       </div>
       </a>
     </div>
-  </div>
+  </div> -->
 
   <!-- Bookings -->
-  <div class="ml-3 mr-3">
+<!--   <div class="ml-3 mr-3">
     <div>
       <h2 class="mt-3">Prestations</h2>
-    </div>
+    </div> -->
 
     <div>
       <!-- Navbar bookings -->
@@ -200,7 +200,7 @@
                     <%= link_to "Annuler cette réservation", status_change_path(booking, status: "refusé"),
                     method: :patch, data: { confirm: 'Voulez vous annuler cette réservation??' }, class: "btn seko-cancel-button" %>
                   <% else %>
-                    <button class="btn seko-under-seven-btn">Vous ne pouvez plus annuler  cette réservation</button>
+                    <button class="btn seko-under-seven-btn">Vous ne pouvez plus annuler cette réservation</button>
                   <% end %>
                 </div>
               </div>
@@ -239,7 +239,7 @@
                   </div>
                 </div>
                 <div class="col-3 seko-cancel-area seko-part-card border-left m-4 pl-4">
-                  <button class="btn seko-button mb-2">Télécharger la facture</button>
+                  <button class="btn seko-button mb-2">Détails de la prestation</button>
                 </div>
               </div>
             <% end %>
