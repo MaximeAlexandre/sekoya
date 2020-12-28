@@ -116,7 +116,7 @@ ActiveRecord::Schema.define(version: 2020_12_10_095019) do
     t.float "price"
     t.float "latitude"
     t.float "longitude"
-    t.string "photo"
+    t.string "photo", default: "https://res.cloudinary.com/dh78qytaz/image/upload/d_default_photo/v1607589287/default_photo.png"
     t.string "address2"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

@@ -1,5 +1,5 @@
 <div>
-  <h3 class="text-center">Vous avez sélectionné notre super Helper <%= @booking.helper.first_name %> </h3>
+  <h3 class="text-center">Vous avez sélectionné notre super aide à domicile <%= @booking.helper.first_name %> </h3>
 </div>
 
 <div class="recap-card">
@@ -78,7 +78,7 @@
 
       <!-- Comment and Total Price -->
       <%= form_tag "/bookings/#{@booking.id}/validation", method:"patch", class: "border-top pt-4" %>
-        <%= label_tag("Un petit mot qui pourrai aider notre helper ?") %>
+        <%= label_tag("Un petit mot qui pourrai aider notre aide à domicile ?") %>
         <br>
         <%= text_area_tag(:comment, "", size: "50x5", class: "seko-search-bar") %>
         <h3 class="mb-3 mt-3"><strong><%= @booking.helper.price %> € x <%= ((@booking.end_time  - @booking.start_time)/3600).to_i %> heures </strong> </h3>

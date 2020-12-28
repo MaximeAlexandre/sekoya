@@ -20,24 +20,27 @@
                 input_html: { class: "seko-search-bar" } %>
     <%= f.input :password,
                 required: true,
-                hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                label: "Mot de passe",
+                hint: ("#{@minimum_password_length} caractères minimum" if @minimum_password_length),
                 input_html: { autocomplete: "new-password", class: "seko-search-bar" } %>
     <%= f.input :password_confirmation,
+                label: "Confirmez le mot de passe",
                 required: true,
                 input_html: { autocomplete: "new-password", class: "seko-search-bar" } %>
     <%= f.input :address,
-                label: "Adresse (elle ne sera pas divulguée)",
+                label: "Adresse",
                 as: :search,
                 required: true,
+                hint: ("Elle ne sera pas divulgué"),
                 input_html: { autocomplete: "address", :id => "helper_address", class: "seko-search-bar" }  %>
     <%= f.input :address2,
                 label: "Complément d'adresse",
                 required: false,
                 input_html: { class: "seko-search-bar" }  %>
     <%= f.hidden_field :role, value: "helper" %>
-    <%= f.input :photo, as: :file, direct_upload: true %>
+    <%= f.input :photo, label: "Photo de profil", as: :file, direct_upload: true %>
 
-    <h3> Aidez SEKOYA à mieux vous connaitre </h3>
+    <h3> Aidez nous à mieux vous connaitre </h3>
 
     <%= f.input :description,
                 label: "Parlez nous un peu de vous",
@@ -45,7 +48,7 @@
                 required: false,
                 input_html: { class: "seko-search-bar" } %>
     <%= f.input :car,
-              label: "Avez vous un moyen de locomotion ?",
+              label: "Etes vous véhiculé ?",
               as: :radio_buttons,
               collection: [
                 ['Oui', true],
@@ -53,12 +56,14 @@
               ],
               required: true %>
     <%= f.input :price,
-              label: "Prix horaire (0 si vous souhaitez faire du bénévolat)",
+              label: "Votre tarif à l'heure",
               required: true,
+              hint: ("0 si vous  souhaitez faire du bénévolat"),
               input_html: { class: "seko-search-bar" } %>
     <%= f.input :activity_start_date,
               label: "Quand avez-vous commencez votre activité ?",
               order: [:day, :month, :year],
+              hint: ("Vous pouvez entrer la date du jour de votre inscription s'il s'agit d'une nouvelle activité."),
               input_html: { class: "seko-search-bar" } %>
   </div>
   <div class="form-actions seko-flex">

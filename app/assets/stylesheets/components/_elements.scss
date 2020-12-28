@@ -20,7 +20,15 @@
 
 .seko-search-bar {
   background: white;
-  border-radius: 14px;
+  border-radius: 16px;
+  height: 50px;
+}
+
+.seko-search-bar-home {
+  background: white;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+  height: 50px;
 }
 
 .seko-card-details {
@@ -173,6 +181,11 @@ h3 {
     height: 50px;
     padding: 15px;
     text-align:center;
+}
+
+.seko-center {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .seko-small-button:hover {

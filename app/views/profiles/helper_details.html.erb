@@ -72,9 +72,9 @@
 
     <!-- Reviews -->
     <div class="border-top mt-4 ml-2 pt-4">
-      <h4>Reviews</h4>
+      <h4>Avis</h4>
       <% if @reviews.empty? %>
-        <p>Cet helper n'a pas encore de commentaires</p>
+        <p><%= @helper.first_name.capitalize %> n'a pas encore d'avis</p>
       <% else %>
         <% @reviews.each do |review| %>
           <div class="mb-4">

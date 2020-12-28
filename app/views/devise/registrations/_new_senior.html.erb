@@ -19,10 +19,12 @@
                         required: true,
                         input_html: { class: "seko-search-bar" } %>
             <%= f.input :password,
+                        label: "Mot de passe",
                         required: true,
-                        hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                        hint: ("#{@minimum_password_length} caractères minimum" if @minimum_password_length),
                         input_html: { autocomplete: "new-password", class: "seko-search-bar" } %>
             <%= f.input :password_confirmation,
+                        label: "Confirmez le mot de passe",
                         required: true,
                         input_html: { autocomplete: "new-password", class: "seko-search-bar" } %>
             <%= f.input :address,
@@ -35,7 +37,7 @@
                         required: false,
                         input_html: { class: "seko-search-bar" }  %>
             <%= f.hidden_field :role, value: "senior" %>
-            <%= f.input :photo, as: :file, direct_upload: true, :use_default_url => true %>
+            <%= f.input :photo, label: "Photo de profil", as: :file, direct_upload: true, :use_default_url => true%>
 
             <h3> Aidez SEKOYA à mieux vous connaitre </h3>
 
