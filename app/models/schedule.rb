@@ -23,5 +23,5 @@ class Schedule < ApplicationRecord
   belongs_to :user
   serialize :occurences, Array
 
-  validates :sch_type, inclusion: { in: %w(usual except) }
+  validates :sch_type, inclusion: { in: %w[usual except] }
 end
