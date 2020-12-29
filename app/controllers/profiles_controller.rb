@@ -12,7 +12,11 @@ class ProfilesController < ApplicationController
       @helpers = near_helpers_filter(params, near_helpers)
 
       @cheaper_helper = @helpers.min_by(&:price)
-      @best_note_helper = @helpers.empty? ? nil : User.find(best_average_rating(@helpers)[:helper_id])
+      if @helpers.nil? || best_average_rating(@helpers).nil?
+        @best_note_helper = nil
+      else
+        @best_note_helper = User.find(best_average_rating(@helpers)[:helper_id])
+      end
     else
       redirect_to '#'
     end
@@ -30,12 +34,12 @@ class ProfilesController < ApplicationController
     details_reviews(@helper)
     today_start_time
     favoris
-    
+
     # schedule
     @free_spots = sch_load(@helper.id)
     @busy = busy_load(@helper.id)
-    @vs = vs(@free_spots,@busy)
-    @free_days = free_days(@vs)
+    @vs = vs(@free_spots, @busy)
+    @free_days = free_days(@vs).empty? ? Date.today : free_days(@vs)
   end
 
   private
@@ -84,7 +88,9 @@ class ProfilesController < ApplicationController
   end
 
   def diploma_filter(params, near_helpers)
-    return near_helpers.select { |helper| helper.diplomas.where(name: params[:diploma]).present? } if params[:diploma] != "Toutes"
+    if params[:diploma] != "Toutes"
+      return near_helpers.select { |helper| helper.diplomas.where(name: params[:diploma]).present? }
+    end
 
     near_helpers
   end
@@ -125,7 +131,7 @@ class ProfilesController < ApplicationController
   def today_start_time # Date.today
     time = Time.now
     @starting_hour = time.hour + 1
-    @starting_hour += 1 unless time.min == 0
+    @starting_hour += 1 unless time.min.zero?
   end
 
   def favoris
@@ -134,7 +140,7 @@ class ProfilesController < ApplicationController
     @favoris.each { |booking| @favoris_helper << booking.helper }
   end
 
-  # Disponibilités
+  # Disponibilites
 
   # Schedule LOAD functions -------------------
 
@@ -144,7 +150,7 @@ class ProfilesController < ApplicationController
 
   def load_convert(sch_db)
     sch_deploy = []
-    sch_db.each do |s| sch_deploy += s.occurrences.map{|o|o.to_time} end
+    sch_db.each { |s| sch_deploy += s.occurrences.map { |o| o.to_time } }
     return sch_deploy
   end
 
@@ -156,27 +162,27 @@ class ProfilesController < ApplicationController
 
   def bookings_list(id)
     return Booking.where(booking_step: 2, helper_id: id)
-    .where("status = ? or status = ?", "accepté", "pending")
-    .order(date: :asc, start_time: :asc)
+                  .where("status = ? or status = ?", "accepté", "pending")
+                  .order(date: :asc, start_time: :asc)
   end
 
   def busy_list(bookings)
     busy = []
     bookings.each do |b|
-      busy << [b.date.in_time_zone("Paris"),b.end_time.hour - b.start_time.hour]
+      busy << [b.date.in_time_zone("Paris"), b.end_time.hour - b.start_time.hour]
     end
     return busy
   end
 
-  def busy_load (id)
+  def busy_load(id)
     return busy_list(bookings_list(id))
   end
 
   # schedule VS bookings
 
-  def vs(load_deploy,busy)
+  def vs(load_deploy, busy)
     free = []
-    load_deploy.each{|i| free << i}
+    load_deploy.each{ |i| free << i }
     busy.each do |b|
       for i in 0...b[1]
         free.delete(b[0] + i.hour)
@@ -187,7 +193,7 @@ class ProfilesController < ApplicationController
 
   def free_days(vs)
     days = []
-    vs.each {|dt| days << dt.to_date.to_s unless days.include?(dt.to_date.to_s)}
+    vs.each { |dt| days << dt.to_date.to_s unless days.include?(dt.to_date.to_s) }
     return days
   end
 end

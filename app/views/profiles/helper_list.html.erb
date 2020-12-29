@@ -92,48 +92,50 @@
       <% end %>
 
       <!-- Best noted helper -->
-      <%= link_to profile_path(@best_note_helper), :style=>'color: black;', class: "seko-card-best-note seko-flex mt-3 w-49" do %>
-        <div class="mt-3 mb-3 d-flex flex-column flex-grow-1 align-items-center justify-content-center">
-          <% if !@best_note_helper.photo.present? %>
-            <%= cl_image_tag("default_photo.png", :default_image=>"default_photo", :gravity=>"face", :width=>100, :crop=>"thumb") %>
-          <% else %>
-            <%= cl_image_tag @best_note_helper.photo.key, class: "avatar avatar-senior" %>
-          <% end %>
-          <p class="mt-3 best-note-offer">Meilleure note</p>
-        </div>
-        <div class="d-flex flex-column justify-content-between mt-3 mb-3 mr-3 pt-3 pb-3 col-8">
-          <div>
-            <div class="d-flex flex-row align-items-end">
-              <h3><%= @best_note_helper.first_name %> <%= @best_note_helper.last_name %></h3>
-              <% if @best_note_helper.car %>
-                <i class="fas fa-car ml-3 mb-3"></i>
-              <% end %>
-            </div>
+      <% if !@best_note_helper.nil? %>
+        <%= link_to profile_path(@best_note_helper), :style=>'color: black;', class: "seko-card-best-note seko-flex mt-3 w-49" do %>
+          <div class="mt-3 mb-3 d-flex flex-column flex-grow-1 align-items-center justify-content-center">
+            <% if !@best_note_helper.photo.present? %>
+              <%= cl_image_tag("default_photo.png", :default_image=>"default_photo", :gravity=>"face", :width=>100, :crop=>"thumb") %>
+            <% else %>
+              <%= cl_image_tag @best_note_helper.photo.key, class: "avatar avatar-senior" %>
+            <% end %>
+            <p class="mt-3 best-note-offer">Meilleure note</p>
+          </div>
+          <div class="d-flex flex-column justify-content-between mt-3 mb-3 mr-3 pt-3 pb-3 col-8">
             <div>
-              <% @reviews = [] %>
-              <% bookings = Booking.where(helper_id: @best_note_helper.id) %>
-                <% bookings.each do |booking| %>
-                <% review = Review.find_by(booking_id: booking.id) %>
-                <% @reviews << review unless review.nil? %>
-              <% end %>
+              <div class="d-flex flex-row align-items-end">
+                <h3><%= @best_note_helper.first_name %> <%= @best_note_helper.last_name %></h3>
+                <% if @best_note_helper.car %>
+                  <i class="fas fa-car ml-3 mb-3"></i>
+                <% end %>
+              </div>
+              <div>
+                <% @reviews = [] %>
+                <% bookings = Booking.where(helper_id: @best_note_helper.id) %>
+                  <% bookings.each do |booking| %>
+                  <% review = Review.find_by(booking_id: booking.id) %>
+                  <% @reviews << review unless review.nil? %>
+                <% end %>
 
-              <!-- Notes -->
-              <% if @reviews.empty? %>
-                <p>(<%= @reviews.length %> avis)</p>
-              <% else %>
-                <div>
-                  <% (@reviews.collect(&:note).sum.to_f/@reviews.length if @reviews.length > 0).to_i.times do %>
-                    <i class="fas fa-star"> </i>
-                  <% end %>
-                  <p >(<%= @reviews.length %> avis)</p>
-                </div>
-              <% end %>
+                <!-- Notes -->
+                <% if @reviews.empty? %>
+                  <p>(<%= @reviews.length %> avis)</p>
+                <% else %>
+                  <div>
+                    <% (@reviews.collect(&:note).sum.to_f/@reviews.length if @reviews.length > 0).to_i.times do %>
+                      <i class="fas fa-star"> </i>
+                    <% end %>
+                    <p >(<%= @reviews.length %> avis)</p>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <div class="text-right">
+              <p style="margin-bottom: 0;"><%= @best_note_helper.price %>€ / heure</p>
             </div>
           </div>
-          <div class="text-right">
-            <p style="margin-bottom: 0;"><%= @best_note_helper.price %>€ / heure</p>
-          </div>
-        </div>
+        <% end %>
       <% end %>
     </div>
 
