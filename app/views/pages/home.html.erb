@@ -1,104 +1,112 @@
-<div class="container">
-<div class="seko-flex">
-  <div class="seko-center">
-    <div class="m-4">
-      <h2>Réservez en quelques clics l'aide à domicile de vos rêves.</h2>
-      <div>
+<div class="">
+  <div class="seko-flex">
+    <div class="seko-center">
+      <div class="m-4">
+        <h2>Le nouveau membre de la famille qui va vous surprendre !</h2>
         <div>
-        <form action="/profiles" method="get" class="seko-flex">
-          <input class="form-control seko-search-bar-home" name="address_input" type="text" value="<%= @address %>" placeholder="Entrez une adresse" aria-label="Search" id="search_address" required>
-          <input  type="submit" value="Rechercher" class="btn search-button">
-        </form>
+          <div>
+            <form action="/profiles" method="get" class="seko-flex">
+              <input class="form-control seko-search-bar-home" name="address_input" type="text" value="<%= @address %>" placeholder="Entrez une adresse pour trouver des aides à domiciles autour de vous" aria-label="Search" id="search_address" required>
+              <input  type="submit" value="Rechercher" class="btn search-button">
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<div>
-  <div style="text-align: center" class="m-3">
-  <h3>Sekoya, c'est le nouveau membre de la famille qui va vous surprendre !</h3>
-  </div>
-  <div class="seko-flex col-12 seko-center">
-    <div class="seko-card col-3 p-3">
-      <div>
-        <div class="text-center mb-3">
-        <%= image_tag "schedule.png" %>
-        </div>
-        <h4>C'est facile et rapide</h4>
-        <p>Réservez en quelques clics une prestation d’aide à domicile pour vous ou vos ainés.</p>
-      </div>
+
+  <div>
+    <div style="text-align: center" class="m-3">
+      <h3>On vous aide avec le coeur.</h3>
     </div>
-    <div class="seko-card seko-center col-3 p-3">
-      <div>
-        <div class="text-center mb-3">
-        <%= image_tag "cooperation.png" %>
-      </div>
-        <h4>Faites leur confiance</h4>
-        <p>Des aides à domicile de confiance qui partagent nos valeurs d’entraide et de partage.</p>
-      </div>
-    </div>
-    <div class="seko-card col-3 p-3">
-      <div class="text-center mb-3">
-        <%= image_tag "heart.png" %>
+    <div class="seko-flex heartbloc col-11 seko-center">
+      <div class="seko-card col-3 p-3">
+        <div>
+          <div class="text-center mb-3">
+            <%= image_tag "schedule.png" %>
+          </div>
+          <h4>C'est facile et rapide.</h4>
+          <p>Réservez en quelques clics une prestation d’aide à domicile pour vous ou vos ainés.</p>
         </div>
-        <h4>On s’occupe de tout</h4>
+      </div>
+      <div class="seko-card seko-center col-3 p-3">
+        <div>
+          <div class="text-center mb-3">
+            <%= image_tag "cooperation.png" %>
+          </div>
+          <h4>Faites leur confiance.</h4>
+          <p>Des aides à domicile de confiance qui partagent nos valeurs d’entraide et de partage.</p>
+        </div>
+      </div>
+      <div class="seko-card col-3 p-3">
+        <div class="text-center mb-3">
+          <%= image_tag "heart.png" %>
+        </div>
+        <h4>On s’occupe de tout.</h4>
         <p>Des outils au service de l’aidant et un accompagnement sur mesure pour chaque prestation.</p>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="mt-4 mb-3">
-<h3>Comment ca marche ?</h3>
-</div>
-<div class="seko-flex col-12 seko-center">
-  <div class="col-3">
-    <div class="mb-2">
-      <%= image_tag "rechercher_ccm.png" %>
-    </div>
-    <div>
-      <h4>Recherchez</h4>
-      <p>Entrez l’adresse de la personne à aider dans la barre de recherche.</p>
+  <div class="missions mt-5">
+    <h3  style="text-align: center" >On vous accompagne au quotidien.</h3>
+    <div class=" text-center">
+      <%= image_tag "Grid.png", width: "75%", height: "75%", class: "missions"  %>
     </div>
   </div>
+
+  <div class="mt-4 mb-3">
+    <h3 style="text-align: center">Comment ca marche ?</h3>
+  </div>
+
+  <div class="seko-flex heartbloc col-11 seko-center">
     <div class="col-3">
-  <div class="mb-2">
-    <%= image_tag "selectionner_ccm.png" %>
-</div>
-    <div>
-      <h4>Sélectionnez</h4>
-      <p>Sélectionnez l’aidant qui correspond le mieux à votre besoin.</p>
+      <div class="mb-2">
+        <%= image_tag "rechercher_ccm.png", class: "missions"  %>
+      </div>
+      <div class="work">
+        <h4>Recherchez</h4>
+        <p>Entrez l’adresse de la personne à aider dans la barre de recherche.</p>
+      </div>
     </div>
-  </div>
     <div class="col-3">
-  <div class="mb-2">
-    <%= image_tag "reserver_ccm.png" %>
-</div>
-    <div>
-      <h4>Réservez</h4>
-      <p>Choisissez la date et l’heure de la prestation en fonction des disponibilités de l’aidant.</p>
+      <div class="mb-2">
+        <%= image_tag "selectionner_ccm.png", class: "missions"  %>
+      </div>
+      <div class="work">
+        <h4>Sélectionnez</h4>
+        <p>Sélectionnez l’aidant qui correspond le mieux à votre besoin.</p>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="mb-2">
+        <%= image_tag "reserver_ccm.png", class: "missions"  %>
+      </div>
+      <div class="work">
+        <h4>Réservez</h4>
+        <p>Choisissez la date et l’heure de la prestation en fonction des disponibilités de l’aidant.</p>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="mb-2">
+        <%= image_tag "informer_ccm.png", class: "missions"  %>
+      </div>
+      <div class="work">
+        <h4>Informez</h4>
+        <p>Partagez toutes les informations importantes pour la meilleure prestation.</p>
+      </div>
     </div>
   </div>
-      <div class="col-3">
-  <div class="mb-2">
-    <%= image_tag "informer_ccm.png" %>
-</div>
-    <div>
-      <h4>Informez</h4>
-      <p>Partagez toutes les informations importantes pour la meilleure prestation.</p>
+
+  <div class="seko-flex heartbloc mt-4 col-8 seko-center">
+    <div class="">
+      <%= image_tag "hiring.png", width: 270, height: 304, class: "missions" %>
+    </div>
+    <div class="col-7 mt-4">
+      <h3>Devenir aidant</h3>
+      <p>Rejoindre la famille KOYA, c’est s’inscrire dans un projet social fort qui prônes des valeurs de partage et d’entraide.  Travaillez en toute liberté et vivez de belles histoires avec nos aidés.</p>
+      <button class="seko-button btn">Devenez aide à domicile</button>
     </div>
   </div>
-</div>
-
-<div class="seko-flex mt-4 col-8 seko-center">
-  <div class="">
-    <%= image_tag "hiring.png", width: 270, height: 304 %>
-  </div>
-  <div class="col-7 mt-4">
-    <h3>Devenir aidant</h3>
-    <p>Rejoindre la famille SEKOYA, c’est s’inscrire dans un projet social fort qui prônes des valeurs de partage et d’entraide.  Travaillez en toute liberté et vivez de belles histoires avec nos aidés.</p>
-    <button class="seko-button btn">Devenez aide à domicile</button>
-  </div>
-</div>
 
 </div>
-

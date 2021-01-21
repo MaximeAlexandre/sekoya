@@ -1,83 +1,128 @@
 // Specific CSS for your home-page
 .search-button {
-    background: linear-gradient(270deg, #42A5F5 0%, #97D5DF 100%);
-    box-shadow: 0px 15px 30px rgba(20, 102, 204, 0.16);
-    border-top-right-radius: 16px;
-    border-bottom-right-radius: 16px;
-    color: white;
-    height: 50px;
-    padding: 15px;
-    text-align:center;
+background: linear-gradient(270deg, #42A5F5 0%, #97D5DF 100%);
+box-shadow: 0px 15px 30px rgba(20, 102, 204, 0.16);
+border-top-right-radius: 16px;
+border-bottom-right-radius: 16px;
+color: white;
+height: 50px;
+padding: 15px;
+text-align:center;
 }
-
 .search-button:hover {
-    background: linear-gradient(270deg, #42A5F5 0%, #97D5DF 100%);
-    box-shadow: 0px 15px 30px rgba(20, 102, 204, 0.16);
-    border-top-right-radius: 16px;
-    border-bottom-right-radius: 16px;
-    color: white;
-    height: 50px;
-    padding: 15px;
-    text-align:center;
+background: linear-gradient(270deg, #42A5F5 0%, #97D5DF 100%);
+box-shadow: 0px 15px 30px rgba(20, 102, 204, 0.16);
+border-top-right-radius: 16px;
+border-bottom-right-radius: 16px;
+color: white;
+height: 50px;
+padding: 15px;
+text-align:center;
 }
-
 .slogans {
-  margin-top: 6%;
-  margin-left: 50%;
+margin-top: 6%;
+margin-left: 50%;
 }
-
 .home-men {
-  position: absolute;
-  top: 100;
-  left: 0;
-  z-index: -50;
-  margin-top: 15%;
-  display: flex;
-  margin-left: 8%;
+position: absolute;
+top: 100;
+left: 0;
+z-index: -50;
+margin-top: 15%;
+display: flex;
+margin-left: 8%;
 }
-
 .standing-men {
-  position: absolute;
-  top: 100;
-  left: 0;
-  z-index: -50;
-  margin-top: 7%;
-  margin-left: 30%;
-
+position: absolute;
+top: 100;
+left: 0;
+z-index: -50;
+margin-top: 7%;
+margin-left: 30%;
 }
-
 .welcome {
-  margin-bottom: 20%;
+margin-bottom: 20%;
 }
-
 .blob {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -100;
-    width: 50vw;
-    margin-left: 2%;
-    margin-top: 4%;
+position: absolute;
+top: 0;
+left: 0;
+z-index: -100;
+width: 50vw;
+margin-left: 2%;
+margin-top: 4%;
 }
-
 .blob2{
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -100;
-  width: 60vw;
-  margin-left: 8%;
+position: absolute;
+top: 0;
+left: 0;
+z-index: -100;
+width: 60vw;
+margin-left: 8%;
 }
-
 .blob3{
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -100;
-    width: 60vw;
-    margin-left: -14%;
+position: absolute;
+top: 0;
+left: 0;
+z-index: -100;
+width: 60vw;
+margin-left: -14%;
+}
+.seko-home-form {
+width: 60vw;
 }
 
-.seko-home-form {
-  width: 60vw;
+@media screen and (max-width: 812px)
+{
+.heartbloc {
+flex-direction: column;
+margin-bottom:20px;
+}
+.col-3{
+max-width:100%;
+}
+.col-7{
+max-width:100%;
+}
+.col-6{
+max-width:100%;
+}
+.col-8{
+max-width:100%;
+}
+.col-9{
+max-width:100%;
+}
+.seko-card {
+margin-bottom:20px;
+}
+.missions {
+display:none;
+}
+.work {
+background: white;
+border-radius: 14px;
+box-shadow: 0px 15px 30px rgba(0, 150, 199, 0.1);
+padding:10px;
+}
+.avatar-mobile {
+width: 60px;
+height: 60px;
+object-fit: cover;
+}
+.col-9 {
+max-width:100%;
+}
+li {
+font-size: 1em;
+}
+p {
+font-size: 1em;
+}
+.date-block-mobile {
+width: 100%;
+height: 100%;
+margin-top: 20px;
+padding: 20px;
+}
 }

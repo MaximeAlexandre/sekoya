@@ -1,4 +1,4 @@
-<div class="ml-5 mr-5">
+<div class="col-10">
 
   <!-- Next booking, Wallet and Planning -->
   <div class="seko-flex">
@@ -92,9 +92,9 @@
                 <div class="seko-flex">
                   <div>
                     <% if !booking.senior.photo.present? %>
-                      <%= cl_image_tag("default_photo.png", :default_image=>"default_photo", :gravity=>"face", :width=>100, :crop=>"thumb") %>
+                      <%= cl_image_tag("default_photo.png", class: "avatar-mobile", :default_image=>"default_photo", :gravity=>"face", :width=>100, :crop=>"thumb") %>
                     <% else %>
-                      <%= cl_image_tag booking.senior.photo.key, class: "avatar avatar-senior" %>
+                      <%= cl_image_tag booking.senior.photo.key, class: "avatar avatar-senior avatar-mobile" %>
                     <% end %>
                   </div>
 
@@ -105,18 +105,18 @@
                     <p><%= render :partial => "colorstatus", locals: { booking: booking } %></p>
                   </div>
 
-                  <div class="m-4 pr-4 border-right seko-part-card">
+                  <div class="m-4 missions pr-4 border-right seko-part-card">
                     <h4>Activités :</h4>
                     <% booking.tasks.each do |task| %>
                       <li><%= task.name %></li>
                     <% end %>
                   </div>
-                  <div class="m-4 seko-part-card-price">
+                  <div class="m-4 missions seko-part-card-price">
                     <h4>Prix : <%= ((booking.helper.price)*((booking.end_time  - booking.start_time)/3600).to_i).to_i %>€</h4>
                     <p><%= booking.helper.price %>€ par heure</p>
                   </div>
                 </div>
-                <div class="col-3 seko-cancel-area border-left m-4 pl-4">
+                <div class="col-3 missions seko-cancel-area border-left m-4 pl-4">
                   <button class="btn seko-button">Visualiser la réservation</button>
                 </div>
               </div>
@@ -132,9 +132,9 @@
                 <div class="seko-flex">
                   <div>
                     <% if !booking.senior.photo.present?%>
-                      <%= cl_image_tag("default_photo.png", :default_image=>"default_photo", :gravity=>"face", :width=>100, :crop=>"thumb") %>
+                      <%= cl_image_tag("default_photo.png", class: "avatar-mobile", :default_image=>"default_photo", :gravity=>"face", :width=>100, :crop=>"thumb") %>
                     <% else %>
-                      <%= cl_image_tag booking.senior.photo.key, class: "avatar avatar-senior" %>
+                      <%= cl_image_tag booking.senior.photo.key, class: "avatar avatar-senior avatar-mobile" %>
                     <% end %>
                   </div>
                   <div class="m-4 pr-4 border-right border-left pl-4 seko-part-card">
@@ -143,18 +143,18 @@
                     <p>De <%= booking.start_time.strftime("%R") %>h à <%= booking.end_time.strftime("%R") %>h</p>
                     <p><%= render :partial => "colorstatus", locals: { booking: booking } %></p>
                   </div>
-                  <div class="m-4 pr-4 border-right seko-part-card">
+                  <div class="m-4 missions pr-4 border-right seko-part-card">
                     <h4>Activités :</h4>
                     <% booking.tasks.each do |task| %>
                       <li><%= task.name %></li>
                     <% end %>
                   </div>
-                  <div class="m-4 pt-1 seko-part-card-price">
+                  <div class="m-4 missions pt-1 seko-part-card-price">
                     <h4>Prix : <%= ((booking.helper.price)*((booking.end_time  - booking.start_time)/3600).to_i).to_i %>€</h4>
                     <p><%= booking.helper.price %>€ par heure</p>
                   </div>
                 </div>
-                <div class="col-3 seko-cancel-area border-left m-4 pl-4">
+                <div class="col-3 missions seko-cancel-area border-left m-4 pl-4">
                   <%= link_to "Accepter la demande", status_change_path(booking, status: "accepté"),
                   method: :patch, data: { confirm: 'Voulez vous accepter cette réservation??' }, class: "btn seko-button mb-3" %>
                   <%= link_to "Refuser la demande", status_change_path(booking, status: "refusé"),
@@ -173,9 +173,9 @@
                 <div class="seko-flex">
                   <div>
                     <% if !booking.senior.photo.present? %>
-                      <%= cl_image_tag("default_photo.png", :default_image=>"default_photo", :gravity=>"face", :width=>100, :crop=>"thumb") %>
+                      <%= cl_image_tag("default_photo.png", class: "avatar-mobile", :default_image=>"default_photo", :gravity=>"face", :width=>100, :crop=>"thumb") %>
                     <% else %>
-                      <%= cl_image_tag booking.senior.photo.key, class: "avatar avatar-senior" %>
+                      <%= cl_image_tag booking.senior.photo.key, class: "avatar avatar-senior avatar-mobile" %>
                     <% end %>
                   </div>
                   <div class="m-4 pr-4 border-right border-left pl-4 seko-part-card">
@@ -184,18 +184,18 @@
                     <p>De <%= booking.start_time.strftime("%R") %>h à <%= booking.end_time.strftime("%R") %>h</p>
                     <p><%= render :partial => "colorstatus", locals: { booking: booking } %></p>
                   </div>
-                  <div class="m-4 pr-4 border-right seko-part-card">
+                  <div class="m-4 missions pr-4 border-right seko-part-card">
                     <h4>Activités :</h4>
                     <% booking.tasks.each do |task| %>
                       <li><%= task.name %></li>
                     <% end %>
                   </div>
-                  <div class="m-4 seko-part-card-price">
+                  <div class="m-4 missions seko-part-card-price">
                     <h4>Prix : <%= ((booking.helper.price)*((booking.end_time  - booking.start_time)/3600).to_i).to_i %>€</h4>
                     <p><%= booking.helper.price %>€ par heure</p>
                   </div>
                 </div>
-                <div class=" col-3 seko-cancel-area seko-part-card border-left m-4 pl-4">
+                <div class=" col-3 missions seko-cancel-area seko-part-card border-left m-4 pl-4">
                   <% if booking.date >= Date.today + 7 %>
                     <%= link_to "Annuler cette réservation", status_change_path(booking, status: "refusé"),
                     method: :patch, data: { confirm: 'Voulez vous annuler cette réservation??' }, class: "btn seko-cancel-button" %>
@@ -216,9 +216,9 @@
                 <div class="seko-flex">
                   <div>
                     <% if !booking.senior.photo.present? %>
-                      <%= cl_image_tag("default_photo.png", :default_image=>"default_photo", :gravity=>"face", :width=>100, :crop=>"thumb") %>
+                      <%= cl_image_tag("default_photo.png", class: "avatar-mobile", :default_image=>"default_photo", :gravity=>"face", :width=>100, :crop=>"thumb") %>
                     <% else %>
-                      <%= cl_image_tag booking.senior.photo.key, class: "avatar avatar-senior" %>
+                      <%= cl_image_tag booking.senior.photo.key, class: "avatar avatar-senior avatar-mobile" %>
                     <% end %>
                   </div>
                   <div class="m-4 pr-4 border-right border-left pl-4 seko-part-card">
@@ -227,18 +227,18 @@
                     <p>De <%= booking.start_time.strftime("%R") %>h à <%= booking.end_time.strftime("%R") %>h</p>
                     <p><%= render :partial => "colorstatus", locals: { booking: booking } %></p>
                   </div>
-                  <div class="m-4 pr-4 border-right seko-part-card">
+                  <div class="m-4 missions pr-4 border-right seko-part-card">
                     <h4>Activités :</h4>
                     <% booking.tasks.each do |task| %>
                       <li><%= task.name %></li>
                     <% end %>
                   </div>
-                  <div class="m-4 seko-part-card-price">
+                  <div class="m-4 missions seko-part-card-price">
                     <h4>Prix : <%= ((booking.helper.price)*((booking.end_time  - booking.start_time)/3600).to_i).to_i %>€</h4>
                     <p><%= booking.helper.price %>€ par heure</p>
                   </div>
                 </div>
-                <div class="col-3 seko-cancel-area seko-part-card border-left m-4 pl-4">
+                <div class="col-3 missions seko-cancel-area seko-part-card border-left m-4 pl-4">
                   <button class="btn seko-button mb-2">Détails de la prestation</button>
                 </div>
               </div>

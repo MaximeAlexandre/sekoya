@@ -1,16 +1,16 @@
 <div class="container">
   <div class="text-center">
     <% if @helpers.empty? %>
-      <h1 style="margin-bottom: 0">Il n'y a pas d'Helpers à proximité de votre adresse</h1>
+      <h2 style="margin-bottom: 0">Il n'y a pas d'aide à domicile à proximité de votre adresse</h2>
     <% else %>
-      <h1 style="margin-bottom: 0">Voici les Helpers autour de votre adresse</h1>
+      <h2 style="margin-bottom: 0">Voici les aides à domicile autour de votre adresse</h2>
     <% end %>
     <h4><span style="color: #377FFC"><%= params[:address_input] %></span></h1></h4>
     <small>Dans un rayon de 10km </small>
   </div>
 
   <!-- Filter bar -->
-  <div class="form-group mt-4">
+  <div class=" missions form-group mt-4">
     <form action="/profiles" method="GET">
       <div class="bd-highlight seko-card seko-flex pt-3 pr-3 align-items-center">
         <label class="ml-4 other-task" for="address_input">Adresse :</label>
@@ -42,6 +42,8 @@
       </div>
     </form>
   </div>
+
+<div class="missions">
   <% if @helpers.empty? %>
     <h2 class="mt-5 text-center">Vous pouvez effectuer une nouvelle recherche.</h2>
   <% else %>
@@ -138,6 +140,7 @@
         <% end %>
       <% end %>
     </div>
+</div>
 
     <!-- Helpers list 10kms around the given address -->
     <div style="margin-top: 35px">
@@ -159,9 +162,9 @@
             <!-- Avatar -->
             <div class="mb-3 d-flex flex-column flex-grow-1 align-items-center justify-content-center">
               <% if !helper.photo.present? %>
-                <%= cl_image_tag("default_photo.png", :default_image=>"default_photo", :gravity=>"face", :width=>100, :crop=>"thumb") %>
+                <%= cl_image_tag("default_photo.png", class: "avatar-mobile", :default_image=>"default_photo", :gravity=>"face", :width=>100, :crop=>"thumb") %>
               <% else %>
-                <%= cl_image_tag helper.photo.key, class: "avatar avatar-senior" %>
+                <%= cl_image_tag helper.photo.key, class: "avatar avatar-senior avatar-mobile" %>
               <% end %>
             </div>
 
