@@ -1,4 +1,4 @@
-<div class="show-flex container mt-5">
+<div class="show-flex heartbloc container mt-5">
   <div class="col-7 seko-card-details show-profil-card mr-5 p-4">
     <%= link_to "⟵", request.referer.present? ? request.referer : default_path, class: 'return-btn' %>
 
@@ -10,13 +10,13 @@
         <% end %>
       </div>
     </div>
-    <div class="top-show seko-in-card mt-3">
+    <div class="top-show pt-4 mt-3">
       <div class="mr-4">
         <div>
           <% if !@helper.photo.present? %>
-            <%= cl_image_tag("default_photo.png", :default_image=>"default_photo", :gravity=>"face", :width=>100, :crop=>"thumb") %>
+            <%= cl_image_tag("default_photo.png", class: "avatar-mobile", :default_image=>"default_photo", :gravity=>"face", :width=>100, :crop=>"thumb") %>
           <% else %>
-            <%= cl_image_tag @helper.photo.key, class: "avatar avatar-senior" %>
+            <%= cl_image_tag @helper.photo.key, class: "avatar avatar-senior avatar-mobile" %>
           <% end %>
         </div>
       </div>
@@ -56,7 +56,7 @@
     </div>
 
     <!-- Description -->
-    <h4 class="mt-4">Description</h4>
+    <h4 class="mt-4 border-top pt-4">Description</h4>
     <p><%= @helper.description %></p>
 
 
