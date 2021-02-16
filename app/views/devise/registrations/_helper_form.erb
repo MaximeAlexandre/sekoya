@@ -44,7 +44,7 @@
 
     <%= f.input :description,
                 label: "Parlez nous un peu de vous",
-                placeholder: "Quels sont vos passe-temps? Avez vous des petits enfants? ",
+                placeholder: "Quelles sont vos motivations? vos envies? ",
                 required: false,
                 input_html: { class: "seko-search-bar" } %>
     <%= f.input :car,
@@ -67,7 +67,7 @@
               input_html: { class: "seko-search-bar" } %>
   </div>
   <div class="form-actions seko-flex">
-    <%= f.button :submit, "S'inscrire", class: "btn seko-button w-50 m-3" %>
-    <%= render "devise/shared/links" %>
+    <%= f.button :submit, "S'inscrire", class: "btn seko-button w-100 m-3" %>
+   <!--  <%= render "devise/shared/links" %> -->
   </div>
 <% end %>

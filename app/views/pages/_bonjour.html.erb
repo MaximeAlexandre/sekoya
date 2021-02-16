@@ -1,3 +1,9 @@
+<% if current_user.family_last_name.present? %>
+<div class="">
+    <h1 style="color: #1E80FC;"> <%= "Bonjour famille #{current_user.family_last_name} !" %> </h1>
+</div>
+<% else  %>
 <div class="">
     <h1 style="color: #1E80FC;"> <%= "Bonjour famille #{current_user.last_name} !" %> </h1>
 </div>
+<% end %>
