@@ -32,8 +32,8 @@
                         label: "Quel est votre lien avec le bénéficiaire?",
                         required: true,
                         collection: [
-                          ['close_parent', 'Parent Proche'],
-                          ['friend', 'Ami(e)'],
+                          ['Parent proche', 'close_parent'],
+                          ['Ami(e)', 'friend'],
                         ],
                         include_blank: true,
                         required: false,
@@ -70,9 +70,9 @@
             <%= f.input :pathology,
                         label: "Souffre t il d'une pathologie chronique?",
                         collection: [
-                          ['parkinson', 'Parkinson' ],
-                          ['alzheimer', 'Alzheimer'],
-                          ['other', 'Autre']
+                          ['Parkinson', 'parkinson' ],
+                          ['Alzheimer', 'alzheimer'],
+                          ['Autre', 'other']
                         ],
                         include_blank: true,
                         required: false,
