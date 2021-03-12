@@ -7,7 +7,7 @@
   other_family_field.style.display = "none";
 
    $(pathology).change(function() {
-    if ((this).value == "Autre") {
+    if ((this).value == "other") {
     other_field.style.display = "block";
    } else {
     other_field.style.display = "none";
@@ -15,15 +15,12 @@
   });
 
    $(family_pathology).change(function() {
-    if ((this).value == "Autre") {
+    if ((this).value == "other") {
       other_family_field.style.display = "block";
     } else {
       other_family_field.style.display = "none";
     }
    });
 }
-
-
-
 
 export { initOtherInput };
