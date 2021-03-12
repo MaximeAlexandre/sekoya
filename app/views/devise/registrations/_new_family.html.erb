@@ -2,11 +2,11 @@
         <%= f.error_notification %>
 
         <div class="form-inputs seko-card p-3">
-            <%= f.input :last_name,
+            <%= f.input :family_last_name,
                         label: "Nom du titulaire du compte ",
                         required: true,
                         input_html: { class: "seko-search-bar" } %>
-            <%= f.input :first_name,
+            <%= f.input :family_first_name,
                         label: "Prénom du titulaire du compte",
                         required: true,
                         input_html: { class: "seko-search-bar" } %>
@@ -15,7 +15,7 @@
                         autofocus: true,
                         input_html: { autocomplete: "email", class: "seko-search-bar" } %>
             <%= f.input :mobile_number,
-                        label: "Portable du titualire du compte",
+                        label: "Portable du titulaire du compte",
                         required: true,
                         input_html: { class: "seko-search-bar" } %>
             <%= f.input :password,
@@ -27,21 +27,72 @@
                         label: "Confirmez le mot de passe",
                         required: true,
                         input_html: { autocomplete: "new-password", class: "seko-search-bar" } %>
-            <%= f.input :address,
-                        label: "Adresse",
+
+            <%= f.input :link,
+                        label: "Quel est votre lien avec le bénéficiaire?",
                         required: true,
-                        input_html: { autocomplete: "address", :id => "family_address", class: "seko-search-bar" }  %>
-            <%= f.input :address,
-                        label: "Complément d'adresse",
-                        required: false,
-                        input_html: { class: "seko-search-bar" }  %>
-            <%= f.input :photo, label:"Photo de profil", as: :file, direct_upload: true %>
-            <%= f.input :description,
+                        collection: [
+                          ['Parent proche', 'close_parent'],
+                          ['Ami(e)', 'friend'],
+                        ],
+                        include_blank: true,
                         required: false,
                         input_html: { class: "seko-search-bar" } %>
+
+            <%= f.input :last_name,
+                        label: "Nom du bénéficiaire ",
+                        required: true,
+                        input_html: { class: "seko-search-bar" } %>
+            <%= f.input :first_name,
+                        label: "Prénom du bénéficiaire",
+                        required: true,
+                        input_html: { class: "seko-search-bar" } %>
+
+
+            <%= f.input :address,
+                              label: "Adresse du beneficiaire",
+                              required: true,
+                              input_html: { autocomplete: "address", :id => "family_address", class: "seko-search-bar" }  %>
+            <%= f.input :address2,
+                              label: "Complément d'adresse du bénéficiaire",
+                              required: false,
+                              input_html: { class: "seko-search-bar" }  %>
+            <%= f.hidden_field :role, value: "senior" %>
+            <%= f.input :photo, label: "Photo de profil", as: :file, direct_upload: true, :use_default_url => true%>
+
+            <h3> Aidez KOYA à mieux connaitre le bénéficiaire </h3>
+
+            <%= f.input :description,
+                        label: "Parlez nous de votre proche",
+                        placeholder: "Quels sont ses passe-temps? Combien a t il de petits enfants?",
+                        required: false,
+                        input_html: { class: "seko-search-bar" } %>
+            <%= f.input :pathology,
+                        label: "Souffre t il d'une pathologie chronique?",
+                        collection: [
+                          ['Parkinson', 'parkinson' ],
+                          ['Alzheimer', 'alzheimer'],
+                          ['Autre', 'other']
+                        ],
+                        include_blank: true,
+                        required: false,
+                        input_html: { id:"family_user_pathology", class: "seko-search-bar" } %>
+
+                  <div id="family_other_pathology">
+                      <%= f.input :pathology,
+                                  label: "Précisez",
+                                  input_html: { class: "seko-search-bar" }
+                      %>
+                  </div>
+
+            <%= f.input :handicap,
+                         label: "Souffre t il d'un handicap ou d'une incapacité temporaire ?",
+                         collection: ['Oui','Non'],
+                         include_blank: true,
+                         required: false,
+                         input_html: { class: "seko-search-bar" } %>
         </div>
         <div class="form-actions seko-flex">
-          <%= f.button :submit, "S'inscrire", class: "btn seko-button w-50 m-3" %>
-          <%= render "devise/shared/links" %>
+          <%= f.button :submit, "S'inscrire", class: "btn seko-button w-100 m-3" %>
         </div>
       <% end %>

@@ -39,7 +39,7 @@
             <%= f.hidden_field :role, value: "senior" %>
             <%= f.input :photo, label: "Photo de profil", as: :file, direct_upload: true, :use_default_url => true%>
 
-            <h3> Aidez SEKOYA à mieux vous connaitre </h3>
+            <h3> Aidez KOYA à mieux vous connaitre </h3>
 
             <%= f.input :description,
                         label: "Parlez nous un peu de vous",
@@ -48,22 +48,31 @@
                         input_html: { class: "seko-search-bar" } %>
             <%= f.input :pathology,
                         label: "Souffrez vous d'une pathologie chronique?",
-                        collection: ['Parkinson','Alzheimer', 'Autre'],
+                        collection: [
+                          ['Parkinson', 'parkinson' ],
+                          ['Alzheimer', 'lazheimer'],
+                          ['Autre', 'other']
+                        ],
                         include_blank: true,
                         required: false,
                         input_html: { class: "seko-search-bar" } %>
+
+               <div id="other_pathology">
+                   <%= f.input :pathology,
+                               label: "Précisez",
+                               input_html: { class: "seko-search-bar" }
+                   %>
+               </div>
+
             <%= f.input :handicap,
                         label: "Souffrez vous d'un handicap ou d'une incapacité temporaire ?",
                         collection: ['Oui','Non'],
                         include_blank: true,
                         required: false,
                         input_html: { class: "seko-search-bar" } %>
-
-
         </div>
         <div class="form-actions seko-flex">
-          <%= f.button :submit, "S'inscrire", class: "btn seko-button w-50 m-3" %>
-          <%= render "devise/shared/links" %>
+          <%= f.button :submit, "S'inscrire", class: "btn seko-button w-100 m-3" %>
         </div>
       <% end %>
 

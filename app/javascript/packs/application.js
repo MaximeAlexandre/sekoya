@@ -37,6 +37,8 @@ import { initUserChoice } from '../components/user_choice';
 import { initMapbox } from '../plugins/init_mapbox';
 import { initAutocomplete } from '../plugins/init_autocomplete';
 import { initAccountChoice } from '../components/account_choice';
+import { initOtherInput } from '../components/other_input';
+import { initClickHelperButton } from '../components/click_helper_button';
 
 
 document.addEventListener('turbolinks:load', () => {
@@ -50,6 +52,8 @@ document.addEventListener('turbolinks:load', () => {
   initUpdateNavbarOnScroll();
   initStarRating();
   initCheckBoxes();
+  initClickHelperButton();
+
 
   if (document.querySelector('#senior_address')) {
     initAutocomplete('senior_address');
@@ -82,4 +86,13 @@ document.addEventListener('turbolinks:load', () => {
   if (document.querySelector('#senior_account') || document.querySelector('#family_account')) {
     initAccountChoice();
   }
+
+  if (document.querySelector('#other_pathology')) {
+    initOtherInput();
+  }
+
+  if (document.querySelector('#family_other_pathology')) {
+    initOtherInput();
+  }
+
 });
