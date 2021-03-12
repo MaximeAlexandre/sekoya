@@ -52,18 +52,6 @@ ActiveRecord::Schema.define(version: 2020_12_10_095019) do
     t.index ["senior_id"], name: "index_bookings_on_senior_id"
   end
 
-  create_table "calendar_events", force: :cascade do |t|
-    t.string "title"
-    t.string "description"
-    t.datetime "start_date"
-    t.datetime "end_date"
-    t.string "event"
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_calendar_events_on_user_id"
-  end
-
   create_table "diplomas", force: :cascade do |t|
     t.string "name"
     t.bigint "user_id"
@@ -129,9 +117,6 @@ ActiveRecord::Schema.define(version: 2020_12_10_095019) do
     t.float "latitude"
     t.float "longitude"
     t.string "photo", default: "https://res.cloudinary.com/dh78qytaz/image/upload/d_default_photo/v1607589287/default_photo.png"
-    t.string "access_token"
-    t.string "refresh_token"
-    t.string "expires_at"
     t.string "address2"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -140,7 +125,6 @@ ActiveRecord::Schema.define(version: 2020_12_10_095019) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "bookings", "users", column: "helper_id"
   add_foreign_key "bookings", "users", column: "senior_id"
-  add_foreign_key "calendar_events", "users"
   add_foreign_key "diplomas", "users"
   add_foreign_key "favoris", "bookings"
   add_foreign_key "reviews", "bookings"

@@ -1,0 +1,65 @@
+/* disponibility boxes */
+
+#disponibility_show {
+  width: 88%;
+  margin: 0 auto 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 20px;
+  position: relative;
+  bottom: 30px;
+}
+
+.spot {
+  flex-grow: 1;
+  border: 2px solid black;
+}
+.free {
+ background-color: green;
+}
+.busy {
+  background-color: red;
+}
+.move {
+  background-color: yellow;
+}
+.unscheduled {
+  background-color: gray;
+}
+
+
+/* Sliders */
+.price-slider {
+  position: relative;
+  width: 90%;
+  margin: 0 auto 20px;
+  height: 35px;
+  text-align: center;
+}
+
+.price-slider input {
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  top: 15px;
+  width: 100%;
+  outline: none;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+  border-radius: 8px;
+}
+
+.price-slider input::-webkit-slider-thumb {
+  pointer-events: all;
+  position: relative;
+  z-index: 1;
+  outline: 0;
+  -webkit-appearance: none;
+  height: 24px;
+  width: 24px;
+  border-radius: 12px;
+  background-color: white;
+  border: 2px solid black;
+}

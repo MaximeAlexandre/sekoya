@@ -35,11 +35,20 @@ class ProfilesController < ApplicationController
     today_start_time
     favoris
 
-    # schedule
-    @free_spots = sch_load(@helper.id)
+    # schedule busy
     @busy = busy_load(@helper.id)
-    @vs = vs(@free_spots, @busy)
-    @free_days = free_days(@vs).empty? ? Date.today : free_days(@vs)
+    @busy_spots = busy_spots(@busy)
+    @busy_all = convert_to_string(@busy_spots)
+    @busy_first_day = []
+
+    #schedule free
+    @free_spots = sch_load(@helper.id)
+    vs = versus(@free_spots, @busy)
+    @vs_string = convert_to_string(vs)
+    @free_days_data = free_days(vs).empty? ? Date.today : free_days(vs)
+    @free_days = convert_to_string(@free_days_data)
+    @free_first_day = @free_days_data.find { |date| date.to_date >= Date.today }
+    @free_first_day_spots = convert_to_string(vs.find_all { |dt| dt.to_date == @free_first_day})
   end
 
   private
@@ -178,9 +187,21 @@ class ProfilesController < ApplicationController
     return busy_list(bookings_list(id))
   end
 
+  # busy spots
+    def busy_spots(busy)
+      busy_1h = []
+      busy.each do |booking|
+        for i in 1..booking[1]
+          busy_1h << booking[0].to_time + (i-1)*60*60
+        end
+      end
+      return busy_1h.sort
+    end
+
   # schedule VS bookings
 
-  def vs(load_deploy, busy)
+  def versus(load_deploy, busy)
+    # remove the unusable hours
     free = []
     load_deploy.each{ |i| free << i }
     busy.each do |b|
@@ -195,5 +216,18 @@ class ProfilesController < ApplicationController
     days = []
     vs.each { |dt| days << dt.to_date.to_s unless days.include?(dt.to_date.to_s) }
     return days
+  end
+  
+  #formatage
+
+  def convert_to_string(array)
+    string = ""
+    if array.nil?
+    else
+      array.each { |e| string = string + e.to_s + "," }
+      string.delete_suffix!(',')
+    end
+    return string
+    #if no schedule no array etc
   end
 end
