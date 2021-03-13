@@ -28,17 +28,21 @@ const newDaySpotUpdate = (dict) => {
     
     dict["boxesPositions"].forEach(function(spot){
         spots[spot].innerText = "X"
-        spots[spot].style.backgroundColor = "gray"
+        spots[spot].classList.remove("free")
+        spots[spot].classList.remove("busy")
+        spots[spot].classList.add("unscheduled")
       });
 
     dict["free"].forEach(function(p){
         spots[p-7].innerText = "V"
-        spots[p-7].style.backgroundColor = "green"
+        spots[p-7].classList.remove("unscheduled")
+        spots[p-7].classList.add("free")
     });
     
     dict["busy"].forEach(function(p){
-        spots[p-7].innerText = "V"
-        spots[p-7].style.backgroundColor = "red"
+        spots[p-7].innerText = "X"
+        spots[p-7].classList.remove("unscheduled")
+        spots[p-7].classList.add("busy")
     });
 }
 

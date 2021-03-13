@@ -111,18 +111,17 @@
         <!-- schedule data jours disponibles -->
         <p id="remaining-free-spots-all-days" hidden><%= @vs_string %></p>
         <p id="remaining-free-spots-one-days" hidden><%= @free_first_day_spots %></p>
-        <p id="busy-spots-all-days" hidden><%= @busy_all %></p>
-        <p id="busy-spots-one-day" hidden><%= @busy_all %></p>
+        <p id="busy-spots-all-days" hidden><%= @busy_all_string %></p>
+        <p id="busy-spots-one-day" hidden><%= @busy_first_day_spots %></p>
 
         <div id="not_today" class="seko-show-in-card mt-3 <%= "hidden" if @starting_hour <= 20 %>">
           <p class="text-center">Plus de créneaux disponibles pour aujourd'hui.</p>
         </div>
 
         <!-- dblrange start -->
-
           <div class="price-slider">
-            <input value="7" min="7" max="21" step="1" type="range" id="slider1">
-            <input value="8" min="7" max="21" step="1" type="range" id="slider2">
+            <input value=<%= @free_first_day_spots_hours[0] %> min="7" max="21" step="1" type="range" id="slider1">
+            <input value=<%= @free_first_day_spots_hours[0]+1 %> min="7" max="21" step="1" type="range" id="slider2">
           </div>
           <!--http://giacomoballi.com/css-range-double-slider/#.XNlp_I4zbIU-->
           <!-- oninput="updatePriceLabels()" -->
@@ -130,13 +129,16 @@
         
         <div id="disponibility_show">
           <% (7..20).each do |spot| %>
-            <div class="spot" ><p>X</p></div>
+            <% if @free_first_day_spots_hours.include?(spot) %>
+              <div class="spot free"><p>V</p></div>
+            <% elsif @busy_first_day_spots_hours.include?(spot) %>
+              <div class="spot busy"><p>X</p></div>
+            <% else %>
+              <div class="spot unscheduled"><p>X</p></div>
+            <% end %>
           <% end %>
         </div>
         <!-- dblrange end -->
-        <%= @free_first_day %>
-        <%= @free_first_day_spots %>
-        <%=  %>
   
         <div id="select_booking_hours" class="<%= "hidden" if @starting_hour > 20 %>">
           <div class="hour-block seko-show-in-card m-3">
