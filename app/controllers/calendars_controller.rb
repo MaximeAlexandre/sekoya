@@ -17,6 +17,7 @@ class CalendarsController < ApplicationController
     #warning: si on met @schedule_days_2 = @schedule_days,
     #modifier @schedule_days_2 modifie @schedule_days ...
 
+
     @load = sch_extraction
     @load_deploy = load_convert(@load)
 
@@ -24,6 +25,65 @@ class CalendarsController < ApplicationController
     @busy = busy_list(@bookings)
 
     @vs = vs(@load_deploy,@busy)
+
+    @list_disponibility_classed = data_hashes(@busy, @vs)
+  end
+
+  def list_filling(data, name)
+    l = {}
+    data.each do |sch|
+      if sch.class == Array
+        month_a = "#{sch[0].to_date.year}-#{sch[0].to_date.month}"
+        if l[month_a] == nil
+          l[month_a] = { "#{sch[0].to_date}" => {name => [[sch[0].hour, sch[1]]]} }
+        else
+          if l[month_a]["#{sch[0].to_date}"] == nil
+            l[month_a]["#{sch[0].to_date}"] = {name => [[sch[0].hour, sch[1]]]}
+          else
+            l[month_a]["#{sch[0].to_date}"][name] << [sch[0].hour, sch[1]]
+          end
+        end
+      else
+        month = "#{sch.to_date.year}-#{sch.to_date.month}"
+        if l[month] == nil
+          l[month] = { "#{sch.to_date}" => {name => [sch.hour]}}
+        else
+          if l[month]["#{sch.to_date}"] == nil
+            l[month]["#{sch.to_date}"] = {name => [sch.hour]}
+          else
+            l[month]["#{sch.to_date}"][name] << sch.hour
+          end
+        end
+      end
+    end
+    return l
+  end
+
+  def data_hashes(busy, free)
+    list_free = list_filling(free, "free")
+    list_busy = list_filling(busy, "busy")
+    list = {}
+    keys_list_month = (list_free.keys | list_busy.keys)
+    keys_list_month.each do |key_month|
+      if list_free[key_month] == nil
+        list[key_month] = list_busy[key_month]
+      elsif list_busy[key_month] == nil
+        list[key_month] = list_free[key_month]
+      else
+        keys_list_days = (list_free[key_month].keys | list_busy[key_month].keys)
+        list[key_month] = {}
+        keys_list_days.each do |key_day|
+          if list_free[key_month][key_day] == nil
+            list[key_month][key_day] = list_busy[key_month][key_day]
+          elsif list_busy[key_month][key_day] == nil
+            list[key_month][key_day] = list_free[key_month][key_day]
+          else
+            list[key_month][key_day] = list_free[key_month][key_day].merge(list_busy[key_month][key_day])
+          end
+        end
+      end
+    end
+    return list
   end
 
   def form

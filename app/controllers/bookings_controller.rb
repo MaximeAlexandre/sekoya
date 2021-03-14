@@ -92,6 +92,8 @@ class BookingsController < ApplicationController
   def booking_params
     params[:date] = params[:date].to_datetime.change(:offset => "+01:00") + params[:start_time].to_i.hour
     params[:hour_number] = params[:end_time].to_i - params[:start_time].to_i
+    #params[:date] = params[:date].to_datetime.change(:offset => "+01:00") + params[:start_time].to_i.hour
+    #params[:hour_number] = params[:end_time].to_i - params[:start_time].to_i
     params.permit(:date, :start_time, :end_time, :hour_number)
   end
 

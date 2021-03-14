@@ -48,13 +48,19 @@ class ProfilesController < ApplicationController
     @free_days = convert_to_string(@free_days_data)
 
     # Data jour par defaut
+    # discriminer aujourd'hui
     @free_first_day = @free_days_data.find { |date| date.to_date >= Date.today }
-    free_first_day_spots_data = vs.find_all { |dt| dt.to_date == @free_first_day.to_date}
-    @free_first_day_spots = convert_to_string(free_first_day_spots_data)
-    @free_first_day_spots_hours = free_first_day_spots_data.map{ |scheduled| scheduled.hour }
-    busy_first_day_spots_data = busy_spots.find_all { |dt| dt.to_date == @free_first_day.to_date}
-    @busy_first_day_spots = convert_to_string(busy_first_day_spots_data)
-    @busy_first_day_spots_hours = busy_first_day_spots_data.map{ |booking| booking.hour }
+    if @free_first_day == Date.today
+      free_first_day_data = vs.find_all { |dt| dt.to_date == @free_first_day.to_date}
+      busy_first_day_data = busy_spots.find_all { |dt| dt.to_date == @free_first_day.to_date}
+    else
+      free_first_day_data = vs.find_all { |dt| dt.to_date == @free_first_day.to_date}
+      busy_first_day_data = busy_spots.find_all { |dt| dt.to_date == @free_first_day.to_date}
+    end
+    @free_first_day_spots = convert_to_string(free_first_day_data)
+    @free_first_day_spots_hours = free_first_day_data.map{ |scheduled| scheduled.hour}
+    @busy_first_day_spots = convert_to_string(busy_first_day_data)
+    @busy_first_day_spots_hours = busy_first_day_data.map{ |booking| booking.hour}
   end
 
   private

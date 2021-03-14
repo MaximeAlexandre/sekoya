@@ -1,45 +1,38 @@
 <h1>Callendar#show</h1>
-<p>Find me in app/views/calendars/show.html.erb</p>
-<div class='calendar'></div>
-<div id='calendar'></div>
-
-<p>Begin at <%= @sch_begin %> - end at <%= @sch_end %></p>
-
-<div>
-  <p>exemple gem ice_cube</p>
-  <p><%= @schedule_rule %></p>
-  <p><%= @schedule_days %><%= @schedule_days.length %></p>
-</div>
-<p>------------------</p>
-<div>
-  <p>database</p>
-  <p>nombre de schedules de user : <%= @load.length %></p>
-  <p>---</p>
-  <% if @load.length > 0 %>
-    <p>Exemple Schedule.last : <%= @load.last %></p>
-    <p>- user : <%= @load.last.user_id %></p>
-    <p>- year : <%= @load.last.year %> , month : <%= @load.last.month %></p>
-    <p>- sch_type : <%= @load.last.sch_type %></p>
-    <p>- number of occurrences : <%= @load.last.occurrences.length %></p>
-    <%= @load.last.occurrences %>
+<% @list_disponibility_classed.each_key do |key| %>
+  <% key_analyse = key.split("-")%>
+  <% if Date.today.year <= key_analyse[0].to_i %>
+    <% if Date.today.month <= key_analyse[1].to_i %>
+      <div class = "month">
+        <p>---------- <%= key %> ---------------------</p>
+        <div class="d-flex p-2 flex-wrap">
+          <% @list_disponibility_classed[key].each_key do |key2|%>
+            <div class="mw-30 p-3">
+              <% free_list = [] %>
+              <% busy_list = [] %>
+              <% if @list_disponibility_classed[key][key2]["free"] != nil %>
+                  <% free_list = @list_disponibility_classed[key][key2]["free"].map{|h| "#{h}h à #{h+1}h"} %>
+              <% end %>
+              <% if @list_disponibility_classed[key][key2]["busy"] != nil%>
+                <% busy_list = @list_disponibility_classed[key][key2]["busy"].map{|h| "#{h[0]}h à #{h[0]+h[1]}h"} %>
+              <% end %>
+              <% day_name = "- Dimanche #{key2.to_date.day} -" if key2.to_date.wday == 0 %>
+              <% day_name = "- Lundi #{key2.to_date.day} -" if key2.to_date.wday == 1 %>
+              <% day_name = "- Mardi #{key2.to_date.day} -" if key2.to_date.wday == 2 %>
+              <% day_name = "- Mercredi #{key2.to_date.day} -" if key2.to_date.wday == 3 %>
+              <% day_name = "- Jeudi #{key2.to_date.day} -" if key2.to_date.wday == 4 %>
+              <% day_name = "- Vendredi #{key2.to_date.day} -" if key2.to_date.wday == 5 %>
+              <% day_name = "- Samedi #{key2.to_date.day} -" if key2.to_date.wday == 6 %>
+              <p><%= day_name %></p>
+              <p><%= "disponible:" %></p>
+              <p><%= "#{free_list.join(" / ")}" %></p>
+              <p><%= "reservations:" %></p>
+              <p><%= busy_list == [] ? "aucune" : "#{busy_list.join(" / ")}" %></p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   <% end %>
-</div>
-<p>----------</p>
-<p>deploy content all schedules</p>
-<p>all schedules length = <%= @load_deploy.length %></p>
-<%= @load_deploy %>
-<p>----------</p>
-<p>Bookings</p>
-<%= @bookings %>
-<p></p>
-<% if @bookings.length > 0 %>
-  <%= @bookings.last.date %>
-  <p><%= @bookings.last.end_time.hour - @bookings.last.start_time.hour %> hours long</p>
-  <p><%= @bookings.last.hour_number %> hours long</p>
 <% end %>
-<p>-----</p>
-<%= @busy %>
-<p>---</p>
-<p>Spots disponibles = <%= @vs.length %>, <%= @load_deploy.length - @vs.length %> free 
-spots have been occupied by bookings</p>
-<%= @vs %>
+<p>------------------</p>
