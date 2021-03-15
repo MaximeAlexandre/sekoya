@@ -32,7 +32,7 @@ class ProfilesController < ApplicationController
     @reviews = reviews_list(@helper)
     @average_rating = average_rating(@reviews)
     details_reviews(@helper)
-    today_start_time
+    today_start_time # @starting_hour
     favoris
 
     # schedule busy
@@ -48,19 +48,31 @@ class ProfilesController < ApplicationController
     @free_days = convert_to_string(@free_days_data)
 
     # Data jour par defaut
-    # discriminer aujourd'hui
     @free_first_day = @free_days_data.find { |date| date.to_date >= Date.today }
-    if @free_first_day == Date.today
-      free_first_day_data = vs.find_all { |dt| dt.to_date == @free_first_day.to_date}
-      busy_first_day_data = busy_spots.find_all { |dt| dt.to_date == @free_first_day.to_date}
+    # discriminer aujourd'hui - start
+    if @free_first_day == Date.today.to_s
+      time_now = Time.now 
+      time_now.min.zero? ? h_today_start = time_now.hour + 2 : h_today_start = time_now.hour + 1
+      free_first_day_data = vs.find_all {
+        |dt| dt.to_date == @free_first_day.to_date && dt.to_time.hour > h_today_start
+      }
+      if free_first_day_data == []
+        @free_first_day = @free_days_data.find { |date| date.to_date > Date.today }
+        free_first_day_data = vs.find_all { |dt| dt.to_date == @free_first_day.to_date}
+      end
     else
       free_first_day_data = vs.find_all { |dt| dt.to_date == @free_first_day.to_date}
-      busy_first_day_data = busy_spots.find_all { |dt| dt.to_date == @free_first_day.to_date}
     end
+    @is_today = @free_first_day == Date.today.to_s && @starting_hour > 20
+    # discriminer aujourd'hui - end
+    busy_first_day_data = busy_spots.find_all { |dt| dt.to_date == @free_first_day.to_date}
     @free_first_day_spots = convert_to_string(free_first_day_data)
     @free_first_day_spots_hours = free_first_day_data.map{ |scheduled| scheduled.hour}
     @busy_first_day_spots = convert_to_string(busy_first_day_data)
     @busy_first_day_spots_hours = busy_first_day_data.map{ |booking| booking.hour}
+
+    @starting_value = @free_first_day_spots_hours[0]
+    
   end
 
   private
@@ -184,13 +196,13 @@ class ProfilesController < ApplicationController
   def bookings_list(id)
     return Booking.where(booking_step: 2, helper_id: id)
                   .where("status = ? or status = ?", "accepté", "pending")
-                  .order(date: :asc, start_time: :asc)
+                  .order(date: :asc, start_time: :asc) # ? replace start_time par date ?
   end
 
   def busy_list(bookings)
     busy = []
     bookings.each do |b|
-      busy << [b.date.in_time_zone("Paris"), b.end_time.hour - b.start_time.hour]
+      busy << [b.date.in_time_zone("Paris")-1, b.hour_number]# attention format du temps, CET ou CEST ? etc
     end
     return busy
   end

@@ -116,7 +116,7 @@ class CalendarsController < ApplicationController
   def busy_list(bookings)
     busy = []
     bookings.each do |b|
-      busy << [b.date.in_time_zone("Paris"),b.end_time.hour - b.start_time.hour]
+      busy << [b.date.in_time_zone("Paris"), b.hour_number] # verif CET ou CEST ???
     end
     return busy
   end

@@ -7,15 +7,19 @@ const newDaySpotDictionary = (day) => {
     let freeSpots = [];
     newDayFree.forEach(function(item){
         freeSpots.push(parseInt(item.split(" ")[1].split(":")[0]));
-      });
+    });
     let busySpots = [];
     newDayBusy.forEach(function(item){
         busySpots.push(parseInt(item.split(" ")[1].split(":")[0]));
-      });
-
+    });
+    let freeSpotsFinal = [];
+    freeSpots.forEach(function(h){
+        if (busySpots.includes(h) === false) {freeSpotsFinal.push(h)}
+    });
     var dict = {
         free: freeSpots,
         busy: busySpots,
+        freeFinal: freeSpotsFinal,
         dataFree: newDayFree,
         dataBusy: newDayBusy,
         boxesPositions: [0,1,2,3,4,5,6,7,8,9,10,11,12,13],
@@ -25,7 +29,7 @@ const newDaySpotDictionary = (day) => {
 
 const newDaySpotUpdate = (dict) => {
     const spots = document.getElementsByClassName('spot')
-    
+    console.log(dict["busy"])
     dict["boxesPositions"].forEach(function(spot){
         spots[spot].innerText = "X"
         spots[spot].classList.remove("free")
@@ -51,14 +55,16 @@ const schedulePackaging = (dictionary) => {
     let packaging = []
     let groupNumber = 0
     dictionary["free"].forEach(function(hour){
-        if (packaging.length === 0) {
-            packaging.push([hour])
-        } else {
-            if (packaging[groupNumber][packaging[groupNumber].length - 1] === hour - 1) {
-                packaging[groupNumber].push(hour)
-            } else {
+        if (dictionary["busy"].includes(hour) === false) {
+            if (packaging.length === 0) {
                 packaging.push([hour])
-                groupNumber += 1
+            } else {
+                if (packaging[groupNumber][packaging[groupNumber].length - 1] === hour - 1) {
+                    packaging[groupNumber].push(hour)
+                } else {
+                    packaging.push([hour])
+                    groupNumber += 1
+                }
             }
         }
       });
@@ -97,6 +103,11 @@ const closestFreeSchedule = (position, schedule) => {
         }
       }
     return closest
+}
+
+const hoursShownUpdate = (s1,s2) => {
+    const hoursShown = document.getElementById("show-selected-hours");
+    hoursShown.innerText = `- De ${s1.value} h à ${s2.value} h -`;
 }
 
 const date = () => {
@@ -234,6 +245,7 @@ const duringMove1 = () => {
         s2.value = n1 + 1
     } else {
     }
+    hoursShownUpdate(s1,s2)
 }
 
 const duringMove2 = () => {
@@ -245,6 +257,7 @@ const duringMove2 = () => {
         s1.value = n2 - 1
     } else {
     }
+    hoursShownUpdate(s1,s2)
 }
 
 const verificationSlider = (day, priority) => {
@@ -257,13 +270,13 @@ const verificationSlider = (day, priority) => {
     const packageFreeSpots = schedulePackaging(dayData)
     const positionPackage = comparePackage(packageFreeSpots, n1, n2)
 
-    if (dayData["free"].includes(n1) === false & dayData["free"].includes(n2 - 1) === false) {
-        const closest = closestFreeSchedule(n1, dayData["free"])
+    if (dayData["freeFinal"].includes(n1) === false & dayData["freeFinal"].includes(n2 - 1) === false) {
+        const closest = closestFreeSchedule(n1, dayData["freeFinal"])
         s1.value = closest
         s2.value = closest + 1
-    } else if (dayData["free"].includes(n1) === false) {
+    } else if (dayData["freeFinal"].includes(n1) === false) {
         s1.value = packageFreeSpots[positionPackage["s2"]][0]
-    } else if (dayData["free"].includes(n2 - 1) === false) {
+    } else if (dayData["freeFinal"].includes(n2 - 1) === false) {
         const whichPack = packageFreeSpots[positionPackage["s1"]].length - 1
         s2.value = packageFreeSpots[positionPackage["s1"]][whichPack] + 1
     }
@@ -290,6 +303,7 @@ const verificationSlider = (day, priority) => {
         s2.value = 8;
         console.log(s1.value);
     }
+    hoursShownUpdate(s1,s2)
 }
 
 const initBookingChoice = () => {
