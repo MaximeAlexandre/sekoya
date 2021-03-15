@@ -33,19 +33,17 @@ class ProfilesController < ApplicationController
     @average_rating = average_rating(@reviews)
     details_reviews(@helper)
     today_start_time # @starting_hour
+    # what if h > 23h
+
     favoris
 
     # schedule busy
     @busy = busy_load(@helper.id) #remove @ ?
     busy_spots = busy_spots(@busy) #remove @ ?
-    @busy_all_string = convert_to_string(busy_spots)
-
     #schedule free
     @free_spots = sch_load(@helper.id) #remove @ ?
     vs = versus(@free_spots, @busy)
-    @vs_string = convert_to_string(vs)
     @free_days_data = free_days(vs).empty? ? Date.today : free_days(vs) #remove @ ?
-    @free_days = convert_to_string(@free_days_data)
 
     # Data jour par defaut
     @free_first_day = @free_days_data.find { |date| date.to_date >= Date.today }
@@ -66,13 +64,17 @@ class ProfilesController < ApplicationController
     @is_today = @free_first_day == Date.today.to_s && @starting_hour > 20
     # discriminer aujourd'hui - end
     busy_first_day_data = busy_spots.find_all { |dt| dt.to_date == @free_first_day.to_date}
-    @free_first_day_spots = convert_to_string(free_first_day_data)
     @free_first_day_spots_hours = free_first_day_data.map{ |scheduled| scheduled.hour}
-    @busy_first_day_spots = convert_to_string(busy_first_day_data)
     @busy_first_day_spots_hours = busy_first_day_data.map{ |booking| booking.hour}
-
     @starting_value = @free_first_day_spots_hours[0]
-    
+
+    # string convert
+    @busy_all_string = convert_to_string(busy_spots)
+    @busy_all_string = convert_to_string(busy_spots)
+    @vs_string = convert_to_string(vs)
+    @free_days = convert_to_string(@free_days_data)
+    @free_first_day_spots = convert_to_string(free_first_day_data)
+    @busy_first_day_spots = convert_to_string(busy_first_day_data)
   end
 
   private

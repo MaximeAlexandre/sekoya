@@ -16,7 +16,7 @@ const initFlatpickr = () => {
   const firstday = startDate();
   flatpickr(flatInstances, {
     inline: true,
-    minDate: "today",
+    minDate: firstday,
     enable: datelist,
     // exemple: enable: ["2025-03-30", "2025-05-21", "2025-06-08", new Date(2025, 8, 9) ]    
     defaultDate: firstday,
