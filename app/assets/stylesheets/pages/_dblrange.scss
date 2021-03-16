@@ -1,5 +1,8 @@
-/* disponibility boxes */
+/* affichage heures selectionées */
+#show-selected-hours {
+}
 
+/* disponibility boxes */
 #disponibility_show {
   width: 88%;
   margin: 0 auto 20px;
@@ -30,7 +33,7 @@
 
 
 /* Sliders */
-.price-slider {
+.hours-slider {
   position: relative;
   width: 90%;
   margin: 0 auto 20px;
@@ -38,7 +41,7 @@
   text-align: center;
 }
 
-.price-slider input {
+.hours-slider input {
   pointer-events: none;
   position: absolute;
   left: 0;
@@ -51,7 +54,7 @@
   border-radius: 8px;
 }
 
-.price-slider input::-webkit-slider-thumb {
+.hours-slider input::-webkit-slider-thumb {
   pointer-events: all;
   position: relative;
   z-index: 1;

@@ -121,17 +121,17 @@
 
           <p id="show-selected-hours"><%= "De #{@starting_value}h à #{@starting_value+1}h"%></p>
 
-          <div class="price-slider">
+          <div class="hours-slider">
             <input name="slider_1" value=<%= @starting_value %> min="7" max="21" step="1" type="range" id="slider1">
             <input name="slider_2" value=<%= @starting_value+1 %> min="7" max="21" step="1" type="range" id="slider2">
           </div>
           
           <div id="disponibility_show">
             <% (7..20).each do |spot| %>
-              <% if @free_first_day_spots_hours.include?(spot) %>
-                <div class="spot free"><p>V</p></div>
-              <% elsif @busy_first_day_spots_hours.include?(spot) %>
+              <% if @busy_first_day_spots_hours.include?(spot) %>
                 <div class="spot busy"><p>X</p></div>
+              <% elsif @free_first_day_spots_hours.include?(spot) %>
+                <div class="spot free"><p>V</p></div>
               <% else %>
                 <div class="spot unscheduled"><p>X</p></div>
               <% end %>

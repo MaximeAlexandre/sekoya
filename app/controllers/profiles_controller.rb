@@ -32,8 +32,8 @@ class ProfilesController < ApplicationController
     @reviews = reviews_list(@helper)
     @average_rating = average_rating(@reviews)
     details_reviews(@helper)
-    today_start_time # @starting_hour
-    # what if h > 23h
+    now = Time.now
+    @starting_hour = today_start_time(now)
 
     favoris
 
@@ -48,9 +48,8 @@ class ProfilesController < ApplicationController
     # Data jour par defaut
     @free_first_day = @free_days_data.find { |date| date.to_date >= Date.today }
     # discriminer aujourd'hui - start
-    if @free_first_day == Date.today.to_s
-      time_now = Time.now 
-      time_now.min.zero? ? h_today_start = time_now.hour + 2 : h_today_start = time_now.hour + 1
+    if @free_first_day == Date.today.to_s 
+      now.min.zero? ? h_today_start = now.hour + 2 : h_today_start = now.hour + 1
       free_first_day_data = vs.find_all {
         |dt| dt.to_date == @free_first_day.to_date && dt.to_time.hour > h_today_start
       }
@@ -66,7 +65,9 @@ class ProfilesController < ApplicationController
     busy_first_day_data = busy_spots.find_all { |dt| dt.to_date == @free_first_day.to_date}
     @free_first_day_spots_hours = free_first_day_data.map{ |scheduled| scheduled.hour}
     @busy_first_day_spots_hours = busy_first_day_data.map{ |booking| booking.hour}
-    @starting_value = @free_first_day_spots_hours[0]
+    @starting_value = @free_first_day_spots_hours.find{|spot|
+      @busy_first_day_spots_hours.include?(spot) == false
+    }
 
     # string convert
     @busy_all_string = convert_to_string(busy_spots)
@@ -163,10 +164,13 @@ class ProfilesController < ApplicationController
     @average_rating = average_rating(@reviews)
   end
 
-  def today_start_time # Date.today
-    time = Time.now
-    @starting_hour = time.hour + 1
-    @starting_hour += 1 unless time.min.zero?
+  def today_start_time(time)
+    if time.hour >= 22
+      starting_hour = time.change(hour: 23, min: 59)
+    else
+      time.min.zero? ? starting_hour = time.hour + 1 : starting_hour = time.hour + 2
+    end
+    return starting_hour
   end
 
   def favoris
