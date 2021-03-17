@@ -1,4 +1,5 @@
 <h1>Callendar#show</h1>
+<p><%= @calendrier %></p>
 <% @list_disponibility_classed.each_key do |key| %>
   <% key_analyse = key.split("-")%>
   <% if Date.today.year <= key_analyse[0].to_i %>
@@ -6,6 +7,11 @@
       <div class = "cweek">
         <p>---------- <%= key_analyse[0] %> - Semaine <%= key_analyse[1] %> -------------</p>
         <div class="d-flex p-2 flex-wrap">
+          <div day_column_hours>
+            <% (7..21).each do |hours_shown| %>
+              <p><%= hours_shown %></p>
+            <% end %>
+          </div>
           <% @list_disponibility_classed[key].each_key do |key2|%>
             <div class="mw-30 p-3">
               <% free_list = [] %>

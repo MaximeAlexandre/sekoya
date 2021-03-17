@@ -27,9 +27,22 @@ class CalendarsController < ApplicationController
     @vs = vs(@load_deploy,@busy)
 
     @list_disponibility_classed = data_hashes(@busy, @vs)
+    @calendrier = calendrier(@list_disponibility_classed)
   end
 
   # calendar data start
+  def calendrier(data_list)
+    start_date = data_list[data_list.keys[0]].keys[0].to_date - 7.day
+    end_date = data_list[data_list.keys[-1]].keys[-1].to_date + 7.day
+    schedule = IceCube::Schedule.new(start = start_date, :end_time => end_date) do |s| # 
+      s.add_recurrence_rule IceCube::Rule.daily
+      .hour_of_day(0)
+      .minute_of_hour(0)
+      .second_of_minute(0)
+    end
+    return schedule.occurrences(end_date)
+  end
+
   def list_filling(data, name)
     l = {}
     data.each do |sch|
