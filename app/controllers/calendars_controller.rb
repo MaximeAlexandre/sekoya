@@ -29,29 +29,30 @@ class CalendarsController < ApplicationController
     @list_disponibility_classed = data_hashes(@busy, @vs)
   end
 
+  # calendar data start
   def list_filling(data, name)
     l = {}
     data.each do |sch|
       if sch.class == Array
-        month_a = "#{sch[0].to_date.year}-#{sch[0].to_date.month}"
-        if l[month_a] == nil
-          l[month_a] = { "#{sch[0].to_date}" => {name => [[sch[0].hour, sch[1]]]} }
+        first_key_a = "#{sch[0].to_date.year}-#{sch[0].to_date.cweek}"
+        if l[first_key_a] == nil
+          l[first_key_a] = { "#{sch[0].to_date}" => {name => [[sch[0].hour, sch[1]]]} }
         else
-          if l[month_a]["#{sch[0].to_date}"] == nil
-            l[month_a]["#{sch[0].to_date}"] = {name => [[sch[0].hour, sch[1]]]}
+          if l[first_key_a]["#{sch[0].to_date}"] == nil
+            l[first_key_a]["#{sch[0].to_date}"] = {name => [[sch[0].hour, sch[1]]]}
           else
-            l[month_a]["#{sch[0].to_date}"][name] << [sch[0].hour, sch[1]]
+            l[first_key_a]["#{sch[0].to_date}"][name] << [sch[0].hour, sch[1]]
           end
         end
       else
-        month = "#{sch.to_date.year}-#{sch.to_date.month}"
-        if l[month] == nil
-          l[month] = { "#{sch.to_date}" => {name => [sch.hour]}}
+        first_key_s = "#{sch.to_date.year}-#{sch.to_date.cweek}"
+        if l[first_key_s] == nil
+          l[first_key_s] = { "#{sch.to_date}" => {name => [sch.hour]}}
         else
-          if l[month]["#{sch.to_date}"] == nil
-            l[month]["#{sch.to_date}"] = {name => [sch.hour]}
+          if l[first_key_s]["#{sch.to_date}"] == nil
+            l[first_key_s]["#{sch.to_date}"] = {name => [sch.hour]}
           else
-            l[month]["#{sch.to_date}"][name] << sch.hour
+            l[first_key_s]["#{sch.to_date}"][name] << sch.hour
           end
         end
       end
@@ -63,28 +64,29 @@ class CalendarsController < ApplicationController
     list_free = list_filling(free, "free")
     list_busy = list_filling(busy, "busy")
     list = {}
-    keys_list_month = (list_free.keys | list_busy.keys)
-    keys_list_month.each do |key_month|
-      if list_free[key_month] == nil
-        list[key_month] = list_busy[key_month]
-      elsif list_busy[key_month] == nil
-        list[key_month] = list_free[key_month]
+    keys_list_week = (list_free.keys | list_busy.keys)
+    keys_list_week.each do |key_week|
+      if list_free[key_week] == nil
+        list[key_week] = list_busy[key_week]
+      elsif list_busy[key_week] == nil
+        list[key_week] = list_free[key_week]
       else
-        keys_list_days = (list_free[key_month].keys | list_busy[key_month].keys)
-        list[key_month] = {}
+        keys_list_days = (list_free[key_week].keys | list_busy[key_week].keys)
+        list[key_week] = {}
         keys_list_days.each do |key_day|
-          if list_free[key_month][key_day] == nil
-            list[key_month][key_day] = list_busy[key_month][key_day]
-          elsif list_busy[key_month][key_day] == nil
-            list[key_month][key_day] = list_free[key_month][key_day]
+          if list_free[key_week][key_day] == nil
+            list[key_week][key_day] = list_busy[key_week][key_day]
+          elsif list_busy[key_week][key_day] == nil
+            list[key_week][key_day] = list_free[key_week][key_day]
           else
-            list[key_month][key_day] = list_free[key_month][key_day].merge(list_busy[key_month][key_day])
+            list[key_week][key_day] = list_free[key_week][key_day].merge(list_busy[key_week][key_day])
           end
         end
       end
     end
     return list
   end
+  # calendar data end
 
   def form
     @sch_begin = Time.now

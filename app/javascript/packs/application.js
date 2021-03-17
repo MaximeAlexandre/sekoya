@@ -46,7 +46,10 @@ document.addEventListener('turbolinks:load', () => {
     initMapbox();
   }
 
-  initFlatpickr();
+  if (document.querySelector('#example-date-input')) {
+    initFlatpickr();
+  };
+
   initUpdateNavbarOnScroll();
   initStarRating();
   initCheckBoxes();
@@ -75,7 +78,7 @@ document.addEventListener('turbolinks:load', () => {
     initUserChoice();
   }
 
-  if (document.querySelector('#start_time') || document.querySelector('#end_time')) {
+  if (document.querySelector('#select-booking-day-hours')) {
     initBookingChoice();
   }
 

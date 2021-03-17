@@ -2,9 +2,9 @@
 <% @list_disponibility_classed.each_key do |key| %>
   <% key_analyse = key.split("-")%>
   <% if Date.today.year <= key_analyse[0].to_i %>
-    <% if Date.today.month <= key_analyse[1].to_i %>
-      <div class = "month">
-        <p>---------- <%= key %> ---------------------</p>
+    <% if Date.today.cweek <= key_analyse[1].to_i %>
+      <div class = "cweek">
+        <p>---------- <%= key_analyse[0] %> - Semaine <%= key_analyse[1] %> -------------</p>
         <div class="d-flex p-2 flex-wrap">
           <% @list_disponibility_classed[key].each_key do |key2|%>
             <div class="mw-30 p-3">
@@ -16,18 +16,14 @@
               <% if @list_disponibility_classed[key][key2]["busy"] != nil%>
                 <% busy_list = @list_disponibility_classed[key][key2]["busy"].map{|h| "#{h[0]}h à #{h[0]+h[1]}h"} %>
               <% end %>
-              <% day_name = "- Dimanche #{key2.to_date.day} -" if key2.to_date.wday == 0 %>
-              <% day_name = "- Lundi #{key2.to_date.day} -" if key2.to_date.wday == 1 %>
-              <% day_name = "- Mardi #{key2.to_date.day} -" if key2.to_date.wday == 2 %>
-              <% day_name = "- Mercredi #{key2.to_date.day} -" if key2.to_date.wday == 3 %>
-              <% day_name = "- Jeudi #{key2.to_date.day} -" if key2.to_date.wday == 4 %>
-              <% day_name = "- Vendredi #{key2.to_date.day} -" if key2.to_date.wday == 5 %>
-              <% day_name = "- Samedi #{key2.to_date.day} -" if key2.to_date.wday == 6 %>
-              <p><%= day_name %></p>
-              <p><%= "disponible:" %></p>
-              <p><%= "#{free_list.join(" / ")}" %></p>
-              <p><%= "reservations:" %></p>
-              <p><%= busy_list == [] ? "aucune" : "#{busy_list.join(" / ")}" %></p>
+              <%= render :partial => "date_format", locals: { day: key2 } %>
+              <% free_list2 = @list_disponibility_classed[key][key2]["free"] %>
+              <% if @list_disponibility_classed[key][key2]["busy"].nil? %>
+                <% busy_list2 = [] %>
+              <% else %>
+                <% busy_list2 = @list_disponibility_classed[key][key2]["busy"].map{|h| h= [h[0], h[0]+h[1]]} %>
+              <% end %>
+              <%= render :partial => "day_column", locals: { free_list: free_list2, busy_list: busy_list2 } %>
             </div>
           <% end %>
         </div>

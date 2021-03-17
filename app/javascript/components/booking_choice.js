@@ -29,7 +29,6 @@ const newDaySpotDictionary = (day) => {
 
 const newDaySpotUpdate = (dict) => {
     const spots = document.getElementsByClassName('spot')
-    console.log(dict["busy"])
     dict["boxesPositions"].forEach(function(spot){
         spots[spot].innerText = "X"
         spots[spot].classList.remove("free")
@@ -110,6 +109,23 @@ const hoursShownUpdate = (s1,s2) => {
     hoursShown.innerText = `- De ${s1.value} h à ${s2.value} h -`;
 }
 
+const pluriel = (duree) => {
+    let hour = ""
+        if ( duree === 1 ) {
+            return hour = "heure"
+        } else {
+            return hour = "heures"
+        }
+}
+
+const changePriceShown = (s1, s2) => {
+    const duree = s2.value - s1.value;
+    const hour = pluriel(duree)
+    const total = document.getElementById("total");
+    const price = Number(total.dataset.price);
+    total.innerText = `${duree} ${hour} - Total : ${duree*price} €`;
+}
+
 const date = () => {
     let today = new Date();
     let todayMonth = today.getMonth()+1;
@@ -120,6 +136,7 @@ const date = () => {
     return today
 }
 
+/* To keep?----------------------- start */
 const startingHour = () => {
     let hourMin = 0;
     if (new Date().getMinutes() != 0) {
@@ -130,44 +147,7 @@ const startingHour = () => {
     return hourMin
 }
 
-const hideUnusedEnd = (option, startHour) => {
-    if (option.value <= startHour) {
-        option.disabled = true;
-    } else {
-        option.disabled = false;
-    }
-}
-
-const pluriel = (duree) => {
-    let hour = ""
-        if ( duree === 1 ) {
-            return hour = "heure"
-        } else {
-            return hour = "heures"
-        }
-}
-
-const changeDuration = () => {
-    const startHour = Number(document.getElementById("start_time").value);
-    const endHour = document.getElementById("end_time");
-    let endHourUse = Number(endHour.value);
-    if (endHourUse <= startHour) {
-        endHourUse = startHour + 1
-        endHour.value = String(endHourUse);
-    }
-
-    const duree = endHourUse - startHour;
-    const hour = pluriel(duree)
-    
-    const total = document.getElementById("total");
-    const price = Number(total.dataset.price);
-    total.innerText = `${duree} ${hour} - Total : ${duree*price} €`;
-
-    for (let option of endHour.options) {
-        hideUnusedEnd(option, startHour)
-    }
-
-}
+/* ------------------------- end */
 
 const visible= (day) => {
     const oneDayFree = document.getElementById("remaining-free-spots-one-days");
@@ -178,62 +158,20 @@ const visible= (day) => {
     oneDayBusy.innerText = newDayData["dataBusy"];
     verificationSlider(day,1);
 
-    const startHour = document.getElementById("start_time");
-    const endHour = document.getElementById("end_time");
-    const block = document.getElementById("select_booking_hours");
+    const inputBlock = document.getElementById("select_booking_hours");
     const notToday = document.getElementById("not_today");
     const today = date();
     let hourMin = startingHour();
-    if (hourMin < Number(startHour.options[0].value)) {
-        hourMin = Number(startHour.options[0].value);
-    }
-    const store_start = Number(startHour.options[0].value)
+
     if (day === today) {
-        if (hourMin > Number(startHour.value)) {
-            startHour.value = hourMin;
-        };
         if (hourMin > 20) {
-            block.classList.add('hidden');
+            inputBlock.classList.add('hidden');
             notToday.classList.remove('hidden')
-            startHour.value = store_start;
-            hourMin = store_start;
         };
     } else {
         notToday.classList.add('hidden');
-        block.classList.remove('hidden');
+        inputBlock.classList.remove('hidden');
     };
-
-    for (let option of startHour.options) {
-        if (day === today) {
-            if (Number(option.value) < hourMin) {
-                option.disabled = true;
-            } else {
-                option.disabled = false;
-            };
-        } else {
-                option.disabled = false;
-        };
-    };
-
-    for (let option of endHour.options) {
-        if (day === today) {
-            let endHourUse = Number(endHour.value);
-            if (endHourUse <= Number(startHour.value)) {
-                endHourUse = Number(startHour.value) + 1
-                endHour.value = String(endHourUse);
-            }
-            const duree = endHourUse - Number(startHour.value);
-            const hour = pluriel(duree)
-            const total = document.getElementById("total");
-            const price = Number(total.dataset.price);
-            total.innerText = `${duree} ${hour} - Total : ${duree*price} €`;
-            for (let option of endHour.options) {
-                hideUnusedEnd(option, Number(startHour.value))
-            }
-        } else {
-            hideUnusedEnd(option, Number(startHour.value));
-        }
-    }
 }
 
 const duringMove1 = () => {
@@ -246,6 +184,7 @@ const duringMove1 = () => {
     } else {
     }
     hoursShownUpdate(s1,s2)
+    changePriceShown(s1,s2)
 }
 
 const duringMove2 = () => {
@@ -258,6 +197,7 @@ const duringMove2 = () => {
     } else {
     }
     hoursShownUpdate(s1,s2)
+    changePriceShown(s1,s2)
 }
 
 const verificationSlider = (day, priority) => {
@@ -304,6 +244,7 @@ const verificationSlider = (day, priority) => {
         console.log(s1.value);
     }
     hoursShownUpdate(s1,s2)
+    changePriceShown(s1,s2)
 }
 
 const initBookingChoice = () => {
@@ -313,6 +254,7 @@ const initBookingChoice = () => {
 
     startSlider.addEventListener("input", duringMove1);
     endSlider.addEventListener("input", duringMove2);
+    /* add comportement when using <- et -> touches du clavier */
 
     startSlider.addEventListener("change", () => { verificationSlider(day.value, 1) });
     endSlider.addEventListener("change", () => { verificationSlider(day.value, 2) });
@@ -320,13 +262,4 @@ const initBookingChoice = () => {
     day.addEventListener("change", () => { visible(day.value) });
 }
 
-/* const exinitbokk = () => {
-    const start = document.getElementById("start_time");
-    const end = document.getElementById("end_time");
-    const day = document.getElementById("example-date-input")
-    start.addEventListener("change", changeDuration);
-    end.addEventListener("change", changeDuration);
-    day.addEventListener("change", () => { visible(day.value) });
-}
-*/
 export { initBookingChoice };
