@@ -1,40 +1,60 @@
-<h1>Callendar#show</h1>
-<p><%= @calendrier %></p>
-<% @list_disponibility_classed.each_key do |key| %>
+<h1>Calendrier</h1>
+<%= @calendrier %>
+<p>azert</p>
+<%= @list_disponibility_classed %>
+<% @calendrier.each_key do |key| %>
   <% key_analyse = key.split("-")%>
-  <% if Date.today.year <= key_analyse[0].to_i %>
-    <% if Date.today.cweek <= key_analyse[1].to_i %>
-      <div class = "cweek">
-        <p>---------- <%= key_analyse[0] %> - Semaine <%= key_analyse[1] %> -------------</p>
-        <div class="d-flex p-2 flex-wrap">
-          <div day_column_hours>
-            <% (7..21).each do |hours_shown| %>
-              <p><%= hours_shown %></p>
-            <% end %>
-          </div>
-          <% @list_disponibility_classed[key].each_key do |key2|%>
-            <div class="mw-30 p-3">
-              <% free_list = [] %>
-              <% busy_list = [] %>
-              <% if @list_disponibility_classed[key][key2]["free"] != nil %>
-                  <% free_list = @list_disponibility_classed[key][key2]["free"].map{|h| "#{h}h à #{h+1}h"} %>
-              <% end %>
-              <% if @list_disponibility_classed[key][key2]["busy"] != nil%>
-                <% busy_list = @list_disponibility_classed[key][key2]["busy"].map{|h| "#{h[0]}h à #{h[0]+h[1]}h"} %>
-              <% end %>
-              <%= render :partial => "date_format", locals: { day: key2 } %>
-              <% free_list2 = @list_disponibility_classed[key][key2]["free"] %>
-              <% if @list_disponibility_classed[key][key2]["busy"].nil? %>
-                <% busy_list2 = [] %>
-              <% else %>
-                <% busy_list2 = @list_disponibility_classed[key][key2]["busy"].map{|h| h= [h[0], h[0]+h[1]]} %>
-              <% end %>
-              <%= render :partial => "day_column", locals: { free_list: free_list2, busy_list: busy_list2 } %>
-            </div>
+  <% condition_first_week = Date.today.year == key_analyse[0].to_i && Date.today.cweek == key_analyse[1].to_i %>
+  <% condition_first_week = true %>
+  <div class = "cweek" id=<%= "cweek-" + key %> <%= "hidden" unless condition_first_week %>>
+    <p>---------- <%= key_analyse[0] %> - Semaine <%= key_analyse[1] %> -------------</p>
+    <% if @list_disponibility_classed[key].nil? %>
+      <div class="d-flex p-2 flex-wrap">
+        <div day_column_hours>
+          <% (7..21).each do |hours_shown| %>
+            <p><%= hours_shown %></p>
           <% end %>
         </div>
+        <% @calendrier[key].each do |key2|%>
+          <div class="mw-30 p-3">
+            <%= render :partial => "date_format", locals: { day: key2 } %>
+            <% (7..20).each do |nope| %>
+              <div>
+                <p>-_-_-_-_-</p>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>       
+    <% else %>
+      <div class="d-flex p-2 flex-wrap">
+        <div day_column_hours>
+          <% (7..21).each do |hours_shown| %>
+            <p><%= hours_shown %></p>
+          <% end %>
+        </div>
+        <% @calendrier[key].each do |key2|%>
+          <div class="mw-30 p-3">
+            <%= render :partial => "date_format", locals: { day: key2 } %>
+            <% if @list_disponibility_classed[key][key2].nil? %>
+              <% (7..20).each do |nope| %>
+                <div>
+                  <p>-_-_-_-_-</p>
+                </div>
+              <% end %>
+            <% else %>
+              <% free_list = @list_disponibility_classed[key][key2]["free"] %>
+              <% if @list_disponibility_classed[key][key2]["busy"].nil? %>
+                <% busy_list = [] %>
+              <% else %>
+                <% busy_list = @list_disponibility_classed[key][key2]["busy"].map{|h| h= [h[0], h[0]+h[1]]} %>
+              <% end %>
+              <%= render :partial => "day_column", locals: { free_list: free_list, busy_list: busy_list } %>
+            <% end  %>
+          </div>
+        <% end %>
       </div>
     <% end %>
-  <% end %>
+  </div>
 <% end %>
 <p>------------------</p>

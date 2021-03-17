@@ -31,16 +31,39 @@ class CalendarsController < ApplicationController
   end
 
   # calendar data start
+  def day_format_string(day)
+    day.month < 10 ? month = "0#{day.month}" : month = "#{day.month}"
+    return "#{day.year}-" + month + "-#{day.day}"
+  end
+
   def calendrier(data_list)
-    start_date = data_list[data_list.keys[0]].keys[0].to_date - 7.day
-    end_date = data_list[data_list.keys[-1]].keys[-1].to_date + 7.day
+    start_sch = data_list[data_list.keys[0]].keys[0].to_date
+    start_date = start_sch
+    until "#{start_sch.year}-#{start_sch.cweek}" != "#{(start_date - 1.day).year}-#{(start_date - 1.day).cweek}"
+      start_date -= 1.day
+    end
+    start_date = start_sch
+    end_sch = data_list[data_list.keys[-1]].keys[-1].to_date
+    end_date = end_sch
+    until "#{end_sch.year}-#{end_sch.cweek}" != "#{(end_date + 1.day).year}-#{(end_date + 1.day).cweek}"
+      end_date += 1.day
+    end
     schedule = IceCube::Schedule.new(start = start_date, :end_time => end_date) do |s| # 
       s.add_recurrence_rule IceCube::Rule.daily
       .hour_of_day(0)
       .minute_of_hour(0)
       .second_of_minute(0)
     end
-    return schedule.occurrences(end_date)
+    schedule_classed = {}
+    schedule.occurrences(end_date).each do |day|
+      key="#{day.year}-#{day.to_date.cweek}"
+      if schedule_classed[key].nil?
+        schedule_classed[key] = [day_format_string(day)]
+      else
+        schedule_classed[key] << day_format_string(day)
+      end
+    end
+    return schedule_classed
   end
 
   def list_filling(data, name)
