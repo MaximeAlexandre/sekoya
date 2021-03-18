@@ -209,12 +209,14 @@ class CalendarsController < ApplicationController
         end_date += 1.day
       end
     else
-      start_sch = data_list[data_list.keys.sort[0]].keys.sort[0].to_date
+      start_sch_data = data_list[data_list.keys.sort[0]].keys.sort[0].to_date
+      start_sch_data > Date.today ? start_sch = Date.today : start_sch = start_sch_data
       start_date = start_sch
       until "#{start_sch.year}-#{start_sch.cweek}" != "#{(start_date - 1.day).year}-#{(start_date - 1.day).cweek}"
         start_date -= 1.day
       end
-      end_sch = data_list[data_list.keys.sort[-1]].keys.sort[-1].to_date
+      end_sch_data = data_list[data_list.keys.sort[-1]].keys.sort[-1].to_date
+      end_sch_data < Date.today ? end_sch = Date.today : end_sch = end_sch_data
       end_date = end_sch
       until "#{end_sch.year}-#{end_sch.cweek}" != "#{(end_date + 1.day).year}-#{(end_date + 1.day).cweek}"
         end_date += 1.day
