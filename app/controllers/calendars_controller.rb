@@ -1,22 +1,21 @@
 class CalendarsController < ApplicationController
   def show    
-    @sch_begin = Time.now
-    @sch_end = @sch_begin + 3600 * 24 * 60
-    @sch_duration = @sch_begin + 3600
-    hour = 10
-    @schedule = IceCube::Schedule.new(start = @sch_begin) do |s| # , :end_time => @sch_duration
-      s.add_recurrence_rule IceCube::Rule.daily
-      .day(:friday)
-      .hour_of_day(hour)
-      .minute_of_hour(0)
-      .second_of_minute(0)
-    end
-    @schedule_rule = @schedule
-    @schedule_days = @schedule.occurrences(@sch_end)
+    # @sch_begin = Time.now
+    # @sch_end = @sch_begin + 3600 * 24 * 60
+    # @sch_duration = @sch_begin + 3600
+    # hour = 10
+    #@schedule = IceCube::Schedule.new(start = @sch_begin) do |s| # , :end_time => @sch_duration
+    #  s.add_recurrence_rule IceCube::Rule.daily
+    #  .day(:friday)
+    # .hour_of_day(hour)
+    #  .minute_of_hour(0)
+    #  .second_of_minute(0)
+    #end
+    #@schedule_rule = @schedule
+    #@schedule_days = @schedule.occurrences(@sch_end)
 
     #warning: si on met @schedule_days_2 = @schedule_days,
     #modifier @schedule_days_2 modifie @schedule_days ...
-
 
     @load = sch_extraction
     @load_deploy = load_convert(@load)
