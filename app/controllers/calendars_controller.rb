@@ -196,29 +196,34 @@ class CalendarsController < ApplicationController
     return "#{day_in.year}-" + month + "-" + day
   end
 
+  def weekly(date)
+    date.cweek < 10 ? week = "0#{date.cweek}" : week = "#{date.cweek}"
+    return week
+  end
+
   def calendrier(data_list)
     if data_list.empty?
       start_sch = Date.today
       start_date = start_sch
-      until "#{start_sch.year}-#{start_sch.cweek}" != "#{(start_date - 1.day).year}-#{(start_date - 1.day).cweek}"
+      until "#{start_sch.year}-#{weekly(start_sch)}" != "#{(start_date - 1.day).year}-#{weekly(start_date - 1.day)}"
         start_date -= 1.day
       end
       end_sch = Date.today
       end_date = start_sch
-      until "#{end_sch.year}-#{end_sch.cweek}" != "#{(end_date + 1.day).year}-#{(end_date + 1.day).cweek}"
+      until "#{end_sch.year}-#{weekly(end_sch)}" != "#{(end_date + 1.day).year}-#{weekly(end_date + 1.day)}"
         end_date += 1.day
       end
     else
       start_sch_data = data_list[data_list.keys.sort[0]].keys.sort[0].to_date
       start_sch_data > Date.today ? start_sch = Date.today : start_sch = start_sch_data
       start_date = start_sch
-      until "#{start_sch.year}-#{start_sch.cweek}" != "#{(start_date - 1.day).year}-#{(start_date - 1.day).cweek}"
+      until "#{start_sch.year}-#{weekly(start_sch)}" != "#{(start_date - 1.day).year}-#{weekly(start_date - 1.day)}"
         start_date -= 1.day
       end
       end_sch_data = data_list[data_list.keys.sort[-1]].keys.sort[-1].to_date
       end_sch_data < Date.today ? end_sch = Date.today : end_sch = end_sch_data
       end_date = end_sch
-      until "#{end_sch.year}-#{end_sch.cweek}" != "#{(end_date + 1.day).year}-#{(end_date + 1.day).cweek}"
+      until "#{end_sch.year}-#{weekly(end_sch)}" != "#{(end_date + 1.day).year}-#{weekly(end_date + 1.day)}"
         end_date += 1.day
       end
     end
@@ -231,7 +236,7 @@ class CalendarsController < ApplicationController
     end
     schedule_classed = {}
     schedule.occurrences(end_date).each do |day|
-      key="#{day.year}-#{day.to_date.cweek}"
+      key="#{day.year}-#{weekly(day.to_date)}"
       if schedule_classed[key].nil?
         schedule_classed[key] = [day_format_string(day)]
       else
@@ -245,7 +250,7 @@ class CalendarsController < ApplicationController
     l = {}
     data.each do |sch|
       if sch.class == Array
-        first_key_a = "#{sch[0].to_date.year}-#{sch[0].to_date.cweek}"
+        first_key_a = "#{sch[0].to_date.year}-#{weekly(sch[0].to_date)}"
         if l[first_key_a] == nil
           l[first_key_a] = { "#{sch[0].to_date}" => {name => [[sch[0].hour, sch[1]]]} }
         else
@@ -256,7 +261,7 @@ class CalendarsController < ApplicationController
           end
         end
       else
-        first_key_s = "#{sch.to_date.year}-#{sch.to_date.cweek}"
+        first_key_s = "#{sch.to_date.year}-#{weekly(sch.to_date)}"
         if l[first_key_s] == nil
           l[first_key_s] = { "#{sch.to_date}" => {name => [sch.hour]}}
         else
