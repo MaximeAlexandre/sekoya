@@ -1,37 +1,37 @@
 <% (7..20).each do |h|%>
     <% if free_list.include?(h) %>
         <div>
-            <p><%= "#{h}h à #{h+1}h" %></p>
+            <p>Libre de <%= "#{h}h à #{h+1}h" %></p>
         </div>
     <% elsif busy_list != [] %>
         <% this_booking = nil %>
         <% busy_list.each{|booking| this_booking = booking if (booking[0]...booking[1]).include?(h)} %>
         <% if this_booking.nil? %>
             <div>
-                <p> ----- </p>
+                <p>-_-_-_-_-</p>
             </div>
         <% else %>
             <% if this_booking[0] == h && this_booking[1] - this_booking[0] == 1 %>
                 <div>
-                    <p><%= "xxx de #{this_booking[0]}h à #{this_booking[1]}h" %></p>
+                    <p>Occupé de <%= "#{this_booking[0]}h à #{this_booking[1]}h" %></p>
                 </div>
             <% elsif this_booking[0] == h %>
                 <div>
-                    <p><%= "xxxxxxx de #{this_booking[0]}h" %></p>
+                    <p>Occupé de <%= "#{this_booking[0]}h" %> x</p>
                 </div>
             <% elsif this_booking[1] - 1 == h %>
                 <div>
-                    <p><%= "xxxxxxx à #{this_booking[1]}h" %></p>
+                    <p>xxxxxxxx <%= "à #{this_booking[1]}h" %></p>
                 </div>
             <% else %>
                 <div>
-                    <p> xxxxxxxxxxx </p>
+                    <p>xxxxxxxxxxxxx</p>
                 </div>
             <% end %>
         <% end %>
     <% else %>
         <div>
-            <p> ----- </p>
+            <p>-_-_-_-_-</p>
         </div>
     <% end %>
 <% end %>

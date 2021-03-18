@@ -1,7 +1,15 @@
 <h1>Calendrier</h1>
-<%= @calendrier %>
-<p>azert</p>
-<%= @list_disponibility_classed %>
+<div id="calendar_bar" class="border d-flex justify-content-between">
+  <div id="left-arrow">
+    <p><--</p>
+  </div>
+  <div>
+    <p>--------</p>
+  </div>
+  <div id="right-arrow">
+    <p>--></p>
+  </div>
+</div>
 <% @calendrier.each_key do |key| %>
   <% key_analyse = key.split("-")%>
   <% condition_first_week = Date.today.year == key_analyse[0].to_i && Date.today.cweek == key_analyse[1].to_i %>

@@ -31,9 +31,10 @@ class CalendarsController < ApplicationController
   end
 
   # calendar data start
-  def day_format_string(day)
-    day.month < 10 ? month = "0#{day.month}" : month = "#{day.month}"
-    return "#{day.year}-" + month + "-#{day.day}"
+  def day_format_string(day_in)
+    day_in.month < 10 ? month = "0#{day_in.month}" : month = "#{day_in.month}"
+    day_in.day < 10 ? day = "0#{day_in.day}" : day = "#{day_in.day}"
+    return "#{day_in.year}-" + month + "-" + day
   end
 
   def calendrier(data_list)
