@@ -1,10 +1,15 @@
 <h1>Callendar#form</h1>
-<p>Find me in app/views/calendars/form.html.erb</p>
-
 <%= form_with(url:sch_generate_path, method: "post") do %>
-<p>start date : <%= @sch_begin %> # datepickr plus tard</p>
-<p>end date : <%= @sch_end %> # datepickr plus tard</p>
-  <div class="d-flex">
+  <div class="border d-flex justify-content-around">
+    <div>
+      <input class="form-control datepicker_input" name="date_start" type="date" id="start_date_select">
+    </div>
+    <div>
+      <input class="form-control datepicker_input" name="date_end" type="date" id="end_date_select">
+    </div>
+  </div>
+  
+  <div class="d-flex border">
     <div class="d-inline-flex">
       <ul class="calendar_form" style="list-style-type: none;">
         <%= "heures" %>

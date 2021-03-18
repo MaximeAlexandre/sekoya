@@ -31,18 +31,22 @@ class CalendarsController < ApplicationController
   end
 
   def form
-    @sch_begin = Time.now
-    @sch_end = @sch_begin + 3600 * 24 * 60
   end
   
   def sch_generate
-    @test = params
+    if params["date_start"] == Date.today.to_s
+      if Time.now.hour >= 18 
+        sch_begin = params["date_start"].to_time + 1.day
+      else
+        sch_begin = params["date_start"].to_time.change(hour: Time.now.hour + 2)
+      end
+    else
+      sch_begin = params["date_start"].to_time 
+    end
+    sch_end = params["date_end"].to_time.change(hour: 23, min: 59)
 
-    @sch_begin = Time.now # later : en fct params et datepickr
-    @sch_end = @sch_begin + 3600 * 24 * 60 # later : en fct params et datepickr
-
-    sch_form=form_convert(@sch_begin, @sch_end)
-    sch_save(@sch_begin, @sch_end, sch_form)
+    sch_form=form_convert(sch_begin, sch_end)
+    sch_save(sch_begin, sch_end, sch_form)
 
     redirect_to sch_form_path
   end
@@ -194,13 +198,12 @@ class CalendarsController < ApplicationController
   end
 
   def calendrier(data_list)
-    start_sch = data_list[data_list.keys[0]].keys[0].to_date
+    start_sch = data_list[data_list.keys.sort[0]].keys.sort[0].to_date
     start_date = start_sch
     until "#{start_sch.year}-#{start_sch.cweek}" != "#{(start_date - 1.day).year}-#{(start_date - 1.day).cweek}"
       start_date -= 1.day
     end
-    start_date = start_sch
-    end_sch = data_list[data_list.keys[-1]].keys[-1].to_date
+    end_sch = data_list[data_list.keys.sort[-1]].keys.sort[-1].to_date
     end_date = end_sch
     until "#{end_sch.year}-#{end_sch.cweek}" != "#{(end_date + 1.day).year}-#{(end_date + 1.day).cweek}"
       end_date += 1.day

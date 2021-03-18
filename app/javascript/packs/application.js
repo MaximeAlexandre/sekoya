@@ -29,6 +29,8 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 // import { initSelect2 } from '../components/init_select2';
 // import '../plugins/flatpickr';
 import { initFlatpickr } from '../plugins/init_flatpickr';
+import { initFlatpickrSchSelect } from '../plugins/init_flatpickr_sch_select';
+import { initFlatpickrSchDateChange } from '../plugins/init_flatpickr_sch_date_change';
 import { initUpdateNavbarOnScroll } from '../components/navbar.js';
 import { initStarRating } from '../plugins/init_star_rating';
 import { initBookingChoice } from '../components/booking_choice';
@@ -48,6 +50,10 @@ document.addEventListener('turbolinks:load', () => {
 
   if (document.querySelector('#example-date-input')) {
     initFlatpickr();
+  };
+  if (document.querySelector('#start_date_select')) {
+    initFlatpickrSchSelect();
+    initFlatpickrSchDateChange()
   };
 
   initUpdateNavbarOnScroll();
