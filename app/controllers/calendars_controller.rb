@@ -198,16 +198,30 @@ class CalendarsController < ApplicationController
   end
 
   def calendrier(data_list)
-    start_sch = data_list[data_list.keys.sort[0]].keys.sort[0].to_date
-    start_date = start_sch
-    until "#{start_sch.year}-#{start_sch.cweek}" != "#{(start_date - 1.day).year}-#{(start_date - 1.day).cweek}"
-      start_date -= 1.day
+    if data_list.empty?
+      start_sch = Date.today
+      start_date = start_sch
+      until "#{start_sch.year}-#{start_sch.cweek}" != "#{(start_date - 1.day).year}-#{(start_date - 1.day).cweek}"
+        start_date -= 1.day
+      end
+      end_sch = Date.today
+      end_date = start_sch
+      until "#{end_sch.year}-#{end_sch.cweek}" != "#{(end_date + 1.day).year}-#{(end_date + 1.day).cweek}"
+        end_date += 1.day
+      end
+    else
+      start_sch = data_list[data_list.keys.sort[0]].keys.sort[0].to_date
+      start_date = start_sch
+      until "#{start_sch.year}-#{start_sch.cweek}" != "#{(start_date - 1.day).year}-#{(start_date - 1.day).cweek}"
+        start_date -= 1.day
+      end
+      end_sch = data_list[data_list.keys.sort[-1]].keys.sort[-1].to_date
+      end_date = end_sch
+      until "#{end_sch.year}-#{end_sch.cweek}" != "#{(end_date + 1.day).year}-#{(end_date + 1.day).cweek}"
+        end_date += 1.day
+      end
     end
-    end_sch = data_list[data_list.keys.sort[-1]].keys.sort[-1].to_date
-    end_date = end_sch
-    until "#{end_sch.year}-#{end_sch.cweek}" != "#{(end_date + 1.day).year}-#{(end_date + 1.day).cweek}"
-      end_date += 1.day
-    end
+    
     schedule = IceCube::Schedule.new(start = start_date, :end_time => end_date) do |s| # 
       s.add_recurrence_rule IceCube::Rule.daily
       .hour_of_day(0)
