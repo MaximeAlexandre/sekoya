@@ -1,7 +1,7 @@
 <div class="d-inline-flex">
   <ul class="calendar_form" style="list-style-type: none;">
     <%= day.capitalize %>
-    <% for h in 8..20 do %>
+    <% for h in min..max do %>
       <li>
         <%= check_box_tag("#{day}#{h}") %>
         <%= label_tag("#{day}#{h}", "") %><%# , "#{h}h-#{h+1}h" %>

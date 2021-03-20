@@ -10,16 +10,16 @@
     <div class="d-inline-flex">
       <ul class="calendar_form" style="list-style-type: none;">
         <%= "heures" %>
-        <% for h in 7..20 do %>
+        <% for h in @min_h..@max_h do %>
           <li><%= "#{h}h-#{h+1}h" %></li>
         <% end %>  
       </ul>
     </div>
-    <%= render :partial => "day_form", locals: { day: "lundi" } %>
-    <%= render :partial => "day_form", locals: { day: "mardi" } %>
-    <%= render :partial => "day_form", locals: { day: "mercredi" } %>
-    <%= render :partial => "day_form", locals: { day: "jeudi" } %>
-    <%= render :partial => "day_form", locals: { day: "vendredi" } %>
+    <%= render :partial => "day_form", locals: { day: "lundi", min: @min_h, max: @max_h } %>
+    <%= render :partial => "day_form", locals: { day: "mardi", min: @min_h, max: @max_h } %>
+    <%= render :partial => "day_form", locals: { day: "mercredi", min: @min_h, max: @max_h } %>
+    <%= render :partial => "day_form", locals: { day: "jeudi", min: @min_h, max: @max_h } %>
+    <%= render :partial => "day_form", locals: { day: "vendredi", min: @min_h, max: @max_h } %>
   </div>
   <%= submit_tag("OK") %>
 <% end %>

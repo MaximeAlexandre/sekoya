@@ -30,6 +30,8 @@ class CalendarsController < ApplicationController
   end
 
   def form
+    @min_h = 7
+    @max_h = 20
   end
   
   def sch_generate
@@ -55,7 +57,9 @@ class CalendarsController < ApplicationController
       end
       sch_end = end_date.to_time.change(hour: 23, min: 59)
 
-      sch_form = form_convert(sch_begin, sch_end)
+      @min_h = 7
+      @max_h = 20
+      sch_form = form_convert(sch_begin, sch_end, @min_h, @max_h)
       sch_save(sch_begin, sch_end, sch_form)
 
       redirect_to calendar_path
@@ -93,9 +97,9 @@ class CalendarsController < ApplicationController
 
   # From Form to Schedule functions -------------------
 
-  def form_convert_day(day)
+  def form_convert_day(day, min, max)
     day_array=[]
-    for h in 8..20 do
+    for h in min..max do
       day_array << h if params["#{day}#{h}"] == "1"
     end
     return day_array
@@ -120,7 +124,7 @@ class CalendarsController < ApplicationController
     return sch_form.sort
   end
 
-  def form_convert(sch_begin, sch_end)
+  def form_convert(sch_begin, sch_end, min, max)
     week = {
       lundi: {array: [], eng: "monday"},
       mardi: {array: [], eng: "tuesday"},
@@ -131,7 +135,7 @@ class CalendarsController < ApplicationController
       #dimanche: {array: [], eng: "sunday"}
     }
     week.keys.map do |d|
-      week[d][:array]=form_convert_day(d.to_s)
+      week[d][:array]=form_convert_day(d.to_s, min, max)
     end
     sch_form = form_convert_schedule(sch_begin, sch_end, week)
     return sch_form
@@ -150,7 +154,7 @@ class CalendarsController < ApplicationController
   end
 
   def sch_load(type = "usual") # not for save, read only
-    return load_convert(sch_extraction(type))
+    return load_convert(sch_extraction(type)).sort
   end
 
   # Schedule SAVE functions -------------------
@@ -158,7 +162,41 @@ class CalendarsController < ApplicationController
   def sch_merge(sch_begin, sch_end, schedule, sch_old)
     sch_new = []
     sch_old.each do |i| sch_new << i if i > sch_end || i < sch_begin end
-    return sch_new + schedule
+    sch_merge = sch_new + schedule
+    return sch_merge.sort
+  end
+
+  def sch_empty(old, start, finish)
+    sch_hash={}
+    if old.empty? || old.first >= start
+      year_step = start.year
+      month_step = start.month
+    else
+      year_step = old.first.year
+      month_step = old.first.month
+    end
+    if old.empty? || old.last <= finish
+      year_end = finish.year
+      month_end = finish.month
+    else
+      year_end = old.last.year
+      month_end = old.last.month
+    end
+    sch_hash[year_step.to_s] = {month_step.to_s => []}
+    until year_step == year_end && month_step == month_end
+      if month_step == 12
+        month_step = 1
+        year_step += 1
+      else
+        month_step += 1
+      end
+      if sch_hash[year_step.to_s].nil?
+        sch_hash[year_step.to_s] = {month_step.to_s => []}
+      else
+        sch_hash[year_step.to_s][month_step.to_s] = []
+      end
+    end
+    return sch_hash
   end
 
   def sch_save(sch_begin, sch_end, schedule, sch_type = "usual")
@@ -168,11 +206,9 @@ class CalendarsController < ApplicationController
     sch_full = sch_merge(sch_begin, sch_end, schedule, sch_old)
 
     # Sort by year and month
-    sch_hash={}
+    sch_hash = sch_empty(sch_old, sch_begin, sch_end)
     for o in sch_full do
-      if sch_hash[o.year.to_s].nil?
-        sch_hash[o.year.to_s] = {o.month.to_s => [o]}
-      elsif sch_hash[o.year.to_s][o.month.to_s].nil?
+      if sch_hash[o.year.to_s][o.month.to_s].nil?
         sch_hash[o.year.to_s][o.month.to_s] = [o]
       else
         list = sch_hash[o.year.to_s][o.month.to_s].push(o)
