@@ -8,16 +8,24 @@ const date = () => {
     return today
 }
 
-const verificationDates = () => {
-    console.log("azerty")
+const verificationDates = (start, end, priority) => {
+    if (priority === "start") {
+        if (Date.parse(start.value) > Date.parse(end.value)) {
+
+        };
+    } else {
+        if (Date.parse(start.value) > Date.parse(end.value)) {
+
+        };
+    };
 }
 
 const initFlatpickrSchDateChange = () => {
     const datepickrStart = document.getElementById("start_date_select");
     const datepickrEnd = document.getElementById("end_date_select");
 
-    datepickrStart.addEventListener("change", () => { verificationDates("start") });
-    datepickrEnd.addEventListener("change", () => { verificationDates("end") });
+    datepickrStart.addEventListener("change", () => { verificationDates(datepickrStart,datepickrEnd,"start") });
+    datepickrEnd.addEventListener("change", () => { verificationDates(datepickrStart,datepickrEnd,"end") });
 }
 
 export {initFlatpickrSchDateChange}

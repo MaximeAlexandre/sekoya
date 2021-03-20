@@ -33,21 +33,33 @@ class CalendarsController < ApplicationController
   end
   
   def sch_generate
-    if params["date_start"] == Date.today.to_s
-      if Time.now.hour >= 18 
-        sch_begin = params["date_start"].to_time + 1.day
-      else
-        sch_begin = params["date_start"].to_time.change(hour: Time.now.hour + 2)
-      end
+    if params["dates_select"].empty?
+      redirect_to sch_form_path
     else
-      sch_begin = params["date_start"].to_time 
+      params_days = params["dates_select"].split(" to ")
+      if params_days.length == 1
+        start_date = params_days.first
+        end_date = params_days.first
+      else
+        start_date = params_days[0]
+        end_date = params_days[1]
+      end
+      if start_date == Date.today.to_s
+        if Time.now.hour >= 18 
+          sch_begin = start_date.to_time + 1.day
+        else
+          sch_begin = start_date.to_time.change(hour: Time.now.hour + 2)
+        end
+      else
+        sch_begin = start_date.to_time 
+      end
+      sch_end = end_date.to_time.change(hour: 23, min: 59)
+
+      sch_form = form_convert(sch_begin, sch_end)
+      sch_save(sch_begin, sch_end, sch_form)
+
+      redirect_to calendar_path
     end
-    sch_end = params["date_end"].to_time.change(hour: 23, min: 59)
-
-    sch_form=form_convert(sch_begin, sch_end)
-    sch_save(sch_begin, sch_end, sch_form)
-
-    redirect_to sch_form_path
   end
 
   private

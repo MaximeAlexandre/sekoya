@@ -3,7 +3,7 @@ import flatpickr from "flatpickr";
 const initFlatpickrSchSelect = () => {
   const myInput = document.querySelectorAll('.datepicker_input');
   flatpickr(myInput, {
-    inline: true,
+    mode: "range",
     minDate: "today",  
     defaultDate: "today",
   });

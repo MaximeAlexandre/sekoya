@@ -51,7 +51,7 @@ document.addEventListener('turbolinks:load', () => {
   if (document.querySelector('#example-date-input')) {
     initFlatpickr();
   };
-  if (document.querySelector('#start_date_select')) {
+  if (document.querySelector('#dates_select')) {
     initFlatpickrSchSelect();
     initFlatpickrSchDateChange()
   };

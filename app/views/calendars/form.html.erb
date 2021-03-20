@@ -2,10 +2,7 @@
 <%= form_with(url:sch_generate_path, method: "post") do %>
   <div class="border d-flex justify-content-around">
     <div>
-      <input class="form-control datepicker_input" name="date_start" type="date" id="start_date_select">
-    </div>
-    <div>
-      <input class="form-control datepicker_input" name="date_end" type="date" id="end_date_select">
+      <input class="form-control datepicker_input" name="dates_select" type="date" id="dates_select">
     </div>
   </div>
   
@@ -13,7 +10,7 @@
     <div class="d-inline-flex">
       <ul class="calendar_form" style="list-style-type: none;">
         <%= "heures" %>
-        <% for h in 8..20 do %>
+        <% for h in 7..20 do %>
           <li><%= "#{h}h-#{h+1}h" %></li>
         <% end %>  
       </ul>
