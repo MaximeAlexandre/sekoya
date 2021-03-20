@@ -90,12 +90,11 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params[:date] = params[:date].to_datetime.change(:offset => "+01:00") + params[:slider_1].to_i.hour
+    params[:date] = params[:date].to_datetime.in_time_zone("Paris").change(:hour =>  params[:slider_1].to_i)
     params[:hour_number] = params[:slider_2].to_i - params[:slider_1].to_i
     params[:start_time] = params[:slider_1]
     params[:end_time] = params[:slider_2]
-    #params[:date] = params[:date].to_datetime.change(:offset => "+01:00") + params[:start_time].to_i.hour
-    #params[:hour_number] = params[:end_time].to_i - params[:start_time].to_i
+
     params.permit(:date, :start_time, :end_time, :hour_number)
   end
 

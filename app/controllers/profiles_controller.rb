@@ -208,7 +208,7 @@ class ProfilesController < ApplicationController
   def busy_list(bookings)
     busy = []
     bookings.each do |b|
-      busy << [b.date.in_time_zone("Paris")-1, b.hour_number]# attention format du temps, CET ou CEST ? etc
+      busy << [b.date.in_time_zone("Paris"), b.hour_number]
     end
     return busy
   end

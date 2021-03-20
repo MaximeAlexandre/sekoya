@@ -79,8 +79,9 @@ class CalendarsController < ApplicationController
   def busy_list(bookings)
     busy = []
     bookings.each do |b|
-      busy << [b.date.in_time_zone("Paris"), b.hour_number] # verif CET ou CEST ???
+      busy << [b.date.in_time_zone("Paris"), b.hour_number]
     end
+    binding.pry
     return busy
   end
 
@@ -215,7 +216,7 @@ class CalendarsController < ApplicationController
         sch_hash[o.year.to_s][o.month.to_s] = list
       end
     end
-
+    binding.pry
     # Save or Update
     sch_hash.keys.each do |y|
       sch_hash[y].keys.each do |m|
