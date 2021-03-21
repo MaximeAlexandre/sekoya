@@ -1,0 +1,9 @@
+<div class="d-flex p-2 flex-wrap">
+  <%= render :partial => "hours_shown", locals: {min: min, max: max}%>
+  <% calendrier.each do |key2|%>
+    <div class="mw-30 p-3">
+      <%= render :partial => "date_format", locals: { day: key2 } %>
+      <%= render :partial => "day_column_empty", locals: {min: min, max: max} %>
+    </div>
+  <% end %>
+</div>      

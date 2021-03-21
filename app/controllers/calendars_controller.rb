@@ -25,6 +25,8 @@ class CalendarsController < ApplicationController
 
     @vs = vs(@load_deploy,@busy)
 
+    @min_h = 7
+    @max_h = 20
     @list_disponibility_classed = data_hashes(@busy, @vs)
     @calendrier = calendrier(@list_disponibility_classed)
   end
@@ -81,7 +83,6 @@ class CalendarsController < ApplicationController
     bookings.each do |b|
       busy << [b.date.in_time_zone("Paris"), b.hour_number]
     end
-    binding.pry
     return busy
   end
 
@@ -216,7 +217,7 @@ class CalendarsController < ApplicationController
         sch_hash[o.year.to_s][o.month.to_s] = list
       end
     end
-    binding.pry
+
     # Save or Update
     sch_hash.keys.each do |y|
       sch_hash[y].keys.each do |m|

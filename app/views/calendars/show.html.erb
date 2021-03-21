@@ -17,51 +17,10 @@
   <div class = "cweek" id=<%= "cweek-" + key %> <%= "hidden" unless condition_first_week %>>
     <p>---------- <%= key_analyse[0] %> - Semaine <%= key_analyse[1] %> -------------</p>
     <% if @list_disponibility_classed[key].nil? %>
-      <div class="d-flex p-2 flex-wrap">
-        <div day_column_hours>
-          <% (7..21).each do |hours_shown| %>
-            <p><%= hours_shown %></p>
-          <% end %>
-        </div>
-        <% @calendrier[key].each do |key2|%>
-          <div class="mw-30 p-3">
-            <%= render :partial => "date_format", locals: { day: key2 } %>
-            <% (7..20).each do |nope| %>
-              <div>
-                <p>-_-_-_-_-</p>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
-      </div>       
+      <%= render :partial => "week_empty", locals: {calendrier: @calendrier[key], min: @min_h, max: @max_h} %>
     <% else %>
-      <div class="d-flex p-2 flex-wrap">
-        <div day_column_hours>
-          <% (7..21).each do |hours_shown| %>
-            <p><%= hours_shown %></p>
-          <% end %>
-        </div>
-        <% @calendrier[key].each do |key2|%>
-          <div class="mw-30 p-3">
-            <%= render :partial => "date_format", locals: { day: key2 } %>
-            <% if @list_disponibility_classed[key][key2].nil? %>
-              <% (7..20).each do |nope| %>
-                <div>
-                  <p>-_-_-_-_-</p>
-                </div>
-              <% end %>
-            <% else %>
-              <% free_list = @list_disponibility_classed[key][key2]["free"] %>
-              <% if @list_disponibility_classed[key][key2]["busy"].nil? %>
-                <% busy_list = [] %>
-              <% else %>
-                <% busy_list = @list_disponibility_classed[key][key2]["busy"].map{|h| h= [h[0], h[0]+h[1]]} %>
-              <% end %>
-              <%= render :partial => "day_column", locals: { free_list: free_list, busy_list: busy_list } %>
-            <% end  %>
-          </div>
-        <% end %>
-      </div>
+      <%= render :partial => "week_not_empty", locals: {calendrier: @calendrier[key],
+      disponibility: @list_disponibility_classed[key], min: @min_h, max: @max_h} %>
     <% end %>
   </div>
 <% end %>

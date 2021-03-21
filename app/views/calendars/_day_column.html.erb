@@ -1,9 +1,9 @@
-<% (7..20).each do |h|%>
-    <% if free_list.include?(h) %>
+<% (min..max).each do |h|%>
+    <% if free_list.nil? == false && free_list.include?(h) %>
         <div>
             <p>Libre de <%= "#{h}h à #{h+1}h" %></p>
         </div>
-    <% elsif busy_list != [] %>
+    <% elsif busy_list.empty? == false %>
         <% this_booking = nil %>
         <% busy_list.each{|booking| this_booking = booking if (booking[0]...booking[1]).include?(h)} %>
         <% if this_booking.nil? %>
