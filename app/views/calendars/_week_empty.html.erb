@@ -3,7 +3,7 @@
   <% calendrier.each do |key2|%>
     <div class="mw-30 p-3">
       <%= render :partial => "date_format", locals: { day: key2 } %>
-      <%= render :partial => "day_column_empty", locals: {min: min, max: max} %>
+      <%= render :partial => "day_column_empty", locals: {min: min, max: max, id_name: key2} %>
     </div>
   <% end %>
 </div>      

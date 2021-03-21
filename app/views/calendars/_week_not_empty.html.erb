@@ -4,7 +4,7 @@
     <div class="mw-30 p-3">
       <%= render :partial => "date_format", locals: { day: key2 } %>
       <% if disponibility[key2].nil? %>
-        <%= render :partial => "day_column_empty", locals: {min: min, max: max} %>
+        <%= render :partial => "day_column_empty", locals: {min: min, max: max, id_name: key2} %>
       <% else %>
         <% free_list = disponibility[key2]["free"] %>
         <% if disponibility[key2]["busy"].nil? %>
@@ -13,7 +13,7 @@
           <% busy_list = disponibility[key2]["busy"].map{|h| h= [h[0], h[0]+h[1]]} %>
         <% end %>
         <%= render :partial => "day_column",
-        locals: { free_list: free_list, busy_list: busy_list, min: min, max: max } %>
+        locals: { free_list: free_list, busy_list: busy_list, min: min, max: max , id_name: key2} %>
       <% end  %>
     </div>
   <% end %>

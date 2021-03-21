@@ -1,36 +1,36 @@
 <% (min..max).each do |h|%>
     <% if free_list.nil? == false && free_list.include?(h) %>
-        <div>
+        <div id=<%= id_name + "-#{h}" %> class="calendar-free-spot">
             <p>Libre de <%= "#{h}h à #{h+1}h" %></p>
         </div>
     <% elsif busy_list.empty? == false %>
         <% this_booking = nil %>
         <% busy_list.each{|booking| this_booking = booking if (booking[0]...booking[1]).include?(h)} %>
         <% if this_booking.nil? %>
-            <div>
+            <div id=<%= id_name + "-#{h}" %> class="calendar-unscheduled-spot">
                 <p>-_-_-_-_-</p>
             </div>
         <% else %>
             <% if this_booking[0] == h && this_booking[1] - this_booking[0] == 1 %>
-                <div>
+                <div id=<%= id_name + "-#{h}" %> class="calendar-booking-one">
                     <p>Occupé de <%= "#{this_booking[0]}h à #{this_booking[1]}h" %></p>
                 </div>
             <% elsif this_booking[0] == h %>
-                <div>
+                <div id=<%= id_name + "-#{h}" %> class="calendar-booking-start">
                     <p>Occupé de <%= "#{this_booking[0]}h" %> x</p>
                 </div>
             <% elsif this_booking[1] - 1 == h %>
-                <div>
+                <div id=<%= id_name + "-#{h}" %> class="calendar-booking-end">
                     <p>xxxxxxxx <%= "à #{this_booking[1]}h" %></p>
                 </div>
             <% else %>
-                <div>
+                <div id=<%= id_name + "-#{h}" %> class="calendar-booking-mid">
                     <p>xxxxxxxxxxxxx</p>
                 </div>
             <% end %>
         <% end %>
     <% else %>
-        <div>
+        <div id=<%= id_name + "-#{h}" %> class="calendar-unscheduled-spot">
             <p>-_-_-_-_-</p>
         </div>
     <% end %>
