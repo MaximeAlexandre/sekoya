@@ -1,5 +1,8 @@
-<% (min..max).each do |h| %>
-  <div id=<%= id_name + "-#{h}" %> class="calendar-unscheduled-spot">
+<% min.step(max, 0.5).each do |h| %>
+  <% condition_today = id_name.to_date == Date.today && Time.now.hour > h %>
+  <% condition_past = id_name.to_date < Date.today %>
+  <% condition = condition_past || condition_today %>
+  <div id=<%= id_name + "-#{h}" %> class="calendar-spot calendar-free <%= "calendar-too-old" if condition %>">
     <p>-_-_-_-_-</p>
   </div>
 <% end %>

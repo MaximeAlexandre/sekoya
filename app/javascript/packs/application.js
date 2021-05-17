@@ -30,7 +30,8 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 // import '../plugins/flatpickr';
 import { initFlatpickr } from '../plugins/init_flatpickr';
 import { initFlatpickrSchSelect } from '../plugins/init_flatpickr_sch_select';
-import { initFlatpickrSchDateChange } from '../plugins/init_flatpickr_sch_date_change';
+import { initControls } from '../components/calendar_controls';
+//import { initFlatpickrSchDateChange } from '../plugins/init_flatpickr_sch_date_change';
 import { initUpdateNavbarOnScroll } from '../components/navbar.js';
 import { initStarRating } from '../plugins/init_star_rating';
 import { initBookingChoice } from '../components/booking_choice';
@@ -53,7 +54,10 @@ document.addEventListener('turbolinks:load', () => {
   };
   if (document.querySelector('#dates_select')) {
     initFlatpickrSchSelect();
-    initFlatpickrSchDateChange()
+    //initFlatpickrSchDateChange()
+  };
+  if (document.querySelector('#calendar-all')) {
+    initControls();
   };
 
   initUpdateNavbarOnScroll();

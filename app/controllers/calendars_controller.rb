@@ -16,6 +16,12 @@ class CalendarsController < ApplicationController
 
     #warning: si on met @schedule_days_2 = @schedule_days,
     #modifier @schedule_days_2 modifie @schedule_days ...
+    @min_h = 7
+    @max_h = 20.5
+    @format_dt = {
+      week_day: ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"],
+      month:["","Janvier","Fevrier","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Decembre"]
+    }
 
     @load = sch_extraction
     @load_deploy = load_convert(@load)
@@ -23,24 +29,23 @@ class CalendarsController < ApplicationController
     @bookings = bookings_list
     @busy = busy_list(@bookings)
 
-    @vs = vs(@load_deploy,@busy)
+    @sch_spots = sch_spots(@load_deploy)
 
-    @min_h = 7
-    @max_h = 20
-    @list_disponibility_classed = data_hashes(@busy, @vs)
+    @list_disponibility_classed = data_hashes(@busy, @sch_spots)
     @calendrier = calendrier(@list_disponibility_classed)
-  end
-
-  def form
-    @min_h = 7
-    @max_h = 20
   end
   
   def sch_generate
     if params["dates_select"].empty?
       redirect_to sch_form_path
     else
-      params_days = params["dates_select"].split(" to ")
+      if params["dates_select"].split(" to ").length == 2
+        params_days = params["dates_select"].split(" to ")
+      elsif params["dates_select"].split(":").length == 2
+        params_days = params["dates_select"].split(":")
+      else
+        params_days = params["dates_select"].split(" to ")
+      end
       if params_days.length == 1
         start_date = params_days.first
         end_date = params_days.first
@@ -60,7 +65,7 @@ class CalendarsController < ApplicationController
       sch_end = end_date.to_time.change(hour: 23, min: 59)
 
       @min_h = 7
-      @max_h = 20
+      @max_h = 20.5
       sch_form = form_convert(sch_begin, sch_end, @min_h, @max_h)
       sch_save(sch_begin, sch_end, sch_form)
 
@@ -86,14 +91,9 @@ class CalendarsController < ApplicationController
     return busy
   end
 
-  def vs(load_deploy,busy)
+  def sch_spots(load_deploy)
     free = []
     load_deploy.each{|i| free << i}
-    busy.each do |b|
-      for i in 0...b[1]
-        free.delete(b[0] + i.hour)
-      end
-    end
     return free
   end
 
@@ -101,8 +101,8 @@ class CalendarsController < ApplicationController
 
   def form_convert_day(day, min, max)
     day_array=[]
-    for h in min..max do
-      day_array << h if params["#{day}#{h}"] == "1"
+    for h in min.step(max, 0.5) do
+      day_array << h if params["#{day}#{h}"] == "1" || params["-#{day}#{h}"] == "1"
     end
     return day_array
   end
@@ -111,11 +111,13 @@ class CalendarsController < ApplicationController
     sch_form=[]
     week.keys.each do |d|
       for h in week[d][:array] do
+        h_only = h.to_i
+        h.to_s.end_with?(".0") ? h_min = 0 : h_min = 30
         schedule = IceCube::Schedule.new(start = sch_begin) do |s|
           s.add_recurrence_rule IceCube::Rule.daily
           .day(week[d][:eng].to_sym)
-          .hour_of_day(h)
-          .minute_of_hour(0)
+          .hour_of_day(h_only)
+          .minute_of_hour(h_min)
           .second_of_minute(0)
         end
         for o in schedule.occurrences(sch_end) do
@@ -128,13 +130,13 @@ class CalendarsController < ApplicationController
 
   def form_convert(sch_begin, sch_end, min, max)
     week = {
-      lundi: {array: [], eng: "monday"},
-      mardi: {array: [], eng: "tuesday"},
-      mercredi: {array: [], eng: "wednesday"},
-      jeudi: {array: [], eng: "thursday"},
-      vendredi: {array: [], eng: "friday"}
-      #samedi: {array: [], eng: "saturday"}
-      #dimanche: {array: [], eng: "sunday"}
+      Lundi: {array: [], eng: "monday"},
+      Mardi: {array: [], eng: "tuesday"},
+      Mercredi: {array: [], eng: "wednesday"},
+      Jeudi: {array: [], eng: "thursday"},
+      Vendredi: {array: [], eng: "friday"},
+      #Samedi: {array: [], eng: "saturday"},
+      #Dimanche: {array: [], eng: "sunday"},
     }
     week.keys.map do |d|
       week[d][:array]=form_convert_day(d.to_s, min, max)
@@ -301,24 +303,26 @@ class CalendarsController < ApplicationController
     data.each do |sch|
       if sch.class == Array
         first_key_a = "#{sch[0].to_date.year}-#{weekly(sch[0].to_date)}"
+        sch[0].min == 0 ? hour_min = sch[0].hour.to_f : hour_min = sch[0].hour + 0.5
         if l[first_key_a] == nil
-          l[first_key_a] = { "#{sch[0].to_date}" => {name => [[sch[0].hour, sch[1]]]} }
+          l[first_key_a] = { "#{sch[0].to_date}" => {name => [[hour_min, sch[1]]]} }
         else
           if l[first_key_a]["#{sch[0].to_date}"] == nil
-            l[first_key_a]["#{sch[0].to_date}"] = {name => [[sch[0].hour, sch[1]]]}
+            l[first_key_a]["#{sch[0].to_date}"] = {name => [[hour_min, sch[1]]]}
           else
-            l[first_key_a]["#{sch[0].to_date}"][name] << [sch[0].hour, sch[1]]
+            l[first_key_a]["#{sch[0].to_date}"][name] << [hour_min, sch[1]]
           end
         end
       else
         first_key_s = "#{sch.to_date.year}-#{weekly(sch.to_date)}"
+        sch.min == 0 ? hour_min = sch.hour.to_f : hour_min = sch.hour + 0.5
         if l[first_key_s] == nil
-          l[first_key_s] = { "#{sch.to_date}" => {name => [sch.hour]}}
+          l[first_key_s] = { "#{sch.to_date}" => {name => [hour_min]}}
         else
           if l[first_key_s]["#{sch.to_date}"] == nil
-            l[first_key_s]["#{sch.to_date}"] = {name => [sch.hour]}
+            l[first_key_s]["#{sch.to_date}"] = {name => [hour_min]}
           else
-            l[first_key_s]["#{sch.to_date}"][name] << sch.hour
+            l[first_key_s]["#{sch.to_date}"][name] << hour_min
           end
         end
       end

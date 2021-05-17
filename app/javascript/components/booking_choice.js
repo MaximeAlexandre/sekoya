@@ -1,28 +1,39 @@
+const arraySpots = (min, max) => {
+    let spots = [];
+    let hours = [];
+    let s = 0;
+    let h = min;
+    while (h != max) {
+        spots.push(s)
+        hours.push(h)
+        s++;
+        h = h+0.5
+    };
+    var hoursSpots = {
+        hours: hours,
+        spots: spots,
+      };
+    return hoursSpots
+}
+
 const newDaySpotDictionary = (day) => {
-    const dataFree = document.getElementById("remaining-free-spots-all-days").innerHTML.split(',');
-    const newDayFree = dataFree.filter(dt => dt.startsWith(`${day}`));
     const dataBusy = document.getElementById("busy-spots-all-days").innerHTML.split(',');
     const newDayBusy = dataBusy.filter(dt => dt.startsWith(`${day}`));
 
-    let freeSpots = [];
-    newDayFree.forEach(function(item){
-        freeSpots.push(parseInt(item.split(" ")[1].split(":")[0]));
-    });
     let busySpots = [];
     newDayBusy.forEach(function(item){
-        busySpots.push(parseInt(item.split(" ")[1].split(":")[0]));
+        if (parseInt(item.split(" ")[1].split(":")[1]) === 0) {
+            busySpots.push(parseInt(item.split(" ")[1].split(":")[0]));
+        } else {
+            busySpots.push(parseInt(item.split(" ")[1].split(":")[0])+0.5);
+        }
     });
-    let freeSpotsFinal = [];
-    freeSpots.forEach(function(h){
-        if (busySpots.includes(h) === false) {freeSpotsFinal.push(h)}
-    });
+    const hoursSpots = arraySpots(7,21)
     var dict = {
-        free: freeSpots,
         busy: busySpots,
-        freeFinal: freeSpotsFinal,
-        dataFree: newDayFree,
         dataBusy: newDayBusy,
-        boxesPositions: [0,1,2,3,4,5,6,7,8,9,10,11,12,13],
+        boxesPositions: hoursSpots["spots"],
+        hoursList: hoursSpots["hours"],
       };
     return dict
 }
@@ -30,22 +41,13 @@ const newDaySpotDictionary = (day) => {
 const newDaySpotUpdate = (dict) => {
     const spots = document.getElementsByClassName('spot')
     dict["boxesPositions"].forEach(function(spot){
-        spots[spot].innerText = "X"
-        spots[spot].classList.remove("free")
-        spots[spot].classList.remove("busy")
-        spots[spot].classList.add("unscheduled")
+        spots[spot].classList.add("free")
+        spots[spot].classList.remove("unscheduled")
       });
 
-    dict["free"].forEach(function(p){
-        spots[p-7].innerText = "V"
-        spots[p-7].classList.remove("unscheduled")
-        spots[p-7].classList.add("free")
-    });
-    
     dict["busy"].forEach(function(p){
-        spots[p-7].innerText = "X"
-        spots[p-7].classList.remove("unscheduled")
-        spots[p-7].classList.add("busy")
+        spots[(p-7)*2].classList.add("unscheduled")
+        spots[(p-7)*2].classList.remove("free")
     });
 }
 
@@ -53,12 +55,12 @@ const newDaySpotUpdate = (dict) => {
 const schedulePackaging = (dictionary) => {
     let packaging = []
     let groupNumber = 0
-    dictionary["free"].forEach(function(hour){
+    dictionary["hoursList"].forEach(function(hour){
         if (dictionary["busy"].includes(hour) === false) {
             if (packaging.length === 0) {
                 packaging.push([hour])
             } else {
-                if (packaging[groupNumber][packaging[groupNumber].length - 1] === hour - 1) {
+                if (packaging[groupNumber][packaging[groupNumber].length - 1] === hour - 0.5) {
                     packaging[groupNumber].push(hour)
                 } else {
                     packaging.push([hour])
@@ -75,9 +77,9 @@ const comparePackage = (packaging, s1, s2 ) => {
     let slider2Pack = null
     packaging.forEach(function(pack){
         if (pack.includes(s1) === true) {
-            slider1Pack = packaging.indexOf(pack) 
+            slider1Pack = packaging.indexOf(pack)
         }
-        if (pack.includes(s2 - 1) === true) { 
+        if (pack.includes(s2-0.5) === true) { 
             slider2Pack = packaging.indexOf(pack)
         }
     });
@@ -89,16 +91,25 @@ const comparePackage = (packaging, s1, s2 ) => {
     return dataCompare
 }
 
-const closestFreeSchedule = (position, schedule) => {
+// n1, packageFreeSpots.reduce(reducer)
+const closestFreeSchedule = (position, free) => {
+    const min = 7
+    const max = 20.5
     let closest = null
-    let i = 1
+    let i = 0.5
     while (closest === null) {
-        if (schedule.includes(position - i)){
+        let conditionPlusI = free.includes(position + i-0.5) === true && free.includes(position + i) === true
+        let conditionMoinsI = free.includes(position - i+0.5) === true && free.includes(position - i) === true
+        if (conditionPlusI){
+            closest = position + i - 0.5
+        } else if (conditionMoinsI){
             closest = position - i
-        } else if (schedule.includes(position + i)){
-            closest = position + i
         } else {
-            i += 1
+            if(position + i-0.5 > 20.5 && position - i+0.5 < 7){
+                closest = "none"
+            } else {
+               i += 0.5 
+            }
         }
       }
     return closest
@@ -106,7 +117,25 @@ const closestFreeSchedule = (position, schedule) => {
 
 const hoursShownUpdate = (s1,s2) => {
     const hoursShown = document.getElementById("show-selected-hours");
-    hoursShown.innerText = `- De ${s1.value} h à ${s2.value} h -`;
+    let h1 = 0
+    let m1 = 0
+    if ( s1.value.toString().endsWith(".5") ) {
+        h1 = parseInt(s1.value)
+        m1 = "30"
+    } else {
+        h1 = s1.value
+        m1 = "00"
+    }
+    let h2 = 0
+    let m2 = 0
+    if ( s2.value.toString().endsWith(".5") ) {
+        h2 = parseInt(s2.value)
+        m2 = "30"
+    } else {
+        h2 = s2.value
+        m2 = "00"
+    }
+    hoursShown.innerText = `- De ${h1}h${m1} à ${h2}h${m2} -`;
 }
 
 const pluriel = (duree) => {
@@ -150,14 +179,11 @@ const startingHour = () => {
 /* ------------------------- end */
 
 const visible= (day) => {
-    const oneDayFree = document.getElementById("remaining-free-spots-one-days");
     const oneDayBusy = document.getElementById("busy-spots-one-day");
     const newDayData = newDaySpotDictionary(day);
     newDaySpotUpdate(newDayData);
-    oneDayFree.innerText = newDayData["dataFree"];
     oneDayBusy.innerText = newDayData["dataBusy"];
     verificationSlider(day,1);
-
     const inputBlock = document.getElementById("select_booking_hours");
     const notToday = document.getElementById("not_today");
     const today = date();
@@ -179,7 +205,7 @@ const duringMove1 = () => {
     const s2 = document.getElementById("slider2");
     const n1 = Number(s1.value)
     const n2 = Number(s2.value)
-    if (n1 >= n2) {
+    if (n1 >= n2-0.5) {
         s2.value = n1 + 1
     } else {
     }
@@ -192,7 +218,7 @@ const duringMove2 = () => {
     const s2 = document.getElementById("slider2");
     const n1 = Number(s1.value)
     const n2 = Number(s2.value)
-    if (n2 <= n1) {
+    if (n2 <= n1+0.5) {
         s1.value = n2 - 1
     } else {
     }
@@ -205,43 +231,56 @@ const verificationSlider = (day, priority) => {
     const s2 = document.getElementById("slider2");
     let n1 = Number(s1.value)
     let n2 = Number(s2.value)
-    
     const dayData = newDaySpotDictionary(day)
     const packageFreeSpots = schedulePackaging(dayData)
+
+    const reducer = (accumulator, currentValue) => accumulator.concat(currentValue);
     const positionPackage = comparePackage(packageFreeSpots, n1, n2)
 
-    if (dayData["freeFinal"].includes(n1) === false & dayData["freeFinal"].includes(n2 - 1) === false) {
-        const closest = closestFreeSchedule(n1, dayData["freeFinal"])
+    if (n2 === 7) {
+        s1.value = packageFreeSpots[0][0]
+        s2.value = (parseFloat(s1.value)+1).toString()
+    } else if (n1 === 21) {
+        const whichPackLast = packageFreeSpots.length - 1
+        const whichHourLast = packageFreeSpots[whichPackLast].length - 1
+        s2.value = packageFreeSpots[whichPackLast][whichHourLast] + 0.5
+        s1.value = (parseFloat(s2.value)-1).toString()
+    } else if (dayData["busy"].includes(n1) && dayData["busy"].includes(n2 - 0.5)) {
+        const closest = closestFreeSchedule(n1, packageFreeSpots.reduce(reducer), dayData["hoursList"])
         s1.value = closest
         s2.value = closest + 1
-    } else if (dayData["freeFinal"].includes(n1) === false) {
+    } else if (dayData["busy"].includes(n1) === true) {
         s1.value = packageFreeSpots[positionPackage["s2"]][0]
-    } else if (dayData["freeFinal"].includes(n2 - 1) === false) {
+        if (parseFloat(s2.value) === (parseFloat(s1.value) + 0.5)) s2.value = (parseFloat(s2.value) + 0.5).toString();
+    } else if (dayData["busy"].includes(n2 - 0.5) === true) {
         const whichPack = packageFreeSpots[positionPackage["s1"]].length - 1
-        s2.value = packageFreeSpots[positionPackage["s1"]][whichPack] + 1
+        s2.value = packageFreeSpots[positionPackage["s1"]][whichPack] + 0.5
+        if (parseFloat(s2.value) - 0.5 === parseFloat(s1.value)) s1.value = (parseFloat(s1.value) - 0.5).toString();
     }
 
     n1 = Number(s1.value)
     n2 = Number(s2.value)
     const samePackage = comparePackage(packageFreeSpots, n1, n2)
-
     if (samePackage["compare"] === true) {
     } else {
         if (priority === 1) {
             const arrayPosition = packageFreeSpots[samePackage["s1"]].length - 1
-            s2.value = packageFreeSpots[samePackage["s1"]][arrayPosition] + 1
+            s2.value = packageFreeSpots[samePackage["s1"]][arrayPosition] + 0.5
+            if (parseFloat(s2.value) - 0.5 === parseFloat(s1.value)) {
+                s1.value = (parseFloat(s1.value) - 0.5).toString();
+            }
         } else {
             s1.value = packageFreeSpots[samePackage["s2"]][0]
+            if (parseFloat(s2.value) === (parseFloat(s1.value) + 0.5)) {
+                s2.value = (parseFloat(s2.value) + 0.5).toString()
+            }
         }
     }
-
-    if (s1.value === s1.max) {
+    if (s1.value === s1.max || parseFloat(s1.value) === parseFloat(s1.max) - 0.5) {
         s1.value = 20;
-        console.log(s1.value);
     } 
-    if (s2.value === s2.min) {
+    if (s2.value === s2.min || parseFloat(s2.value) === parseFloat(s2.min) + 0.5) {
         s2.value = 8;
-        console.log(s1.value);
     }
     hoursShownUpdate(s1,s2)
     changePriceShown(s1,s2)

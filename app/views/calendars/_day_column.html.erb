@@ -1,36 +1,49 @@
-<% (min..max).each do |h|%>
+<% min.step(max, 0.5).each do |h|%>
+    <% condition_today = id_name.to_date == Date.today && Time.now.hour > h %>
+    <% condition_past = id_name.to_date < Date.today %>
+    <% condition = condition_past || condition_today %>
     <% if free_list.nil? == false && free_list.include?(h) %>
-        <div id=<%= id_name + "-#{h}" %> class="calendar-free-spot">
-            <p>Libre de <%= "#{h}h à #{h+1}h" %></p>
+        <div id=<%= id_name + "-#{h}" %> class="calendar-spot calendar-indisponible <%= "calendar-too-old" if condition %>">
+            <% if h.to_s.end_with?(".0") %>
+                <% h_start = "#{h.to_i}h00" %>
+                <% h_end = "#{(h+0.5).to_i}h30" %>
+            <% else %>
+                <% h_start = "#{h.to_i}h30" %>
+                <% h_end = "#{(h+0.5).to_i}h00" %>
+            <% end %>
+            <p>XXXXXXX</p>
         </div>
     <% elsif busy_list.empty? == false %>
         <% this_booking = nil %>
         <% busy_list.each{|booking| this_booking = booking if (booking[0]...booking[1]).include?(h)} %>
         <% if this_booking.nil? %>
-            <div id=<%= id_name + "-#{h}" %> class="calendar-unscheduled-spot">
+            <div id=<%= id_name + "-#{h}" %> class="calendar-spot calendar-free <%= "calendar-too-old" if condition %>">
                 <p>-_-_-_-_-</p>
             </div>
         <% else %>
             <% if this_booking[0] == h && this_booking[1] - this_booking[0] == 1 %>
-                <div id=<%= id_name + "-#{h}" %> class="calendar-booking-one">
+                <div id=<%= id_name + "-#{h}" %> class="calendar-spot calendar-booking-one">
                     <p>Occupé de <%= "#{this_booking[0]}h à #{this_booking[1]}h" %></p>
                 </div>
             <% elsif this_booking[0] == h %>
-                <div id=<%= id_name + "-#{h}" %> class="calendar-booking-start">
-                    <p>Occupé de <%= "#{this_booking[0]}h" %> x</p>
+                <div id=<%= id_name + "-#{h}" %> class="calendar-spot calendar-booking-start">
+                    <% h.to_s.end_with?(".0") ? h_start = "#{h.to_i}h00" : h_start = "#{h.to_i}h30" %>
+                    <p>Occupé de <%= h_start %> x</p>
                 </div>
-            <% elsif this_booking[1] - 1 == h %>
-                <div id=<%= id_name + "-#{h}" %> class="calendar-booking-end">
-                    <p>xxxxxxxx <%= "à #{this_booking[1]}h" %></p>
+            <% elsif this_booking[1] - 0.5 == h %>
+                <div id=<%= id_name + "-#{h}" %> class="calendar-spot calendar-booking-end">
+                    <% h_fin = this_booking[1] %>
+                    <% h_fin.to_s.end_with?(".0") ? h_end = "#{h_fin.to_i}h00" : h_end = "#{h_fin.to_i}h30" %>
+                    <p>xxxxxxxx <%= "à #{h_end}h" %></p>
                 </div>
             <% else %>
-                <div id=<%= id_name + "-#{h}" %> class="calendar-booking-mid">
+                <div id=<%= id_name + "-#{h}" %> class="calendar-spot calendar-booking-mid">
                     <p>xxxxxxxxxxxxx</p>
                 </div>
             <% end %>
         <% end %>
     <% else %>
-        <div id=<%= id_name + "-#{h}" %> class="calendar-unscheduled-spot">
+        <div id=<%= id_name + "-#{h}" %> class="calendar-spot calendar-free <%= "calendar-too-old" if condition %>">
             <p>-_-_-_-_-</p>
         </div>
     <% end %>

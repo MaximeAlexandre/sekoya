@@ -104,38 +104,39 @@
       <div id="select-booking-day-hours" class="form-inputs">
 
         <!-- schedule data jours disponibles -->
-        <p id="selection-date" hidden><%= @free_days %></p>
-        <p id="first-date" hidden><%= @free_first_day %></p>
+        <p id="selection-date" hidden><%= @unavailable_days %></p>
+        <p id="first-date" hidden><%= @first_day %></p>
         <input class="form-control datepicker seko-card-details" name="date" type="date" id="example-date-input" hidden>
 
-        <div id="not_today" class="seko-show-in-card mt-3 <%= "hidden" if @is_today == false %>">
+        <div id="not_today" class="seko-show-in-card mt-3 <%= "hidden" if @is_today == false || Time.now.hour < 19 %>">
           <p class="text-center">Plus de créneaux disponibles pour aujourd'hui.</p>
         </div>
-        <div id="select_booking_hours" class="<%= "hidden" if @is_today == true %>">
+        <div id="select_booking_hours" class="<%= "hidden" if @is_today == true && Time.now.hour >= 19 %>">
 
           <!-- sliders data  -->
-          <p id="remaining-free-spots-all-days" hidden><%= @vs_string %></p>
-          <p id="remaining-free-spots-one-days" hidden><%= @free_first_day_spots %></p>
           <p id="busy-spots-all-days" hidden><%= @busy_all_string %></p>
-          <p id="busy-spots-one-day" hidden><%= @busy_first_day_spots %></p>
+          <p id="busy-spots-one-day" hidden><%= @first_day_spots_string %></p>
 
           <div class="text-center m-3">
-            <h4 id="show-selected-hours"><%= "De #{@starting_value}h à #{@starting_value+1}h"%></h4>
+            <% if @starting_value.to_s.end_with?(".5") %>
+              <% start_end = ["#{@starting_value.to_i}h30","#{@starting_value.to_i + 1}h30"] %>
+            <% else %>
+              <% start_end = ["#{@starting_value.to_i}h00","#{@starting_value.to_i + 1}h00"] %>
+            <% end %>
+            <h4 id="show-selected-hours"><%= "- De #{start_end[0]} à #{start_end[1]} -"%></h4>
           </div>
 
           <div class="hours-slider">
-            <input name="slider_1" value=<%= @starting_value %> min="7" max="21" step="1" type="range" id="slider1">
-            <input name="slider_2" value=<%= @starting_value+1 %> min="7" max="21" step="1" type="range" id="slider2">
+            <input name="slider_1" value=<%= @starting_value %> min="<%= @min %>" max="<%= @max+0.5 %>" step="0.5" type="range" id="slider1">
+            <input name="slider_2" value=<%= @starting_value+1 %> min="<%= @min %>" max="<%= @max+0.5 %>" step="0.5" type="range" id="slider2">
           </div>
           
           <div id="disponibility_show">
-            <% (7..20).each do |spot| %>
-              <% if @busy_first_day_spots_hours.include?(spot) %>
-                <div class="spot busy"><p>X</p></div>
-              <% elsif @free_first_day_spots_hours.include?(spot) %>
-                <div class="spot free"><p>V</p></div>
+            <% @min.step(@max, 0.5).each do |spot| %>
+              <% if @first_day_spots.include?(spot) %>
+                <div class="spot unscheduled"></div>
               <% else %>
-                <div class="spot unscheduled"><p>X</p></div>
+                <div class="spot free"></div>
               <% end %>
             <% end %>
           </div>

@@ -1,0 +1,21 @@
+<div class="calendar-day-column">
+  <% if week == false %>
+    <div class="calendar-day">
+      <p class="calendar-day-content"><%= day[0].capitalize%></p>
+      <p class="calendar-day-content">-------</p>
+    </div>
+  <% else %>
+    <div class="calendar-day">
+      <p class="calendar-day-content print-1"><%= format[:week_day][day[0].to_date.wday]%></p>
+      <p class="calendar-day-content print-2"><%= "#{day[0].to_date.day} #{format[:month][day[0].to_date.month]}" %></p>
+    </div>
+  <% end %>
+  <% for h in min.step(max, 0.5) do %>
+    <div class="calendar-spot">
+      <% week == false ? tag_start = "#{format[:week_day][day[1]-1]}" : tag_start = "-#{format[:week_day][day[1]]}" %>
+      <%= check_box_tag "#{tag_start}#{h}", 1, false, disabled: disable %>
+      <%= label_tag("#{tag_start}#{h}", "") %>
+      <%# , "#{h}h-#{h+0.5}h" %>
+    </div>
+  <% end %>
+</div>

@@ -1,27 +1,86 @@
 <h1>Calendrier</h1>
-<div id="calendar_bar" class="border d-flex justify-content-between">
-  <div id="left-arrow">
-    <p><--</p>
+<div id="calendar-all">
+  <div id="calendar-bar" class="calendar-bar">
+    <div id="left-arrow">
+      <p><--</p>
+    </div>
+    <div>
+      <p>--------</p>
+    </div>
+    <div id="right-arrow">
+      <p>--></p>
+    </div>
   </div>
-  <div>
-    <p>--------</p>
-  </div>
-  <div id="right-arrow">
-    <p>--></p>
-  </div>
-</div>
-<% @calendrier.each_key do |key| %>
-  <% key_analyse = key.split("-")%>
-  <% condition_first_week = Date.today.year == key_analyse[0].to_i && Date.today.cweek == key_analyse[1].to_i %>
-  <% condition_first_week = true %>
-  <div class = "cweek" id=<%= "cweek-" + key %> <%= "hidden" unless condition_first_week %>>
-    <p>---------- <%= key_analyse[0] %> - Semaine <%= key_analyse[1] %> -------------</p>
-    <% if @list_disponibility_classed[key].nil? %>
-      <%= render :partial => "week_empty", locals: {calendrier: @calendrier[key], min: @min_h, max: @max_h} %>
-    <% else %>
-      <%= render :partial => "week_not_empty", locals: {calendrier: @calendrier[key],
-      disponibility: @list_disponibility_classed[key], min: @min_h, max: @max_h} %>
+
+  <div id="calendrier">
+    <% @calendrier.each_key do |key| %>
+      <% key_analyse = key.split("-")%>
+      <% condition_first_week = Date.today.year == key_analyse[0].to_i && Date.today.cweek == key_analyse[1].to_i %>
+      <div class = "cweek" id=<%= "cweek-" + key %> <%= "hidden" unless condition_first_week %>>
+      <p class="copy-data" hidden><%= week_form = "#{@calendrier[key][0]}:#{@calendrier[key][-1]}" %></p>
+        <div class="calendar-week">
+          <p class="copy-to-form"><%= key_analyse[0] %> - Semaine <%= key_analyse[1] %></p>
+          <div class="calendar-week-buttons">
+            <p>Je veux changer mes disponibilités :</p>
+            <div class="button-week buttons-format"><p>cette semaine</p></div>
+            <div class="button-choice buttons-format"><p>choix de la periode</p></div>
+          </div>
+        </div>
+        <% if @list_disponibility_classed[key].nil? %>
+          <%= render :partial => "week_empty", locals: {calendrier: @calendrier[key], min: @min_h, max: @max_h+0.5} %>
+        <% else %>
+          <%= render :partial => "week_not_empty", locals: {calendrier: @calendrier[key],
+          disponibility: @list_disponibility_classed[key], min: @min_h, max: @max_h} %>
+        <% end %>
+      </div>
     <% end %>
   </div>
-<% end %>
+
+  <div id="form-week" class="calendar-disponibility" hidden>
+    <%= form_with(url:sch_generate_path, method: "post") do %>
+      <div class="calendar-week">
+        <p class="write-year-cweek"><%= Date.today.year %> - Semaine <%= Date.today.cweek %></p>
+        <div class="calendar-week-buttons">
+          <p>Retour au calendrier :</p>
+          <div id="button-return-week" class="buttons-format"><p>Retour</p></div>
+        </div>
+        <% key_form = "#{Date.today.year}-#{Date.today.cweek}" %>
+        <% week_form = "#{@calendrier[key_form][0]}:#{@calendrier[key_form][-1]}" %>
+        <input type="hidden" name="dates_select" id="dates_select_week" class="dates_select_week" value=<%= week_form %> >
+      </div>
+      <%= render :partial => "form_select", locals: { min: @min_h, max: @max_h, week: @calendrier[key_form], format: @format_dt } %>
+      <%= submit_tag "Ok", class:"submit-week" %>
+    <% end %>
+  </div>
+
+  <div id="calendar-bar-2" class="calendar-bar" hidden>
+    <div id="left-arrow-2" class="disabled-arrow">
+      <p><--</p>
+    </div>
+    <div>
+      <p>--------</p>
+    </div>
+    <div id="right-arrow-2" class="disabled-arrow">
+      <p>--></p>
+    </div>
+  </div>
+
+  <div id="form-sp" class="calendar-disponibility-sp" hidden>
+    <%= form_with(url:sch_generate_path, method: "post") do %>
+      <div class="calendar-week">
+        <p>Selection date :</p>
+        <div>
+          <input class="form-control datepicker_input" name="dates_select" type="date" id="dates_select">
+        </div>
+        <div class="calendar-week-buttons">
+          <p>Retour au calendrier :</p>
+          <div id="button-return-choice" class="buttons-format"><p>Retour</p></div>
+        </div>
+      </div>
+      <%= render :partial => "form_select", locals: { min: @min_h, max: @max_h, week: false, format: @format_dt } %>
+      <%= submit_tag "Ok", class:"submit-choice" %>
+    <% end %>  
+  </div>
+</div>
+
 <p>------------------</p>

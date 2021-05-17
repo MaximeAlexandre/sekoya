@@ -13,13 +13,22 @@ const startDate = () => {
 const initFlatpickr = () => {
   const flatInstances = document.querySelectorAll('.datepicker');
   const datelist = dateList();
-  const firstday = startDate();
+  const firstDay = startDate();
   flatpickr(flatInstances, {
     inline: true,
-    minDate: firstday,
-    enable: datelist,
+    minDate: firstDay,
+    disable: [
+      function(date) {
+        return (date.getDay() === 6 || date.getDay() === 0);
+      },
+      function(date) {
+        let date2 = new Date(date.getTime());
+        date2.setHours(date2.getHours()+(-1*date.getTimezoneOffset()/60));
+        return (datelist.includes(date2.toISOString().slice(0,10)));
+      }
+    ],
     // exemple: enable: ["2025-03-30", "2025-05-21", "2025-06-08", new Date(2025, 8, 9) ]    
-    defaultDate: firstday,
+    defaultDate: firstDay,
   });
 }
 
