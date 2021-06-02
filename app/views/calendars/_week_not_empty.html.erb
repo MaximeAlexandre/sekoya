@@ -10,14 +10,14 @@
       <% if disponibility[key2].nil? %>
         <%= render :partial => "day_column_empty", locals: {min: min, max: max, id_name: key2} %>
       <% else %>
-        <% free_list = disponibility[key2]["free"] %>
+        <% sch_list = disponibility[key2]["sch"] %>
         <% if disponibility[key2]["busy"].nil? %>
           <% busy_list = [] %>
         <% else %>
-          <% busy_list = disponibility[key2]["busy"].map{|h| h= [h[0], h[0]+h[1]]} %>
+          <% busy_list = disponibility[key2]["busy"].map{|h| h= [h[:start], h[:start]+h[:duree]]} %>
         <% end %>
         <%= render :partial => "day_column",
-        locals: { free_list: free_list, busy_list: busy_list, min: min, max: max , id_name: key2} %>
+        locals: { sch_list: sch_list, busy_list: busy_list, min: min, max: max , id_name: key2} %>
       <% end  %>
     </div>
   <% end %>

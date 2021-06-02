@@ -86,63 +86,16 @@ class CalendarsController < ApplicationController
   def busy_list(bookings)
     busy = []
     bookings.each do |b|
-      busy << [b.date.in_time_zone("Paris"), b.hour_number]
+      #busy << [b.date.in_time_zone("Paris"), b.hour_number]
+      busy << {start: b.date.in_time_zone("Paris"), duree: b.hour_number, id: b.id}
     end
     return busy
   end
 
   def sch_spots(load_deploy)
-    free = []
-    load_deploy.each{|i| free << i}
-    return free
-  end
-
-  # From Form to Schedule functions -------------------
-
-  def form_convert_day(day, min, max)
-    day_array=[]
-    for h in min.step(max, 0.5) do
-      day_array << h if params["#{day}#{h}"] == "1" || params["-#{day}#{h}"] == "1"
-    end
-    return day_array
-  end
-
-  def form_convert_schedule(sch_begin, sch_end, week)
-    sch_form=[]
-    week.keys.each do |d|
-      for h in week[d][:array] do
-        h_only = h.to_i
-        h.to_s.end_with?(".0") ? h_min = 0 : h_min = 30
-        schedule = IceCube::Schedule.new(start = sch_begin) do |s|
-          s.add_recurrence_rule IceCube::Rule.daily
-          .day(week[d][:eng].to_sym)
-          .hour_of_day(h_only)
-          .minute_of_hour(h_min)
-          .second_of_minute(0)
-        end
-        for o in schedule.occurrences(sch_end) do
-        sch_form << o
-        end
-      end
-    end
-    return sch_form.sort
-  end
-
-  def form_convert(sch_begin, sch_end, min, max)
-    week = {
-      Lundi: {array: [], eng: "monday"},
-      Mardi: {array: [], eng: "tuesday"},
-      Mercredi: {array: [], eng: "wednesday"},
-      Jeudi: {array: [], eng: "thursday"},
-      Vendredi: {array: [], eng: "friday"},
-      #Samedi: {array: [], eng: "saturday"},
-      #Dimanche: {array: [], eng: "sunday"},
-    }
-    week.keys.map do |d|
-      week[d][:array]=form_convert_day(d.to_s, min, max)
-    end
-    sch_form = form_convert_schedule(sch_begin, sch_end, week)
-    return sch_form
+    sch = []
+    load_deploy.each{|i| sch << i}
+    return sch
   end
 
   # Schedule LOAD functions -------------------
@@ -301,16 +254,16 @@ class CalendarsController < ApplicationController
   def list_filling(data, name)
     l = {}
     data.each do |sch|
-      if sch.class == Array
-        first_key_a = "#{sch[0].to_date.year}-#{weekly(sch[0].to_date)}"
-        sch[0].min == 0 ? hour_min = sch[0].hour.to_f : hour_min = sch[0].hour + 0.5
+      if sch.class == Hash
+        first_key_a = "#{sch[:start].to_date.year}-#{weekly(sch[:start].to_date)}"
+        sch[:start].min == 0 ? hour_min = sch[:start].hour.to_f : hour_min = sch[:start].hour + 0.5
         if l[first_key_a] == nil
-          l[first_key_a] = { "#{sch[0].to_date}" => {name => [[hour_min, sch[1]]]} }
+          l[first_key_a] = { "#{sch[:start].to_date}" => {name => [{start: hour_min, duree: sch[:duree], id: sch[:id]}]} }
         else
-          if l[first_key_a]["#{sch[0].to_date}"] == nil
-            l[first_key_a]["#{sch[0].to_date}"] = {name => [[hour_min, sch[1]]]}
+          if l[first_key_a]["#{sch[:start].to_date}"] == nil
+            l[first_key_a]["#{sch[:start].to_date}"] = {name => [{start: hour_min, duree: sch[:duree], id: sch[:id]}]}
           else
-            l[first_key_a]["#{sch[0].to_date}"][name] << [hour_min, sch[1]]
+            l[first_key_a]["#{sch[:start].to_date}"][name] << {start: hour_min, duree: sch[:duree], id: sch[:id]}
           end
         end
       else
@@ -330,30 +283,79 @@ class CalendarsController < ApplicationController
     return l
   end
 
-  def data_hashes(busy, free)
-    list_free = list_filling(free, "free")
+  def data_hashes(busy, sch)
+    list_sch = list_filling(sch, "sch")
     list_busy = list_filling(busy, "busy")
     list = {}
-    keys_list_week = (list_free.keys | list_busy.keys)
+    keys_list_week = (list_sch.keys | list_busy.keys)
     keys_list_week.each do |key_week|
-      if list_free[key_week] == nil
+      if list_sch[key_week] == nil
         list[key_week] = list_busy[key_week]
       elsif list_busy[key_week] == nil
-        list[key_week] = list_free[key_week]
+        list[key_week] = list_sch[key_week]
       else
-        keys_list_days = (list_free[key_week].keys | list_busy[key_week].keys)
+        keys_list_days = (list_sch[key_week].keys | list_busy[key_week].keys)
         list[key_week] = {}
         keys_list_days.each do |key_day|
-          if list_free[key_week][key_day] == nil
+          if list_sch[key_week][key_day] == nil
             list[key_week][key_day] = list_busy[key_week][key_day]
           elsif list_busy[key_week][key_day] == nil
-            list[key_week][key_day] = list_free[key_week][key_day]
+            list[key_week][key_day] = list_sch[key_week][key_day]
           else
-            list[key_week][key_day] = list_free[key_week][key_day].merge(list_busy[key_week][key_day])
+            list[key_week][key_day] = list_sch[key_week][key_day].merge(list_busy[key_week][key_day])
           end
         end
       end
     end
     return list
   end
+
+  # From Form to Schedule functions -------------------
+
+  def form_convert_day(day, min, max)
+    day_array=[]
+    for h in min.step(max, 0.5) do
+      day_array << h if params["#{day}#{h}"] == "1" || params["-#{day}#{h}"] == "1"
+    end
+    return day_array
+  end
+
+  def form_convert_schedule(sch_begin, sch_end, week)
+    sch_form=[]
+    week.keys.each do |d|
+      for h in week[d][:array] do
+        h_only = h.to_i
+        h.to_s.end_with?(".0") ? h_min = 0 : h_min = 30
+        schedule = IceCube::Schedule.new(start = sch_begin) do |s|
+          s.add_recurrence_rule IceCube::Rule.daily
+          .day(week[d][:eng].to_sym)
+          .hour_of_day(h_only)
+          .minute_of_hour(h_min)
+          .second_of_minute(0)
+        end
+        for o in schedule.occurrences(sch_end) do
+        sch_form << o
+        end
+      end
+    end
+    return sch_form.sort
+  end
+
+  def form_convert(sch_begin, sch_end, min, max)
+    week = {
+      Lundi: {array: [], eng: "monday"},
+      Mardi: {array: [], eng: "tuesday"},
+      Mercredi: {array: [], eng: "wednesday"},
+      Jeudi: {array: [], eng: "thursday"},
+      Vendredi: {array: [], eng: "friday"},
+      #Samedi: {array: [], eng: "saturday"},
+      #Dimanche: {array: [], eng: "sunday"},
+    }
+    week.keys.map do |d|
+      week[d][:array]=form_convert_day(d.to_s, min, max)
+    end
+    sch_form = form_convert_schedule(sch_begin, sch_end, week)
+    return sch_form
+  end
+
 end

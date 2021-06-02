@@ -2,7 +2,7 @@
     <% condition_today = id_name.to_date == Date.today && Time.now.hour > h %>
     <% condition_past = id_name.to_date < Date.today %>
     <% condition = condition_past || condition_today %>
-    <% if free_list.nil? == false && free_list.include?(h) %>
+    <% if sch_list.nil? == false && sch_list.include?(h) %>
         <div id=<%= id_name + "-#{h}" %> class="calendar-spot calendar-indisponible <%= "calendar-too-old" if condition %>">
             <% if h.to_s.end_with?(".0") %>
                 <% h_start = "#{h.to_i}h00" %>
@@ -28,13 +28,13 @@
             <% elsif this_booking[0] == h %>
                 <div id=<%= id_name + "-#{h}" %> class="calendar-spot calendar-booking-start">
                     <% h.to_s.end_with?(".0") ? h_start = "#{h.to_i}h00" : h_start = "#{h.to_i}h30" %>
-                    <p>Occupé de <%= h_start %> x</p>
+                    <p>Occupé de <%= h_start %></p>
                 </div>
             <% elsif this_booking[1] - 0.5 == h %>
                 <div id=<%= id_name + "-#{h}" %> class="calendar-spot calendar-booking-end">
                     <% h_fin = this_booking[1] %>
                     <% h_fin.to_s.end_with?(".0") ? h_end = "#{h_fin.to_i}h00" : h_end = "#{h_fin.to_i}h30" %>
-                    <p>xxxxxxxx <%= "à #{h_end}h" %></p>
+                    <p>xxxx <%= "à #{h_end}h" %></p>
                 </div>
             <% else %>
                 <div id=<%= id_name + "-#{h}" %> class="calendar-spot calendar-booking-mid">
