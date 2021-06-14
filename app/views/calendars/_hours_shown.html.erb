@@ -1,0 +1,9 @@
+<div class="calendar-hours">
+  <ul>
+    <% min.step(max+0.5, 0.5).each do |hours_shown| %>
+      <% h_only = hours_shown.to_i %>
+      <% hours_shown.to_s.end_with?(".0") ? h_min = "00" : h_min = 30 %>
+      <li class="calendar-graduation" ><%= "#{h_only}h#{h_min} -" %></p>
+    <% end %>
+  </ul>
+</div>

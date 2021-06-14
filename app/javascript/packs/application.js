@@ -29,6 +29,9 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 // import { initSelect2 } from '../components/init_select2';
 // import '../plugins/flatpickr';
 import { initFlatpickr } from '../plugins/init_flatpickr';
+import { initFlatpickrSchSelect } from '../plugins/init_flatpickr_sch_select';
+import { initControls } from '../components/calendar_controls';
+//import { initFlatpickrSchDateChange } from '../plugins/init_flatpickr_sch_date_change';
 import { initUpdateNavbarOnScroll } from '../components/navbar.js';
 import { initStarRating } from '../plugins/init_star_rating';
 import { initBookingChoice } from '../components/booking_choice';
@@ -48,7 +51,17 @@ document.addEventListener('turbolinks:load', () => {
     initMapbox();
   }
 
-  initFlatpickr();
+  if (document.querySelector('#example-date-input')) {
+    initFlatpickr();
+  };
+  if (document.querySelector('#dates_select')) {
+    initFlatpickrSchSelect();
+    //initFlatpickrSchDateChange()
+  };
+  if (document.querySelector('#calendar-all')) {
+    initControls();
+  };
+
   initUpdateNavbarOnScroll();
   initStarRating();
   initCheckBoxes();
@@ -79,7 +92,7 @@ document.addEventListener('turbolinks:load', () => {
     initUserChoice();
   }
 
-  if (document.querySelector('#start_time') || document.querySelector('#end_time')) {
+  if (document.querySelector('#select-booking-day-hours')) {
     initBookingChoice();
   }
 

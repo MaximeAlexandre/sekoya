@@ -1,0 +1,13 @@
+<div class="d-flex p-2 flex-wrap">
+  <%= render :partial => "hours_shown", locals: {min: min, max: max}%>
+  <% calendrier.each do |key2|%>
+    <p class="data-week-day" hidden><%= "#{key2.to_date.wday}-#{key2.to_date.day}-#{key2.to_date.month}" %></p>
+    <div class="calendar-day-column">
+      <div class="calendar-day">
+        <p class="calendar-day-content copy-day-1"><%= @format_dt[:week_day][key2.to_date.wday]%></p>
+        <p class="calendar-day-content copy-day-2"><%= "#{key2.to_date.day} #{@format_dt[:month][key2.to_date.month]}" %></p>
+      </div>
+      <%= render :partial => "day_column_empty", locals: {min: min, max: max, id_name: key2} %>
+    </div>
+  <% end %>
+</div>

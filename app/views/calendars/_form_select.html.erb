@@ -1,0 +1,16 @@
+<% if week == false %>
+  <% days = format[:week_day].push("Dimanche") %>
+  <% days.shift %>
+<% else %>
+  <% days = week %>
+<% end %>
+<div class="d-flex p-2 flex-wrap">
+  <%= render :partial => "hours_shown", locals: {min: min, max: max}%>
+  <%= render :partial => "form_day", locals: { day: [days[0], 1], format: format, min: min, max: max, week: week, disable: false } %>
+  <%= render :partial => "form_day", locals: { day: [days[1], 2], format: format, min: min, max: max, week: week, disable: false } %>
+  <%= render :partial => "form_day", locals: { day: [days[2], 3], format: format, min: min, max: max, week: week, disable: false } %>
+  <%= render :partial => "form_day", locals: { day: [days[3], 4], format: format, min: min, max: max, week: week, disable: false } %>
+  <%= render :partial => "form_day", locals: { day: [days[4], 5], format: format, min: min, max: max, week: week, disable: false } %>
+  <%= render :partial => "form_day", locals: { day: [days[5], 6], format: format, min: min, max: max, week: week, disable: true } %>
+  <%= render :partial => "form_day", locals: { day: [days[6], 0], format: format, min: min, max: max, week: week, disable: true } %>
+</div>

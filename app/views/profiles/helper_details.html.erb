@@ -101,46 +101,53 @@
   <div class="seko-card-details date-block sticky-top" style="top: 60px;">
     <form action="/profiles/<%= @helper.id %>/bookings" method="POST">
       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-      <div class="form-inputs">
-        <input class="form-control datepicker seko-card-details" name="date" type="date" value="<%= @free_days %>" id="example-date-input" hidden>
-        <div id="not_today" class="seko-show-in-card mt-3 <%= "hidden" if @starting_hour <= 20 %>">
+      <div id="select-booking-day-hours" class="form-inputs">
+
+        <!-- schedule data jours disponibles -->
+        <p id="selection-date" hidden><%= @unavailable_days %></p>
+        <p id="first-date" hidden><%= @first_day %></p>
+        <input class="form-control datepicker seko-card-details" name="date" type="date" id="example-date-input" hidden>
+
+        <div id="not_today" class="seko-show-in-card mt-3 <%= "hidden" if @is_today == false || Time.now.hour < 19 %>">
           <p class="text-center">Plus de créneaux disponibles pour aujourd'hui.</p>
         </div>
-        <div id="select_booking_hours" class="<%= "hidden" if @starting_hour > 20 %>">
-          <div class="hour-block seko-show-in-card m-3">
-            <div class="time-block">
-              <label for="start_time">Heure de début</label>
-              <select class="seko-search-bar"  name="start_time" id="start_time" value="<%= @starting_hour %>">
-                <% @starting_hour = 7 if @starting_hour > 20 %>
-                <% (7..20).to_a.each do |hour| %>
-                  <% if (@starting_hour > hour) %>
-                    <option value="<%= hour %>" disabled><%= hour %>:00</option>>
-                  <% elsif (@starting_hour == hour) %>
-                    <option value="<%= hour %>" selected><%= hour %>:00</option>>
-                  <% else  %>
-                    <option value="<%= hour %>"><%= hour %>:00</option>
-                  <% end %>
-                <% end %>
-              </select>
-            </div>
-            <div class="time-block">
-              <label for="end_time">Heure de fin</label>
-              <select class="seko-search-bar" name="end_time" id="end_time" value="<%= @starting_hour + 1 %>">
-                <% (8..21).to_a.each do |hour| %>
-                  <% if ((@starting_hour + 1) > hour) %>
-                    <option value="<%= hour %>" disabled><%= hour %>:00</option>
-                  <% elsif ((@starting_hour + 1) == hour) %>
-                    <option value="<%= hour %>" selected><%= hour %>:00</option>
-                  <% else  %>
-                    <option value="<%= hour %>"><%= hour %>:00</option>
-                  <% end %>
-                <% end %>
-              </select>
-            </div>
+        <div id="select_booking_hours" class="<%= "hidden" if @is_today == true && Time.now.hour >= 19 %>">
+
+          <!-- sliders data  -->
+          <p id="busy-spots-all-days" hidden><%= @busy_all_string %></p>
+          <p id="busy-spots-one-day" hidden><%= @first_day_spots_string %></p>
+
+          <div class="text-center m-3">
+            <% if @starting_value.to_s.end_with?(".5") %>
+              <% start_end = ["#{@starting_value.to_i}h30","#{@starting_value.to_i + 1}h30"] %>
+            <% else %>
+              <% start_end = ["#{@starting_value.to_i}h00","#{@starting_value.to_i + 1}h00"] %>
+            <% end %>
+            <h4 id="show-selected-hours"><%= "- De #{start_end[0]} à #{start_end[1]} -"%></h4>
           </div>
+
+          <div class="hours-slider">
+            <input name="slider_1" value=<%= @starting_value %> min="<%= @min %>" max="<%= @max+0.5 %>" step="0.5" type="range" id="slider1">
+            <input name="slider_2" value=<%= @starting_value+1 %> min="<%= @min %>" max="<%= @max+0.5 %>" step="0.5" type="range" id="slider2">
+          </div>
+          
+          <div id="disponibility_show">
+            <% @min.step(@max, 0.5).each do |spot| %>
+              <% if @first_day_spots.include?(spot) %>
+                <div class="spot unscheduled"></div>
+              <% else %>
+                <div class="spot free"></div>
+              <% end %>
+            <% end %>
+          </div>
+
           <div class="text-center m-4">
-            <h4 id="total" data-price="<%= @helper.price %>"> <strong>1 heure - Total : <%= 1*@helper.price.to_i %> €</strong> </h4>
+            <h4 id="total" data-price="<%= @helper.price %>"><strong>1 heure - Total : <%= 1*@helper.price.to_i %> €</strong></h4>
           </div>
+          <!-- ------------- dblrange end ---------------- -->
+          <!-- anciennes class css: class="hour-block seko-show-in-card m-3" class="time-block -->
+          <!-- anciennes class css: +celles liées au anciens labels heure de debut et heure de fin -->
+
           <input class="btn seko-button-show" type="submit" value="Valider">
         </div>
       </div>

@@ -1,0 +1,81 @@
+.calendar-bar {
+  border: 2px solid black;
+  display: flex;
+  justify-content: space-between;
+}
+#left-arrow {
+  background-color: yellow;
+}
+#right-arrow {
+  background-color: yellow;
+}
+.disabled-arrow {
+  opacity: 0.33;
+}
+
+.calendar-week {
+    border: 2px solid black;
+    display: flex;
+    justify-content: space-around;
+}
+.calendar-week-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+.buttons-format {
+  border: 2px solid black;
+  padding: 1px;
+  margin-bottom: none;
+}
+
+.calendar-hours {
+    padding-top: 33px;
+  }
+.calendar-graduation {
+    height: 20px;
+    list-style:none;
+    text-align: right;
+  }
+
+.calendar-day {
+    border: 2px solid black;
+  }
+.calendar-day-content {
+    height: 20px;
+    margin-bottom: 1px;
+  }
+.calendar-day-column {
+    margin-left: 1px;
+    margin-right: 1px;
+  }
+
+.calendar-spot {
+    border: 2px solid black;
+    height: 20px;
+  }
+
+.calendar-free {
+    background-color: green;
+  }
+.calendar-indisponible {
+    background-color: gray;
+  }
+.calendar-booking-one {
+    background-color: red;
+  }
+.calendar-booking-start {
+    background-color: red;
+    border-bottom: none;
+  }
+.calendar-booking-mid {
+    background-color: red;
+    border-top: none;
+    border-bottom: none;
+  }
+.calendar-booking-end {
+    background-color: red;
+    border-top: none;
+  }
+.calendar-too-old {
+  opacity: 0.33
+}

@@ -32,18 +32,47 @@ class ProfilesController < ApplicationController
     @reviews = reviews_list(@helper)
     @average_rating = average_rating(@reviews)
     details_reviews(@helper)
-    today_start_time
+    now = Time.now
+    @starting_hour = today_start_time(now)
+
     favoris
 
     # schedule
-    @free_spots = sch_load(@helper.id)
-    @busy = busy_load(@helper.id)
-    @vs = vs(@free_spots, @busy)
-    @free_days = free_days(@vs).empty? ? Date.today : free_days(@vs)
+    @min = 7
+    @max = 20.5
+    @busy = busy_load(@helper.id) #remove @ ?
+    @sch_spots = sch_load(@helper.id) #remove @ ?
+    @unavailable_today = unavailable_today(@min, @max) #remove @ ?
+    list_unavailable = list_unavailable(@busy, @sch_spots, @unavailable_today, @min, @max)
+    unavailable_days = unavailable_days(list_unavailable, @min, @max)
+
+    # first day
+    @first_day = first_day(list_unavailable, unavailable_days).to_date ###
+    @is_today = @first_day == Date.today # 
+    first_day_data = list_unavailable.find_all { |dt| dt.to_date == @first_day}
+    @first_day_spots = first_day_analysis(first_day_data, @min, @max)
+    @starting_value = @min.step(@max, 0.5).find { |h| !@first_day_spots.include?(h) }
+
+    # string convert
+    @unavailable_days = convert_to_string(unavailable_days)
+    @busy_all_string = convert_to_string(list_unavailable)
+    @first_day_spots_string = convert_to_string(first_day_data)
   end
 
   private
 
+def first_day_analysis (first_day_data, min, max)
+  busy_temp = first_day_data.map{ |busy| busy.min == 0 ? busy.hour.to_f : busy.hour + 0.5}
+  half_hours = []
+  min.step(max, 0.5).each do |t|
+    condition_1 = busy_temp.include?(t + 0.5) && busy_temp.include?(t - 0.5)
+    condition_2 = t == min && busy_temp.include?(t + 0.5)
+    condition_3 = t == max && busy_temp.include?(t - 0.5)
+    conditions = condition_1 || condition_2 || condition_3
+    half_hours << t if conditions && !busy_temp.include?(t)
+  end
+  return busy_temp.concat(half_hours).sort
+end
   def set_user
     @helper = User.find(params[:id])
   end
@@ -128,10 +157,13 @@ class ProfilesController < ApplicationController
     @average_rating = average_rating(@reviews)
   end
 
-  def today_start_time # Date.today
-    time = Time.now
-    @starting_hour = time.hour + 1
-    @starting_hour += 1 unless time.min.zero?
+  def today_start_time(time)
+    if time.hour >= 22
+      starting_hour = time.change(hour: 23, min: 59)
+    else
+      time.min.zero? ? starting_hour = time.hour + 1 : starting_hour = time.hour + 2
+    end
+    return starting_hour
   end
 
   def favoris
@@ -163,13 +195,13 @@ class ProfilesController < ApplicationController
   def bookings_list(id)
     return Booking.where(booking_step: 2, helper_id: id)
                   .where("status = ? or status = ?", "accepté", "pending")
-                  .order(date: :asc, start_time: :asc)
+                  .order(date: :asc, start_time: :asc) # ? replace start_time par date ?
   end
 
   def busy_list(bookings)
     busy = []
     bookings.each do |b|
-      busy << [b.date.in_time_zone("Paris"), b.end_time.hour - b.start_time.hour]
+      busy << [b.date.in_time_zone("Paris"), b.hour_number]
     end
     return busy
   end
@@ -178,22 +210,115 @@ class ProfilesController < ApplicationController
     return busy_list(bookings_list(id))
   end
 
-  # schedule VS bookings
+# V3
 
-  def vs(load_deploy, busy)
-    free = []
-    load_deploy.each{ |i| free << i }
-    busy.each do |b|
-      for i in 0...b[1]
-        free.delete(b[0] + i.hour)
+  def busy_convert(busy_list)
+    busy_spots = []
+    busy_list.each do |b|
+      # b format [date, nbr d'heures]
+      # add moving time : start = 1-0.5 = 0.5, max = b[1]+0.5
+      0.5.step(b[1]+0.5,0.5).each do |h|
+        busy_spots << b[0].to_time + (h-1).hour
       end
     end
-    return free
+    return busy_spots.sort
   end
 
-  def free_days(vs)
-    days = []
-    vs.each { |dt| days << dt.to_date.to_s unless days.include?(dt.to_date.to_s) }
-    return days
+  def unavailable_today(min, max_all)
+    today = []
+    time = Time.now
+    start = time.beginning_of_day
+    time.hour + 2 <= max_all ? max = time.hour + 2 : max = max_all
+    min.step(max, 0.5) {|t|
+      t.to_s.end_with?(".5") ? today << start.change({ hour: t.to_i, min: 30}) : today << start.change({ hour: t.to_i })
+    }
+    return today
+  end
+
+  def list_unavailable(busy, sch, today, min, max)
+    unavailable = sch
+    busy_convert(busy).each do |b|
+      unavailable << b unless unavailable.include?(b)
+    end
+    today.each do |t|
+      unavailable << t unless unavailable.include?(t)
+    end
+    min.to_s.end_with?(".5") ? second_spot = [min.to_i + 1, 0] : second_spot = [min.to_i, 30]
+    max.to_s.end_with?(".5") ? second_last = [max.to_i, 0] : second_last = [max.to_i - 1, 30]
+    memory = unavailable.sort
+    memory.each do |u|
+      minutes = u.min
+      unavailable << u - 0.5.hour if u.hour == second_spot[0] && minutes == second_spot[1] && !unavailable.include?(u - 0.5.hour)
+      unavailable << u + 0.5.hour if u.hour == second_last[0] && minutes == second_last[1] && !unavailable.include?(u + 0.5.hour)
+      unavailable << u + 0.5.hour if unavailable.include?(u + 1.hour) && !unavailable.include?(u + 0.5.hour)
+      unavailable << u - 0.5.hour if unavailable.include?(u - 1.hour) && !unavailable.include?(u - 0.5.hour)
+    end
+    return unavailable.sort
+  end
+
+  def unavailable_days (list_unavailable, min, max)
+    days_test = {}
+    disabled_days = []
+    list_unavailable.each do |dt|
+      key_name = dt.to_date.to_s
+      if days_test[key_name].nil?
+        days_test[key_name] = [dt]
+      else
+        days_test[key_name] << dt
+      end
+    end
+    spots = min.step(max, 0.5).to_a
+    days_test.each_key do |key|
+      spots_test = min.step(max, 0.5).to_a
+      if days_test[key].length == spots.length
+        disabled_days << key
+      else
+        busy_spots = days_test[key].map {|h| h.min == 0 ? h.hour : h.hour + 0.5}
+        busy_spots.each{|spot| spots_test.delete(spot)}
+
+        day_is_unavailable = true
+        spots_test.each do |spot|
+          if spot == spots_test[-1]
+          else
+            day_is_unavailable = false if spots_test.include?(spot + 0.5)
+            break if spots_test.include?(spot + 0.5)
+          end
+        end
+        disabled_days << key if day_is_unavailable == true
+      end
+    end
+    return disabled_days
+  end
+
+  def first_day(list_unavailable, unavailable_days)
+    condition_1 = unavailable_days.include?(Date.today.to_s)
+    condition_2 = Time.now.hour > 18
+    condition_3 = Date.today.wday == 6
+    condition_4 = Date.today.wday == 0
+    # add discrimination disponibilités todays
+    if condition_1 || condition_2 || condition_3 || condition_4
+    else
+      return Date.today.to_s
+    end
+    date = Date.today + 1.day
+    date += 2.day if date.wday == 6
+    date += 1.day if date.wday == 0
+    until !unavailable_days.include?(date.to_s)
+      date += 1.day
+    end
+    return date.to_s
+  end
+
+  #formatage
+
+  def convert_to_string(array)
+    string = ""
+    if array.nil?
+    else
+      array.each { |e| string = string + e.to_s + "," }
+      string.delete_suffix!(',')
+    end
+    return string
+    #if no schedule no array etc
   end
 end

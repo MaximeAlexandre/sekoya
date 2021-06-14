@@ -20,8 +20,7 @@
           <div class="dropdown-menu dropdown-menu-right seko-card" aria-labelledby="navbarDropdown">
             <% if current_user.role == "helper" %>
               <%= link_to "Tableau de bord", helper_path, class: "dropdown-item" %>
-             <!--  <%= link_to "Horraires", sch_form_path, class: "dropdown-item" %>
-              <%= link_to "Calendrier", calendar_path, class: "dropdown-item" %> -->
+              <%= link_to "Calendrier", calendar_path, class: "dropdown-item" %>
             <% else %>
               <%= link_to "Tableau de bord", senior_path, class: "dropdown-item" %>
               <%= link_to "Mes favoris", favoris_index_path, class: "dropdown-item" %>
